@@ -76,17 +76,17 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-3xl mb-3">😩</div>
-              <h4 className="font-semibold mb-2">Modifier son CV à chaque fois</h4>
+              <h4 className="font-semibold mb-2 text-gray-900">Modifier son CV à chaque fois</h4>
               <p className="text-gray-600 text-sm">Perdre des heures à adapter son CV pour chaque offre d'emploi.</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-3xl mb-3">🤔</div>
-              <h4 className="font-semibold mb-2">Ne pas savoir quoi mettre</h4>
+              <h4 className="font-semibold mb-2 text-gray-900">Ne pas savoir quoi mettre</h4>
               <p className="text-gray-600 text-sm">Difficile de savoir quels mots-clés utiliser pour chaque poste.</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-3xl mb-3">❌</div>
-              <h4 className="font-semibold mb-2">CV ignoré par les RH</h4>
+              <h4 className="font-semibold mb-2 text-gray-900">CV ignoré par les RH</h4>
               <p className="text-gray-600 text-sm">Un CV générique passe à la poubelle avant même d'être lu.</p>
             </div>
           </div>
@@ -102,17 +102,17 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">1</div>
-              <h4 className="font-semibold mb-2">Colle l'offre d'emploi</h4>
+              <h4 className="font-semibold mb-2 text-gray-900">Colle l'offre d'emploi</h4>
               <p className="text-gray-600 text-sm">Copie-colle n'importe quelle offre depuis LinkedIn, Indeed, etc.</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">2</div>
-              <h4 className="font-semibold mb-2">Entre tes infos</h4>
+              <h4 className="font-semibold mb-2 text-gray-900">Entre tes infos</h4>
               <p className="text-gray-600 text-sm">Ton expérience, tes compétences, ta formation.</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">3</div>
-              <h4 className="font-semibold mb-2">Télécharge ton CV</h4>
+              <h4 className="font-semibold mb-2 text-gray-900">Télécharge ton CV</h4>
               <p className="text-gray-600 text-sm">Reçois un CV parfaitement adapté en PDF, prêt à envoyer.</p>
             </div>
           </div>
