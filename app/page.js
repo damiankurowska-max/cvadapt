@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Logo from "./components/Logo";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -27,7 +28,10 @@ export default function Home() {
 
       {/* Header */}
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
-        <span className="text-xl font-bold text-blue-600 tracking-tight">CVAdapt</span>
+        <div className="flex items-center gap-2">
+          <Logo size={32} />
+          <span className="text-xl font-bold text-blue-600 tracking-tight">CVAdapt</span>
+        </div>
         <nav className="flex items-center gap-6">
           <a href="/tarifs" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Tarifs</a>
           <a
@@ -257,7 +261,10 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-gray-100 py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-blue-600 font-bold">CVAdapt</span>
+          <div className="flex items-center gap-2">
+            <Logo size={28} />
+            <span className="text-blue-600 font-bold">CVAdapt</span>
+          </div>
           <div className="flex gap-6 text-sm text-gray-500">
             <a href="/tarifs" className="hover:text-gray-900 transition-colors">Tarifs</a>
             <a href="/generate" className="hover:text-gray-900 transition-colors">Générer un CV</a>

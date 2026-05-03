@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import Logo from "../components/Logo";
 
 export default function Tarifs() {
   const [loading, setLoading] = useState("");
@@ -32,7 +33,10 @@ export default function Tarifs() {
     <main className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold text-blue-600">CVAdapt</Link>
+        <Link href="/" className="flex items-center gap-2">
+          <Logo size={30} />
+          <span className="text-xl font-bold text-blue-600">CVAdapt</span>
+        </Link>
         <Link href="/generate" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">
           Essayer gratuitement
         </Link>

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Logo from "../components/Logo";
 
 export default function Generate() {
   const [form, setForm] = useState({
@@ -50,7 +51,10 @@ export default function Generate() {
     <main className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold text-blue-600">CVAdapt</Link>
+        <Link href="/" className="flex items-center gap-2">
+          <Logo size={30} />
+          <span className="text-xl font-bold text-blue-600">CVAdapt</span>
+        </Link>
         <span className="text-sm text-gray-600">Générateur de CV</span>
       </header>
 
