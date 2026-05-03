@@ -133,74 +133,82 @@ export default function Home() {
       </section>
 
       {/* Tarifs */}
-      <section className="bg-gray-50 py-20 px-6 border-y border-gray-100">
+      <section className="py-24 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Choisis ton plan</h2>
-            <p className="text-gray-600">Sans engagement. Annule quand tu veux.</p>
+          <div className="text-center mb-4">
+            <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Tarifs</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Simple et transparent</h2>
+            <p className="text-gray-500">Sans engagement · Annule quand tu veux · Paiement sécurisé</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
 
             {/* Gratuit */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-8 flex flex-col">
-              <div className="mb-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-1">Gratuit</h3>
-                <p className="text-gray-500 text-sm">Pour essayer</p>
+            <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-md transition-shadow">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Gratuit</p>
+              <div className="flex items-end gap-1 mb-2">
+                <span className="text-5xl font-extrabold text-gray-900">0€</span>
               </div>
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-gray-900">0€</span>
-              </div>
-              <ul className="space-y-3 mb-8 flex-1">
-                <li className="flex items-center gap-2 text-sm text-gray-700"><span className="text-green-500 font-bold">✓</span> 3 CV au total</li>
-                <li className="flex items-center gap-2 text-sm text-gray-700"><span className="text-green-500 font-bold">✓</span> Téléchargement PDF</li>
-                <li className="flex items-center gap-2 text-sm text-gray-400"><span>✗</span> CV illimités</li>
+              <p className="text-gray-500 text-sm mb-8">Pour découvrir CVAdapt</p>
+              <ul className="space-y-3 mb-10 flex-1">
+                {["3 CV au total", "Téléchargement PDF"].map(f => (
+                  <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
+                    <span className="w-4 h-4 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-xs flex-shrink-0">✓</span>
+                    {f}
+                  </li>
+                ))}
+                <li className="flex items-center gap-3 text-sm text-gray-400">
+                  <span className="w-4 h-4 rounded-full bg-gray-50 flex items-center justify-center text-gray-300 text-xs flex-shrink-0">✗</span>
+                  CV illimités
+                </li>
               </ul>
-              <a href="/generate" className="block text-center border border-gray-300 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm">
+              <a href="/generate" className="block text-center bg-gray-100 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-200 transition-colors text-sm">
                 Commencer gratuitement
               </a>
             </div>
 
-            {/* Essentiel */}
-            <div className="bg-blue-600 rounded-2xl p-8 flex flex-col relative shadow-lg">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-blue-600 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+            {/* Essentiel — mis en avant */}
+            <div className="rounded-2xl p-8 flex flex-col relative bg-gray-900 shadow-xl ring-1 ring-gray-800 md:-mt-4 md:-mb-4">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full tracking-wide">
                 LE PLUS POPULAIRE
               </div>
-              <div className="mb-6">
-                <h3 className="text-lg font-bold text-white mb-1">Essentiel</h3>
-                <p className="text-blue-200 text-sm">Pour ta recherche d'emploi</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">Essentiel</p>
+              <div className="flex items-end gap-1 mb-2">
+                <span className="text-5xl font-extrabold text-white">4,99€</span>
               </div>
-              <div className="mb-1">
-                <span className="text-4xl font-bold text-white">4,99€</span>
-              </div>
-              <p className="text-blue-200 text-sm mb-6">par mois</p>
-              <ul className="space-y-3 mb-8 flex-1">
-                <li className="flex items-center gap-2 text-sm text-white"><span className="font-bold">✓</span> 10 CV par mois</li>
-                <li className="flex items-center gap-2 text-sm text-white"><span className="font-bold">✓</span> Téléchargement PDF</li>
-                <li className="flex items-center gap-2 text-sm text-white"><span className="font-bold">✓</span> CV optimisés par IA</li>
+              <p className="text-gray-400 text-sm mb-8">par mois</p>
+              <ul className="space-y-3 mb-10 flex-1">
+                {["10 CV par mois", "Téléchargement PDF", "CV optimisés par IA"].map(f => (
+                  <li key={f} className="flex items-center gap-3 text-sm text-gray-200">
+                    <span className="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs flex-shrink-0">✓</span>
+                    {f}
+                  </li>
+                ))}
               </ul>
-              <a href="/tarifs" className="block text-center bg-white text-blue-600 font-bold py-3 rounded-xl hover:bg-blue-50 transition-colors text-sm">
-                Choisir Essentiel
+              <a href="/tarifs" className="block text-center bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-500 transition-colors text-sm">
+                Choisir Essentiel →
               </a>
             </div>
 
             {/* Pro */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-8 flex flex-col">
-              <div className="mb-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-1">Pro</h3>
-                <p className="text-gray-500 text-sm">Pour les recruteurs actifs</p>
+            <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-md transition-shadow">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Pro</p>
+              <div className="flex items-end gap-1 mb-2">
+                <span className="text-5xl font-extrabold text-gray-900">9,99€</span>
               </div>
-              <div className="mb-1">
-                <span className="text-4xl font-bold text-gray-900">9,99€</span>
-              </div>
-              <p className="text-gray-500 text-sm mb-6">par mois</p>
-              <ul className="space-y-3 mb-8 flex-1">
-                <li className="flex items-center gap-2 text-sm text-gray-700"><span className="text-green-500 font-bold">✓</span> CV illimités</li>
-                <li className="flex items-center gap-2 text-sm text-gray-700"><span className="text-green-500 font-bold">✓</span> Téléchargement PDF</li>
-                <li className="flex items-center gap-2 text-sm text-gray-700"><span className="text-green-500 font-bold">✓</span> CV optimisés par IA</li>
-                <li className="flex items-center gap-2 text-sm text-gray-700"><span className="text-green-500 font-bold">✓</span> Support prioritaire</li>
+              <p className="text-gray-500 text-sm mb-8">par mois</p>
+              <ul className="space-y-3 mb-10 flex-1">
+                {["CV illimités", "Téléchargement PDF", "CV optimisés par IA", "Support prioritaire"].map(f => (
+                  <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
+                    <span className="w-4 h-4 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 text-xs flex-shrink-0">✓</span>
+                    {f}
+                  </li>
+                ))}
               </ul>
-              <a href="/tarifs" className="block text-center border border-blue-600 text-blue-600 font-semibold py-3 rounded-xl hover:bg-blue-50 transition-colors text-sm">
-                Choisir Pro
+              <a href="/tarifs" className="block text-center border-2 border-gray-900 text-gray-900 font-bold py-3 rounded-xl hover:bg-gray-900 hover:text-white transition-colors text-sm">
+                Choisir Pro →
               </a>
             </div>
 
