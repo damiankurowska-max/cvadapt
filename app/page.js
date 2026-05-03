@@ -148,12 +148,12 @@ export default function Home() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 outline-none"
+                className="flex-1 px-4 py-3 rounded-lg text-gray-900 bg-white border-2 border-white placeholder-gray-400 outline-none focus:border-blue-200"
               />
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 disabled:opacity-50"
+                className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 disabled:opacity-50 whitespace-nowrap"
               >
                 {status === "loading" ? "..." : "S'inscrire"}
               </button>
