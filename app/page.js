@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [status, setStatus] = useState("idle");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -26,29 +27,44 @@ export default function Home() {
       {/* Header */}
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between">
         <h1 className="text-xl font-bold text-blue-600">CVAdapt</h1>
-        <a
-          href="#attente"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700"
-        >
-          Commencer gratuitement
-        </a>
+        <div className="flex items-center gap-4">
+          <a href="/tarifs" className="text-sm text-gray-600 hover:text-blue-600 font-medium">Tarifs</a>
+          <a
+            href="/generate"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700"
+          >
+            Essayer gratuitement
+          </a>
+        </div>
       </header>
 
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-6 py-24 text-center">
+        <div className="inline-block bg-blue-50 text-blue-600 text-sm font-semibold px-4 py-1 rounded-full mb-6">
+          Gratuit pour commencer — sans carte bancaire
+        </div>
         <h2 className="text-4xl font-bold text-gray-900 mb-6">
           Ton CV adapté à chaque offre d'emploi en 30 secondes
         </h2>
         <p className="text-xl text-gray-500 mb-10">
           Colle une offre d'emploi, entre tes infos — CVAdapt génère
-          automatiquement un CV optimisé et prêt à envoyer.
+          automatiquement un CV optimisé avec les bons mots-clés.
         </p>
-        <a
-          href="#attente"
-          className="bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-700"
-        >
-          Essayer maintenant — c'est gratuit
-        </a>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/generate"
+            className="bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-700"
+          >
+            Générer mon CV maintenant →
+          </a>
+          <a
+            href="/tarifs"
+            className="border border-gray-300 text-gray-700 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-50"
+          >
+            Voir les tarifs
+          </a>
+        </div>
+        <p className="text-sm text-gray-400 mt-4">3 CV gratuits, aucune carte requise</p>
       </section>
 
       {/* Problème */}
@@ -77,7 +93,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Solution */}
+      {/* Comment ça marche */}
       <section className="py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">
@@ -100,17 +116,25 @@ export default function Home() {
               <p className="text-gray-500 text-sm">Reçois un CV parfaitement adapté en PDF, prêt à envoyer.</p>
             </div>
           </div>
+          <div className="mt-10">
+            <a
+              href="/generate"
+              className="bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-700"
+            >
+              Essayer maintenant — c'est gratuit
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* Formulaire d'attente */}
+      {/* CTA Newsletter */}
       <section id="attente" className="bg-blue-600 py-20 px-6">
         <div className="max-w-xl mx-auto text-center">
           <h3 className="text-2xl font-bold text-white mb-4">
-            Rejoins la liste d'attente
+            Reste informé des nouveautés
           </h3>
           <p className="text-blue-100 mb-8">
-            Sois parmi les premiers à essayer CVAdapt. Lancement bientôt.
+            Reçois les nouvelles fonctionnalités et conseils pour ta recherche d'emploi.
           </p>
           {status === "success" ? (
             <p className="text-white text-lg font-semibold">
@@ -131,7 +155,7 @@ export default function Home() {
                 disabled={status === "loading"}
                 className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 disabled:opacity-50"
               >
-                {status === "loading" ? "..." : "Je m'inscris"}
+                {status === "loading" ? "..." : "S'inscrire"}
               </button>
             </form>
           )}
@@ -143,6 +167,10 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-center text-gray-400 text-sm py-8">
+        <div className="flex justify-center gap-6 mb-3">
+          <a href="/tarifs" className="hover:text-gray-600">Tarifs</a>
+          <a href="/generate" className="hover:text-gray-600">Générer un CV</a>
+        </div>
         © 2025 CVAdapt — Fait en France
       </footer>
     </main>
