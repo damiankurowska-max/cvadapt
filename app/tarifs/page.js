@@ -40,7 +40,7 @@ export default function Tarifs() {
 
       <div className="max-w-4xl mx-auto px-6 py-16 text-center">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Choisis ton plan</h1>
-        <p className="text-xl text-gray-500 mb-4">Sans engagement. Annule quand tu veux.</p>
+        <p className="text-xl text-gray-600 mb-4">Sans engagement. Annule quand tu veux.</p>
         {error && (
           <p className="text-red-500 text-sm mb-8 bg-red-50 border border-red-200 rounded-lg px-4 py-3">{error}</p>
         )}
@@ -50,7 +50,7 @@ export default function Tarifs() {
           {/* Gratuit */}
           <div className="bg-white rounded-2xl border border-gray-200 p-8 text-left">
             <h2 className="text-lg font-semibold text-gray-900 mb-1">Gratuit</h2>
-            <p className="text-gray-500 text-sm mb-4">Pour essayer</p>
+            <p className="text-gray-600 text-sm mb-4">Pour essayer</p>
             <div className="text-4xl font-bold text-gray-900 mb-6">0€</div>
             <ul className="space-y-3 mb-8">
               <li className="flex items-center gap-2 text-gray-600">
@@ -59,7 +59,7 @@ export default function Tarifs() {
               <li className="flex items-center gap-2 text-gray-600">
                 <span className="text-green-500">✓</span> Téléchargement PDF
               </li>
-              <li className="flex items-center gap-2 text-gray-400">
+              <li className="flex items-center gap-2 text-gray-500">
                 <span>✗</span> CV illimités
               </li>
             </ul>
@@ -74,9 +74,9 @@ export default function Tarifs() {
               LE PLUS POPULAIRE
             </div>
             <h2 className="text-lg font-semibold text-gray-900 mb-1">Essentiel</h2>
-            <p className="text-gray-500 text-sm mb-4">Pour ta recherche d'emploi</p>
+            <p className="text-gray-600 text-sm mb-4">Pour ta recherche d'emploi</p>
             <div className="text-4xl font-bold text-gray-900 mb-1">4,99€</div>
-            <p className="text-gray-400 text-sm mb-6">par mois</p>
+            <p className="text-gray-500 text-sm mb-6">par mois</p>
             <ul className="space-y-3 mb-8">
               <li className="flex items-center gap-2 text-gray-600">
                 <span className="text-green-500">✓</span> 10 CV par mois
@@ -100,9 +100,9 @@ export default function Tarifs() {
           {/* Pro */}
           <div className="bg-white rounded-2xl border border-gray-200 p-8 text-left">
             <h2 className="text-lg font-semibold text-gray-900 mb-1">Pro</h2>
-            <p className="text-gray-500 text-sm mb-4">Pour les pros</p>
+            <p className="text-gray-600 text-sm mb-4">Pour les pros</p>
             <div className="text-4xl font-bold text-gray-900 mb-1">9,99€</div>
-            <p className="text-gray-400 text-sm mb-6">par mois</p>
+            <p className="text-gray-500 text-sm mb-6">par mois</p>
             <ul className="space-y-3 mb-8">
               <li className="flex items-center gap-2 text-gray-600">
                 <span className="text-green-500">✓</span> CV illimités

@@ -46,7 +46,7 @@ export default function Home() {
         <h2 className="text-4xl font-bold text-gray-900 mb-6">
           Ton CV adapté à chaque offre d'emploi en 30 secondes
         </h2>
-        <p className="text-xl text-gray-500 mb-10">
+        <p className="text-xl text-gray-600 mb-10">
           Colle une offre d'emploi, entre tes infos — CVAdapt génère
           automatiquement un CV optimisé avec les bons mots-clés.
         </p>
@@ -64,7 +64,7 @@ export default function Home() {
             Voir les tarifs
           </a>
         </div>
-        <p className="text-sm text-gray-400 mt-4">3 CV gratuits, aucune carte requise</p>
+        <p className="text-sm text-gray-600 mt-4">3 CV gratuits, aucune carte requise</p>
       </section>
 
       {/* Problème */}
@@ -77,17 +77,17 @@ export default function Home() {
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-3xl mb-3">😩</div>
               <h4 className="font-semibold mb-2">Modifier son CV à chaque fois</h4>
-              <p className="text-gray-500 text-sm">Perdre des heures à adapter son CV pour chaque offre d'emploi.</p>
+              <p className="text-gray-600 text-sm">Perdre des heures à adapter son CV pour chaque offre d'emploi.</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-3xl mb-3">🤔</div>
               <h4 className="font-semibold mb-2">Ne pas savoir quoi mettre</h4>
-              <p className="text-gray-500 text-sm">Difficile de savoir quels mots-clés utiliser pour chaque poste.</p>
+              <p className="text-gray-600 text-sm">Difficile de savoir quels mots-clés utiliser pour chaque poste.</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-3xl mb-3">❌</div>
               <h4 className="font-semibold mb-2">CV ignoré par les RH</h4>
-              <p className="text-gray-500 text-sm">Un CV générique passe à la poubelle avant même d'être lu.</p>
+              <p className="text-gray-600 text-sm">Un CV générique passe à la poubelle avant même d'être lu.</p>
             </div>
           </div>
         </div>
@@ -103,17 +103,17 @@ export default function Home() {
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">1</div>
               <h4 className="font-semibold mb-2">Colle l'offre d'emploi</h4>
-              <p className="text-gray-500 text-sm">Copie-colle n'importe quelle offre depuis LinkedIn, Indeed, etc.</p>
+              <p className="text-gray-600 text-sm">Copie-colle n'importe quelle offre depuis LinkedIn, Indeed, etc.</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">2</div>
               <h4 className="font-semibold mb-2">Entre tes infos</h4>
-              <p className="text-gray-500 text-sm">Ton expérience, tes compétences, ta formation.</p>
+              <p className="text-gray-600 text-sm">Ton expérience, tes compétences, ta formation.</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">3</div>
               <h4 className="font-semibold mb-2">Télécharge ton CV</h4>
-              <p className="text-gray-500 text-sm">Reçois un CV parfaitement adapté en PDF, prêt à envoyer.</p>
+              <p className="text-gray-600 text-sm">Reçois un CV parfaitement adapté en PDF, prêt à envoyer.</p>
             </div>
           </div>
           <div className="mt-10">
@@ -133,7 +133,7 @@ export default function Home() {
           <h3 className="text-2xl font-bold text-white mb-4">
             Reste informé des nouveautés
           </h3>
-          <p className="text-blue-100 mb-8">
+          <p className="text-blue-50 mb-8">
             Reçois les nouvelles fonctionnalités et conseils pour ta recherche d'emploi.
           </p>
           {status === "success" ? (
@@ -166,7 +166,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="text-center text-gray-400 text-sm py-8">
+      <footer className="text-center text-gray-500 text-sm py-8">
         <div className="flex justify-center gap-6 mb-3">
           <a href="/tarifs" className="hover:text-gray-600">Tarifs</a>
           <a href="/generate" className="hover:text-gray-600">Générer un CV</a>
