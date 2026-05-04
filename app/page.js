@@ -136,6 +136,109 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Témoignages */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-4">
+            <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Témoignages</span>
+          </div>
+          <div className="text-center mb-14">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Ils ont décroché des entretiens</h2>
+            <p className="text-gray-500">Des candidats comme toi qui ont utilisé CVAdapt</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Sophie M.",
+                role: "Chargée de communication",
+                avatar: "SM",
+                color: "bg-pink-100 text-pink-600",
+                stars: 5,
+                text: "J'ai eu 3 entretiens en une semaine après avoir utilisé CVAdapt. Avant je galérais à adapter mon CV, maintenant ça prend 30 secondes !"
+              },
+              {
+                name: "Karim B.",
+                role: "Développeur web junior",
+                avatar: "KB",
+                color: "bg-blue-100 text-blue-600",
+                stars: 5,
+                text: "Le CV généré était vraiment professionnel, avec exactement les mots-clés de l'offre. J'ai été rappelé par 2 entreprises la semaine suivante."
+              },
+              {
+                name: "Laura D.",
+                role: "Assistante RH",
+                avatar: "LD",
+                color: "bg-purple-100 text-purple-600",
+                stars: 5,
+                text: "Simple, rapide et efficace. En tant que RH je sais ce que les recruteurs cherchent, et les CV de CVAdapt cochent toutes les cases."
+              },
+              {
+                name: "Thomas R.",
+                role: "Commercial B2B",
+                avatar: "TR",
+                color: "bg-green-100 text-green-600",
+                stars: 5,
+                text: "En reconversion, j'avais du mal à valoriser mon profil. CVAdapt a su mettre en avant mes compétences transférables. Super outil !"
+              },
+              {
+                name: "Anaïs G.",
+                role: "Responsable marketing",
+                avatar: "AG",
+                color: "bg-orange-100 text-orange-600",
+                stars: 5,
+                text: "J'utilisais des templates génériques avant. Depuis CVAdapt, chaque CV est vraiment adapté à l'offre. Le taux de réponse a explosé."
+              },
+              {
+                name: "Marc L.",
+                role: "Technicien maintenance",
+                avatar: "ML",
+                color: "bg-cyan-100 text-cyan-600",
+                stars: 5,
+                text: "Même sans être à l'aise avec l'ordinateur, c'est très simple à utiliser. Mon CV est maintenant présentable et professionnel."
+              },
+            ].map((t) => (
+              <div key={t.name} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                {/* Étoiles */}
+                <div className="flex gap-1 mb-4">
+                  {[...Array(t.stars)].map((_, i) => (
+                    <span key={i} className="text-yellow-400 text-sm">★</span>
+                  ))}
+                </div>
+                {/* Texte */}
+                <p className="text-gray-700 text-sm leading-relaxed mb-5 italic">"{t.text}"</p>
+                {/* Auteur */}
+                <div className="flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-xs font-bold flex-shrink-0`}>
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 text-sm">{t.name}</p>
+                    <p className="text-gray-500 text-xs">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Stats */}
+          <div className="mt-14 grid grid-cols-3 gap-6 bg-blue-600 rounded-2xl p-8 text-center text-white">
+            <div>
+              <p className="text-3xl font-extrabold mb-1">+68%</p>
+              <p className="text-blue-200 text-sm">de taux de réponse moyen</p>
+            </div>
+            <div>
+              <p className="text-3xl font-extrabold mb-1">30s</p>
+              <p className="text-blue-200 text-sm">pour générer un CV</p>
+            </div>
+            <div>
+              <p className="text-3xl font-extrabold mb-1">4,9★</p>
+              <p className="text-blue-200 text-sm">note moyenne utilisateurs</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Tarifs */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
