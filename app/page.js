@@ -559,81 +559,86 @@ export default function Home() {
       </section>
 
       {/* Tarifs */}
-      <section className="py-24 px-6 bg-white">
+      <section className="py-24 px-6" style={{background: "linear-gradient(180deg, #f8faff 0%, #fff 100%)"}}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-4">
             <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Tarifs</span>
           </div>
-          <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Simple et transparent</h2>
-            <p className="text-gray-500">Sans engagement · Annule quand tu veux · Paiement sécurisé</p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-3">Choisis ton plan</h2>
+            <p className="text-gray-500">Sans engagement · Annule quand tu veux · 🔒 Paiement sécurisé Stripe</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
 
             {/* Gratuit */}
-            <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-md transition-shadow">
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Gratuit</p>
-              <div className="flex items-end gap-1 mb-2">
+            <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow">
+              <div className="text-4xl mb-4">🎯</div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Gratuit</p>
+              <div className="flex items-end gap-1 mb-1">
                 <span className="text-5xl font-extrabold text-gray-900">0€</span>
               </div>
-              <p className="text-gray-500 text-sm mb-8">Pour découvrir CVAdapt</p>
+              <p className="text-gray-400 text-sm mb-8">pour toujours</p>
               <ul className="space-y-3 mb-10 flex-1">
-                {["3 CV au total", "Téléchargement PDF"].map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
-                    <span className="w-4 h-4 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-xs flex-shrink-0">✓</span>
-                    {f}
+                {[
+                  {t: "3 CV au total", ok: true},
+                  {t: "4 templates visuels", ok: true},
+                  {t: "Téléchargement PDF", ok: true},
+                  {t: "CV illimités", ok: false},
+                  {t: "Lettre de motivation", ok: false},
+                ].map(f => (
+                  <li key={f.t} className={`flex items-center gap-3 text-sm ${f.ok ? "text-gray-700" : "text-gray-300"}`}>
+                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold ${f.ok ? "bg-gray-100 text-gray-500" : "bg-gray-50 text-gray-200"}`}>{f.ok ? "✓" : "✗"}</span>
+                    {f.t}
                   </li>
                 ))}
-                <li className="flex items-center gap-3 text-sm text-gray-400">
-                  <span className="w-4 h-4 rounded-full bg-gray-50 flex items-center justify-center text-gray-300 text-xs flex-shrink-0">✗</span>
-                  CV illimités
-                </li>
               </ul>
-              <a href="/generate" className="block text-center bg-gray-100 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-200 transition-colors text-sm">
+              <a href="/generate" className="block text-center bg-gray-100 text-gray-700 font-semibold py-3.5 rounded-xl hover:bg-gray-200 transition-colors text-sm">
                 Commencer gratuitement
               </a>
             </div>
 
-            {/* Essentiel — mis en avant */}
-            <div className="rounded-2xl p-8 flex flex-col relative bg-gray-900 shadow-xl ring-1 ring-gray-800 md:-mt-4 md:-mb-4">
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full tracking-wide">
-                LE PLUS POPULAIRE
+            {/* Essentiel */}
+            <div className="rounded-2xl flex flex-col relative overflow-hidden shadow-2xl md:-mt-4 md:-mb-4" style={{background: "linear-gradient(145deg, #1e3a5f 0%, #2563eb 100%)"}}>
+              <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">⭐ POPULAIRE</div>
+              <div className="p-8 flex flex-col flex-1">
+                <div className="text-4xl mb-4">⚡</div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-blue-200 mb-2">Essentiel</p>
+                <div className="flex items-end gap-1 mb-1">
+                  <span className="text-5xl font-extrabold text-white">7,99€</span>
+                </div>
+                <p className="text-blue-200 text-sm mb-8">par mois</p>
+                <ul className="space-y-3 mb-10 flex-1">
+                  {["10 CV par mois", "4 templates visuels", "Lettre de motivation incluse", "Téléchargement PDF", "CV optimisés par IA", "Conseils personnalisés"].map(f => (
+                    <li key={f} className="flex items-center gap-3 text-sm text-white">
+                      <span className="w-5 h-5 rounded-full bg-blue-400 flex items-center justify-center text-white text-xs flex-shrink-0 font-bold">✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a href="/tarifs" className="block text-center bg-white text-blue-700 font-bold py-3.5 rounded-xl hover:bg-blue-50 transition-colors text-sm">
+                  Choisir Essentiel →
+                </a>
               </div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">Essentiel</p>
-              <div className="flex items-end gap-1 mb-2">
-                <span className="text-5xl font-extrabold text-white">4,99€</span>
-              </div>
-              <p className="text-gray-400 text-sm mb-8">par mois</p>
-              <ul className="space-y-3 mb-10 flex-1">
-                {["10 CV par mois", "Téléchargement PDF", "CV optimisés par IA"].map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs flex-shrink-0">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <a href="/tarifs" className="block text-center bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-500 transition-colors text-sm">
-                Choisir Essentiel →
-              </a>
             </div>
 
             {/* Pro */}
-            <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-md transition-shadow">
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Pro</p>
-              <div className="flex items-end gap-1 mb-2">
-                <span className="text-5xl font-extrabold text-gray-900">9,99€</span>
+            <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow">
+              <div className="text-4xl mb-4">🚀</div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Pro</p>
+              <div className="flex items-end gap-1 mb-1">
+                <span className="text-5xl font-extrabold text-gray-900">14,99€</span>
               </div>
-              <p className="text-gray-500 text-sm mb-8">par mois</p>
+              <p className="text-gray-400 text-sm mb-8">par mois</p>
               <ul className="space-y-3 mb-10 flex-1">
-                {["CV illimités", "Téléchargement PDF", "CV optimisés par IA", "Support prioritaire"].map(f => (
+                {["CV illimités", "4 templates visuels", "Lettre de motivation incluse", "Téléchargement PDF", "CV optimisés par IA", "Conseils Pro", "Support prioritaire"].map(f => (
                   <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
-                    <span className="w-4 h-4 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 text-xs flex-shrink-0">✓</span>
+                    <span className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 text-xs flex-shrink-0 font-bold">✓</span>
                     {f}
                   </li>
                 ))}
               </ul>
-              <a href="/tarifs" className="block text-center border-2 border-gray-900 text-gray-900 font-bold py-3 rounded-xl hover:bg-gray-900 hover:text-white transition-colors text-sm">
+              <a href="/tarifs" className="block text-center border-2 border-gray-900 text-gray-900 font-bold py-3.5 rounded-xl hover:bg-gray-900 hover:text-white transition-colors text-sm">
                 Choisir Pro →
               </a>
             </div>
@@ -643,13 +648,15 @@ export default function Home() {
       </section>
 
       {/* CTA Newsletter */}
-      <section className="py-20 px-6 bg-gray-900">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">
-            Reste informé des nouveautés
+      <section className="py-24 px-6 relative overflow-hidden" style={{background: "linear-gradient(135deg, #1e3a5f 0%, #2563eb 60%, #7c3aed 100%)"}}>
+        <div className="absolute inset-0 opacity-10" style={{backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px"}}></div>
+        <div className="max-w-2xl mx-auto text-center relative">
+          <div className="text-5xl mb-6">📬</div>
+          <h2 className="text-3xl font-bold text-white mb-3">
+            Reçois des conseils emploi gratuits
           </h2>
-          <p className="text-gray-400 mb-8">
-            Reçois les nouvelles fonctionnalités et conseils pour ta recherche d'emploi.
+          <p className="text-blue-100 mb-10 text-lg">
+            Chaque semaine : astuces CV, erreurs à éviter, conseils entretien — directement dans ta boîte mail.
           </p>
           {status === "success" ? (
             <div className="bg-green-500/10 border border-green-500/20 rounded-xl px-6 py-4">
@@ -663,20 +670,21 @@ export default function Home() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 px-4 py-3 rounded-xl text-gray-900 bg-white border border-gray-200 placeholder-gray-400 outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-5 py-4 rounded-xl text-gray-900 bg-white border-0 placeholder-gray-400 outline-none focus:ring-2 focus:ring-white shadow-lg"
               />
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 whitespace-nowrap"
+                className="bg-yellow-400 text-yellow-900 font-bold px-8 py-4 rounded-xl hover:bg-yellow-300 transition-colors disabled:opacity-50 whitespace-nowrap shadow-lg"
               >
-                {status === "loading" ? "..." : "S'inscrire"}
+                {status === "loading" ? "..." : "Je m'inscris →"}
               </button>
             </form>
           )}
           {status === "error" && (
-            <p className="text-red-400 text-sm mt-3">Une erreur est survenue, réessaie.</p>
+            <p className="text-red-300 text-sm mt-3">Une erreur est survenue, réessaie.</p>
           )}
+          <p className="text-blue-200 text-sm mt-6">🔒 Zéro spam · Désinscription en 1 clic</p>
         </div>
       </section>
 
