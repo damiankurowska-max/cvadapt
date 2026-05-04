@@ -673,12 +673,12 @@ export default function Home() {
           {/* Grille témoignages */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-              { name: "Sophie M.", role: "Chargée de communication · Lyon", avatar: "SM", gradient: "from-pink-400 to-rose-500", result: "3 entretiens en 1 semaine", text: "Avant je galérais à adapter mon CV, maintenant ça prend 30 secondes. Incroyable !" },
-              { name: "Karim B.", role: "Développeur web · Bordeaux", avatar: "KB", gradient: "from-blue-400 to-indigo-500", result: "Rappelé par 2 entreprises", text: "Le CV avait exactement les mots-clés de l'offre. Rappelé par 2 boîtes la semaine suivante." },
-              { name: "Laura D.", role: "Assistante RH · Lille", avatar: "LD", gradient: "from-purple-400 to-violet-500", result: "Recommande à ses candidats", text: "En tant que RH, je sais ce que les recruteurs cherchent. CVAdapt coche toutes les cases." },
-              { name: "Anaïs G.", role: "Responsable marketing · Paris", avatar: "AG", gradient: "from-orange-400 to-amber-500", result: "Taux de réponse x3", text: "Depuis CVAdapt, chaque CV est vraiment adapté. Mon taux de réponse a explosé." },
-              { name: "Marc L.", role: "Technicien · Nantes", avatar: "ML", gradient: "from-teal-400 to-cyan-500", result: "Premier emploi trouvé", text: "Même sans être à l'aise avec l'ordi, c'est très simple. Mon CV est maintenant professionnel." },
-              { name: "Emma T.", role: "Étudiante master · Toulouse", avatar: "ET", gradient: "from-green-400 to-emerald-500", result: "Stage déniché en 2 semaines", text: "Sans expérience pro, j'avais peur. CVAdapt a mis en avant mes projets universitaires parfaitement." },
+              { name: "Sophie M.", role: "Chargée de communication · Lyon", avatar: "SM", gradient: "from-blue-400 to-blue-600", result: "3 entretiens en 1 semaine", text: "Avant je galérais à adapter mon CV, maintenant ça prend 30 secondes. Incroyable !" },
+              { name: "Karim B.", role: "Développeur web · Bordeaux", avatar: "KB", gradient: "from-indigo-400 to-indigo-600", result: "Rappelé par 2 entreprises", text: "Le CV avait exactement les mots-clés de l'offre. Rappelé par 2 boîtes la semaine suivante." },
+              { name: "Laura D.", role: "Assistante RH · Lille", avatar: "LD", gradient: "from-blue-500 to-indigo-700", result: "Recommande à ses candidats", text: "En tant que RH, je sais ce que les recruteurs cherchent. CVAdapt coche toutes les cases." },
+              { name: "Anaïs G.", role: "Responsable marketing · Paris", avatar: "AG", gradient: "from-cyan-400 to-blue-600", result: "Taux de réponse x3", text: "Depuis CVAdapt, chaque CV est vraiment adapté. Mon taux de réponse a explosé." },
+              { name: "Marc L.", role: "Technicien · Nantes", avatar: "ML", gradient: "from-blue-600 to-indigo-800", result: "Premier emploi trouvé", text: "Même sans être à l'aise avec l'ordi, c'est très simple. Mon CV est maintenant professionnel." },
+              { name: "Emma T.", role: "Étudiante master · Toulouse", avatar: "ET", gradient: "from-indigo-400 to-blue-500", result: "Stage déniché en 2 semaines", text: "Sans expérience pro, j'avais peur. CVAdapt a mis en avant mes projets universitaires parfaitement." },
             ].map((t) => (
               <div key={t.name} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between mb-4">
