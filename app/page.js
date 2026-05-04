@@ -371,8 +371,10 @@ export default function Home() {
           <div className="flex gap-6 text-sm text-gray-500">
             <a href="/tarifs" className="hover:text-gray-900 transition-colors">Tarifs</a>
             <a href="/generate" className="hover:text-gray-900 transition-colors">Générer un CV</a>
+            <a href="/mentions-legales" className="hover:text-gray-900 transition-colors">Mentions légales</a>
+            <a href="/cgu" className="hover:text-gray-900 transition-colors">CGU</a>
           </div>
-          <p className="text-sm text-gray-400">© 2025 CVAdapt — Fait en France</p>
+          <p className="text-sm text-gray-400">© 2025 CVAdapt — Fait en France 🇫🇷</p>
         </div>
       </footer>
 
