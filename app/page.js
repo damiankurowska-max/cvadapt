@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
+import { GlowCard } from "../components/ui/spotlight-card";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -363,89 +364,73 @@ export default function Home() {
       </section>
 
       {/* Comment ça marche — cartes visuelles */}
-      <section className="py-20 px-6 bg-gray-50 border-y border-gray-100">
+      <section className="py-20 px-6" style={{background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%)"}}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Comment ça marche</h2>
-            <p className="text-gray-600">Simple, rapide, efficace.</p>
+            <h2 className="text-3xl font-bold text-white mb-3">Comment ça marche</h2>
+            <p className="text-white/50">Simple, rapide, efficace.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-            {/* Carte 1 — Colle l'offre */}
-            <div style={{ background: "#fff", borderRadius: "16px", border: "1px solid #e5e7eb", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", position: "relative" }}>
-              {/* Grand numéro en fond */}
-              <div style={{ position: "absolute", top: -10, right: 10, fontSize: "120px", fontWeight: 900, color: "#f3f4f6", lineHeight: 1, userSelect: "none", zIndex: 0 }}>1</div>
-              {/* Illustration */}
-              <div style={{ padding: "24px 24px 16px", position: "relative", zIndex: 1 }}>
-                <div style={{ background: "#f9fafb", borderRadius: "10px", padding: "16px", border: "1px solid #e5e7eb" }}>
-                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, marginBottom: 8, width: "90%" }}></div>
-                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, marginBottom: 8, width: "75%" }}></div>
-                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, marginBottom: 8, width: "85%" }}></div>
-                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, marginBottom: 8, width: "60%" }}></div>
-                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, width: "70%" }}></div>
-                </div>
+            {/* Carte 1 */}
+            <GlowCard glowColor="blue" customSize className="w-full h-auto aspect-auto p-6 flex flex-col gap-4">
+              <div className="text-5xl font-black text-white/10 leading-none select-none">1</div>
+              <div className="text-4xl">📋</div>
+              <div>
+                <h3 className="text-white font-bold text-lg mb-2">Colle l'offre</h3>
+                <p className="text-white/60 text-sm leading-relaxed">Copie-colle n'importe quelle offre depuis LinkedIn, Indeed, etc.</p>
               </div>
-              <div style={{ padding: "0 24px 24px", position: "relative", zIndex: 1 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                  <div style={{ width: 30, height: 30, background: "#2563eb", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "14px", flexShrink: 0 }}>1</div>
-                  <h3 style={{ fontWeight: 700, color: "#111827", fontSize: "16px", margin: 0 }}>Colle l'offre</h3>
-                </div>
-                <p style={{ color: "#6b7280", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>Copie-colle n'importe quelle offre depuis LinkedIn, Indeed, etc.</p>
+              <div className="mt-auto bg-white/10 rounded-xl p-4 space-y-2">
+                <div className="h-2 bg-white/20 rounded-full w-[90%]"></div>
+                <div className="h-2 bg-white/20 rounded-full w-[75%]"></div>
+                <div className="h-2 bg-white/20 rounded-full w-[60%]"></div>
               </div>
-            </div>
+            </GlowCard>
 
-            {/* Carte 2 — Entre tes infos */}
-            <div style={{ background: "#fff", borderRadius: "16px", border: "1px solid #e5e7eb", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", position: "relative" }}>
-              <div style={{ position: "absolute", top: -10, right: 10, fontSize: "120px", fontWeight: 900, color: "#f3f4f6", lineHeight: 1, userSelect: "none", zIndex: 0 }}>2</div>
-              <div style={{ padding: "24px 24px 16px", position: "relative", zIndex: 1 }}>
-                <div style={{ background: "#f9fafb", borderRadius: "10px", padding: "16px", border: "1px solid #e5e7eb" }}>
-                  {["Nom complet", "Titre du poste", "Expérience"].map((label) => (
-                    <div key={label} style={{ marginBottom: "8px" }}>
-                      <div style={{ fontSize: "10px", color: "#9ca3af", fontWeight: 600, marginBottom: "3px" }}>{label}</div>
-                      <div style={{ background: "#eff6ff", border: "1px solid #bfdbfe", borderRadius: "6px", height: "22px" }}></div>
-                    </div>
-                  ))}
-                </div>
+            {/* Carte 2 */}
+            <GlowCard glowColor="blue" customSize className="w-full h-auto aspect-auto p-6 flex flex-col gap-4">
+              <div className="text-5xl font-black text-white/10 leading-none select-none">2</div>
+              <div className="text-4xl">✍️</div>
+              <div>
+                <h3 className="text-white font-bold text-lg mb-2">Entre tes infos</h3>
+                <p className="text-white/60 text-sm leading-relaxed">Ton expérience, tes compétences, ta formation.</p>
               </div>
-              <div style={{ padding: "0 24px 24px", position: "relative", zIndex: 1 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                  <div style={{ width: 30, height: 30, background: "#2563eb", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "14px", flexShrink: 0 }}>2</div>
-                  <h3 style={{ fontWeight: 700, color: "#111827", fontSize: "16px", margin: 0 }}>Entre tes infos</h3>
-                </div>
-                <p style={{ color: "#6b7280", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>Ton expérience, tes compétences, ta formation.</p>
+              <div className="mt-auto bg-white/10 rounded-xl p-4 space-y-2">
+                {["Nom complet", "Titre du poste", "Expérience"].map(l => (
+                  <div key={l}>
+                    <div className="text-white/40 text-[10px] font-semibold mb-1">{l}</div>
+                    <div className="h-6 bg-white/20 rounded-lg"></div>
+                  </div>
+                ))}
               </div>
-            </div>
+            </GlowCard>
 
-            {/* Carte 3 — Reçois ton CV */}
-            <div style={{ background: "#fff", borderRadius: "16px", border: "1px solid #e5e7eb", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", position: "relative" }}>
-              <div style={{ position: "absolute", top: -10, right: 10, fontSize: "120px", fontWeight: 900, color: "#f3f4f6", lineHeight: 1, userSelect: "none", zIndex: 0 }}>3</div>
-              <div style={{ padding: "24px 24px 16px", position: "relative", zIndex: 1 }}>
-                <div style={{ background: "#f9fafb", borderRadius: "10px", overflow: "hidden", border: "1px solid #e5e7eb" }}>
-                  <div style={{ background: "#1e40af", padding: "12px 14px" }}>
-                    <div style={{ background: "rgba(255,255,255,0.85)", height: 9, borderRadius: 4, marginBottom: 5, width: "55%" }}></div>
-                    <div style={{ background: "rgba(255,255,255,0.5)", height: 7, borderRadius: 4, width: "70%" }}></div>
-                  </div>
-                  <div style={{ padding: "12px 14px" }}>
-                    <div style={{ background: "#e5e7eb", height: 7, borderRadius: 3, marginBottom: 5, width: "90%" }}></div>
-                    <div style={{ background: "#e5e7eb", height: 7, borderRadius: 3, marginBottom: 5, width: "75%" }}></div>
-                    <div style={{ background: "#e5e7eb", height: 7, borderRadius: 3, width: "55%" }}></div>
-                  </div>
+            {/* Carte 3 */}
+            <GlowCard glowColor="blue" customSize className="w-full h-auto aspect-auto p-6 flex flex-col gap-4">
+              <div className="text-5xl font-black text-white/10 leading-none select-none">3</div>
+              <div className="text-4xl">🚀</div>
+              <div>
+                <h3 className="text-white font-bold text-lg mb-2">Reçois ton CV</h3>
+                <p className="text-white/60 text-sm leading-relaxed">Un CV PDF adapté à l'offre, prêt à envoyer en 30 secondes.</p>
+              </div>
+              <div className="mt-auto bg-white/10 rounded-xl overflow-hidden">
+                <div className="bg-blue-600/60 px-4 py-3">
+                  <div className="h-2.5 bg-white/60 rounded-full w-[55%] mb-2"></div>
+                  <div className="h-2 bg-white/30 rounded-full w-[70%]"></div>
+                </div>
+                <div className="p-4 space-y-2">
+                  <div className="h-2 bg-white/20 rounded-full w-[90%]"></div>
+                  <div className="h-2 bg-white/20 rounded-full w-[75%]"></div>
+                  <div className="h-2 bg-white/20 rounded-full w-[55%]"></div>
                 </div>
               </div>
-              <div style={{ padding: "0 24px 24px", position: "relative", zIndex: 1 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                  <div style={{ width: 30, height: 30, background: "#2563eb", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "14px", flexShrink: 0 }}>3</div>
-                  <h3 style={{ fontWeight: 700, color: "#111827", fontSize: "16px", margin: 0 }}>Reçois ton CV</h3>
-                </div>
-                <p style={{ color: "#6b7280", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>Reçois un CV en PDF parfaitement adapté à l'offre, prêt à envoyer.</p>
-              </div>
-            </div>
+            </GlowCard>
 
           </div>
           <div className="text-center mt-12">
             <a
               href="/generate"
-              className="inline-block bg-blue-600 text-white px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-blue-700 transition-colors shadow-sm"
+              className="inline-block bg-white text-blue-700 px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-blue-50 transition-colors shadow-lg"
             >
               Essayer maintenant — c'est gratuit
             </a>
