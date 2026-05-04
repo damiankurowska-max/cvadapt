@@ -69,11 +69,6 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Colonne gauche */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6 border border-blue-100">
-              <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-              Gratuit — sans carte bancaire
-            </div>
-
             <h1 className="text-5xl font-bold text-gray-900 leading-tight mb-5">
               Ton CV adapté à chaque{" "}
               <span className="text-blue-600">offre d'emploi</span>{" "}
@@ -464,7 +459,7 @@ export default function Home() {
           <p className="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">Technologie & sécurité</p>
           <div className="flex flex-wrap justify-center items-center gap-8">
             {[
-              { icon: "🤖", label: "IA Claude (Anthropic)", desc: "Modèle de pointe" },
+              { icon: "🤖", label: "Intelligence Artificielle", desc: "Technologie de pointe" },
               { icon: "🔒", label: "Paiement Stripe", desc: "100% sécurisé" },
               { icon: "🛡️", label: "Authentification Clerk", desc: "Données protégées" },
               { icon: "⚡", label: "Résultat en 30s", desc: "Garanti" },
@@ -537,6 +532,93 @@ export default function Home() {
                     <span className="text-sm text-gray-700 font-medium">{item}</span>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Notre histoire */}
+      <section className="py-20 px-6 bg-gray-50 border-y border-gray-100">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+            {/* Illustration */}
+            <div className="flex justify-center">
+              <div style={{
+                position: "relative",
+                width: "280px",
+                height: "280px",
+              }}>
+                {/* Cercle fond */}
+                <div style={{
+                  width: "280px",
+                  height: "280px",
+                  borderRadius: "50%",
+                  background: "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "relative"
+                }}>
+                  <span style={{ fontSize: "100px" }}>😤</span>
+                  {/* Bulle de pensée */}
+                  <div style={{
+                    position: "absolute",
+                    top: "10px",
+                    right: "-10px",
+                    background: "#fff",
+                    border: "2px solid #e5e7eb",
+                    borderRadius: "12px",
+                    padding: "8px 14px",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#ef4444",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                    whiteSpace: "nowrap"
+                  }}>3h de boulot... 😩</div>
+                  {/* Bulle résultat */}
+                  <div style={{
+                    position: "absolute",
+                    bottom: "20px",
+                    left: "-20px",
+                    background: "#2563eb",
+                    borderRadius: "12px",
+                    padding: "8px 14px",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#fff",
+                    boxShadow: "0 4px 12px rgba(37,99,235,0.3)",
+                    whiteSpace: "nowrap"
+                  }}>→ 0 réponse 📭</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Texte */}
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4 block">Notre histoire</span>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">
+                Né d'une <span className="text-blue-600">vraie frustration</span>
+              </h2>
+
+              <div className="space-y-5 text-gray-600 leading-relaxed">
+                <p>
+                  En 2024, j'ai passé des semaines à chercher un emploi. Chaque offre demandait un CV différent, chaque adaptation prenait 2 à 3 heures. Et au final ? Peu de réponses.
+                </p>
+                <p>
+                  J'ai compris que le problème n'était pas mon profil — c'était mon CV. Générique, sans les bons mots-clés, invisible pour les logiciels de tri automatique des RH.
+                </p>
+                <p className="font-semibold text-gray-800">
+                  Alors j'ai créé CVAdapt : un outil qui fait ce travail d'adaptation en 30 secondes, pour que tu te concentres sur ce qui compte vraiment — décrocher l'entretien.
+                </p>
+              </div>
+
+              <div className="mt-8 flex items-center gap-4 bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">DK</div>
+                <div>
+                  <p className="font-bold text-gray-900">Damian K.</p>
+                  <p className="text-gray-500 text-sm">Fondateur de CVAdapt · Paris 🇫🇷</p>
+                </div>
               </div>
             </div>
           </div>
