@@ -64,42 +64,288 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* Hero */}
-      <section className="max-w-4xl mx-auto px-6 pt-20 pb-24 text-center">
-        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-sm font-medium px-4 py-1.5 rounded-full mb-8 border border-blue-100">
-          <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-          Gratuit pour commencer — sans carte bancaire
+      {/* Hero — 2 colonnes */}
+      <section className="max-w-6xl mx-auto px-6 pt-16 pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Colonne gauche */}
+          <div>
+            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6 border border-blue-100">
+              <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+              Gratuit — sans carte bancaire
+            </div>
+
+            <h1 className="text-5xl font-bold text-gray-900 leading-tight mb-5">
+              Ton CV adapté à chaque{" "}
+              <span className="text-blue-600">offre d'emploi</span>{" "}
+              en 30 secondes
+            </h1>
+
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              Colle une offre, entre tes infos — CVAdapt génère automatiquement
+              un CV avec les bons mots-clés pour décrocher plus d'entretiens.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <a
+                href="/generate"
+                className="bg-blue-600 text-white px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-blue-700 transition-colors shadow-sm text-center"
+              >
+                Générer mon CV maintenant →
+              </a>
+              <a
+                href="/tarifs"
+                className="border border-gray-200 text-gray-700 px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-gray-50 transition-colors text-center"
+              >
+                Voir les tarifs
+              </a>
+            </div>
+            <p className="text-sm text-gray-500">3 CV gratuits · Résultat en 30 secondes · Sans engagement</p>
+          </div>
+
+          {/* Colonne droite — mockup navigateur */}
+          <div className="flex justify-center lg:justify-end">
+            <div style={{
+              width: "100%",
+              maxWidth: "460px",
+              borderRadius: "12px",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.08)",
+              overflow: "hidden",
+              border: "1px solid #e5e7eb",
+              background: "#fff"
+            }}>
+              {/* Barre navigateur */}
+              <div style={{
+                background: "#f3f4f6",
+                padding: "10px 14px",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                borderBottom: "1px solid #e5e7eb"
+              }}>
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ef4444", display: "inline-block" }}></span>
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#f59e0b", display: "inline-block" }}></span>
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#22c55e", display: "inline-block" }}></span>
+                <div style={{
+                  flex: 1,
+                  background: "#fff",
+                  borderRadius: "6px",
+                  padding: "4px 10px",
+                  fontSize: "11px",
+                  color: "#9ca3af",
+                  marginLeft: "8px",
+                  border: "1px solid #e5e7eb"
+                }}>cvadapt.eu/generate</div>
+              </div>
+              {/* Corps de l'app simulée */}
+              <div style={{ padding: "20px", background: "#f9fafb" }}>
+                <p style={{ fontSize: "13px", fontWeight: 700, color: "#1e40af", marginBottom: "14px" }}>✨ Générer un CV adapté</p>
+                {/* Champ offre d'emploi */}
+                <div style={{ marginBottom: "10px" }}>
+                  <div style={{ fontSize: "11px", color: "#6b7280", marginBottom: "4px", fontWeight: 600 }}>Offre d'emploi</div>
+                  <div style={{
+                    background: "#eff6ff",
+                    border: "1.5px solid #3b82f6",
+                    borderRadius: "8px",
+                    padding: "8px 12px",
+                    fontSize: "12px",
+                    color: "#374151",
+                    lineHeight: 1.5
+                  }}>
+                    <div style={{ background: "#dbeafe", height: 8, borderRadius: 4, marginBottom: 5, width: "90%" }}></div>
+                    <div style={{ background: "#dbeafe", height: 8, borderRadius: 4, marginBottom: 5, width: "75%" }}></div>
+                    <div style={{ background: "#dbeafe", height: 8, borderRadius: 4, width: "55%" }}></div>
+                  </div>
+                </div>
+                {/* Champ nom */}
+                <div style={{ marginBottom: "10px" }}>
+                  <div style={{ fontSize: "11px", color: "#6b7280", marginBottom: "4px", fontWeight: 600 }}>Ton nom</div>
+                  <div style={{
+                    background: "#fff",
+                    border: "1.5px solid #3b82f6",
+                    borderRadius: "8px",
+                    padding: "8px 12px",
+                    fontSize: "12px",
+                    color: "#1d4ed8"
+                  }}>Sophie Martin</div>
+                </div>
+                {/* Champ expérience */}
+                <div style={{ marginBottom: "14px" }}>
+                  <div style={{ fontSize: "11px", color: "#6b7280", marginBottom: "4px", fontWeight: 600 }}>Ton expérience</div>
+                  <div style={{
+                    background: "#eff6ff",
+                    border: "1.5px solid #3b82f6",
+                    borderRadius: "8px",
+                    padding: "8px 12px",
+                    fontSize: "12px",
+                    color: "#374151",
+                    lineHeight: 1.5
+                  }}>
+                    <div style={{ background: "#dbeafe", height: 8, borderRadius: 4, marginBottom: 5, width: "80%" }}></div>
+                    <div style={{ background: "#dbeafe", height: 8, borderRadius: 4, width: "60%" }}></div>
+                  </div>
+                </div>
+                {/* Bouton */}
+                <div style={{
+                  background: "#2563eb",
+                  color: "#fff",
+                  fontWeight: 700,
+                  fontSize: "13px",
+                  borderRadius: "8px",
+                  padding: "10px",
+                  textAlign: "center",
+                  cursor: "pointer"
+                }}>Générer mon CV →</div>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <h1 className="text-5xl font-bold text-gray-900 leading-tight mb-6">
-          Ton CV adapté à chaque<br />
-          <span className="text-blue-600">offre d'emploi</span> en 30 secondes
-        </h1>
+      {/* Démo en image */}
+      <section className="py-16 px-6 bg-gray-50 border-y border-gray-100">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Vois CVAdapt en action</h2>
+            <p className="text-gray-500">En 30 secondes, de l'offre au CV professionnel.</p>
+          </div>
 
-        <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Colle une offre d'emploi, entre tes infos — CVAdapt génère
-          automatiquement un CV avec les bons mots-clés pour décrocher plus d'entretiens.
-        </p>
+          {/* Grand mockup navigateur */}
+          <div style={{
+            maxWidth: "820px",
+            margin: "0 auto",
+            borderRadius: "14px",
+            boxShadow: "0 24px 80px rgba(0,0,0,0.12), 0 4px 24px rgba(0,0,0,0.07)",
+            overflow: "hidden",
+            border: "1px solid #e5e7eb",
+            background: "#fff"
+          }}>
+            {/* Barre navigateur */}
+            <div style={{
+              background: "#f3f4f6",
+              padding: "12px 16px",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              borderBottom: "1px solid #e5e7eb"
+            }}>
+              <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#ef4444", display: "inline-block" }}></span>
+              <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#f59e0b", display: "inline-block" }}></span>
+              <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#22c55e", display: "inline-block" }}></span>
+              <div style={{
+                flex: 1,
+                background: "#fff",
+                borderRadius: "8px",
+                padding: "5px 14px",
+                fontSize: "12px",
+                color: "#9ca3af",
+                marginLeft: "10px",
+                border: "1px solid #e5e7eb",
+                maxWidth: "260px"
+              }}>🔒 cvadapt.eu/generate</div>
+            </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-5">
-          <a
-            href="/generate"
-            className="bg-blue-600 text-white px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-blue-700 transition-colors shadow-sm"
-          >
-            Générer mon CV maintenant →
-          </a>
-          <a
-            href="/tarifs"
-            className="border border-gray-200 text-gray-700 px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-gray-50 transition-colors"
-          >
-            Voir les tarifs
-          </a>
+            {/* Corps — 2 colonnes */}
+            <div style={{ display: "flex", minHeight: "320px", background: "#f9fafb" }}>
+              {/* Gauche — formulaire */}
+              <div style={{
+                flex: 1,
+                padding: "24px",
+                borderRight: "1px solid #e5e7eb",
+                background: "#fff"
+              }}>
+                <p style={{ fontSize: "14px", fontWeight: 700, color: "#1e40af", marginBottom: "16px" }}>📋 Informations</p>
+
+                {/* Nom */}
+                <div style={{ marginBottom: "12px" }}>
+                  <div style={{ fontSize: "11px", color: "#6b7280", marginBottom: "4px", fontWeight: 600 }}>Nom complet</div>
+                  <div style={{ background: "#eff6ff", border: "1.5px solid #3b82f6", borderRadius: "6px", padding: "7px 10px", fontSize: "12px", color: "#1d4ed8" }}>Sophie Martin</div>
+                </div>
+
+                {/* Offre */}
+                <div style={{ marginBottom: "12px" }}>
+                  <div style={{ fontSize: "11px", color: "#6b7280", marginBottom: "4px", fontWeight: 600 }}>Offre d'emploi</div>
+                  <div style={{ background: "#eff6ff", border: "1.5px solid #3b82f6", borderRadius: "6px", padding: "7px 10px", fontSize: "11px", color: "#374151", lineHeight: 1.5 }}>
+                    <div style={{ background: "#dbeafe", height: 7, borderRadius: 3, marginBottom: 4, width: "95%" }}></div>
+                    <div style={{ background: "#dbeafe", height: 7, borderRadius: 3, marginBottom: 4, width: "80%" }}></div>
+                    <div style={{ background: "#dbeafe", height: 7, borderRadius: 3, marginBottom: 4, width: "70%" }}></div>
+                    <div style={{ background: "#dbeafe", height: 7, borderRadius: 3, width: "50%" }}></div>
+                  </div>
+                </div>
+
+                {/* Expérience */}
+                <div style={{ marginBottom: "16px" }}>
+                  <div style={{ fontSize: "11px", color: "#6b7280", marginBottom: "4px", fontWeight: 600 }}>Expérience</div>
+                  <div style={{ background: "#eff6ff", border: "1.5px solid #3b82f6", borderRadius: "6px", padding: "7px 10px", fontSize: "11px", color: "#374151", lineHeight: 1.5 }}>
+                    <div style={{ background: "#dbeafe", height: 7, borderRadius: 3, marginBottom: 4, width: "85%" }}></div>
+                    <div style={{ background: "#dbeafe", height: 7, borderRadius: 3, width: "60%" }}></div>
+                  </div>
+                </div>
+
+                {/* Bouton */}
+                <div style={{ textAlign: "center" }}>
+                  <div style={{
+                    background: "#2563eb",
+                    color: "#fff",
+                    fontWeight: 700,
+                    fontSize: "13px",
+                    borderRadius: "8px",
+                    padding: "10px 24px",
+                    display: "inline-block",
+                    cursor: "pointer"
+                  }}>Générer →</div>
+                </div>
+              </div>
+
+              {/* Droite — aperçu CV */}
+              <div style={{ flex: 1, padding: "20px", background: "#f9fafb" }}>
+                <p style={{ fontSize: "14px", fontWeight: 700, color: "#374151", marginBottom: "12px" }}>📄 Aperçu du CV</p>
+                <div style={{
+                  background: "#fff",
+                  borderRadius: "8px",
+                  overflow: "hidden",
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+                  border: "1px solid #e5e7eb"
+                }}>
+                  {/* En-tête CV */}
+                  <div style={{ background: "#1e40af", padding: "16px 18px" }}>
+                    <div style={{ background: "rgba(255,255,255,0.9)", height: 10, borderRadius: 5, marginBottom: 6, width: "55%" }}></div>
+                    <div style={{ background: "rgba(255,255,255,0.6)", height: 7, borderRadius: 4, width: "70%" }}></div>
+                  </div>
+                  {/* Corps CV */}
+                  <div style={{ padding: "14px 18px" }}>
+                    {/* Section Profil */}
+                    <div style={{ marginBottom: "12px" }}>
+                      <div style={{ fontSize: "10px", fontWeight: 700, color: "#1e40af", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "6px" }}>Profil</div>
+                      <div style={{ background: "#f1f5f9", height: 7, borderRadius: 3, marginBottom: 4, width: "95%" }}></div>
+                      <div style={{ background: "#f1f5f9", height: 7, borderRadius: 3, marginBottom: 4, width: "85%" }}></div>
+                      <div style={{ background: "#f1f5f9", height: 7, borderRadius: 3, width: "60%" }}></div>
+                    </div>
+                    {/* Section Expériences */}
+                    <div style={{ marginBottom: "12px" }}>
+                      <div style={{ fontSize: "10px", fontWeight: 700, color: "#1e40af", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "6px" }}>Expériences</div>
+                      <div style={{ background: "#f1f5f9", height: 7, borderRadius: 3, marginBottom: 4, width: "70%" }}></div>
+                      <div style={{ background: "#f1f5f9", height: 7, borderRadius: 3, marginBottom: 4, width: "90%" }}></div>
+                      <div style={{ background: "#f1f5f9", height: 7, borderRadius: 3, width: "50%" }}></div>
+                    </div>
+                    {/* Section Compétences */}
+                    <div>
+                      <div style={{ fontSize: "10px", fontWeight: 700, color: "#1e40af", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "6px" }}>Compétences</div>
+                      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                        {["React", "Agile", "SEO"].map(skill => (
+                          <span key={skill} style={{ background: "#dbeafe", color: "#1e40af", fontSize: "10px", fontWeight: 600, padding: "3px 8px", borderRadius: "12px" }}>{skill}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="text-sm text-gray-500">3 CV gratuits · Résultat en 30 secondes</p>
       </section>
 
       {/* Problème */}
-      <section className="bg-gray-50 py-20 px-6 border-y border-gray-100">
+      <section className="bg-white py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Le problème que tout le monde a</h2>
@@ -111,7 +357,7 @@ export default function Home() {
               { emoji: "🤔", title: "Ne pas savoir quoi mettre", desc: "Difficile de savoir quels mots-clés utiliser pour chaque poste." },
               { emoji: "📭", title: "CV ignoré par les RH", desc: "Un CV générique passe à la poubelle avant même d'être lu." },
             ].map((item) => (
-              <div key={item.title} className="bg-white p-7 rounded-2xl border border-gray-200 shadow-sm">
+              <div key={item.title} className="bg-gray-50 p-7 rounded-2xl border border-gray-200 shadow-sm">
                 <div className="text-3xl mb-4">{item.emoji}</div>
                 <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
@@ -121,30 +367,85 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Comment ça marche */}
-      <section className="py-20 px-6">
+      {/* Comment ça marche — cartes visuelles */}
+      <section className="py-20 px-6 bg-gray-50 border-y border-gray-100">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Comment ça marche</h2>
             <p className="text-gray-600">Simple, rapide, efficace.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { num: "1", title: "Colle l'offre d'emploi", desc: "Copie-colle n'importe quelle offre depuis LinkedIn, Indeed, etc." },
-              { num: "2", title: "Entre tes infos", desc: "Ton expérience, tes compétences, ta formation." },
-              { num: "3", title: "Télécharge ton CV", desc: "Reçois un CV parfaitement adapté en PDF, prêt à envoyer." },
-            ].map((step, i) => (
-              <div key={step.num} className="relative text-center">
-                {i < 2 && (
-                  <div className="hidden md:block absolute top-6 left-[60%] w-[80%] h-px bg-gray-200"></div>
-                )}
-                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                  {step.num}
+
+            {/* Carte 1 — Colle l'offre */}
+            <div style={{ background: "#fff", borderRadius: "16px", border: "1px solid #e5e7eb", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", position: "relative" }}>
+              {/* Grand numéro en fond */}
+              <div style={{ position: "absolute", top: -10, right: 10, fontSize: "120px", fontWeight: 900, color: "#f3f4f6", lineHeight: 1, userSelect: "none", zIndex: 0 }}>1</div>
+              {/* Illustration */}
+              <div style={{ padding: "24px 24px 16px", position: "relative", zIndex: 1 }}>
+                <div style={{ background: "#f9fafb", borderRadius: "10px", padding: "16px", border: "1px solid #e5e7eb" }}>
+                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, marginBottom: 8, width: "90%" }}></div>
+                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, marginBottom: 8, width: "75%" }}></div>
+                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, marginBottom: 8, width: "85%" }}></div>
+                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, marginBottom: 8, width: "60%" }}></div>
+                  <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, width: "70%" }}></div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">{step.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{step.desc}</p>
               </div>
-            ))}
+              <div style={{ padding: "0 24px 24px", position: "relative", zIndex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                  <div style={{ width: 30, height: 30, background: "#2563eb", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "14px", flexShrink: 0 }}>1</div>
+                  <h3 style={{ fontWeight: 700, color: "#111827", fontSize: "16px", margin: 0 }}>Colle l'offre</h3>
+                </div>
+                <p style={{ color: "#6b7280", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>Copie-colle n'importe quelle offre depuis LinkedIn, Indeed, etc.</p>
+              </div>
+            </div>
+
+            {/* Carte 2 — Entre tes infos */}
+            <div style={{ background: "#fff", borderRadius: "16px", border: "1px solid #e5e7eb", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", position: "relative" }}>
+              <div style={{ position: "absolute", top: -10, right: 10, fontSize: "120px", fontWeight: 900, color: "#f3f4f6", lineHeight: 1, userSelect: "none", zIndex: 0 }}>2</div>
+              <div style={{ padding: "24px 24px 16px", position: "relative", zIndex: 1 }}>
+                <div style={{ background: "#f9fafb", borderRadius: "10px", padding: "16px", border: "1px solid #e5e7eb" }}>
+                  {["Nom complet", "Titre du poste", "Expérience"].map((label) => (
+                    <div key={label} style={{ marginBottom: "8px" }}>
+                      <div style={{ fontSize: "10px", color: "#9ca3af", fontWeight: 600, marginBottom: "3px" }}>{label}</div>
+                      <div style={{ background: "#eff6ff", border: "1px solid #bfdbfe", borderRadius: "6px", height: "22px" }}></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{ padding: "0 24px 24px", position: "relative", zIndex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                  <div style={{ width: 30, height: 30, background: "#2563eb", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "14px", flexShrink: 0 }}>2</div>
+                  <h3 style={{ fontWeight: 700, color: "#111827", fontSize: "16px", margin: 0 }}>Entre tes infos</h3>
+                </div>
+                <p style={{ color: "#6b7280", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>Ton expérience, tes compétences, ta formation.</p>
+              </div>
+            </div>
+
+            {/* Carte 3 — Reçois ton CV */}
+            <div style={{ background: "#fff", borderRadius: "16px", border: "1px solid #e5e7eb", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", position: "relative" }}>
+              <div style={{ position: "absolute", top: -10, right: 10, fontSize: "120px", fontWeight: 900, color: "#f3f4f6", lineHeight: 1, userSelect: "none", zIndex: 0 }}>3</div>
+              <div style={{ padding: "24px 24px 16px", position: "relative", zIndex: 1 }}>
+                <div style={{ background: "#f9fafb", borderRadius: "10px", overflow: "hidden", border: "1px solid #e5e7eb" }}>
+                  <div style={{ background: "#1e40af", padding: "12px 14px" }}>
+                    <div style={{ background: "rgba(255,255,255,0.85)", height: 9, borderRadius: 4, marginBottom: 5, width: "55%" }}></div>
+                    <div style={{ background: "rgba(255,255,255,0.5)", height: 7, borderRadius: 4, width: "70%" }}></div>
+                  </div>
+                  <div style={{ padding: "12px 14px" }}>
+                    <div style={{ background: "#e5e7eb", height: 7, borderRadius: 3, marginBottom: 5, width: "90%" }}></div>
+                    <div style={{ background: "#e5e7eb", height: 7, borderRadius: 3, marginBottom: 5, width: "75%" }}></div>
+                    <div style={{ background: "#e5e7eb", height: 7, borderRadius: 3, width: "55%" }}></div>
+                  </div>
+                </div>
+              </div>
+              <div style={{ padding: "0 24px 24px", position: "relative", zIndex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                  <div style={{ width: 30, height: 30, background: "#2563eb", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "14px", flexShrink: 0 }}>3</div>
+                  <h3 style={{ fontWeight: 700, color: "#111827", fontSize: "16px", margin: 0 }}>Reçois ton CV</h3>
+                </div>
+                <p style={{ color: "#6b7280", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>Reçois un CV en PDF parfaitement adapté à l'offre, prêt à envoyer.</p>
+              </div>
+            </div>
+
           </div>
           <div className="text-center mt-12">
             <a
@@ -220,15 +521,12 @@ export default function Home() {
               },
             ].map((t) => (
               <div key={t.name} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow">
-                {/* Étoiles */}
                 <div className="flex gap-1 mb-4">
                   {[...Array(t.stars)].map((_, i) => (
                     <span key={i} className="text-yellow-400 text-sm">★</span>
                   ))}
                 </div>
-                {/* Texte */}
-                <p className="text-gray-700 text-sm leading-relaxed mb-5 italic">"{t.text}"</p>
-                {/* Auteur */}
+                <p className="text-gray-700 text-sm leading-relaxed mb-5 italic">&ldquo;{t.text}&rdquo;</p>
                 <div className="flex items-center gap-3">
                   <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-xs font-bold flex-shrink-0`}>
                     {t.avatar}

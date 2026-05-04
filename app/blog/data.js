@@ -2,274 +2,303 @@ export const articles = [
   {
     slug: "comment-faire-un-cv-en-2025",
     titre: "Comment faire un CV en 2025 qui attire les recruteurs",
-    description: "Tout ce qu'il faut savoir pour créer un CV moderne, efficace et adapté aux attentes des recruteurs en 2025. Conseils, structure et erreurs à éviter.",
+    description: "Structure, mots-clés, mise en page — tout ce qu'il faut pour un CV moderne qui passe les filtres et accroche les recruteurs.",
     date: "2025-05-01",
     categorie: "Conseils CV",
-    tempsLecture: "6 min",
+    tempsLecture: "4 min",
     illustration: "📄",
     couleur: "from-blue-500 to-blue-700",
     contenu: `
-<h2>Pourquoi ton CV est peut-être ignoré</h2>
-<p>En moyenne, un recruteur passe <strong>7 secondes</strong> sur un CV avant de décider de le lire ou de le jeter. En 2025, avec des centaines de candidatures pour chaque poste, ton CV doit être impeccable dès le premier coup d'œil.</p>
-<p>La bonne nouvelle : un CV efficace ne demande pas d'être graphiste. Il doit simplement respecter quelques règles fondamentales.</p>
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">📊 Le chiffre clé</p>
+  <p style="color:#1d4ed8;margin:0;font-size:15px">Un recruteur passe <strong>7 secondes</strong> sur un CV. Ton CV doit convaincre immédiatement.</p>
+</div>
 
-<h2>La structure idéale d'un CV en 2025</h2>
-<p>Un bon CV suit toujours la même structure logique :</p>
-<ul>
-  <li><strong>En-tête</strong> : ton nom, le titre du poste visé, email, téléphone</li>
-  <li><strong>Profil</strong> : 3-4 phrases qui résument qui tu es et ce que tu apportes</li>
-  <li><strong>Expériences</strong> : du plus récent au plus ancien, avec des résultats chiffrés</li>
-  <li><strong>Compétences</strong> : adaptées à l'offre d'emploi</li>
-  <li><strong>Formation</strong> : diplôme, établissement, année</li>
-</ul>
+<h2>La structure idéale ✅</h2>
 
-<h2>L'erreur numéro 1 : un CV générique</h2>
-<p>Envoyer le même CV à toutes les offres est l'erreur la plus courante et la plus coûteuse. Les recruteurs repèrent immédiatement un CV qui n'a pas été adapté à leur offre.</p>
-<p>La solution : <strong>adapter ton CV à chaque offre</strong> en intégrant les mots-clés de l'annonce dans ton profil et tes expériences. C'est exactement ce que fait CVAdapt automatiquement en 30 secondes.</p>
+<div style="display:grid;gap:12px;margin:20px 0">
+  ${["🎯 Profil — 3 phrases qui résument ta valeur", "💼 Expériences — du plus récent au plus ancien + résultats chiffrés", "🛠 Compétences — adaptées à l'offre", "🎓 Formation — diplôme, établissement, année"].map((item, i) => `
+  <div style="display:flex;align-items:center;gap:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px">
+    <div style="width:28px;height:28px;background:#2563eb;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">${i + 1}</div>
+    <span style="font-size:15px;color:#111827">${item}</span>
+  </div>`).join("")}
+</div>
 
-<h2>Les mots-clés : le secret des CV qui passent les filtres</h2>
-<p>De plus en plus d'entreprises utilisent des logiciels ATS (Applicant Tracking System) pour trier les CV automatiquement avant même qu'un humain les lise. Ces logiciels scannent les CV à la recherche des mots-clés de l'offre d'emploi.</p>
-<p>Si ton CV ne contient pas les bons termes, il est éliminé automatiquement — même si tu es le candidat idéal.</p>
-<p><strong>Conseil</strong> : relis l'offre d'emploi attentivement, identifie les compétences et qualifications mentionnées, et intègre-les naturellement dans ton CV.</p>
+<h2>❌ vs ✅ — Les formulations qui font la différence</h2>
 
-<h2>Les résultats chiffrés : ce qui fait la différence</h2>
-<p>Au lieu d'écrire "Gestion d'une équipe", écris "Management d'une équipe de 8 personnes, augmentation de la productivité de 25% en 6 mois". Les chiffres rendent tes réalisations concrètes et crédibles.</p>
-<p>Quelques exemples de formulations efficaces :</p>
-<ul>
-  <li>❌ "Responsable des ventes" → ✅ "Développement du CA de 40% en 12 mois"</li>
-  <li>❌ "Service client" → ✅ "Satisfaction client de 96% sur 200+ interactions/mois"</li>
-  <li>❌ "Gestion de projets" → ✅ "Livraison de 5 projets dans les délais, budget réduit de 15%"</li>
-</ul>
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:14px">
+  <thead>
+    <tr style="background:#f3f4f6">
+      <th style="padding:12px 16px;text-align:left;color:#ef4444;border:1px solid #e5e7eb">❌ Évite</th>
+      <th style="padding:12px 16px;text-align:left;color:#16a34a;border:1px solid #e5e7eb">✅ Préfère</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${[
+      ["Responsable des ventes", "Développement du CA de +40% en 12 mois"],
+      ["Service client", "Satisfaction client 96% sur 200+ interactions/mois"],
+      ["Gestion de projets", "5 projets livrés dans les délais, budget -15%"],
+      ["Dynamique et motivé", "Commercial B2B, 120% des objectifs atteints"],
+    ].map(([bad, good]) => `
+    <tr>
+      <td style="padding:12px 16px;border:1px solid #e5e7eb;color:#374151">${bad}</td>
+      <td style="padding:12px 16px;border:1px solid #e5e7eb;color:#374151;font-weight:500">${good}</td>
+    </tr>`).join("")}
+  </tbody>
+</table>
 
-<h2>Mise en page : simple et lisible</h2>
-<p>En 2025, les meilleurs CV sont clairs et épurés. Évite :</p>
-<ul>
-  <li>Les photos (sauf demande explicite)</li>
-  <li>Les couleurs trop vives</li>
-  <li>Les tableaux de compétences avec des étoiles ou barres de progression</li>
-  <li>Les polices fantaisie</li>
-</ul>
-<p>Privilégie une police lisible (Arial, Calibri), des sections bien séparées, et une longueur d'une page maximum pour les moins de 10 ans d'expérience.</p>
+<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">💡 L'astuce CVAdapt</p>
+  <p style="color:#166534;margin:0;font-size:14px">Colle ton offre d'emploi dans CVAdapt — l'IA intègre automatiquement les bons mots-clés dans ton CV en 30 secondes.</p>
+</div>
 
-<h2>Conclusion</h2>
-<p>Un bon CV en 2025, c'est un CV adapté à l'offre, avec des résultats concrets et une mise en page claire. Avec CVAdapt, tu peux générer un CV parfaitement adapté à chaque offre en 30 secondes — gratuitement pour commencer.</p>
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#2563eb;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV maintenant →</a>
+</div>
     `,
   },
   {
     slug: "cv-ats-passer-les-filtres-automatiques",
     titre: "CV ATS : comment passer les filtres automatiques des recruteurs",
-    description: "80% des CV sont éliminés par des logiciels avant d'être lus par un humain. Découvre comment optimiser ton CV pour passer les filtres ATS et décrocher des entretiens.",
+    description: "80% des CV sont éliminés automatiquement. Découvre les 5 règles pour que ton CV soit toujours lu par un humain.",
     date: "2025-05-02",
     categorie: "CV ATS",
-    tempsLecture: "5 min",
+    tempsLecture: "3 min",
     illustration: "🤖",
     couleur: "from-purple-500 to-purple-700",
     contenu: `
-<h2>Qu'est-ce qu'un logiciel ATS ?</h2>
-<p>Un ATS (Applicant Tracking System) est un logiciel utilisé par les entreprises pour gérer et trier les candidatures automatiquement. Des entreprises comme Amazon, L'Oréal, BNP Paribas, et même des PME utilisent ces outils.</p>
-<p>Concrètement : quand tu envoies ton CV, un robot le lit avant tout humain. S'il ne trouve pas les bons mots-clés, ton CV est rejeté automatiquement — sans que personne ne l'ait jamais lu.</p>
+<div style="background:#faf5ff;border-left:4px solid #7c3aed;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#6d28d9;margin:0 0 4px 0">🤖 C'est quoi un ATS ?</p>
+  <p style="color:#5b21b6;margin:0;font-size:15px">Un logiciel qui trie les CV <strong>avant</strong> qu'un humain les lise. Si ton CV ne passe pas, personne ne le verra jamais.</p>
+</div>
 
-<h2>Les 5 règles pour un CV compatible ATS</h2>
+<h2>Les 5 règles d'un CV compatible ATS</h2>
 
-<h3>1. Utiliser les mots-clés exacts de l'offre</h3>
-<p>Si l'offre dit "gestion de projet Agile", ton CV doit contenir "Agile", pas juste "méthodes de travail modernes". Les ATS cherchent des correspondances exactes.</p>
-
-<h3>2. Éviter les mises en page complexes</h3>
-<p>Les ATS ne savent pas toujours lire les colonnes, les tableaux, les zones de texte ou les en-têtes/pieds de page. Garde une structure simple et linéaire.</p>
-
-<h3>3. Utiliser des intitulés de section standards</h3>
-<p>Écris "Expérience professionnelle" et non "Mon parcours". Les ATS reconnaissent les termes standard : Expérience, Compétences, Formation, Profil.</p>
-
-<h3>4. Envoyer en PDF ou Word selon la demande</h3>
-<p>La plupart des ATS modernes lisent bien le PDF. Si l'offre ne précise pas, le PDF est préférable car il préserve la mise en forme.</p>
-
-<h3>5. Ne pas mettre d'informations importantes dans des images</h3>
-<p>Les ATS ne lisent pas les images. Ton nom, tes coordonnées et tes compétences doivent être en texte brut, pas dans un fichier image intégré.</p>
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["1", "#7c3aed", "Utilise les mots-clés exacts de l'offre", "Si l'offre dit \"Agile\", ton CV doit dire \"Agile\" — pas \"méthodes modernes\"."],
+    ["2", "#2563eb", "Structure simple et linéaire", "Pas de colonnes complexes, pas de tableaux — les ATS ne savent pas les lire."],
+    ["3", "#059669", "Titres de sections standards", "Écris \"Expérience professionnelle\" et non \"Mon parcours\"."],
+    ["4", "#d97706", "Envoie en PDF", "Préserve la mise en page et est bien lu par la plupart des ATS modernes."],
+    ["5", "#dc2626", "Texte brut pour les infos clés", "Ton nom et tes coordonnées ne doivent jamais être dans une image."],
+  ].map(([num, color, title, desc]) => `
+  <div style="display:flex;gap:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:16px">
+    <div style="width:32px;height:32px;background:${color};color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0">${num}</div>
+    <div>
+      <p style="font-weight:700;color:#111827;margin:0 0 4px 0;font-size:15px">${title}</p>
+      <p style="color:#6b7280;margin:0;font-size:13px">${desc}</p>
+    </div>
+  </div>`).join("")}
+</div>
 
 <h2>Comment trouver les bons mots-clés ?</h2>
-<p>La méthode simple :</p>
-<ol>
-  <li>Relis l'offre d'emploi mot par mot</li>
-  <li>Surligne les compétences, qualifications et outils mentionnés</li>
-  <li>Intègre ces termes dans ton CV, naturellement</li>
-</ol>
-<p>Avec CVAdapt, cette étape est automatique : colle l'offre d'emploi, et l'IA identifie et intègre les bons mots-clés directement dans ton CV.</p>
 
-<h2>Les secteurs qui utilisent le plus les ATS</h2>
-<p>Les ATS sont particulièrement répandus dans :</p>
-<ul>
-  <li>La finance et la banque</li>
-  <li>Le conseil et l'audit</li>
-  <li>Les grandes entreprises du CAC 40</li>
-  <li>Les cabinets de recrutement</li>
-  <li>La tech et les startups en croissance</li>
-</ul>
-<p>Mais aujourd'hui, même des PME utilisent des outils de tri automatique via des plateformes comme Welcome to the Jungle ou LinkedIn.</p>
+<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:20px 0">
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+    <span style="font-size:24px">📋</span>
+    <span style="font-weight:700;color:#111827">Méthode manuelle</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    ${["Lis l'offre d'emploi attentivement", "Surligne les compétences et qualifications mentionnées", "Intègre ces termes naturellement dans ton CV"].map((step, i) => `
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="width:22px;height:22px;background:#7c3aed;color:#fff;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i + 1}</span>
+      <span style="font-size:14px;color:#374151">${step}</span>
+    </div>`).join("")}
+  </div>
+</div>
 
-<h2>Conclusion</h2>
-<p>Optimiser ton CV pour les ATS n'est pas compliqué, mais demande de la rigueur. L'essentiel : coller les mots-clés de l'offre, garder une structure claire, et éviter les fioritures graphiques. CVAdapt fait tout ça automatiquement en analysant l'offre d'emploi que tu colles.</p>
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Méthode rapide — CVAdapt</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">Colle l'offre dans CVAdapt → l'IA identifie et intègre automatiquement tous les mots-clés en 30 secondes.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Générer mon CV ATS-ready →</a>
+</div>
     `,
   },
   {
     slug: "cv-reconversion-professionnelle",
     titre: "Reconversion professionnelle : comment faire un CV convaincant",
-    description: "Tu changes de secteur ? Découvre comment valoriser tes compétences transférables et construire un CV percutant pour ta reconversion professionnelle.",
+    description: "Tu changes de secteur ? Voici comment valoriser tes compétences transférables et construire un CV percutant pour ta reconversion.",
     date: "2025-05-03",
     categorie: "Reconversion",
-    tempsLecture: "7 min",
+    tempsLecture: "4 min",
     illustration: "🔄",
     couleur: "from-green-500 to-green-700",
     contenu: `
-<h2>La reconversion : un défi CV unique</h2>
-<p>Changer de secteur, c'est souvent se retrouver face à un paradoxe : tu as de l'expérience, mais pas dans le bon domaine. Comment convaincre un recruteur que tu es le bon candidat, même sans expérience directe ?</p>
-<p>La clé : les <strong>compétences transférables</strong>. Ces compétences que tu as développées dans un domaine et qui sont utiles dans un autre.</p>
+<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">💡 Le bon angle</p>
+  <p style="color:#166534;margin:0;font-size:15px">Tu n'as pas "pas d'expérience dans ce domaine". Tu as des <strong>compétences transférables</strong> que les autres candidats n'ont pas.</p>
+</div>
 
-<h2>Identifier tes compétences transférables</h2>
-<p>Avant d'écrire ton CV, fais la liste de tout ce que tu sais faire, indépendamment de ton secteur :</p>
-<ul>
-  <li><strong>Compétences relationnelles</strong> : communication, négociation, gestion d'équipe, service client</li>
-  <li><strong>Compétences organisationnelles</strong> : gestion de projet, planification, priorisation</li>
-  <li><strong>Compétences analytiques</strong> : analyse de données, résolution de problèmes, reporting</li>
-  <li><strong>Compétences techniques</strong> : maîtrise d'outils (Excel, CRM, logiciels métier)</li>
-</ul>
-<p>Un commercial qui se reconvertit dans le marketing apporte ses compétences en négociation et compréhension client. Un enseignant qui se reconvertit en formation professionnelle apporte sa pédagogie et sa gestion de groupe.</p>
+<h2>Tes compétences transférables par catégorie</h2>
 
-<h2>Structurer son CV de reconversion</h2>
-<p>Pour une reconversion, <strong>le CV fonctionnel</strong> est souvent plus efficace que le CV chronologique classique :</p>
-<ul>
-  <li><strong>Profil</strong> (crucial) : explique ta reconversion en 3-4 phrases positives. Mets en avant ta motivation et tes compétences transférables</li>
-  <li><strong>Compétences</strong> : place-les avant les expériences pour montrer ce que tu apportes</li>
-  <li><strong>Expériences</strong> : reformule-les pour mettre en avant ce qui est pertinent pour le nouveau poste</li>
-  <li><strong>Formation</strong> : inclus les formations liées à ta reconversion (MOOCs, certifications, bootcamps)</li>
-</ul>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0">
+  ${[
+    ["🤝", "Relationnelles", "Communication, négociation, service client, management"],
+    ["📋", "Organisationnelles", "Gestion de projet, planification, priorisation"],
+    ["📊", "Analytiques", "Analyse de données, résolution de problèmes, reporting"],
+    ["💻", "Techniques", "Outils numériques, logiciels métier, CRM, Excel"],
+  ].map(([emoji, cat, skills]) => `
+  <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px">
+    <p style="font-size:20px;margin:0 0 6px 0">${emoji}</p>
+    <p style="font-weight:700;color:#111827;margin:0 0 4px 0;font-size:13px">${cat}</p>
+    <p style="color:#6b7280;font-size:12px;margin:0;line-height:1.5">${skills}</p>
+  </div>`).join("")}
+</div>
 
-<h2>Le profil : ta meilleure arme</h2>
-<p>Dans un CV de reconversion, le profil est essentiel. Il doit répondre à la question implicite du recruteur : "Pourquoi ce candidat alors qu'il vient d'un autre secteur ?"</p>
-<p>Exemple pour un commercial qui se reconvertit en chef de projet digital :</p>
-<blockquote style="border-left: 3px solid #2563eb; padding-left: 16px; color: #374151; font-style: italic;">
-"Commercial B2B pendant 5 ans, j'ai développé une forte capacité à coordonner des projets complexes et à travailler avec des équipes pluridisciplinaires. Passionné par le digital, j'ai suivi une formation en gestion de projet (certification PMP) et souhaite mettre mes compétences en gestion de la relation client et en organisation au service d'une équipe produit."
-</blockquote>
+<h2>Structure recommandée pour un CV de reconversion</h2>
 
-<h2>Les formations à valoriser</h2>
-<p>Si tu as suivi des formations pour ta reconversion, mets-les en avant :</p>
-<ul>
-  <li>Certifications professionnelles (PMP, RNCP, etc.)</li>
-  <li>Bootcamps (coding, marketing digital, design UX...)</li>
-  <li>MOOCs reconnus (Coursera, OpenClassrooms, LinkedIn Learning)</li>
-  <li>Bénévolat ou projets personnels dans le nouveau domaine</li>
-</ul>
+<div style="display:grid;gap:8px;margin:20px 0">
+  ${[
+    ["🎯", "1. Profil en premier", "Explique ta reconversion en 3-4 phrases positives. C'est ta meilleure arme.", "#eff6ff", "#2563eb"],
+    ["🛠", "2. Compétences avant les expériences", "Montre ce que tu apportes avant de montrer d'où tu viens.", "#f0fdf4", "#16a34a"],
+    ["💼", "3. Reformule tes expériences", "Mets en avant ce qui est pertinent pour le nouveau poste.", "#faf5ff", "#7c3aed"],
+    ["🎓", "4. Formations de reconversion", "Certifications, bootcamps, MOOCs — montre que tu te formes activement.", "#fff7ed", "#ea580c"],
+  ].map(([emoji, title, desc, bg, color]) => `
+  <div style="display:flex;gap:14px;background:${bg};border-radius:10px;padding:14px 16px">
+    <span style="font-size:22px;flex-shrink:0">${emoji}</span>
+    <div>
+      <p style="font-weight:700;color:#111827;margin:0 0 3px 0;font-size:14px">${title}</p>
+      <p style="color:#374151;margin:0;font-size:13px">${desc}</p>
+    </div>
+  </div>`).join("")}
+</div>
 
-<h2>Conclusion</h2>
-<p>Une reconversion réussie passe par un CV qui raconte une histoire cohérente. Utilise CVAdapt pour générer un CV adapté à l'offre visée : l'IA mettra automatiquement en avant ce qui est pertinent pour le poste, même si tu viens d'un autre secteur.</p>
+<h2>Exemple de profil efficace</h2>
+<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:20px 0;font-style:italic;color:#374151;font-size:14px;line-height:1.8">
+  "Commercial B2B pendant 5 ans, j'ai développé une forte capacité à coordonner des projets complexes et à travailler avec des équipes pluridisciplinaires. Passionné par le digital, j'ai suivi une formation en gestion de projet (certification PMP) et souhaite mettre mes compétences au service d'une équipe produit."
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#16a34a;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV de reconversion →</a>
+</div>
     `,
   },
   {
     slug: "lettre-motivation-efficace-2025",
     titre: "Lettre de motivation : comment en écrire une qui soit vraiment lue",
-    description: "La lettre de motivation est-elle encore utile en 2025 ? Oui — mais seulement si elle est bien écrite. Voici la méthode pour rédiger une lettre percutante en moins de 30 minutes.",
+    description: "La méthode en 3 paragraphes pour rédiger une lettre percutante — et les 5 erreurs qui font que la tienne finit à la corbeille.",
     date: "2025-05-04",
     categorie: "Lettre de motivation",
-    tempsLecture: "5 min",
+    tempsLecture: "3 min",
     illustration: "✉️",
     couleur: "from-orange-500 to-orange-700",
     contenu: `
-<h2>La lettre de motivation est-elle encore utile ?</h2>
-<p>Beaucoup de candidats bâclent leur lettre de motivation en se disant que les recruteurs ne la lisent pas. C'est une erreur. Selon une étude de l'APEC, <strong>68% des recruteurs lisent la lettre de motivation</strong> quand le CV les intéresse.</p>
-<p>La lettre ne remplace pas le CV — elle le complète. Elle répond à une question que le CV ne peut pas : <em>"Pourquoi toi, pourquoi cette entreprise, pourquoi maintenant ?"</em></p>
+<div style="background:#fff7ed;border-left:4px solid #ea580c;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#c2410c;margin:0 0 4px 0">📊 Savoir-faire</p>
+  <p style="color:#9a3412;margin:0;font-size:15px"><strong>68% des recruteurs</strong> lisent la lettre quand le CV les intéresse. Elle peut faire toute la différence.</p>
+</div>
 
 <h2>La structure en 3 paragraphes</h2>
-<p>Une lettre de motivation efficace tient en une page et suit une structure simple :</p>
 
-<h3>Paragraphe 1 : L'accroche (pourquoi ce poste)</h3>
-<p>Ne commence jamais par "Je me permets de vous contacter..." ou "Suite à votre annonce...". Ces formules sont vues des milliers de fois.</p>
-<p>À la place, montre que tu connais l'entreprise et explique pourquoi CE poste t'intéresse :</p>
-<p><em>"Votre approche centrée sur l'expérience client m'a convaincu de postuler au poste de [titre]. Après 3 ans en tant que [ton expérience], je cherche à [objectif précis]."</em></p>
+<div style="display:grid;gap:12px;margin:20px 0">
+  ${[
+    ["1", "#ea580c", "L'accroche — Pourquoi CE poste", "Montre que tu connais l'entreprise. Ne commence jamais par \"Je me permets de vous contacter...\""],
+    ["2", "#2563eb", "Ta valeur — Ce que tu apportes", "2-3 réalisations concrètes avec des chiffres. Utilise les mots-clés de l'offre."],
+    ["3", "#16a34a", "La conclusion — L'invitation", "Formule de politesse + invitation à un entretien. Sois direct et confiant."],
+  ].map(([num, color, title, desc]) => `
+  <div style="display:flex;gap:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:16px">
+    <div style="width:32px;height:32px;background:${color};color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0">${num}</div>
+    <div>
+      <p style="font-weight:700;color:#111827;margin:0 0 4px 0;font-size:15px">${title}</p>
+      <p style="color:#6b7280;margin:0;font-size:13px">${desc}</p>
+    </div>
+  </div>`).join("")}
+</div>
 
-<h3>Paragraphe 2 : Ta valeur ajoutée</h3>
-<p>Ne répète pas ton CV. Choisis 2-3 réalisations concrètes et explique comment elles t'ont préparé à ce poste. Utilise les mots-clés de l'offre.</p>
+<h2>Les 5 erreurs qui tuent ta lettre</h2>
 
-<h3>Paragraphe 3 : La conclusion</h3>
-<p>Formule de politesse professionnelle et invitation à un entretien. Sois direct : "Je serais ravi d'échanger avec vous lors d'un entretien."</p>
+<div style="display:grid;gap:8px;margin:20px 0">
+  ${[
+    "Commencer par \"Je\" (trop centré sur soi)",
+    "Répéter mot pour mot ce qui est dans le CV",
+    "Utiliser des formules vides : \"dynamique\", \"motivé\", \"sérieux\"",
+    "Dépasser une page",
+    "Envoyer la même lettre à toutes les entreprises",
+  ].map(err => `
+  <div style="display:flex;align-items:center;gap:12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 14px">
+    <span style="color:#ef4444;font-size:18px;flex-shrink:0">✗</span>
+    <span style="font-size:14px;color:#374151">${err}</span>
+  </div>`).join("")}
+</div>
 
-<h2>Les 5 erreurs à éviter absolument</h2>
-<ul>
-  <li>❌ Commencer par "Je" (trop centré sur soi)</li>
-  <li>❌ Répéter mot pour mot ce qui est dans le CV</li>
-  <li>❌ Utiliser des formules toutes faites ("dynamique", "motivé", "sérieux")</li>
-  <li>❌ Dépasser une page</li>
-  <li>❌ Ne pas personnaliser pour l'entreprise</li>
-</ul>
+<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ Génère ta lettre automatiquement</p>
+  <p style="color:#166534;margin:0;font-size:14px">CVAdapt génère une lettre de motivation adaptée à chaque offre en même temps que ton CV. Coche l'option avant de générer.</p>
+</div>
 
-<h2>La personnalisation : la clé du succès</h2>
-<p>La lettre générique envoyée à 50 entreprises ne fonctionne pas. Une lettre personnalisée, envoyée à 10 entreprises ciblées, est beaucoup plus efficace.</p>
-<p>Pour personnaliser : mentionne un projet récent de l'entreprise, une valeur de leur culture, ou une spécificité du poste qui t'attire vraiment.</p>
-
-<h2>Générer une lettre de motivation avec l'IA</h2>
-<p>CVAdapt peut générer une lettre de motivation adaptée à l'offre d'emploi en même temps que ton CV. Il suffit de cocher "Générer aussi une lettre de motivation" avant de lancer la génération.</p>
-<p>La lettre générée utilise les informations que tu as renseignées (expérience, compétences, formation) et les mots-clés de l'offre pour créer une lettre personnalisée et professionnelle.</p>
-
-<h2>Conclusion</h2>
-<p>Une bonne lettre de motivation prend du temps — mais elle peut faire toute la différence entre un CV ignoré et un entretien décroché. Avec CVAdapt, tu peux générer une lettre adaptée à chaque offre en quelques secondes.</p>
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#ea580c;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Générer ma lettre de motivation →</a>
+</div>
     `,
   },
   {
     slug: "cv-sans-experience-premier-emploi",
     titre: "CV sans expérience : comment décrocher son premier emploi",
-    description: "Tu cherches ton premier emploi ou ta première alternance ? Voici comment construire un CV convaincant même sans expérience professionnelle.",
+    description: "Tu n'as pas encore d'expérience pro ? Voici quoi mettre dans ton CV et comment le rendre convaincant pour les recruteurs.",
     date: "2025-05-04",
     categorie: "Débutants",
-    tempsLecture: "6 min",
+    tempsLecture: "4 min",
     illustration: "🌱",
     couleur: "from-teal-500 to-teal-700",
     contenu: `
-<h2>Le mythe du "manque d'expérience"</h2>
-<p>Tout le monde a déjà entendu ce paradoxe frustrant : "On vous demande de l'expérience pour avoir de l'expérience." Mais voilà la vérité : <strong>tout le monde commence quelque part</strong>, et les recruteurs qui cherchent des profils juniors le savent.</p>
-<p>La vraie question n'est pas "ai-je de l'expérience ?" mais "comment valoriser ce que j'ai déjà fait ?"</p>
+<div style="background:#f0fdfa;border-left:4px solid #0d9488;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#0f766e;margin:0 0 4px 0">💡 La vérité</p>
+  <p style="color:#115e59;margin:0;font-size:15px">Tout le monde a commencé quelque part. Les recruteurs qui cherchent des juniors <strong>savent</strong> que tu n'as pas d'expérience. Ils cherchent du potentiel.</p>
+</div>
 
-<h2>Ce qui compte vraiment sur un CV junior</h2>
-<p>Sans expérience professionnelle, les recruteurs regardent :</p>
-<ul>
-  <li><strong>Ta formation</strong> : diplôme, spécialisation, mention</li>
-  <li><strong>Tes stages et alternances</strong> : même courts, ils comptent</li>
-  <li><strong>Tes projets personnels</strong> : site web, associatif, artistique, entrepreneurial</li>
-  <li><strong>Tes activités extra-scolaires</strong> : sport en compétition, bénévolat, associations</li>
-  <li><strong>Tes compétences techniques</strong> : langues, outils numériques, certifications</li>
-</ul>
+<h2>Ce que tu peux mettre dans ton CV</h2>
 
-<h2>Valoriser tes expériences non-professionnelles</h2>
-<p>Un job d'été, une mission bénévole, la gestion d'un club sportif — tout ça peut devenir une expérience pertinente sur un CV. La clé : formuler avec des verbes d'action et des résultats.</p>
-<p>Exemples :</p>
-<ul>
-  <li>Responsable communication d'une association étudiante → "Gestion des réseaux sociaux, croissance de la communauté de 0 à 800 abonnés en 6 mois"</li>
-  <li>Baby-sitting régulier → "Gestion autonome de 3 enfants, organisation d'activités éducatives, confiance accordée par 5 familles sur 2 ans"</li>
-  <li>Projet scolaire → "Développement d'une application mobile en équipe de 4, présenté devant un jury professionnel"</li>
-</ul>
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["🎓", "Ta formation", "Diplôme, spécialisation, mention, projets scolaires"],
+    ["🏢", "Stages et jobs étudiants", "Même 2 semaines, même McDonald's — ça compte !"],
+    ["🤝", "Bénévolat et associations", "Trésorier d'un BDE, animateur, responsable d'asso"],
+    ["💻", "Projets personnels", "Site web, app, blog, chaîne YouTube, création artistique"],
+    ["🏆", "Sports et activités", "Compétition, capitaine d'équipe, entraîneur junior"],
+  ].map(([emoji, title, desc]) => `
+  <div style="display:flex;gap:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px">
+    <span style="font-size:22px;flex-shrink:0">${emoji}</span>
+    <div>
+      <p style="font-weight:700;color:#111827;margin:0 0 3px 0;font-size:14px">${title}</p>
+      <p style="color:#6b7280;margin:0;font-size:13px">${desc}</p>
+    </div>
+  </div>`).join("")}
+</div>
 
-<h2>La structure recommandée pour un CV junior</h2>
-<ol>
-  <li><strong>Profil</strong> : qui tu es, ce que tu cherches, ta motivation</li>
-  <li><strong>Formation</strong> : place-la en premier si tu n'as pas d'expérience</li>
-  <li><strong>Expériences</strong> : stages, jobs étudiants, bénévolat, projets</li>
-  <li><strong>Compétences</strong> : langues, outils, soft skills</li>
-  <li><strong>Centres d'intérêt</strong> : si pertinents pour le poste</li>
-</ol>
+<h2>Transforme tes expériences en atouts</h2>
 
-<h2>Les compétences à mettre en avant en 2025</h2>
-<p>Les recruteurs cherchent souvent chez les juniors :</p>
-<ul>
-  <li>La capacité d'apprentissage rapide</li>
-  <li>La maîtrise des outils digitaux (Pack Office, Google Workspace, réseaux sociaux)</li>
-  <li>Les langues étrangères (l'anglais est indispensable dans beaucoup de secteurs)</li>
-  <li>La capacité à travailler en équipe</li>
-  <li>La curiosité et la proactivité</li>
-</ul>
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:13px">
+  <thead>
+    <tr style="background:#f3f4f6">
+      <th style="padding:10px 14px;text-align:left;color:#6b7280;border:1px solid #e5e7eb">Ce que tu as fait</th>
+      <th style="padding:10px 14px;text-align:left;color:#16a34a;border:1px solid #e5e7eb">✅ Comment le formuler</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${[
+      ["Responsable com d'une asso", "Gestion des réseaux sociaux, +800 abonnés en 6 mois"],
+      ["Baby-sitting régulier", "Gestion autonome de 3 enfants, confiance de 5 familles"],
+      ["Projet scolaire", "Développement d'une app en équipe, présenté à un jury pro"],
+      ["Job d'été en caisse", "Service de 150+ clients/jour, gestion des erreurs de caisse"],
+    ].map(([from, to]) => `
+    <tr>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#374151">${from}</td>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#111827;font-weight:500">${to}</td>
+    </tr>`).join("")}
+  </tbody>
+</table>
 
-<h2>Adapter son CV à chaque offre : encore plus important pour les juniors</h2>
-<p>Quand tu manques d'expérience, la personnalisation de ton CV est encore plus cruciale. Tu dois montrer que tu as vraiment lu l'offre et que tu comprends ce que l'entreprise cherche.</p>
-<p>CVAdapt est particulièrement utile pour les profils juniors : l'IA analyse l'offre d'emploi et met en avant les éléments de ton profil qui correspondent le mieux au poste visé.</p>
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ CVAdapt pour les profils juniors</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">CVAdapt met automatiquement en avant les éléments de ton profil qui correspondent le mieux au poste, même sans expérience directe.</p>
+</div>
 
-<h2>Conclusion</h2>
-<p>Un CV sans expérience peut quand même être un bon CV. L'essentiel : valoriser ce que tu as vraiment fait, adapter ton CV à chaque offre, et miser sur ta motivation et ton potentiel. Essaie CVAdapt gratuitement pour générer un CV adapté à ton profil.</p>
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#0d9488;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon premier CV →</a>
+</div>
     `,
   },
 ];
