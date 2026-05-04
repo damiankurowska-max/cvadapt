@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
 import { GlowCard } from "../components/ui/spotlight-card";
+import { TestimonialsColumn } from "../components/ui/testimonials-columns";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -610,101 +611,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Témoignages */}
-      <section className="py-24 px-6" style={{background: "linear-gradient(180deg, #f8faff 0%, #fff 100%)"}}>
-        <div className="max-w-5xl mx-auto">
-          {/* Note globale */}
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-3 bg-yellow-50 border border-yellow-200 rounded-2xl px-6 py-4 mb-8">
-              <div>
-                <p className="text-4xl font-extrabold text-gray-900">4,9</p>
-                <div className="flex gap-0.5 justify-center">
-                  {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
-                </div>
-              </div>
-              <div className="text-left border-l border-yellow-200 pl-4">
-                <p className="font-bold text-gray-900">Excellent</p>
-                <p className="text-sm text-gray-500">Basé sur 127+ avis</p>
-                <p className="text-xs text-green-600 font-semibold mt-1">✓ Avis vérifiés</p>
-              </div>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Ce qu'ils disent de CVAdapt</h2>
-            <p className="text-gray-500">Des candidats qui ont décroché des entretiens grâce à CVAdapt</p>
-          </div>
-
-          {/* Témoignage principal */}
-          <div className="bg-gray-900 rounded-2xl p-8 mb-6 relative overflow-hidden">
-            <div className="absolute top-6 right-8 text-8xl text-white opacity-5 font-serif">&ldquo;</div>
-            <div className="flex gap-1 mb-4">
-              {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400">★</span>)}
-              <span className="ml-2 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full font-semibold">✓ Vérifié</span>
-            </div>
-            <p className="text-white text-lg leading-relaxed mb-6 font-medium">
-              &ldquo;J'étais en reconversion et je ne savais pas comment valoriser mon profil. En 30 secondes, CVAdapt a généré un CV parfaitement adapté à l'offre, avec mes compétences mises en avant exactement comme il fallait. J'ai eu mon entretien 4 jours après.&rdquo;
-            </p>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">TR</div>
-              <div>
-                <p className="font-bold text-white">Thomas R.</p>
-                <p className="text-gray-400 text-sm">Commercial B2B → Chef de projet · Paris</p>
-              </div>
-              <div className="ml-auto text-right">
-                <p className="text-green-400 font-bold text-sm">✓ Entretien décroché</p>
-                <p className="text-gray-500 text-xs">4 jours après</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Grille témoignages */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {[
-              { name: "Sophie M.", role: "Chargée de communication · Lyon", avatar: "SM", gradient: "from-blue-400 to-blue-600", result: "3 entretiens en 1 semaine", text: "Avant je galérais à adapter mon CV, maintenant ça prend 30 secondes. Incroyable !" },
-              { name: "Karim B.", role: "Développeur web · Bordeaux", avatar: "KB", gradient: "from-indigo-400 to-indigo-600", result: "Rappelé par 2 entreprises", text: "Le CV avait exactement les mots-clés de l'offre. Rappelé par 2 boîtes la semaine suivante." },
-              { name: "Laura D.", role: "Assistante RH · Lille", avatar: "LD", gradient: "from-blue-500 to-indigo-700", result: "Recommande à ses candidats", text: "En tant que RH, je sais ce que les recruteurs cherchent. CVAdapt coche toutes les cases." },
-              { name: "Anaïs G.", role: "Responsable marketing · Paris", avatar: "AG", gradient: "from-cyan-400 to-blue-600", result: "Taux de réponse x3", text: "Depuis CVAdapt, chaque CV est vraiment adapté. Mon taux de réponse a explosé." },
-              { name: "Marc L.", role: "Technicien · Nantes", avatar: "ML", gradient: "from-blue-600 to-indigo-800", result: "Premier emploi trouvé", text: "Même sans être à l'aise avec l'ordi, c'est très simple. Mon CV est maintenant professionnel." },
-              { name: "Emma T.", role: "Étudiante master · Toulouse", avatar: "ET", gradient: "from-indigo-400 to-blue-500", result: "Stage déniché en 2 semaines", text: "Sans expérience pro, j'avais peur. CVAdapt a mis en avant mes projets universitaires parfaitement." },
-            ].map((t) => (
-              <div key={t.name} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between mb-4">
+      {/* Témoignages — colonnes animées */}
+      {(() => {
+        const allTestimonials = [
+          { name: "Thomas R.", role: "Commercial B2B → Chef de projet · Paris", image: "https://randomuser.me/api/portraits/men/32.jpg", result: "Entretien décroché en 4 jours", text: "J'étais en reconversion et je ne savais pas comment valoriser mon profil. En 30 secondes, CVAdapt a généré un CV parfaitement adapté. J'ai eu mon entretien 4 jours après." },
+          { name: "Sophie M.", role: "Chargée de communication · Lyon", image: "https://randomuser.me/api/portraits/women/44.jpg", result: "3 entretiens en 1 semaine", text: "Avant je galérais à adapter mon CV pour chaque offre, maintenant ça prend 30 secondes. Incroyable !" },
+          { name: "Karim B.", role: "Développeur web · Bordeaux", image: "https://randomuser.me/api/portraits/men/52.jpg", result: "Rappelé par 2 entreprises", text: "Le CV avait exactement les mots-clés de l'offre. Rappelé par 2 boîtes la semaine suivante." },
+          { name: "Laura D.", role: "Assistante RH · Lille", image: "https://randomuser.me/api/portraits/women/68.jpg", result: "Recommande à ses candidats", text: "En tant que RH, je sais ce que les recruteurs cherchent. CVAdapt coche toutes les cases à chaque fois." },
+          { name: "Anaïs G.", role: "Responsable marketing · Paris", image: "https://randomuser.me/api/portraits/women/26.jpg", result: "Taux de réponse x3", text: "Depuis CVAdapt, chaque CV est vraiment adapté à l'offre. Mon taux de réponse a complètement explosé." },
+          { name: "Marc L.", role: "Technicien · Nantes", image: "https://randomuser.me/api/portraits/men/77.jpg", result: "Premier emploi trouvé", text: "Même sans être très à l'aise avec l'informatique, c'est très simple. Mon CV est maintenant vraiment professionnel." },
+          { name: "Emma T.", role: "Étudiante master · Toulouse", image: "https://randomuser.me/api/portraits/women/90.jpg", result: "Stage déniché en 2 semaines", text: "Sans expérience pro j'avais peur. CVAdapt a mis en avant mes projets universitaires parfaitement." },
+          { name: "Julien F.", role: "Comptable · Marseille", image: "https://randomuser.me/api/portraits/men/61.jpg", result: "CDI signé en 3 semaines", text: "J'envoyais des dizaines de CV sans réponse. Avec CVAdapt, les recruteurs ont enfin commencé à me rappeler." },
+          { name: "Céline V.", role: "Infirmière → Admin RH · Rennes", image: "https://randomuser.me/api/portraits/women/55.jpg", result: "Reconversion réussie", text: "La reconversion était stressante mais CVAdapt a parfaitement reformulé mon parcours pour le nouveau secteur visé." },
+        ];
+        const col1 = allTestimonials.slice(0, 3);
+        const col2 = allTestimonials.slice(3, 6);
+        const col3 = allTestimonials.slice(6, 9);
+        return (
+          <section className="py-24 px-6 bg-white">
+            <div className="max-w-5xl mx-auto">
+              {/* En-tête */}
+              <div className="flex flex-col items-center text-center max-w-xl mx-auto mb-12">
+                <div className="inline-flex items-center gap-3 bg-yellow-50 border border-yellow-200 rounded-2xl px-6 py-3 mb-6">
                   <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}
+                    {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
                   </div>
-                  <span className="text-xs bg-green-50 text-green-600 border border-green-100 px-2 py-0.5 rounded-full font-semibold">✓ Vérifié</span>
-                </div>
-                <p className="text-gray-700 text-sm leading-relaxed mb-4">&ldquo;{t.text}&rdquo;</p>
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-50">
-                  <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${t.gradient} flex items-center justify-center text-white text-xs font-bold flex-shrink-0`}>
-                    {t.avatar}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900 text-sm">{t.name}</p>
-                    <p className="text-gray-400 text-xs truncate">{t.role}</p>
+                  <div className="text-left border-l border-yellow-200 pl-4">
+                    <p className="font-bold text-gray-900 text-sm">4,9 / 5 — Excellent</p>
+                    <p className="text-xs text-green-600 font-semibold">✓ 127+ avis vérifiés</p>
                   </div>
                 </div>
-                <div className="mt-3 bg-green-50 rounded-lg px-3 py-1.5">
-                  <p className="text-green-700 text-xs font-semibold">🎯 {t.result}</p>
-                </div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-3">Ce qu&apos;ils disent de CVAdapt</h2>
+                <p className="text-gray-500">Des candidats qui ont décroché des entretiens grâce à CVAdapt</p>
               </div>
-            ))}
-          </div>
 
-          {/* Stats */}
-          <div className="mt-12 grid grid-cols-3 gap-4">
-            {[
-              { num: "+68%", label: "taux de réponse moyen", icon: "📈" },
-              { num: "30s", label: "pour générer un CV", icon: "⚡" },
-              { num: "4,9★", label: "note sur 127 avis", icon: "⭐" },
-            ].map(s => (
-              <div key={s.num} className="bg-gray-900 rounded-2xl p-6 text-center text-white">
-                <p className="text-3xl mb-1">{s.icon}</p>
-                <p className="text-3xl font-extrabold mb-1">{s.num}</p>
-                <p className="text-gray-400 text-sm">{s.label}</p>
+              {/* Colonnes animées */}
+              <div className="flex justify-center gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)] max-h-[680px] overflow-hidden">
+                <TestimonialsColumn testimonials={col1} duration={18} />
+                <TestimonialsColumn testimonials={col2} className="hidden md:block" duration={22} />
+                <TestimonialsColumn testimonials={col3} className="hidden lg:block" duration={16} />
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
+              {/* Stats */}
+              <div className="mt-16 grid grid-cols-3 gap-4">
+                {[
+                  { num: "+68%", label: "taux de réponse moyen", icon: "📈" },
+                  { num: "30s", label: "pour générer un CV", icon: "⚡" },
+                  { num: "4,9★", label: "note sur 127 avis", icon: "⭐" },
+                ].map(s => (
+                  <div key={s.num} className="bg-gray-900 rounded-2xl p-6 text-center text-white">
+                    <p className="text-3xl mb-1">{s.icon}</p>
+                    <p className="text-3xl font-extrabold mb-1">{s.num}</p>
+                    <p className="text-gray-400 text-sm">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Tarifs */}
       <section className="py-24 px-6" style={{background: "linear-gradient(180deg, #f8faff 0%, #fff 100%)"}}>
