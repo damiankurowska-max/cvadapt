@@ -10,13 +10,13 @@ export async function POST(request) {
   const prices = {
     essentiel: {
       name: "CVAdapt Essentiel",
-      amount: 499, // 4.99€ en centimes
-      description: "10 CV par mois",
+      amount: 799, // 7.99€ en centimes
+      description: "10 CV par mois + Conseils personnalisés",
     },
     pro: {
       name: "CVAdapt Pro",
-      amount: 999, // 9.99€ en centimes
-      description: "CV illimités",
+      amount: 1499, // 14.99€ en centimes
+      description: "CV illimités + Conseils Pro + Support prioritaire",
     },
   };
 

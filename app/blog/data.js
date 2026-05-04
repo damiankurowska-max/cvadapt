@@ -6,6 +6,8 @@ export const articles = [
     date: "2025-05-01",
     categorie: "Conseils CV",
     tempsLecture: "6 min",
+    illustration: "📄",
+    couleur: "from-blue-500 to-blue-700",
     contenu: `
 <h2>Pourquoi ton CV est peut-être ignoré</h2>
 <p>En moyenne, un recruteur passe <strong>7 secondes</strong> sur un CV avant de décider de le lire ou de le jeter. En 2025, avec des centaines de candidatures pour chaque poste, ton CV doit être impeccable dès le premier coup d'œil.</p>
@@ -60,6 +62,8 @@ export const articles = [
     date: "2025-05-02",
     categorie: "CV ATS",
     tempsLecture: "5 min",
+    illustration: "🤖",
+    couleur: "from-purple-500 to-purple-700",
     contenu: `
 <h2>Qu'est-ce qu'un logiciel ATS ?</h2>
 <p>Un ATS (Applicant Tracking System) est un logiciel utilisé par les entreprises pour gérer et trier les candidatures automatiquement. Des entreprises comme Amazon, L'Oréal, BNP Paribas, et même des PME utilisent ces outils.</p>
@@ -113,6 +117,8 @@ export const articles = [
     date: "2025-05-03",
     categorie: "Reconversion",
     tempsLecture: "7 min",
+    illustration: "🔄",
+    couleur: "from-green-500 to-green-700",
     contenu: `
 <h2>La reconversion : un défi CV unique</h2>
 <p>Changer de secteur, c'est souvent se retrouver face à un paradoxe : tu as de l'expérience, mais pas dans le bon domaine. Comment convaincre un recruteur que tu es le bon candidat, même sans expérience directe ?</p>
@@ -164,6 +170,8 @@ export const articles = [
     date: "2025-05-04",
     categorie: "Lettre de motivation",
     tempsLecture: "5 min",
+    illustration: "✉️",
+    couleur: "from-orange-500 to-orange-700",
     contenu: `
 <h2>La lettre de motivation est-elle encore utile ?</h2>
 <p>Beaucoup de candidats bâclent leur lettre de motivation en se disant que les recruteurs ne la lisent pas. C'est une erreur. Selon une étude de l'APEC, <strong>68% des recruteurs lisent la lettre de motivation</strong> quand le CV les intéresse.</p>
@@ -211,6 +219,8 @@ export const articles = [
     date: "2025-05-04",
     categorie: "Débutants",
     tempsLecture: "6 min",
+    illustration: "🌱",
+    couleur: "from-teal-500 to-teal-700",
     contenu: `
 <h2>Le mythe du "manque d'expérience"</h2>
 <p>Tout le monde a déjà entendu ce paradoxe frustrant : "On vous demande de l'expérience pour avoir de l'expérience." Mais voilà la vérité : <strong>tout le monde commence quelque part</strong>, et les recruteurs qui cherchent des profils juniors le savent.</p>

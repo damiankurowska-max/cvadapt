@@ -257,7 +257,23 @@ export default function Generate() {
         {!cv ? (
           <>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Génère ton CV adapté</h1>
-            <p className="text-gray-600 mb-8">Remplis le formulaire et reçois un CV optimisé en 30 secondes.</p>
+            <p className="text-gray-600 mb-6">Remplis le formulaire et reçois un CV optimisé en 30 secondes.</p>
+
+            {/* Conseils rapides */}
+            <div className="grid grid-cols-3 gap-3 mb-8">
+              {[
+                { emoji: "🔄", label: "Reconversion ?", href: "/blog/cv-reconversion-professionnelle" },
+                { emoji: "✉️", label: "Besoin d'une LM ?", href: "/blog/lettre-motivation-efficace-2025" },
+                { emoji: "🌱", label: "Sans expérience ?", href: "/blog/cv-sans-experience-premier-emploi" },
+              ].map((c) => (
+                <a key={c.href} href={c.href} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-xl px-3 py-2.5 text-sm text-blue-700 font-medium hover:bg-blue-100 transition-colors">
+                  <span>{c.emoji}</span>
+                  <span>{c.label}</span>
+                  <span className="ml-auto text-blue-400 text-xs">→</span>
+                </a>
+              ))}
+            </div>
 
             {!isPro && cvCount >= CV_LIMIT && (
               <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-6 flex items-center justify-between">
