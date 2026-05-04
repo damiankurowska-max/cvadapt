@@ -1,8 +1,10 @@
 import Stripe from "stripe";
+import { auth } from "@clerk/nextjs/server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request) {
+  const { userId } = await auth();
   const { plan } = await request.json();
 
   const prices = {
@@ -41,6 +43,8 @@ export async function POST(request) {
         },
       ],
       mode: "subscription",
+      client_reference_id: userId,
+      metadata: { plan, userId },
       success_url: `${process.env.NEXT_PUBLIC_URL || "http://localhost:3000"}/success`,
       cancel_url: `${process.env.NEXT_PUBLIC_URL || "http://localhost:3000"}/tarifs`,
     });

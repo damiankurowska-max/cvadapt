@@ -23,20 +23,35 @@ export default function Generate() {
   const [loadingLM, setLoadingLM] = useState(false);
   const [error, setError] = useState("");
   const [cvCount, setCvCount] = useState(0);
+  const [cvMonthCount, setCvMonthCount] = useState(0);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const CV_LIMIT = 3;
+
+  const isPro = user?.unsafeMetadata?.isPro || false;
+  const plan = user?.unsafeMetadata?.plan || "free";
 
   useEffect(() => {
     if (user) {
       const count = parseInt(user.unsafeMetadata?.cvCount || 0);
       setCvCount(count);
+
+      if (isPro && plan === "essentiel") {
+        const currentMonthKey = new Date().toISOString().slice(0, 7); // "YYYY-MM"
+        const storedKey = user.unsafeMetadata?.cvMonthKey;
+        const storedMonthCount = parseInt(user.unsafeMetadata?.cvMonthCount || 0);
+        if (storedKey === currentMonthKey) {
+          setCvMonthCount(storedMonthCount);
+        } else {
+          setCvMonthCount(0);
+        }
+      }
     }
     try {
       const saved = JSON.parse(localStorage.getItem("cvadapt_history") || "[]");
       setHistory(saved);
     } catch {}
-  }, [user]);
+  }, [user, isPro, plan]);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -44,10 +59,21 @@ export default function Generate() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (cvCount >= CV_LIMIT) {
-      setError("Tu as atteint la limite de 3 CV gratuits. Passe à un abonnement pour continuer.");
-      return;
+
+    // Vérification des limites selon le plan
+    if (!isPro) {
+      if (cvCount >= CV_LIMIT) {
+        setError("Tu as atteint la limite de 3 CV gratuits. Passe à un abonnement pour continuer.");
+        return;
+      }
+    } else if (plan === "essentiel") {
+      if (cvMonthCount >= 10) {
+        setError("Tu as atteint la limite de 10 CV ce mois-ci. Passe au plan Pro pour des CV illimités.");
+        return;
+      }
     }
+    // plan === "pro" : pas de limite
+
     setLoading(true);
     setError("");
     setCv("");
@@ -71,10 +97,26 @@ export default function Generate() {
       setCv(cvData.cv);
       setActiveTab("cv");
 
-      // Mise à jour du compteur
-      const newCount = cvCount + 1;
-      setCvCount(newCount);
-      if (user) await user.update({ unsafeMetadata: { cvCount: newCount } });
+      // Mise à jour du compteur selon le plan
+      if (!isPro) {
+        const newCount = cvCount + 1;
+        setCvCount(newCount);
+        if (user) await user.update({ unsafeMetadata: { ...user.unsafeMetadata, cvCount: newCount } });
+      } else if (plan === "essentiel") {
+        const currentMonthKey = new Date().toISOString().slice(0, 7);
+        const newMonthCount = cvMonthCount + 1;
+        setCvMonthCount(newMonthCount);
+        if (user) {
+          await user.update({
+            unsafeMetadata: {
+              ...user.unsafeMetadata,
+              cvMonthCount: newMonthCount,
+              cvMonthKey: currentMonthKey,
+            },
+          });
+        }
+      }
+      // plan === "pro" : pas de mise à jour de compteur
 
       // Génération de la LM en parallèle
       let lmContent = "";
@@ -149,16 +191,30 @@ export default function Generate() {
               <span className="bg-blue-100 text-blue-600 text-xs px-1.5 py-0.5 rounded-full font-bold">{history.length}</span>
             )}
           </button>
-          <div className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-lg">
-            <span className="text-sm text-gray-600">CV gratuits :</span>
-            <span className={`text-sm font-bold ${cvCount >= CV_LIMIT ? "text-red-500" : "text-blue-600"}`}>
-              {CV_LIMIT - cvCount} / {CV_LIMIT}
-            </span>
-          </div>
-          {cvCount >= CV_LIMIT && (
-            <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
-              Passer Pro
-            </Link>
+          {isPro ? (
+            <div className="flex items-center gap-2 bg-green-100 px-3 py-1.5 rounded-lg">
+              <span className="text-sm font-bold text-green-700">PRO ✨</span>
+              {plan === "essentiel" && (
+                <span className="text-xs text-green-600">{10 - cvMonthCount} CV restants ce mois</span>
+              )}
+              {plan === "pro" && (
+                <span className="text-xs text-green-600">Illimité</span>
+              )}
+            </div>
+          ) : (
+            <>
+              <div className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-lg">
+                <span className="text-sm text-gray-600">CV gratuits :</span>
+                <span className={`text-sm font-bold ${cvCount >= CV_LIMIT ? "text-red-500" : "text-blue-600"}`}>
+                  {CV_LIMIT - cvCount} / {CV_LIMIT}
+                </span>
+              </div>
+              {cvCount >= CV_LIMIT && (
+                <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
+                  Passer Pro
+                </Link>
+              )}
+            </>
           )}
           <UserButton />
         </div>
@@ -203,11 +259,19 @@ export default function Generate() {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Génère ton CV adapté</h1>
             <p className="text-gray-600 mb-8">Remplis le formulaire et reçois un CV optimisé en 30 secondes.</p>
 
-            {cvCount >= CV_LIMIT && (
+            {!isPro && cvCount >= CV_LIMIT && (
               <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-6 flex items-center justify-between">
                 <p className="text-amber-800 text-sm font-medium">Tu as utilisé tes 3 CV gratuits.</p>
                 <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
                   Voir les abonnements →
+                </Link>
+              </div>
+            )}
+            {isPro && plan === "essentiel" && cvMonthCount >= 10 && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-6 flex items-center justify-between">
+                <p className="text-amber-800 text-sm font-medium">Tu as atteint les 10 CV de ce mois (plan Essentiel).</p>
+                <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
+                  Passer au plan Pro →
                 </Link>
               </div>
             )}
@@ -275,7 +339,11 @@ export default function Generate() {
 
               {error && <p className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3">{error}</p>}
 
-              <button type="submit" disabled={loading || cvCount >= CV_LIMIT}
+              <button type="submit" disabled={
+                loading ||
+                (!isPro && cvCount >= CV_LIMIT) ||
+                (isPro && plan === "essentiel" && cvMonthCount >= 10)
+              }
                 className="w-full bg-blue-600 text-white font-semibold py-4 rounded-xl hover:bg-blue-700 disabled:opacity-50 text-lg transition-colors">
                 {loading
                   ? (withLM ? "Génération CV + lettre... ⏳" : "Génération en cours... ⏳")
