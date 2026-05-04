@@ -27,12 +27,18 @@ INFORMATIONS DU CANDIDAT :
 - Compétences : ${competences}
 - Formation : ${formation}
 
-Génère un CV complet, structuré et optimisé pour cette offre. Utilise les mots-clés de l'offre. Format : HTML propre avec des sections claires (Profil, Expérience, Compétences, Formation). Style professionnel français.`,
+Génère un CV complet, structuré et optimisé pour cette offre. Utilise les mots-clés de l'offre.
+
+IMPORTANT : Retourne UNIQUEMENT le HTML brut, sans balises markdown, sans \`\`\`html, sans aucun texte avant ou après. Commence directement par <div et termine par </div>.
+
+Le HTML doit inclure des styles CSS inline modernes et professionnels. Structure : en-tête avec nom et contact, puis sections Profil, Expérience, Compétences, Formation. Police Arial, couleurs sobres bleu marine et gris, mise en page propre.`,
         },
       ],
     });
 
-    const cv = message.content[0].text;
+    let cv = message.content[0].text;
+    // Supprimer les balises markdown si Claude les ajoute quand même
+    cv = cv.replace(/^```html\s*/i, "").replace(/^```\s*/i, "").replace(/\s*```$/i, "").trim();
     return Response.json({ cv });
   } catch (error) {
     console.error(error);
