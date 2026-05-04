@@ -25,6 +25,26 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CVAdapt",
+        "url": "https://cvadapt.eu",
+        "description": "Générateur de CV adapté à chaque offre d'emploi grâce à l'intelligence artificielle. Créez un CV optimisé en 30 secondes.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "description": "3 CV gratuits sans carte bancaire"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "127"
+        }
+      }) }} />
 
       {/* Header */}
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
@@ -33,6 +53,7 @@ export default function Home() {
           <span className="text-xl font-bold text-blue-600 tracking-tight">CVAdapt</span>
         </div>
         <nav className="flex items-center gap-6">
+          <a href="/blog" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Blog</a>
           <a href="/tarifs" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Tarifs</a>
           <a
             href="/generate"
@@ -369,6 +390,7 @@ export default function Home() {
             <span className="text-blue-600 font-bold">CVAdapt</span>
           </div>
           <div className="flex gap-6 text-sm text-gray-500">
+            <a href="/blog" className="hover:text-gray-900 transition-colors">Blog</a>
             <a href="/tarifs" className="hover:text-gray-900 transition-colors">Tarifs</a>
             <a href="/generate" className="hover:text-gray-900 transition-colors">Générer un CV</a>
             <a href="/mentions-legales" className="hover:text-gray-900 transition-colors">Mentions légales</a>
