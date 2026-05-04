@@ -90,7 +90,7 @@ export default function Generate() {
               Passer Pro
             </Link>
           )}
-          <UserButton afterSignOutUrl="/" />
+          <UserButton />
         </div>
       </header>
 
@@ -179,7 +179,7 @@ export default function Generate() {
                 <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 <span className="ml-3 text-sm text-gray-500 font-medium">Aperçu du CV</span>
               </div>
-              <div className="p-10 prose prose-sm max-w-none"
+              <div className="p-10"
                 dangerouslySetInnerHTML={{ __html: cv }} />
             </div>
           </>
