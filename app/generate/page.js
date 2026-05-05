@@ -21,6 +21,8 @@ export default function Generate() {
   const [activeTab, setActiveTab] = useState("cv");
   const [loading, setLoading] = useState(false);
   const [loadingLM, setLoadingLM] = useState(false);
+  const [atsData, setAtsData] = useState(null);
+  const [loadingATS, setLoadingATS] = useState(false);
   const [error, setError] = useState("");
   const [cvCount, setCvCount] = useState(0);
   const [cvMonthCount, setCvMonthCount] = useState(0);
@@ -96,6 +98,18 @@ export default function Generate() {
 
       setCv(cvData.cv);
       setActiveTab("cv");
+
+      // Lancement de l'analyse ATS en parallèle
+      setLoadingATS(true);
+      setAtsData(null);
+      fetch("/api/analyze-ats", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      }).then(r => r.json()).then(data => {
+        if (!data.error) setAtsData(data);
+        setLoadingATS(false);
+      }).catch(() => setLoadingATS(false));
 
       // Mise à jour du compteur selon le plan
       if (!isPro) {
@@ -381,7 +395,7 @@ export default function Generate() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <button onClick={() => { setCv(""); setLm(""); }}
+                <button onClick={() => { setCv(""); setLm(""); setAtsData(null); }}
                   className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 text-sm font-medium">
                   ← Nouveau
                 </button>
@@ -408,6 +422,10 @@ export default function Generate() {
                   ✉️ Lettre de motivation {loadingLM && "⏳"}
                 </button>
               )}
+              <button onClick={() => setActiveTab("ats")}
+                className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${activeTab === "ats" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
+                🎯 Score ATS {loadingATS && "⏳"} {atsData && !loadingATS && <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${atsData.score >= 75 ? "bg-green-100 text-green-700" : atsData.score >= 50 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}`}>{atsData.score}/100</span>}
+              </button>
             </div>
 
             {/* Aperçu */}
@@ -417,16 +435,114 @@ export default function Generate() {
                 <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                 <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 <span className="ml-3 text-sm text-gray-500 font-medium">
-                  {activeTab === "cv" ? "Aperçu du CV" : "Aperçu de la lettre de motivation"}
+                  {activeTab === "cv" ? "Aperçu du CV" : activeTab === "lm" ? "Aperçu de la lettre de motivation" : "Analyse de compatibilité ATS"}
                 </span>
               </div>
-              {activeTab === "lm" && loadingLM ? (
-                <div className="p-16 text-center text-gray-400">
-                  <div className="text-4xl mb-4">✉️</div>
-                  <p className="font-medium">Génération de la lettre en cours...</p>
-                </div>
+              {activeTab === "ats" ? (
+                loadingATS ? (
+                  <div className="p-16 text-center text-gray-400">
+                    <div className="text-4xl mb-4 animate-spin">⚙️</div>
+                    <p className="font-medium">Analyse ATS en cours...</p>
+                    <p className="text-sm mt-2">Comparaison avec l'offre d'emploi</p>
+                  </div>
+                ) : atsData ? (
+                  <div className="p-8">
+                    {/* Score principal */}
+                    <div className="flex items-center gap-8 mb-8 p-6 bg-gray-50 rounded-2xl">
+                      {/* Cercle score */}
+                      <div className="flex-shrink-0 relative w-28 h-28">
+                        <svg viewBox="0 0 100 100" className="w-28 h-28 -rotate-90">
+                          <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="10"/>
+                          <circle cx="50" cy="50" r="40" fill="none"
+                            stroke={atsData.score >= 75 ? "#22c55e" : atsData.score >= 50 ? "#f59e0b" : "#ef4444"}
+                            strokeWidth="10"
+                            strokeLinecap="round"
+                            strokeDasharray={`${2 * Math.PI * 40}`}
+                            strokeDashoffset={`${2 * Math.PI * 40 * (1 - atsData.score / 100)}`}
+                          />
+                        </svg>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                          <span className="text-2xl font-extrabold text-gray-900">{atsData.score}</span>
+                          <span className="text-xs text-gray-500">/100</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div className={`inline-block px-3 py-1 rounded-full text-sm font-bold mb-2 ${atsData.score >= 75 ? "bg-green-100 text-green-700" : atsData.score >= 50 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}`}>
+                          {atsData.niveau}
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">Score de compatibilité ATS</h3>
+                        <p className="text-gray-500 text-sm">Basé sur les mots-clés, l'expérience et les compétences</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      {/* Mots-clés trouvés */}
+                      <div className="bg-green-50 border border-green-100 rounded-2xl p-5">
+                        <h4 className="font-bold text-green-800 mb-3 flex items-center gap-2">
+                          <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                          Mots-clés présents ({atsData.keywords_found?.length})
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {atsData.keywords_found?.map((kw, i) => (
+                            <span key={i} className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full border border-green-200">{kw}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Mots-clés manquants */}
+                      <div className="bg-red-50 border border-red-100 rounded-2xl p-5">
+                        <h4 className="font-bold text-red-800 mb-3 flex items-center gap-2">
+                          <span className="w-6 h-6 bg-red-400 rounded-full flex items-center justify-center text-white text-xs">✗</span>
+                          Mots-clés manquants ({atsData.keywords_missing?.length})
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {atsData.keywords_missing?.map((kw, i) => (
+                            <span key={i} className="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full border border-red-200">{kw}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Points forts */}
+                    <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5 mb-6">
+                      <h4 className="font-bold text-blue-800 mb-3">💪 Points forts de ton profil</h4>
+                      <ul className="space-y-2">
+                        {atsData.strengths?.map((s, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-blue-700">
+                            <span className="mt-0.5 flex-shrink-0 text-blue-400">→</span>
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Recommandations */}
+                    <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5">
+                      <h4 className="font-bold text-amber-800 mb-3">🎯 Recommandations pour améliorer ton score</h4>
+                      <ul className="space-y-2">
+                        {atsData.recommendations?.map((r, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-amber-700">
+                            <span className="font-bold flex-shrink-0 text-amber-500">{i + 1}.</span>
+                            {r}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-16 text-center text-gray-400">
+                    <p>Analyse ATS non disponible</p>
+                  </div>
+                )
               ) : (
-                <div className="p-10" dangerouslySetInnerHTML={{ __html: activeTab === "cv" ? cv : lm }} />
+                activeTab === "lm" && loadingLM ? (
+                  <div className="p-16 text-center text-gray-400">
+                    <div className="text-4xl mb-4">✉️</div>
+                    <p className="font-medium">Génération de la lettre en cours...</p>
+                  </div>
+                ) : (
+                  <div className="p-10" dangerouslySetInnerHTML={{ __html: activeTab === "cv" ? cv : lm }} />
+                )
               )}
             </div>
           </>
