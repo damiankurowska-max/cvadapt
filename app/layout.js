@@ -6,6 +6,17 @@ export const metadata = {
   title: "CVAdapt - Ton CV adapté à chaque offre d'emploi",
   description: "Colle une offre d'emploi, entre tes infos — CVAdapt génère un CV optimisé et prêt à envoyer en 30 secondes. Gratuit pour commencer.",
   keywords: "CV, générateur CV, CV adapté, offre emploi, CV IA, recherche emploi France",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/logo-256.png", sizes: "256x256", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+  },
   openGraph: {
     title: "CVAdapt - Ton CV adapté à chaque offre d'emploi",
     description: "Génère un CV optimisé pour chaque offre d'emploi en 30 secondes grâce à l'IA.",
