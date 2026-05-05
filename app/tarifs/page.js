@@ -47,9 +47,9 @@ export default function Tarifs() {
           <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Tarifs</span>
         </div>
         <div className="text-center mb-4">
-          <h1 className="text-4xl font-bold text-gray-900">Simple et transparent</h1>
+          <h1 className="text-4xl font-bold text-gray-900">Des tarifs pensés pour les étudiants</h1>
         </div>
-        <p className="text-center text-gray-500 mb-3">Sans engagement · Annule quand tu veux · Paiement sécurisé</p>
+        <p className="text-center text-gray-500 mb-3">Sans engagement · Annule quand tu veux · 🎓 Remise étudiant disponible</p>
 
         {error && (
           <p className="text-red-500 text-sm mb-8 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-center max-w-md mx-auto">{error}</p>
@@ -89,20 +89,20 @@ export default function Tarifs() {
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full tracking-wide whitespace-nowrap">
               LE PLUS POPULAIRE
             </div>
-            <div className="text-4xl mb-4">⚡</div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-blue-400 mb-3">Essentiel</p>
+            <div className="text-4xl mb-4">🎓</div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-blue-400 mb-3">Étudiant</p>
             <div className="flex items-end gap-1 mb-1">
-              <span className="text-5xl font-extrabold text-white">7,99€</span>
+              <span className="text-5xl font-extrabold text-white">4,99€</span>
             </div>
             <p className="text-gray-400 text-sm mb-8">par mois</p>
             <ul className="space-y-3 mb-10 flex-1">
               {[
-                "10 CV par mois",
-                "4 templates visuels",
+                "15 CV par mois",
+                "Score ATS complet + recommandations",
+                "4 templates professionnels",
                 "Lettre de motivation incluse",
-                "Téléchargement PDF",
-                "CV optimisés par IA",
-                "Conseils personnalisés",
+                "Mots-clés détectés automatiquement",
+                "Support prioritaire",
               ].map(f => (
                 <li key={f} className="flex items-center gap-3 text-sm text-gray-200">
                   <span className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs flex-shrink-0">✓</span>
@@ -115,7 +115,7 @@ export default function Tarifs() {
               disabled={loading === "essentiel"}
               className="block w-full text-center bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-500 transition-colors text-sm disabled:opacity-50"
             >
-              {loading === "essentiel" ? "Chargement..." : "Choisir Essentiel →"}
+              {loading === "essentiel" ? "Chargement..." : "Choisir Étudiant →"}
             </button>
           </div>
 
@@ -124,7 +124,7 @@ export default function Tarifs() {
             <div className="text-4xl mb-4">🚀</div>
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Pro</p>
             <div className="flex items-end gap-1 mb-1">
-              <span className="text-5xl font-extrabold text-gray-900">14,99€</span>
+              <span className="text-5xl font-extrabold text-gray-900">9,99€</span>
             </div>
             <p className="text-gray-500 text-sm mb-8">par mois</p>
             <ul className="space-y-3 mb-10 flex-1">
@@ -154,8 +154,9 @@ export default function Tarifs() {
         </div>
 
         {/* Garantie */}
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center space-y-2">
           <p className="text-gray-500 text-sm">🔒 Paiement 100% sécurisé par Stripe · Annulation en 1 clic · Aucun engagement</p>
+          <p className="text-blue-600 text-sm font-semibold">🎓 Remise de 50% disponible sur justificatif étudiant — contactez-nous à <a href="mailto:contact@cvadapt.eu" className="underline">contact@cvadapt.eu</a></p>
         </div>
 
         {/* FAQ */}

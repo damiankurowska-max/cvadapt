@@ -45,36 +45,36 @@ const col3 = allTestimonials.slice(20, 30);
 
 const faqItems = [
   {
-    q: "Qu'est-ce qu'un score ATS ?",
-    a: "Un score ATS mesure la compatibilité de ton CV avec les logiciels de tri automatique (Applicant Tracking Systems). Ces logiciels filtrent jusqu'à 75% des candidatures avant qu'un humain ne les lise. Un score élevé signifie que ton CV passera ces filtres.",
+    q: "CVAdapt fonctionne-t-il pour les stages et alternances ?",
+    a: "Oui, c'est même pour ça qu'il est conçu. CVAdapt analyse l'offre de stage ou d'alternance, détecte les mots-clés attendus et adapte ton CV en conséquence. Même sans expérience pro, il met en avant tes projets, ta formation et tes compétences.",
+  },
+  {
+    q: "Je n'ai pas d'expérience professionnelle — ça va quand même fonctionner ?",
+    a: "Absolument. CVAdapt est optimisé pour les profils étudiants. Il valorise tes projets universitaires, stages, associations, compétences techniques et soft skills dans le format que les recruteurs attendent.",
   },
   {
     q: "Mon CV est-il en sécurité ?",
-    a: "Oui. Tes données ne sont jamais partagées, vendues ou stockées de manière permanente. CVAdapt utilise ton CV uniquement pour générer l'analyse, puis les données sont supprimées. Paiement sécurisé via Stripe.",
+    a: "Oui. Tes données ne sont jamais partagées, vendues ou stockées de façon permanente. CVAdapt utilise ton contenu uniquement pour générer le CV, puis les données sont supprimées. Paiement sécurisé via Stripe.",
   },
   {
-    q: "C'est vraiment gratuit ?",
-    a: "Tu peux analyser et optimiser 3 CV gratuitement, sans carte bancaire. Pour des CV illimités et toutes les fonctionnalités, nos abonnements commencent à 7,99€/mois.",
+    q: "C'est vraiment gratuit ? Quelle est la limite ?",
+    a: "Tu peux générer 3 CV complets gratuitement, sans carte bancaire. Pour 15 CV par mois avec score ATS complet et lettre de motivation, le plan Étudiant est à 4,99€/mois.",
   },
   {
-    q: "En combien de temps j'obtiens le résultat ?",
-    a: "Le score ATS et le CV optimisé sont générés en moins de 30 secondes. Tu reçois immédiatement les mots-clés manquants, les suggestions et le CV prêt à envoyer.",
+    q: "En combien de temps j'obtiens mon CV optimisé ?",
+    a: "Moins de 30 secondes. Tu colles l'offre, tu renseignes ton profil, et tu reçois immédiatement le score ATS, les mots-clés manquants et ton CV prêt à envoyer.",
+  },
+  {
+    q: "Quelle est la différence entre le plan Étudiant et Pro ?",
+    a: "Le plan Étudiant (4,99€/mois) couvre 15 CV par mois avec toutes les fonctionnalités essentielles. Le plan Pro (9,99€/mois) offre des CV illimités, des templates premium exclusifs et un support prioritaire — idéal si tu postules activement.",
   },
   {
     q: "CVAdapt fonctionne pour tous les secteurs ?",
-    a: "Oui. Tech, finance, marketing, santé, commerce, industrie... CVAdapt analyse l'offre d'emploi spécifique que tu colles et adapte ton CV à ce secteur précis.",
+    a: "Oui. Tech, marketing, finance, RH, commerce, santé... CVAdapt analyse l'offre spécifique que tu colles et adapte ton CV au vocabulaire exact de ce secteur.",
   },
   {
-    q: "Est-ce que ça marche vraiment ?",
-    a: "Nos utilisateurs rapportent en moyenne +68% de taux de réponse après avoir optimisé leur CV avec CVAdapt. Certains obtiennent des entretiens en moins d'une semaine.",
-  },
-  {
-    q: "Puis-je optimiser plusieurs offres différentes ?",
-    a: "Absolument. C'est même l'utilisation principale : générer un CV unique et adapté pour chaque offre. Avec le plan Pro, tu peux optimiser autant de CV que tu veux.",
-  },
-  {
-    q: "Y a-t-il un support si j'ai des problèmes ?",
-    a: "Oui. Support par email pour tous les utilisateurs, support prioritaire pour les abonnés Pro. Nous répondons généralement en moins de 24h.",
+    q: "Y a-t-il une remise étudiant ?",
+    a: "Le plan Étudiant est déjà au tarif étudiant (4,99€/mois). Une remise supplémentaire de 50% est disponible sur justificatif scolaire — contacte-nous à contact@cvadapt.eu.",
   },
 ];
 
@@ -158,17 +158,19 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 text-sm font-semibold px-4 py-2 rounded-full mb-6">
-              🎯 Score ATS instantané
+              🎓 Spécialement conçu pour les étudiants
             </div>
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-5">
-              Ton CV passe les filtres ATS. Tu décroches des entretiens.
+            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
+              Ton stage. Ton alternance.<br />
+              <span className="text-blue-600">Ton premier emploi.</span><br />
+              Commence ici.
             </h1>
             <p className="text-base md:text-lg text-gray-600 mb-8 leading-relaxed">
-              CVAdapt analyse ton CV face à l'offre, détecte les mots-clés manquants et génère une version optimisée en 30 secondes.
+              75% des CV étudiants sont rejetés avant d&apos;être lus. CVAdapt analyse ton CV, détecte ce qui manque et génère une version qui passe les filtres ATS en 30 secondes.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 mb-5">
               <a
-                href="/generate"
+                href="/analyse"
                 className="bg-blue-600 text-white px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-blue-700 transition-colors shadow-sm text-center"
               >
                 Analyser mon CV gratuitement →
@@ -180,7 +182,7 @@ export default function Home() {
                 Voir comment ça marche
               </a>
             </div>
-            <p className="text-sm text-gray-500">⭐ 4,9/5 · 12 847 CV optimisés · 0€ pour commencer</p>
+            <p className="text-sm text-gray-500">⭐ 4,9/5 · 12 847 étudiants et diplômés · Gratuit pour commencer</p>
           </motion.div>
 
           {/* Colonne droite — mockup score ATS */}
@@ -307,7 +309,7 @@ export default function Home() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
         >
-          <p className="text-center text-sm font-medium text-gray-400 mb-8">Ils ont décroché des postes chez</p>
+          <p className="text-center text-sm font-medium text-gray-400 mb-8">Ils ont décroché des stages et alternances chez</p>
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8">
             {["Capgemini", "Société Générale", "L'Oréal", "BNP Paribas", "Decathlon", "Renault", "Thales", "Orange"].map((brand) => (
               <span key={brand} style={{ fontSize: "15px", fontWeight: 700, fontStyle: "italic", color: "#4b5563", letterSpacing: "-0.02em" }}>
@@ -332,18 +334,18 @@ export default function Home() {
               Le problème
             </span>
             <h2 className="text-3xl font-bold text-white mb-4">
-              75% des CV sont rejetés avant d'être lus par un humain
+              Tu postes. Tu attends. Silence.
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
-              Les logiciels ATS filtrent automatiquement les candidatures. Sans les bons mots-clés, ton CV est invisible.
+              Ce n&apos;est pas ton profil le problème. C&apos;est que ton CV ne passe même pas le premier filtre automatique.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
             {[
-              { emoji: "😩", title: "Même CV envoyé partout", desc: "Tu envoies le même CV pour toutes les offres. Les ATS te filtrent dès la première seconde." },
-              { emoji: "🔍", title: "Mots-clés invisibles", desc: "Chaque offre utilise des termes précis. Sans eux, ton profil n'existe pas pour le logiciel." },
-              { emoji: "📭", title: "Silence radio", desc: "Des semaines sans réponse. Pas parce que ton profil est mauvais, mais parce que ton CV n'est pas lu." },
+              { emoji: "😤", title: "Même CV pour toutes les offres", desc: "Tu envoies le même CV à 30 offres. L'ATS de chaque entreprise le filtre immédiatement faute de mots-clés adaptés." },
+              { emoji: "🤖", title: "Rejeté par un algorithme", desc: "Les grandes entreprises utilisent des logiciels qui trient automatiquement 75% des CV. Le tien ne passe peut-être jamais devant un humain." },
+              { emoji: "📭", title: "0 réponse malgré un bon profil", desc: "Tu as les qualifications. Mais sans les bons mots-clés au bon endroit, ton CV est invisible pour les recruteurs." },
             ].map((item, index) => (
               <motion.div
                 key={item.title}
@@ -398,10 +400,10 @@ export default function Home() {
               La solution
             </span>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              CVAdapt lit l'offre, analyse ton profil et optimise ton CV en 30 secondes
+              En 30 secondes, ton CV passe les filtres. Et les recruteurs le lisent.
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto">
-              Plus besoin de passer des heures à deviner quels mots-clés mettre. CVAdapt le fait pour toi.
+              Colle l&apos;offre de stage ou d&apos;alternance. CVAdapt analyse les mots-clés manquants, optimise chaque section et génère un CV adapté instantanément.
             </p>
           </motion.div>
 
@@ -696,29 +698,29 @@ export default function Home() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">CVAdapt est fait pour toi si...</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Que tu cherches un stage, une alternance ou ton premier CDI</h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
                 emoji: "🎓",
-                title: "Étudiant / Jeune diplômé",
-                desc: "Tu cherches ton premier poste et tu ne sais pas comment adapter ton CV. CVAdapt met en avant tes projets et formations.",
+                title: "Stage de fin d'études",
+                desc: "Pas d'expérience pro ? CVAdapt met en avant tes projets, ta formation et tes compétences dans le bon format pour chaque offre.",
               },
               {
                 emoji: "🔄",
-                title: "En reconversion",
-                desc: "Tu changes de secteur et ton profil n'est pas évident à valoriser. CVAdapt reformule ton expérience en langage métier.",
+                title: "Alternance / Apprentissage",
+                desc: "Les offres d'alternance sont très compétitives. CVAdapt te donne l'avantage en adaptant ton CV aux mots-clés exacts de chaque entreprise.",
               },
               {
-                emoji: "💼",
-                title: "Cadre confirmé",
-                desc: "Tu postes sur des offres senior où la concurrence est féroce. CVAdapt optimise chaque détail pour passer les filtres.",
+                emoji: "🚀",
+                title: "Premier emploi (0-2 ans)",
+                desc: "La transition études→emploi est critique. CVAdapt reformule ton parcours étudiant en langage professionnel que les recruteurs comprennent.",
               },
               {
-                emoji: "👨‍💻",
-                title: "Dev / Tech",
-                desc: "Les offres tech sont très précises sur les technos. CVAdapt détecte les stacks manquantes et les ajoute au bon endroit.",
+                emoji: "📈",
+                title: "Reconversion / Reprise d'études",
+                desc: "Tu reviens sur le marché après une pause ou un changement de cap ? CVAdapt valorise ta trajectoire comme un atout.",
               },
             ].map((p, index) => (
               <motion.div
@@ -755,8 +757,8 @@ export default function Home() {
                 <p className="font-bold text-gray-900 text-sm">4,9 / 5 — Basé sur 127+ avis vérifiés ✓</p>
               </div>
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Ils ont transformé leur recherche d'emploi</h2>
-            <p className="text-gray-500">Des candidats de tous horizons qui ont décroché des entretiens grâce à CVAdapt</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">12 847 étudiants ont décroché leurs entretiens</h2>
+            <p className="text-gray-500">Stages, alternances, premiers CDI — des résultats concrets</p>
           </div>
 
           <div className="flex justify-center gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)] max-h-[680px] overflow-hidden">
@@ -845,8 +847,8 @@ export default function Home() {
               <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Tarifs</span>
             </div>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-3">Choisis ton plan</h2>
-              <p className="text-gray-500">Sans engagement · Annule quand tu veux · 🔒 Paiement sécurisé Stripe</p>
+              <h2 className="text-4xl font-bold text-gray-900 mb-3">Des tarifs pensés pour les étudiants</h2>
+              <p className="text-gray-500">Sans engagement · Annule quand tu veux · 🎓 Prix étudiant dès 4,99€</p>
             </div>
           </motion.div>
 
@@ -898,13 +900,13 @@ export default function Home() {
               <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">⭐ POPULAIRE</div>
               <div className="p-8 flex flex-col flex-1">
                 <div className="text-4xl mb-4">⚡</div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-blue-200 mb-2">Essentiel</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-blue-200 mb-2">Étudiant</p>
                 <div className="flex items-end gap-1 mb-1">
-                  <span className="text-5xl font-extrabold text-white">7,99€</span>
+                  <span className="text-5xl font-extrabold text-white">4,99€</span>
                 </div>
                 <p className="text-blue-200 text-sm mb-8">par mois</p>
                 <ul className="space-y-3 mb-10 flex-1">
-                  {["10 CV par mois", "4 templates visuels", "Lettre de motivation incluse", "Téléchargement PDF", "CV optimisés par IA", "Conseils personnalisés"].map((f) => (
+                  {["15 CV par mois", "Score ATS complet + recommandations", "4 templates professionnels", "Lettre de motivation incluse", "Mots-clés détectés automatiquement", "Support prioritaire"].map((f) => (
                     <li key={f} className="flex items-center gap-3 text-sm text-white">
                       <span className="w-5 h-5 rounded-full bg-blue-400 flex items-center justify-center text-white text-xs flex-shrink-0 font-bold">✓</span>
                       {f}
@@ -912,7 +914,7 @@ export default function Home() {
                   ))}
                 </ul>
                 <a href="/tarifs" className="block text-center bg-white text-blue-700 font-bold py-3.5 rounded-xl hover:bg-blue-50 transition-colors text-sm">
-                  Choisir Essentiel →
+                  Choisir Étudiant →
                 </a>
               </div>
             </motion.div>
@@ -928,7 +930,7 @@ export default function Home() {
               <div className="text-4xl mb-4">🚀</div>
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Pro</p>
               <div className="flex items-end gap-1 mb-1">
-                <span className="text-5xl font-extrabold text-gray-900">14,99€</span>
+                <span className="text-5xl font-extrabold text-gray-900">9,99€</span>
               </div>
               <p className="text-gray-400 text-sm mb-8">par mois</p>
               <ul className="space-y-3 mb-10 flex-1">
@@ -951,14 +953,14 @@ export default function Home() {
       <section className="py-20 px-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1e3a5f 0%, #2563eb 60%, #7c3aed 100%)" }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
         <div className="max-w-2xl mx-auto text-center relative">
-          <h2 className="text-4xl font-bold text-white mb-4">Commence maintenant. C'est gratuit.</h2>
-          <p className="text-blue-100 text-lg mb-10">Analyse ton premier CV en 30 secondes. Sans carte bancaire.</p>
+          <h2 className="text-4xl font-bold text-white mb-4">Ton prochain entretien commence maintenant.</h2>
+          <p className="text-blue-100 text-lg mb-10">Analyse ton CV gratuitement. Vois exactement ce qui manque. Corrige-le en 30 secondes.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <a
-              href="/generate"
+              href="/analyse"
               className="bg-white text-blue-700 font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-lg text-center"
             >
-              Analyser mon CV gratuitement →
+              🎯 Analyser mon CV gratuitement →
             </a>
             <a
               href="/tarifs"
