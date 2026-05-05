@@ -9,28 +9,32 @@ export default function Logo({ size = 36, className = "" }) {
       className={className}
     >
       <defs>
-        <linearGradient id="logoBg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#3B82F6"/>
-          <stop offset="100%" stopColor="#1D4ED8"/>
-        </linearGradient>
-        <linearGradient id="logoShine" x1="0" y1="0" x2="0" y2="512" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="white" stopOpacity="0.12"/>
-          <stop offset="100%" stopColor="white" stopOpacity="0"/>
+        <linearGradient id="logoBg" x1="0" y1="0" x2="460" y2="512" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#7AAAF9"/>
+          <stop offset="100%" stopColor="#3B6EE8"/>
         </linearGradient>
       </defs>
-      <rect width="512" height="512" rx="110" fill="url(#logoBg)"/>
-      <rect width="512" height="512" rx="110" fill="url(#logoShine)"/>
+      {/* Fond arrondi — style iOS app icon */}
+      <rect width="512" height="512" rx="115" fill="url(#logoBg)"/>
+
+      {/* C — s'ouvre à droite, de ~1h à ~5h */}
       <path
-        d="M340 158 C308 132 268 120 228 126 C164 136 118 188 118 256 C118 324 164 376 228 386 C268 392 308 380 340 354"
+        d="M338 150
+           C303 122 257 108 212 117
+           C144 130 96 189 96 256
+           C96 323 144 382 212 395
+           C257 404 303 390 338 362"
         stroke="white"
-        strokeWidth="52"
+        strokeWidth="62"
         strokeLinecap="round"
         fill="none"
       />
+
+      {/* > flèche chevron dans l'ouverture du C */}
       <path
-        d="M296 210 L390 256 L296 302"
+        d="M294 200 L382 256 L294 312"
         stroke="white"
-        strokeWidth="46"
+        strokeWidth="56"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"

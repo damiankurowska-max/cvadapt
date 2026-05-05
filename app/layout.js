@@ -13,6 +13,7 @@ export const metadata = {
     siteName: "CVAdapt",
     locale: "fr_FR",
     type: "website",
+    images: [{ url: "https://cvadapt.eu/logo.svg", width: 512, height: 512, alt: "CVAdapt logo" }],
   },
   twitter: {
     card: "summary_large_image",
