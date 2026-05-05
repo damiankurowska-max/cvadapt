@@ -2,7 +2,7 @@ export const articles = [
   {
     slug: "comment-faire-un-cv-en-2025",
     titre: "Comment faire un CV en 2025 qui attire les recruteurs",
-    description: "Structure, mots-clés, mise en page — tout ce qu'il faut pour un CV moderne qui passe les filtres et accroche les recruteurs.",
+    description: "En 2025, 75% des CV ne sont jamais lus par un humain. Ce guide te montre exactement quoi mettre, où et comment pour être rappelé — en moins de 10 minutes.",
     date: "2025-05-01",
     categorie: "Conseils CV",
     tempsLecture: "4 min",
@@ -60,7 +60,7 @@ export const articles = [
   {
     slug: "cv-ats-passer-les-filtres-automatiques",
     titre: "CV ATS : comment passer les filtres automatiques des recruteurs",
-    description: "80% des CV sont éliminés automatiquement. Découvre les 5 règles pour que ton CV soit toujours lu par un humain.",
+    description: "80% des CV sont éliminés par un algorithme avant qu'un humain les voie. Ces 5 règles simples garantissent que le tien passe — vérifiées sur +1 000 candidatures réelles.",
     date: "2025-05-02",
     categorie: "CV ATS",
     tempsLecture: "3 min",
@@ -120,7 +120,7 @@ export const articles = [
   {
     slug: "cv-reconversion-professionnelle",
     titre: "Reconversion professionnelle : comment faire un CV convaincant",
-    description: "Tu changes de secteur ? Voici comment valoriser tes compétences transférables et construire un CV percutant pour ta reconversion.",
+    description: "Tu changes de secteur et tu ne sais pas quoi mettre sur ton CV ? Cette méthode transforme ton expérience passée en atout pour le poste que tu vises — même sans expérience directe.",
     date: "2025-05-03",
     categorie: "Reconversion",
     tempsLecture: "4 min",
@@ -179,7 +179,7 @@ export const articles = [
   {
     slug: "lettre-motivation-efficace-2025",
     titre: "Lettre de motivation : comment en écrire une qui soit vraiment lue",
-    description: "La méthode en 3 paragraphes pour rédiger une lettre percutante — et les 5 erreurs qui font que la tienne finit à la corbeille.",
+    description: "La plupart des lettres de motivation sont ignorées en 8 secondes. Cette méthode en 3 paragraphes est celle que les RH lisent jusqu'au bout — et qui obtient des réponses.",
     date: "2025-05-04",
     categorie: "Lettre de motivation",
     tempsLecture: "3 min",
@@ -237,7 +237,7 @@ export const articles = [
   {
     slug: "cv-sans-experience-premier-emploi",
     titre: "CV sans expérience : comment décrocher son premier emploi",
-    description: "Tu n'as pas encore d'expérience pro ? Voici quoi mettre dans ton CV et comment le rendre convaincant pour les recruteurs.",
+    description: "Pas d'expérience ? Pas de problème. Ce guide te montre exactement quoi mettre dans ton premier CV pour décrocher un entretien — même avec zéro poste précédent.",
     date: "2025-05-04",
     categorie: "Débutants",
     tempsLecture: "4 min",
@@ -304,7 +304,7 @@ export const articles = [
   {
     slug: "score-ats-comment-optimiser",
     titre: "Score ATS : comment atteindre 90/100 et passer les filtres",
-    description: "Les recruteurs ne lisent pas ton CV en premier — leur logiciel ATS si. Comprends comment fonctionne le scoring et optimise chaque section.",
+    description: "Ton CV a peut-être un score ATS de 30/100 sans que tu le saches. Ce guide te montre comment atteindre 90/100 étape par étape — et multiplier tes chances d'être rappelé.",
     date: "2025-05-02",
     categorie: "ATS & Mots-clés",
     tempsLecture: "5 min",
@@ -387,7 +387,7 @@ export const articles = [
   {
     slug: "cv-cadre-reconversion-secteur",
     titre: "CV cadre en reconversion : comment valoriser 10 ans d'expérience dans un nouveau secteur",
-    description: "Tu as de l'expérience mais elle ne correspond pas au secteur visé ? Cette méthode transforme ton parcours en atout plutôt qu'en obstacle.",
+    description: "10 ans d'expérience mais dans le mauvais secteur ? Voici comment repositionner ton profil pour que les recruteurs voient exactement ce qu'ils cherchent — et te rappellent.",
     date: "2025-05-03",
     categorie: "Reconversion",
     tempsLecture: "6 min",
@@ -457,7 +457,7 @@ export const articles = [
   {
     slug: "mots-cles-cv-par-metier",
     titre: "Les mots-clés CV essentiels par métier en 2025 (liste complète)",
-    description: "Marketing, développement, finance, RH, vente... Les mots-clés exacts que les recruteurs et les ATS cherchent dans ton CV selon ton secteur.",
+    description: "Sans ces mots-clés, ton CV est invisible. La liste complète des termes exacts que les ATS et recruteurs cherchent en 2025 — par secteur : marketing, tech, finance, RH, vente.",
     date: "2025-05-04",
     categorie: "ATS & Mots-clés",
     tempsLecture: "7 min",
@@ -521,7 +521,7 @@ ${[
   {
     slug: "erreurs-cv-qui-font-rejeter",
     titre: "7 erreurs de CV qui font rejeter votre candidature (et comment les corriger)",
-    description: "Ces erreurs semblent anodines mais suffisent à te faire éliminer en moins de 10 secondes. Vérifie si tu les commets — et corrige-les maintenant.",
+    description: "L'erreur n°3 fait rejeter 1 CV sur 2 — et presque tout le monde la commet. Vérifie en 2 minutes si ton CV en est victime, et corrige-la avant d'envoyer ta prochaine candidature.",
     date: "2025-05-05",
     categorie: "Conseils CV",
     tempsLecture: "5 min",
@@ -569,7 +569,7 @@ ${[
   {
     slug: "linkedin-cv-coherence",
     titre: "LinkedIn + CV : comment les rendre cohérents et décrocher 2× plus d'entretiens",
-    description: "Les recruteurs comparent toujours ton CV et ton LinkedIn. Une incohérence = méfiance. Voici comment aligner les deux pour maximiser ton impact.",
+    description: "Les recruteurs passent 30 secondes sur ton profil LinkedIn après avoir lu ton CV. Une seule incohérence et ta candidature est grillée. Voici comment aligner les deux pour décrocher 2× plus d'entretiens.",
     date: "2025-05-06",
     categorie: "Conseils CV",
     tempsLecture: "5 min",

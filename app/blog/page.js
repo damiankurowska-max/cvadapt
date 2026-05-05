@@ -4,9 +4,14 @@ import { articles } from "./data";
 import NewsletterForm from "./NewsletterForm";
 
 export const metadata = {
-  title: "Blog CVAdapt — Guides CV, ATS et Recherche d'emploi",
-  description: "Les meilleurs guides pour décrocher des entretiens : optimisation ATS, mots-clés CV, reconversion, lettre de motivation. Conseils concrets, résultats mesurables.",
+  title: "Blog CVAdapt — Décroche 3× Plus d'Entretiens avec ces Guides",
+  description: "Guides CV concrets pour étudiants et jeunes diplômés : passer les filtres ATS, rédiger une lettre percutante, décrocher stage et alternance. Lus par +12 000 étudiants.",
   alternates: { canonical: "https://cvadapt.eu/blog" },
+  openGraph: {
+    title: "Blog CVAdapt — Décroche 3× Plus d'Entretiens avec ces Guides",
+    description: "Guides CV concrets pour étudiants et jeunes diplômés : passer les filtres ATS, rédiger une lettre percutante, décrocher stage et alternance. Lus par +12 000 étudiants.",
+    url: "https://cvadapt.eu/blog",
+  },
 };
 
 export default function Blog() {

@@ -3,9 +3,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { frFR } from "@clerk/localizations";
 
 export const metadata = {
-  title: "CVAdapt - Ton CV adapté à chaque offre d'emploi",
-  description: "Colle une offre d'emploi, entre tes infos — CVAdapt génère un CV optimisé et prêt à envoyer en 30 secondes. Gratuit pour commencer.",
-  keywords: "CV, générateur CV, CV adapté, offre emploi, CV IA, recherche emploi France",
+  title: "CVAdapt — Génère un CV ATS en 30 sec · Gratuit pour les Étudiants",
+  description: "75% des CV sont rejetés avant d'être lus. CVAdapt adapte ton CV à chaque offre en 30 secondes : score ATS, mots-clés, lettre de motivation incluse. Essaie gratuitement.",
+  keywords: "CV adapté offre emploi, générateur CV ATS, CV étudiant alternance, optimiser CV IA, score ATS gratuit, CV en 30 secondes",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
@@ -18,8 +18,8 @@ export const metadata = {
     shortcut: "/favicon.ico",
   },
   openGraph: {
-    title: "CVAdapt - Ton CV adapté à chaque offre d'emploi",
-    description: "Génère un CV optimisé pour chaque offre d'emploi en 30 secondes grâce à l'IA.",
+    title: "CVAdapt — Génère un CV ATS en 30 sec · Gratuit pour les Étudiants",
+    description: "75% des CV sont rejetés avant d'être lus. Adapte ton CV à chaque offre en 30 secondes : score ATS, mots-clés, lettre de motivation incluse.",
     url: "https://cvadapt.eu",
     siteName: "CVAdapt",
     locale: "fr_FR",
@@ -28,8 +28,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CVAdapt - Ton CV adapté à chaque offre d'emploi",
-    description: "Génère un CV optimisé pour chaque offre d'emploi en 30 secondes.",
+    title: "CVAdapt — Génère un CV ATS en 30 sec · Gratuit pour les Étudiants",
+    description: "75% des CV sont rejetés avant d'être lus. Adapte ton CV à chaque offre en 30 secondes : score ATS, mots-clés, lettre de motivation incluse.",
   },
   robots: {
     index: true,
