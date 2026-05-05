@@ -4,6 +4,7 @@ import Link from "next/link";
 import Logo from "./components/Logo";
 import { GlowCard } from "../components/ui/spotlight-card";
 import { TestimonialsColumn } from "../components/ui/testimonials-columns";
+import { motion } from "motion/react";
 
 const allTestimonials = [
   { name: "Thomas R.", role: "Commercial B2B → Chef de projet · Paris", image: "https://randomuser.me/api/portraits/men/32.jpg", result: "Entretien décroché en 4 jours", text: "J'étais en reconversion et CVAdapt a parfaitement reformulé mon profil. Entretien 4 jours après." },
@@ -134,8 +135,9 @@ export default function Home() {
           <span className="text-xl font-bold text-blue-600 tracking-tight">CVAdapt</span>
         </div>
         <nav className="flex items-center gap-6">
-          <a href="/blog" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Blog</a>
-          <a href="/tarifs" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Tarifs</a>
+          <a href="/blog" className="hidden sm:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Blog</a>
+          <Link href="/analyse" className="text-sm text-gray-600 hover:text-gray-900 font-medium">Analyser mon CV</Link>
+          <a href="/tarifs" className="hidden sm:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Tarifs</a>
           <a
             href="/generate"
             className="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors"
@@ -146,17 +148,22 @@ export default function Home() {
       </header>
 
       {/* ── 2. HERO ── */}
-      <section className="max-w-6xl mx-auto px-6 pt-16 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-16 sm:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Colonne gauche */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 text-sm font-semibold px-4 py-2 rounded-full mb-6">
               🎯 Score ATS instantané
             </div>
-            <h1 className="text-5xl font-bold text-gray-900 leading-tight mb-5">
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-5">
               Ton CV passe les filtres ATS. Tu décroches des entretiens.
             </h1>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            <p className="text-base md:text-lg text-gray-600 mb-8 leading-relaxed">
               CVAdapt analyse ton CV face à l'offre, détecte les mots-clés manquants et génère une version optimisée en 30 secondes.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 mb-5">
@@ -174,10 +181,16 @@ export default function Home() {
               </a>
             </div>
             <p className="text-sm text-gray-500">⭐ 4,9/5 · 12 847 CV optimisés · 0€ pour commencer</p>
-          </div>
+          </motion.div>
 
           {/* Colonne droite — mockup score ATS */}
-          <div className="flex justify-center lg:justify-end">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="flex justify-center lg:justify-end mt-8 lg:mt-0"
+          >
             <div style={{
               width: "100%",
               maxWidth: "420px",
@@ -281,28 +294,40 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── 3. LOGOS DE CONFIANCE ── */}
-      <section className="py-10 px-6 bg-gray-50 border-y border-gray-100">
-        <div className="max-w-5xl mx-auto">
+      <section className="py-10 px-4 sm:px-6 bg-gray-50 border-y border-gray-100">
+        <motion.div
+          className="max-w-5xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+        >
           <p className="text-center text-sm font-medium text-gray-400 mb-8">Ils ont décroché des postes chez</p>
-          <div className="flex flex-wrap justify-center items-center gap-8">
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8">
             {["Capgemini", "Société Générale", "L'Oréal", "BNP Paribas", "Decathlon", "Renault", "Thales", "Orange"].map((brand) => (
               <span key={brand} style={{ fontSize: "15px", fontWeight: 700, fontStyle: "italic", color: "#4b5563", letterSpacing: "-0.02em" }}>
                 {brand}
               </span>
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── 4. PROBLÈME ── */}
-      <section style={{ background: "#111827" }} className="py-20 px-6">
+      <section style={{ background: "#111827" }} className="py-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
             <span className="inline-block bg-red-900/40 text-red-400 border border-red-800 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
               Le problème
             </span>
@@ -312,19 +337,27 @@ export default function Home() {
             <p className="text-gray-400 max-w-xl mx-auto">
               Les logiciels ATS filtrent automatiquement les candidatures. Sans les bons mots-clés, ton CV est invisible.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
             {[
               { emoji: "😩", title: "Même CV envoyé partout", desc: "Tu envoies le même CV pour toutes les offres. Les ATS te filtrent dès la première seconde." },
               { emoji: "🔍", title: "Mots-clés invisibles", desc: "Chaque offre utilise des termes précis. Sans eux, ton profil n'existe pas pour le logiciel." },
               { emoji: "📭", title: "Silence radio", desc: "Des semaines sans réponse. Pas parce que ton profil est mauvais, mais parce que ton CV n'est pas lu." },
-            ].map((item) => (
-              <div key={item.title} style={{ background: "#1f2937", border: "1px solid #374151" }} className="p-7 rounded-2xl">
+            ].map((item, index) => (
+              <motion.div
+                key={item.title}
+                style={{ background: "#1f2937", border: "1px solid #374151" }}
+                className="p-7 rounded-2xl"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+              >
                 <div className="text-3xl mb-4">{item.emoji}</div>
                 <h3 className="font-semibold text-white mb-2">{item.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -334,20 +367,33 @@ export default function Home() {
               { num: "75%", label: "CV rejetés par les ATS" },
               { num: "6 sec", label: "temps moyen de lecture d'un CV humain" },
               { num: "3h", label: "perdues à adapter un CV manuellement" },
-            ].map((s) => (
-              <div key={s.num} className="text-center py-10 px-6">
+            ].map((s, index) => (
+              <motion.div
+                key={s.num}
+                className="text-center py-10 px-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+              >
                 <p className="text-4xl font-extrabold text-white mb-2">{s.num}</p>
                 <p className="text-gray-400 text-sm">{s.label}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── 5. SOLUTION ── */}
-      <section className="py-20 px-6 bg-white">
+      <section className="py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
             <span className="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
               La solution
             </span>
@@ -357,9 +403,15 @@ export default function Home() {
             <p className="text-gray-500 max-w-xl mx-auto">
               Plus besoin de passer des heures à deviner quels mots-clés mettre. CVAdapt le fait pour toi.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+          <motion.div
+            className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
             <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Sans CVAdapt */}
               <div className="bg-red-50 p-8 border-b md:border-b-0 md:border-r border-red-100">
@@ -399,7 +451,7 @@ export default function Home() {
                 </ul>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -480,14 +532,20 @@ export default function Home() {
       </section>
 
       {/* ── 7. AVANT / APRÈS SCORE ATS ── */}
-      <section className="py-20 px-6 bg-white">
+      <section className="py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
             <span className="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
               Résultat concret
             </span>
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Avant / Après CVAdapt</h2>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* AVANT */}
@@ -591,11 +649,17 @@ export default function Home() {
       </section>
 
       {/* ── 8. FONCTIONNALITÉS ── */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Tout ce dont tu as besoin pour décrocher le poste</h2>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { emoji: "🔍", title: "Détection des mots-clés", desc: "Analyse chaque mot-clé de l'offre et identifie les manquants dans ton CV" },
@@ -604,23 +668,36 @@ export default function Home() {
               { emoji: "💡", title: "Suggestions concrètes", desc: "Actions précises et applicables pour améliorer ton score immédiatement" },
               { emoji: "🔄", title: "Adapté à chaque offre", desc: "Un CV unique pour chaque candidature, en 30 secondes" },
               { emoji: "✉️", title: "Lettre de motivation", desc: "Générée automatiquement, adaptée à l'offre, prête à envoyer" },
-            ].map((f) => (
-              <div key={f.title} className="bg-white rounded-2xl border border-gray-200 p-7 shadow-sm hover:shadow-md transition-shadow">
+            ].map((f, index) => (
+              <motion.div
+                key={f.title}
+                className="bg-white rounded-2xl border border-gray-200 p-7 shadow-sm hover:shadow-md transition-shadow"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+              >
                 <div className="text-3xl mb-4">{f.emoji}</div>
                 <h3 className="font-bold text-gray-900 mb-2">{f.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{f.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── 9. POUR QUI ── */}
-      <section className="py-20 px-6 bg-white">
+      <section className="py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl font-bold text-gray-900 mb-3">CVAdapt est fait pour toi si...</h2>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
@@ -643,15 +720,22 @@ export default function Home() {
                 title: "Dev / Tech",
                 desc: "Les offres tech sont très précises sur les technos. CVAdapt détecte les stacks manquantes et les ajoute au bon endroit.",
               },
-            ].map((p) => (
-              <div key={p.title} className="rounded-2xl border border-gray-200 p-7 hover:border-blue-200 hover:shadow-sm transition-all">
+            ].map((p, index) => (
+              <motion.div
+                key={p.title}
+                className="rounded-2xl border border-gray-200 p-7 hover:border-blue-200 hover:shadow-sm transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+              >
                 <div className="text-3xl mb-3">{p.emoji}</div>
                 <h3 className="font-bold text-gray-900 mb-2">{p.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">{p.desc}</p>
                 <a href="/generate" className="text-blue-600 text-sm font-semibold hover:text-blue-700 transition-colors">
                   Voir un exemple →
                 </a>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -684,7 +768,7 @@ export default function Home() {
       </section>
 
       {/* ── 11. STATS COMPTEURS ── */}
-      <section style={{ background: "#0f172a" }} className="py-16 px-6">
+      <section style={{ background: "#0f172a" }} className="py-16 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
@@ -692,57 +776,89 @@ export default function Home() {
               { num: "4,9★", label: "Note moyenne" },
               { num: "+68%", label: "Taux de réponse moyen" },
               { num: "30s", label: "Pour générer un CV optimisé" },
-            ].map((s) => (
-              <div key={s.num} className="text-center">
+            ].map((s, index) => (
+              <motion.div
+                key={s.num}
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+              >
                 <p className="text-4xl font-extrabold text-white mb-2">{s.num}</p>
                 <p className="text-gray-400 text-sm">{s.label}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── 12. FAQ ── */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Questions fréquentes</h2>
-          </div>
+          </motion.div>
           <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden divide-y divide-gray-100">
             {faqItems.map((item, i) => (
-              <div key={i}>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+              >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center justify-between px-4 md:px-6 py-5 text-left hover:bg-gray-50 transition-colors"
                 >
                   <span className="font-semibold text-gray-900 text-sm pr-4">{item.q}</span>
                   <span className="text-gray-400 text-xl font-light flex-shrink-0">{openFaq === i ? "−" : "+"}</span>
                 </button>
                 {openFaq === i && (
-                  <div className="px-6 pb-5">
+                  <div className="px-4 md:px-6 pb-5">
                     <p className="text-gray-600 text-sm leading-relaxed">{item.a}</p>
                   </div>
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── 13. PRICING ── */}
-      <section className="py-24 px-6" style={{ background: "linear-gradient(180deg, #f8faff 0%, #fff 100%)" }}>
+      <section className="py-24 px-4 sm:px-6" style={{ background: "linear-gradient(180deg, #f8faff 0%, #fff 100%)" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-4">
-            <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Tarifs</span>
-          </div>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-3">Choisis ton plan</h2>
-            <p className="text-gray-500">Sans engagement · Annule quand tu veux · 🔒 Paiement sécurisé Stripe</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
+            <div className="text-center mb-4">
+              <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Tarifs</span>
+            </div>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-3">Choisis ton plan</h2>
+              <p className="text-gray-500">Sans engagement · Annule quand tu veux · 🔒 Paiement sécurisé Stripe</p>
+            </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {/* Gratuit */}
-            <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow">
+            <motion.div
+              className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+            >
               <div className="text-4xl mb-4">🎯</div>
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Gratuit</p>
               <div className="flex items-end gap-1 mb-1">
@@ -768,10 +884,17 @@ export default function Home() {
               <a href="/generate" className="block text-center bg-gray-100 text-gray-700 font-semibold py-3.5 rounded-xl hover:bg-gray-200 transition-colors text-sm">
                 Commencer gratuitement
               </a>
-            </div>
+            </motion.div>
 
             {/* Essentiel */}
-            <div className="rounded-2xl flex flex-col relative overflow-hidden shadow-2xl md:-mt-4 md:-mb-4" style={{ background: "linear-gradient(145deg, #1e3a5f 0%, #2563eb 100%)" }}>
+            <motion.div
+              className="rounded-2xl flex flex-col relative overflow-hidden shadow-2xl md:-mt-4 md:-mb-4"
+              style={{ background: "linear-gradient(145deg, #1e3a5f 0%, #2563eb 100%)" }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+            >
               <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">⭐ POPULAIRE</div>
               <div className="p-8 flex flex-col flex-1">
                 <div className="text-4xl mb-4">⚡</div>
@@ -792,10 +915,16 @@ export default function Home() {
                   Choisir Essentiel →
                 </a>
               </div>
-            </div>
+            </motion.div>
 
             {/* Pro */}
-            <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow">
+            <motion.div
+              className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+            >
               <div className="text-4xl mb-4">🚀</div>
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Pro</p>
               <div className="flex items-end gap-1 mb-1">
@@ -813,7 +942,7 @@ export default function Home() {
               <a href="/tarifs" className="block text-center border-2 border-gray-900 text-gray-900 font-bold py-3.5 rounded-xl hover:bg-gray-900 hover:text-white transition-colors text-sm">
                 Choisir Pro →
               </a>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
