@@ -3,30 +3,46 @@ import { auth } from "@clerk/nextjs/server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+const PRICES = {
+  essentiel: {
+    name: "CVAdapt Étudiant — Mensuel",
+    amount: 499,
+    interval: "month",
+    description: "15 CV par mois + Lettre de motivation + Score ATS complet",
+  },
+  pro: {
+    name: "CVAdapt Pro — Mensuel",
+    amount: 999,
+    interval: "month",
+    description: "CV illimités + Templates premium + Support prioritaire",
+  },
+  essentiel_annuel: {
+    name: "CVAdapt Étudiant — Annuel",
+    amount: 3999, // 39,99€
+    interval: "year",
+    description: "15 CV par mois + Lettre de motivation + Score ATS complet (facturé annuellement)",
+  },
+  pro_annuel: {
+    name: "CVAdapt Pro — Annuel",
+    amount: 7999, // 79,99€
+    interval: "year",
+    description: "CV illimités + Templates premium + Support prioritaire (facturé annuellement)",
+  },
+};
+
 export async function POST(request) {
   const { userId } = await auth();
 
-  // L'utilisateur doit être connecté pour payer
   if (!userId) {
-    return Response.json({ error: "Connecte-toi pour accéder au paiement.", redirect: "/sign-in" }, { status: 401 });
+    return Response.json(
+      { error: "Connecte-toi pour accéder au paiement.", redirect: "/sign-in" },
+      { status: 401 }
+    );
   }
 
   const { plan } = await request.json();
+  const selected = PRICES[plan];
 
-  const prices = {
-    essentiel: {
-      name: "CVAdapt Étudiant",
-      amount: 499,
-      description: "15 CV par mois + Lettre de motivation + Score ATS complet",
-    },
-    pro: {
-      name: "CVAdapt Pro",
-      amount: 999,
-      description: "CV illimités + Tout Étudiant + Templates premium + Support prioritaire",
-    },
-  };
-
-  const selected = prices[plan];
   if (!selected) {
     return Response.json({ error: "Plan invalide" }, { status: 400 });
   }
@@ -43,7 +59,7 @@ export async function POST(request) {
               description: selected.description,
             },
             unit_amount: selected.amount,
-            recurring: { interval: "month" },
+            recurring: { interval: selected.interval },
           },
           quantity: 1,
         },
