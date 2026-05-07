@@ -4,7 +4,6 @@ import Link from "next/link";
 import Logo from "./components/Logo";
 import { GlowCard } from "../components/ui/spotlight-card";
 import { TestimonialsColumn } from "../components/ui/testimonials-columns";
-import { motion } from "motion/react";
 
 const allTestimonials = [
   { name: "Thomas R.", role: "Commercial B2B → Chef de projet · Paris", image: "https://randomuser.me/api/portraits/men/32.jpg", result: "Entretien décroché en 4 jours", text: "J'étais en reconversion et CVAdapt a parfaitement reformulé mon profil. Entretien 4 jours après." },
@@ -142,11 +141,7 @@ export default function Home() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-16 sm:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Colonne gauche */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
+          <div
           >
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 text-sm font-semibold px-4 py-2 rounded-full mb-6">
               🎓 Spécialement conçu pour les étudiants
@@ -174,14 +169,10 @@ export default function Home() {
               </a>
             </div>
             <p className="text-sm text-gray-500">⭐ 4,9/5 · 12 847 étudiants et diplômés · Gratuit pour commencer</p>
-          </motion.div>
+          </div>
 
           {/* Colonne droite — mockup score ATS */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
+          <div
             className="flex justify-center lg:justify-end mt-8 lg:mt-0"
           >
             <div style={{
@@ -287,18 +278,14 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ── 3. LOGOS DE CONFIANCE ── */}
       <section className="py-10 px-4 sm:px-6 bg-gray-50 border-y border-gray-100">
-        <motion.div
+        <div
           className="max-w-5xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
         >
           <p className="text-center text-sm font-medium text-gray-400 mb-8">Ils ont décroché des stages et alternances chez</p>
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8">
@@ -308,18 +295,14 @@ export default function Home() {
               </span>
             ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ── 4. PROBLÈME ── */}
       <section style={{ background: "#111827" }} className="py-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <motion.div
+          <div
             className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
           >
             <span className="inline-block bg-red-900/40 text-red-400 border border-red-800 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
               Le problème
@@ -330,7 +313,7 @@ export default function Home() {
             <p className="text-gray-400 max-w-xl mx-auto">
               Ce n&apos;est pas ton profil le problème. C&apos;est que ton CV ne passe même pas le premier filtre automatique.
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
             {[
@@ -338,19 +321,15 @@ export default function Home() {
               { emoji: "🤖", title: "Rejeté par un algorithme", desc: "Les grandes entreprises utilisent des logiciels qui trient automatiquement 75% des CV. Le tien ne passe peut-être jamais devant un humain." },
               { emoji: "📭", title: "0 réponse malgré un bon profil", desc: "Tu as les qualifications. Mais sans les bons mots-clés au bon endroit, ton CV est invisible pour les recruteurs." },
             ].map((item, index) => (
-              <motion.div
+              <div
                 key={item.title}
                 style={{ background: "#1f2937", border: "1px solid #374151" }}
                 className="p-7 rounded-2xl"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
               >
                 <div className="text-3xl mb-4">{item.emoji}</div>
                 <h3 className="font-semibold text-white mb-2">{item.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -361,17 +340,13 @@ export default function Home() {
               { num: "6 sec", label: "temps moyen de lecture d'un CV humain" },
               { num: "3h", label: "perdues à adapter un CV manuellement" },
             ].map((s, index) => (
-              <motion.div
+              <div
                 key={s.num}
                 className="text-center py-10 px-6"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
               >
                 <p className="text-4xl font-extrabold text-white mb-2">{s.num}</p>
                 <p className="text-gray-400 text-sm">{s.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -380,12 +355,8 @@ export default function Home() {
       {/* ── 5. SOLUTION ── */}
       <section className="py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <motion.div
+          <div
             className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
           >
             <span className="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
               La solution
@@ -396,14 +367,10 @@ export default function Home() {
             <p className="text-gray-500 max-w-xl mx-auto">
               Colle l&apos;offre de stage ou d&apos;alternance. CVAdapt analyse les mots-clés manquants, optimise chaque section et génère un CV adapté instantanément.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
+          <div
             className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
           >
             <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Sans CVAdapt */}
@@ -444,7 +411,7 @@ export default function Home() {
                 </ul>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -527,18 +494,14 @@ export default function Home() {
       {/* ── 7. AVANT / APRÈS SCORE ATS ── */}
       <section className="py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <motion.div
+          <div
             className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
           >
             <span className="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
               Résultat concret
             </span>
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Avant / Après CVAdapt</h2>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* AVANT */}
@@ -644,15 +607,11 @@ export default function Home() {
       {/* ── 8. FONCTIONNALITÉS ── */}
       <section className="py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
-          <motion.div
+          <div
             className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Tout ce dont tu as besoin pour décrocher le poste</h2>
-          </motion.div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { emoji: "🔍", title: "Détection des mots-clés", desc: "Analyse chaque mot-clé de l'offre et identifie les manquants dans ton CV" },
@@ -662,18 +621,14 @@ export default function Home() {
               { emoji: "🔄", title: "Adapté à chaque offre", desc: "Un CV unique pour chaque candidature, en 30 secondes" },
               { emoji: "✉️", title: "Lettre de motivation", desc: "Générée automatiquement, adaptée à l'offre, prête à envoyer" },
             ].map((f, index) => (
-              <motion.div
+              <div
                 key={f.title}
                 className="bg-white rounded-2xl border border-gray-200 p-7 shadow-sm hover:shadow-md transition-shadow"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
               >
                 <div className="text-3xl mb-4">{f.emoji}</div>
                 <h3 className="font-bold text-gray-900 mb-2">{f.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{f.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -682,15 +637,11 @@ export default function Home() {
       {/* ── 9. POUR QUI ── */}
       <section className="py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <motion.div
+          <div
             className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Que tu cherches un stage, une alternance ou ton premier CDI</h2>
-          </motion.div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
@@ -714,13 +665,9 @@ export default function Home() {
                 desc: "Tu reviens sur le marché après une pause ou un changement de cap ? CVAdapt valorise ta trajectoire comme un atout.",
               },
             ].map((p, index) => (
-              <motion.div
+              <div
                 key={p.title}
                 className="rounded-2xl border border-gray-200 p-7 hover:border-blue-200 hover:shadow-sm transition-all"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
               >
                 <div className="text-3xl mb-3">{p.emoji}</div>
                 <h3 className="font-bold text-gray-900 mb-2">{p.title}</h3>
@@ -728,7 +675,7 @@ export default function Home() {
                 <a href="/generate" className="text-blue-600 text-sm font-semibold hover:text-blue-700 transition-colors">
                   Voir un exemple →
                 </a>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -770,17 +717,13 @@ export default function Home() {
               { num: "+68%", label: "Taux de réponse moyen" },
               { num: "30s", label: "Pour générer un CV optimisé" },
             ].map((s, index) => (
-              <motion.div
+              <div
                 key={s.num}
                 className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
               >
                 <p className="text-4xl font-extrabold text-white mb-2">{s.num}</p>
                 <p className="text-gray-400 text-sm">{s.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -789,23 +732,15 @@ export default function Home() {
       {/* ── 12. FAQ ── */}
       <section className="py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-3xl mx-auto">
-          <motion.div
+          <div
             className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Questions fréquentes</h2>
-          </motion.div>
+          </div>
           <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden divide-y divide-gray-100">
             {faqItems.map((item, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
@@ -819,7 +754,7 @@ export default function Home() {
                     <p className="text-gray-600 text-sm leading-relaxed">{item.a}</p>
                   </div>
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -828,11 +763,7 @@ export default function Home() {
       {/* ── 13. PRICING ── */}
       <section className="py-24 px-4 sm:px-6" style={{ background: "linear-gradient(180deg, #f8faff 0%, #fff 100%)" }}>
         <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
+          <div
           >
             <div className="text-center mb-4">
               <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Tarifs</span>
@@ -841,16 +772,12 @@ export default function Home() {
               <h2 className="text-4xl font-bold text-gray-900 mb-3">Des tarifs pensés pour les étudiants</h2>
               <p className="text-gray-500">Sans engagement · Annule quand tu veux · 🎓 Prix étudiant dès 4,99€</p>
             </div>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {/* Gratuit */}
-            <motion.div
+            <div
               className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0, ease: [0.16, 1, 0.3, 1] }}
-              viewport={{ once: true }}
             >
               <div className="text-4xl mb-4">🎯</div>
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Gratuit</p>
@@ -877,16 +804,12 @@ export default function Home() {
               <a href="/generate" className="block text-center bg-gray-100 text-gray-700 font-semibold py-3.5 rounded-xl hover:bg-gray-200 transition-colors text-sm">
                 Commencer gratuitement
               </a>
-            </motion.div>
+            </div>
 
             {/* Essentiel */}
-            <motion.div
+            <div
               className="rounded-2xl flex flex-col relative overflow-hidden shadow-2xl md:-mt-4 md:-mb-4"
               style={{ background: "linear-gradient(145deg, #1e3a5f 0%, #2563eb 100%)" }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              viewport={{ once: true }}
             >
               <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">⭐ POPULAIRE</div>
               <div className="p-8 flex flex-col flex-1">
@@ -908,15 +831,11 @@ export default function Home() {
                   Choisir Étudiant →
                 </a>
               </div>
-            </motion.div>
+            </div>
 
             {/* Pro */}
-            <motion.div
+            <div
               className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              viewport={{ once: true }}
             >
               <div className="text-4xl mb-4">🚀</div>
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Pro</p>
@@ -935,7 +854,7 @@ export default function Home() {
               <a href="/tarifs" className="block text-center border-2 border-gray-900 text-gray-900 font-bold py-3.5 rounded-xl hover:bg-gray-900 hover:text-white transition-colors text-sm">
                 Choisir Pro →
               </a>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
