@@ -5,10 +5,10 @@ import { useUser, UserButton } from "@clerk/nextjs";
 import Logo from "../components/Logo";
 
 const TEMPLATES = [
-  { id: "moderne", name: "Moderne", desc: "Gradient bleu", color: "bg-blue-600" },
-  { id: "classique", name: "Classique", desc: "Noir & blanc", color: "bg-gray-800" },
-  { id: "creatif", name: "Créatif", desc: "Sidebar violette", color: "bg-purple-600" },
-  { id: "minimaliste", name: "Minimaliste", desc: "Épuré & vert", color: "bg-green-600" },
+  { id: "moderne",     name: "Moderne",     desc: "Gradient bleu",    accent: "#2563eb", bg: "#eff6ff", sidebar: false },
+  { id: "classique",   name: "Classique",   desc: "Noir & blanc",     accent: "#111827", bg: "#f9fafb", sidebar: false },
+  { id: "creatif",     name: "Créatif",     desc: "Sidebar violette", accent: "#7c3aed", bg: "#faf5ff", sidebar: true  },
+  { id: "minimaliste", name: "Minimaliste", desc: "Épuré & vert",     accent: "#16a34a", bg: "#f0fdf4", sidebar: false },
 ];
 
 export default function Generate() {
@@ -192,51 +192,48 @@ export default function Generate() {
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <Logo size={30} />
-          <span className="text-xl font-bold text-blue-600">CVAdapt</span>
+      <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between gap-2">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Logo size={28} />
+          <span className="text-lg font-bold text-blue-600">CVAdapt</span>
         </Link>
-        <div className="flex items-center gap-4">
+
+        <div className="flex items-center gap-2">
+          {/* Historique : icône seule sur mobile */}
           <button
             onClick={() => setShowHistory(!showHistory)}
-            className="text-sm text-gray-600 hover:text-gray-900 font-medium flex items-center gap-1.5 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50"
+            className="relative flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
+            title="Historique"
           >
-            📋 Historique
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M12 8v4l3 3M3.05 11A9 9 0 1 0 4 6.3" strokeLinecap="round"/>
+              <path d="M3 3v4h4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
             {history.length > 0 && (
-              <span className="bg-blue-100 text-blue-600 text-xs px-1.5 py-0.5 rounded-full font-bold">{history.length}</span>
+              <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{history.length}</span>
             )}
           </button>
+
+          {/* Badge plan */}
           {isPro ? (
-            <div className="flex items-center gap-2 bg-green-100 px-3 py-1.5 rounded-lg">
-              <span className="text-sm font-bold text-green-700">PRO ✨</span>
-              {plan === "essentiel" && (
-                <span className="text-xs text-green-600">{10 - cvMonthCount} CV restants ce mois</span>
-              )}
-              {plan === "pro" && (
-                <span className="text-xs text-green-600">Illimité</span>
-              )}
+            <div className="flex items-center gap-1 bg-green-100 px-2.5 py-1 rounded-lg">
+              <span className="text-xs font-bold text-green-700">PRO</span>
+              {plan === "essentiel" && <span className="text-xs text-green-600 hidden sm:inline">· {10 - cvMonthCount} restants</span>}
             </div>
           ) : (
-            <>
-              <div className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-lg">
-                <span className="text-sm text-gray-600">CV gratuits :</span>
-                <span className={`text-sm font-bold ${cvCount >= CV_LIMIT ? "text-red-500" : "text-blue-600"}`}>
-                  {CV_LIMIT - cvCount} / {CV_LIMIT}
-                </span>
+            <div className="flex items-center gap-1.5">
+              <div className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold ${cvCount >= CV_LIMIT ? "bg-red-50 text-red-500" : "bg-gray-100 text-gray-600"}`}>
+                <span>{CV_LIMIT - cvCount}/{CV_LIMIT}</span>
+                <span className="hidden sm:inline text-gray-400 font-normal">gratuits</span>
               </div>
               {cvCount >= CV_LIMIT && (
-                <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
+                <Link href="/tarifs" className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-700 whitespace-nowrap">
                   Passer Pro
                 </Link>
               )}
-            </>
+            </div>
           )}
-          {user && (
-            <Link href="/dashboard" className="text-sm text-gray-500 hover:text-gray-900 font-medium transition-colors hidden sm:inline">
-              Mon dashboard
-            </Link>
-          )}
+
           <UserButton />
         </div>
       </header>
@@ -281,17 +278,16 @@ export default function Generate() {
             <p className="text-gray-600 mb-6">Remplis le formulaire et reçois un CV optimisé en 30 secondes.</p>
 
             {/* Conseils rapides */}
-            <div className="grid grid-cols-3 gap-3 mb-8">
+            <div className="grid grid-cols-3 gap-2 mb-8">
               {[
-                { emoji: "🔄", label: "Reconversion ?", href: "/blog/cv-reconversion-professionnelle" },
-                { emoji: "✉️", label: "Besoin d'une LM ?", href: "/blog/lettre-motivation-efficace-2025" },
-                { emoji: "🌱", label: "Sans expérience ?", href: "/blog/cv-sans-experience-premier-emploi" },
+                { emoji: "🔄", label: "Reconversion", href: "/blog/cv-reconversion-professionnelle" },
+                { emoji: "✉️", label: "Lettre de motiv.", href: "/blog/lettre-motivation-efficace-2025" },
+                { emoji: "🌱", label: "Sans expérience", href: "/blog/cv-sans-experience-premier-emploi" },
               ].map((c) => (
                 <a key={c.href} href={c.href} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-xl px-3 py-2.5 text-sm text-blue-700 font-medium hover:bg-blue-100 transition-colors">
-                  <span>{c.emoji}</span>
-                  <span>{c.label}</span>
-                  <span className="ml-auto text-blue-400 text-xs">→</span>
+                  className="flex flex-col items-center gap-1.5 bg-blue-50 border border-blue-100 rounded-xl px-2 py-3 text-center hover:bg-blue-100 transition-colors">
+                  <span className="text-lg">{c.emoji}</span>
+                  <span className="text-xs text-blue-700 font-semibold leading-tight">{c.label}</span>
                 </a>
               ))}
             </div>
@@ -316,17 +312,30 @@ export default function Generate() {
             {/* Sélecteur de template */}
             <div className="mb-8">
               <label className="block text-sm font-semibold text-gray-700 mb-3">Choisis un template</label>
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-4 gap-2">
                 {TEMPLATES.map((t) => (
                   <button key={t.id} type="button" onClick={() => setTemplate(t.id)}
-                    className={`p-4 rounded-xl border-2 text-center transition-all cursor-pointer ${
-                      template === t.id
-                        ? "border-blue-500 bg-blue-50 shadow-sm"
-                        : "border-gray-200 bg-white hover:border-gray-300"
+                    className={`rounded-xl border-2 text-center transition-all cursor-pointer overflow-hidden ${
+                      template === t.id ? "border-blue-500 shadow-md" : "border-gray-200 hover:border-gray-300"
                     }`}>
-                    <div className={`w-8 h-8 rounded-full ${t.color} mx-auto mb-2`}></div>
-                    <p className={`text-xs font-bold ${template === t.id ? "text-blue-600" : "text-gray-700"}`}>{t.name}</p>
-                    <p className={`text-xs mt-0.5 ${template === t.id ? "text-blue-400" : "text-gray-400"}`}>{t.desc}</p>
+                    {/* Mini aperçu CV */}
+                    <div style={{ background: t.bg, padding: "8px 6px", display: "flex", gap: 4, height: 72 }}>
+                      {t.sidebar && (
+                        <div style={{ width: 18, background: t.accent, borderRadius: 3, flexShrink: 0 }} />
+                      )}
+                      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 3 }}>
+                        <div style={{ height: 8, background: t.accent, borderRadius: 2, width: "70%" }} />
+                        <div style={{ height: 4, background: t.accent + "60", borderRadius: 2, width: "50%" }} />
+                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, marginTop: 2 }} />
+                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "90%" }} />
+                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "75%" }} />
+                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, marginTop: 2 }} />
+                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "80%" }} />
+                      </div>
+                    </div>
+                    <div className={`px-1 py-1.5 ${template === t.id ? "bg-blue-50" : "bg-white"}`}>
+                      <p className={`text-xs font-bold leading-tight ${template === t.id ? "text-blue-600" : "text-gray-700"}`}>{t.name}</p>
+                    </div>
                   </button>
                 ))}
               </div>
