@@ -19,12 +19,14 @@ export default function Tarifs() {
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
+      } else if (data.redirect) {
+        window.location.href = data.redirect + "?redirect_url=/tarifs";
       } else {
-        setError("Erreur lors du paiement, réessaie.");
+        setError(data.error || "Erreur lors du paiement, réessaie.");
         setLoading("");
       }
     } catch {
-      setError("Connexion impossible, vérifie ta connexion.");
+      setError("Connexion impossible, vérifie ta connexion internet.");
       setLoading("");
     }
   }
