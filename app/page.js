@@ -2,79 +2,27 @@
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
-import { GlowCard } from "../components/ui/spotlight-card";
-import { TestimonialsColumn } from "../components/ui/testimonials-columns";
-import { PhotoGallery } from "../components/ui/gallery";
-
-const allTestimonials = [
-  { name: "Thomas R.", role: "Commercial B2B → Chef de projet · Paris", image: "https://randomuser.me/api/portraits/men/32.jpg", result: "Entretien décroché en 4 jours", text: "J'étais en reconversion et CVAdapt a parfaitement reformulé mon profil. Entretien 4 jours après." },
-  { name: "Sophie M.", role: "Chargée de communication · Lyon", image: "https://randomuser.me/api/portraits/women/44.jpg", result: "3 entretiens en 1 semaine", text: "Avant je galérais à adapter mon CV, maintenant ça prend 30 secondes. Résultat immédiat." },
-  { name: "Karim B.", role: "Développeur web · Bordeaux", image: "https://randomuser.me/api/portraits/men/52.jpg", result: "Rappelé par 2 entreprises", text: "Le CV avait exactement les mots-clés de l'offre. 2 rappels la semaine suivante." },
-  { name: "Laura D.", role: "Assistante RH · Lille", image: "https://randomuser.me/api/portraits/women/68.jpg", result: "Recommande à ses candidats", text: "En tant que RH je sais ce que les recruteurs cherchent. CVAdapt coche toutes les cases." },
-  { name: "Anaïs G.", role: "Responsable marketing · Paris", image: "https://randomuser.me/api/portraits/women/26.jpg", result: "Taux de réponse x3", text: "Mon taux de réponse a triplé depuis que j'utilise CVAdapt pour chaque candidature." },
-  { name: "Marc L.", role: "Technicien · Nantes", image: "https://randomuser.me/api/portraits/men/77.jpg", result: "Premier emploi trouvé", text: "Simple à utiliser même sans être à l'aise avec l'informatique. Mon CV est maintenant pro." },
-  { name: "Emma T.", role: "Étudiante master · Toulouse", image: "https://randomuser.me/api/portraits/women/90.jpg", result: "Stage déniché en 2 semaines", text: "Sans expérience pro, CVAdapt a mis en avant mes projets universitaires parfaitement." },
-  { name: "Julien F.", role: "Comptable · Marseille", image: "https://randomuser.me/api/portraits/men/61.jpg", result: "CDI signé en 3 semaines", text: "J'envoyais des dizaines de CV sans réponse. Avec CVAdapt les recruteurs ont commencé à me rappeler." },
-  { name: "Céline V.", role: "Infirmière → Admin RH · Rennes", image: "https://randomuser.me/api/portraits/women/55.jpg", result: "Reconversion réussie", text: "CVAdapt a parfaitement reformulé mon parcours pour le nouveau secteur que je visais." },
-  { name: "Antoine P.", role: "Data Analyst · Paris", image: "https://randomuser.me/api/portraits/men/23.jpg", result: "Score ATS 34→89", text: "Mon score est passé de 34 à 89 en un clic. Les mots-clés manquants ont été ajoutés automatiquement." },
-  { name: "Marie-Claire B.", role: "Directrice commerciale · Strasbourg", image: "https://randomuser.me/api/portraits/women/33.jpg", result: "4 entretiens en 2 semaines", text: "Même en cadre confirmé le score ATS fait une vraie différence. 4 entretiens en 2 semaines." },
-  { name: "Youssef K.", role: "Ingénieur DevOps · Lyon", image: "https://randomuser.me/api/portraits/men/41.jpg", result: "Offre reçue +20% salaire", text: "CVAdapt a détecté que je n'utilisais pas les bons termes tech. Optimisé en 30s, offre reçue." },
-  { name: "Lucie H.", role: "UX Designer · Nantes", image: "https://randomuser.me/api/portraits/women/62.jpg", result: "Portfolio mieux valorisé", text: "CVAdapt m'a aidé à reformuler mes projets portfolio en langage recruteur. Beaucoup plus d'appels." },
-  { name: "Romain S.", role: "Alternant finance · Paris", image: "https://randomuser.me/api/portraits/men/88.jpg", result: "Alternance décrochée J+5", text: "J'avais postulé sans réponse pendant 3 semaines. Après CVAdapt, rappelé en 5 jours." },
-  { name: "Nathalie D.", role: "Prof → Formatrice RH · Bordeaux", image: "https://randomuser.me/api/portraits/women/71.jpg", result: "Reconversion réussie en 1 mois", text: "Passer de l'éducation aux RH semblait compliqué. CVAdapt a traduit mon profil parfaitement." },
-  { name: "Alexis M.", role: "Backend Dev · Toulouse", image: "https://randomuser.me/api/portraits/men/15.jpg", result: "FAANG interview obtenu", text: "Les offres tech sont précises sur les technos. CVAdapt a détecté ce qui manquait dans mon profil." },
-  { name: "Fatima Z.", role: "Chargée de projet · Casablanca → Paris", image: "https://randomuser.me/api/portraits/women/48.jpg", result: "Premier CDI en France", text: "Arrivée en France, je ne savais pas adapter mon CV au marché français. CVAdapt m'a sauvé la mise." },
-  { name: "Pierre-Yves L.", role: "Manager retail · Montpellier", image: "https://randomuser.me/api/portraits/men/67.jpg", result: "+60% de rappels", text: "En 5 ans de carrière c'est le meilleur outil que j'ai utilisé pour ma recherche d'emploi." },
-  { name: "Clara N.", role: "Juriste → Legal Ops · Paris", image: "https://randomuser.me/api/portraits/women/19.jpg", result: "Entretien cabinet top 10", text: "CVAdapt a reformulé mes compétences juridiques en termes business. Entretien dans un top 10 cabinet." },
-  { name: "Mehdi T.", role: "Chef de chantier → Conducteur de travaux", image: "https://randomuser.me/api/portraits/men/56.jpg", result: "Promotion décrochée", text: "Même pour une promotion interne CVAdapt m'a aidé à mieux valoriser mes réalisations concrètes." },
-  { name: "Isabelle R.", role: "Assistante de direction · Nice", image: "https://randomuser.me/api/portraits/women/82.jpg", result: "Job trouvé après 50 ans", text: "À 52 ans je pensais que c'était trop tard. CVAdapt a mis en avant mon expérience au lieu de la cacher." },
-  { name: "Théo V.", role: "Étudiant en alternance · Paris", image: "https://randomuser.me/api/portraits/men/29.jpg", result: "3 offres d'alternance", text: "Mon profil était générique. CVAdapt l'a transformé en 30 secondes. 3 propositions d'alternance." },
-  { name: "Amira S.", role: "Pharmacienne → MedTech · Paris", image: "https://randomuser.me/api/portraits/women/37.jpg", result: "Pivot réussi vers la tech", text: "Mon profil scientifique semblait incompatible avec la tech. CVAdapt a fait le lien parfaitement." },
-  { name: "Guillaume P.", role: "Product Manager · Lyon", image: "https://randomuser.me/api/portraits/men/73.jpg", result: "Score 41→94 en 1 clic", text: "J'ai vu mon score ATS passer de 41 à 94. Les mots-clés produit n'étaient juste pas au bon endroit." },
-  { name: "Pauline M.", role: "Community Manager · Bordeaux", image: "https://randomuser.me/api/portraits/women/58.jpg", result: "Agence parisienne contactée", text: "Une agence parisienne m'a contactée après avoir revu mon CV avec CVAdapt. Je n'y croyais plus." },
-  { name: "Nicolas B.", role: "Commercial sédentaire · Lille", image: "https://randomuser.me/api/portraits/men/44.jpg", result: "CDD converti en CDI", text: "Mon CDD se terminait dans 2 mois. CVAdapt m'a permis de trouver mieux avant la fin." },
-  { name: "Léa F.", role: "Graphiste → Art Director · Paris", image: "https://randomuser.me/api/portraits/women/92.jpg", result: "Salaire +35%", text: "En ciblant mieux les offres avec un CV adapté j'ai décroché un poste avec 35% de salaire en plus." },
-  { name: "Samuel O.", role: "Développeur mobile · Montpellier", image: "https://randomuser.me/api/portraits/men/81.jpg", result: "Remote job à l'étranger", text: "CVAdapt m'a aidé à adapter mon CV pour des offres internationales en remote. Objectif atteint." },
-  { name: "Virginie C.", role: "Coordinatrice logistique · Rouen", image: "https://randomuser.me/api/portraits/women/75.jpg", result: "Rappelée par Amazon", text: "Je postulais chez Amazon depuis des mois sans réponse. CVAdapt a identifié exactement ce qui manquait." },
-  { name: "Bastien L.", role: "Ingénieur mécanique → Consultant", image: "https://randomuser.me/api/portraits/men/35.jpg", result: "Cabinet de conseil signé", text: "Passer de l'industrie au conseil demandait un repositionnement total. CVAdapt l'a fait en 1 minute." },
-];
-
-const col1 = allTestimonials.slice(0, 10);
-const col2 = allTestimonials.slice(10, 20);
-const col3 = allTestimonials.slice(20, 30);
 
 const faqItems = [
   {
-    q: "CVAdapt fonctionne-t-il pour les stages et alternances ?",
-    a: "Oui, c'est même pour ça qu'il est conçu. CVAdapt analyse l'offre de stage ou d'alternance, détecte les mots-clés attendus et adapte ton CV en conséquence. Même sans expérience pro, il met en avant tes projets, ta formation et tes compétences.",
+    q: "C'est vraiment gratuit pour commencer ?",
+    a: "Oui. Tu génères 3 CV complets gratuitement, sans carte bancaire. Le plan Étudiant à 4,99€/mois débloque 15 CV par mois avec score ATS et lettre de motivation.",
   },
   {
-    q: "Je n'ai pas d'expérience professionnelle — ça va quand même fonctionner ?",
-    a: "Absolument. CVAdapt est optimisé pour les profils étudiants. Il valorise tes projets universitaires, stages, associations, compétences techniques et soft skills dans le format que les recruteurs attendent.",
+    q: "Ça marche sans expérience professionnelle ?",
+    a: "Oui, c'est fait pour ça. CVAdapt met en avant tes projets universitaires, stages, associations et compétences dans le format que les recruteurs attendent.",
   },
   {
-    q: "Mon CV est-il en sécurité ?",
-    a: "Oui. Tes données ne sont jamais partagées, vendues ou stockées de façon permanente. CVAdapt utilise ton contenu uniquement pour générer le CV, puis les données sont supprimées. Paiement sécurisé via Stripe.",
+    q: "CVAdapt fonctionne pour les stages et alternances ?",
+    a: "Oui — c'est même son point fort. Il analyse l'offre de stage ou d'alternance et adapte ton CV aux mots-clés exacts de chaque entreprise.",
   },
   {
-    q: "C'est vraiment gratuit ? Quelle est la limite ?",
-    a: "Tu peux générer 3 CV complets gratuitement, sans carte bancaire. Pour 15 CV par mois avec score ATS complet et lettre de motivation, le plan Étudiant est à 4,99€/mois.",
+    q: "Mes données sont-elles en sécurité ?",
+    a: "Oui. Ton contenu est utilisé uniquement pour générer le CV, puis supprimé. Paiement sécurisé via Stripe. Aucune donnée vendue.",
   },
   {
-    q: "En combien de temps j'obtiens mon CV optimisé ?",
-    a: "Moins de 30 secondes. Tu colles l'offre, tu renseignes ton profil, et tu reçois immédiatement le score ATS, les mots-clés manquants et ton CV prêt à envoyer.",
-  },
-  {
-    q: "Quelle est la différence entre le plan Étudiant et Pro ?",
-    a: "Le plan Étudiant (4,99€/mois) couvre 15 CV par mois avec toutes les fonctionnalités essentielles. Le plan Pro (9,99€/mois) offre des CV illimités, des templates premium exclusifs et un support prioritaire — idéal si tu postules activement.",
-  },
-  {
-    q: "CVAdapt fonctionne pour tous les secteurs ?",
-    a: "Oui. Tech, marketing, finance, RH, commerce, santé... CVAdapt analyse l'offre spécifique que tu colles et adapte ton CV au vocabulaire exact de ce secteur.",
-  },
-  {
-    q: "Y a-t-il une remise étudiant ?",
-    a: "Le plan Étudiant est déjà au tarif étudiant (4,99€/mois). Une remise supplémentaire de 50% est disponible sur justificatif scolaire — contacte-nous à contact@cvadapt.eu.",
+    q: "En combien de temps j'obtiens mon CV ?",
+    a: "Moins de 30 secondes. Tu colles l'offre, tu entres tes infos, et tu reçois ton CV optimisé avec score ATS et mots-clés intégrés.",
   },
 ];
 
@@ -84,721 +32,398 @@ const faqSchema = {
   mainEntity: faqItems.map((item) => ({
     "@type": "Question",
     name: item.q,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.a,
-    },
+    acceptedAnswer: { "@type": "Answer", text: item.a },
   })),
 };
 
-export default function Home() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle");
-  const [openFaq, setOpenFaq] = useState(null);
+const TESTIMONIALS = [
+  { name: "Romain S.", role: "Alternant finance · Paris", result: "Alternance décrochée en 5 jours", text: "J'avais postulé sans réponse pendant 3 semaines. Après CVAdapt, rappelé en 5 jours." },
+  { name: "Emma T.", role: "Étudiante master · Toulouse", result: "Stage trouvé en 2 semaines", text: "Sans expérience pro, CVAdapt a mis en avant mes projets universitaires parfaitement." },
+  { name: "Antoine P.", role: "Data Analyst · Paris", result: "Score ATS : 34 → 89", text: "Mon score est passé de 34 à 89 en un clic. Les mots-clés manquants ont été ajoutés automatiquement." },
+  { name: "Théo V.", role: "Étudiant en alternance · Paris", result: "3 offres d'alternance reçues", text: "Mon profil était générique. CVAdapt l'a transformé en 30 secondes. 3 propositions." },
+  { name: "Anaïs G.", role: "Chargée marketing · Lyon", result: "Taux de réponse ×3", text: "Avant je galérais à adapter mon CV, maintenant ça prend 30 secondes. Résultat immédiat." },
+  { name: "Julien F.", role: "Comptable · Marseille", result: "CDI signé en 3 semaines", text: "J'envoyais des dizaines de CV sans réponse. Avec CVAdapt les recruteurs ont commencé à me rappeler." },
+];
 
-  async function handleSubmit(e) {
+export default function Home() {
+  const [openFaq, setOpenFaq] = useState(null);
+  const [email, setEmail] = useState("");
+  const [emailStatus, setEmailStatus] = useState("idle");
+
+  async function handleNewsletter(e) {
     e.preventDefault();
-    setStatus("loading");
+    setEmailStatus("loading");
     const res = await fetch("/api/subscribe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
     });
-    if (res.ok) {
-      setStatus("success");
-      setEmail("");
-    } else {
-      setStatus("error");
-    }
+    setEmailStatus(res.ok ? "success" : "error");
+    if (res.ok) setEmail("");
   }
 
   return (
     <main className="min-h-screen bg-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      {/* ── 1. HEADER ── */}
-      <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
-        <div className="flex items-center gap-2">
-          <Logo size={32} />
-          <span className="text-xl font-bold text-blue-600 tracking-tight">CVAdapt</span>
+      {/* ─── HEADER ──────────────────────────────────────────────── */}
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Logo size={28} />
+            <span className="text-lg font-bold text-blue-600">CVAdapt</span>
+          </div>
+          <nav className="flex items-center gap-2 sm:gap-5">
+            <a href="/tarifs" className="hidden sm:inline text-sm text-gray-500 hover:text-gray-900 font-medium">Tarifs</a>
+            <a href="/blog" className="hidden sm:inline text-sm text-gray-500 hover:text-gray-900 font-medium">Blog</a>
+            <a href="/generate" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors">
+              Commencer gratuitement
+            </a>
+          </nav>
         </div>
-        <nav className="flex items-center gap-3 sm:gap-6">
-          <a href="/blog" className="hidden md:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Blog</a>
-          <a href="/analyse" className="hidden sm:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Analyser mon CV</a>
-          <a href="/tarifs" className="hidden md:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Tarifs</a>
-          <a
-            href="/generate"
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors whitespace-nowrap"
-          >
-            Commencer gratuitement
-          </a>
-        </nav>
       </header>
 
-      {/* ── 2. HERO ── */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-16 sm:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-          {/* Colonne gauche */}
-          <div
-          >
-            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 text-sm font-semibold px-4 py-2 rounded-full mb-6">
-              🎓 Spécialement conçu pour les étudiants
-            </div>
-            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
-              Ton stage. Ton alternance.<br />
-              <span className="text-blue-600">Ton premier emploi.</span><br />
-              Commence ici.
-            </h1>
-            <p className="text-base md:text-lg text-gray-600 mb-8 leading-relaxed">
-              75% des CV étudiants sont rejetés avant d&apos;être lus. CVAdapt analyse ton CV, détecte ce qui manque et génère une version qui passe les filtres ATS en 30 secondes.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 mb-5">
-              <a
-                href="/analyse"
-                className="bg-blue-600 text-white px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-blue-700 transition-colors shadow-sm text-center"
-              >
-                Analyser mon CV gratuitement →
-              </a>
-              <a
-                href="#comment-ca-marche"
-                className="border border-gray-200 text-gray-700 px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-gray-50 transition-colors text-center"
-              >
-                Voir comment ça marche
-              </a>
-            </div>
-            <p className="text-sm text-gray-500">⭐ 4,9/5 · 12 847 étudiants et diplômés · Gratuit pour commencer</p>
-          </div>
+      {/* ─── HERO ────────────────────────────────────────────────── */}
+      <section className="max-w-5xl mx-auto px-5 pt-16 pb-20 text-center">
+        <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-8">
+          🎓 Conçu pour les étudiants &amp; alternants
+        </div>
 
-          {/* Colonne droite — mockup score ATS */}
-          <div
-            className="flex justify-center lg:justify-end mt-8 lg:mt-0"
-          >
-            <div style={{
-              width: "100%",
-              maxWidth: "420px",
-              borderRadius: "14px",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.08)",
-              overflow: "hidden",
-              border: "1px solid #e5e7eb",
-              background: "#fff",
-            }}>
-              {/* Browser bar */}
-              <div style={{
-                background: "#f3f4f6",
-                padding: "10px 14px",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                borderBottom: "1px solid #e5e7eb",
-              }}>
-                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ef4444", display: "inline-block" }}></span>
-                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#f59e0b", display: "inline-block" }}></span>
-                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#22c55e", display: "inline-block" }}></span>
-                <div style={{
-                  flex: 1,
-                  background: "#fff",
-                  borderRadius: "6px",
-                  padding: "4px 10px",
-                  fontSize: "11px",
-                  color: "#9ca3af",
-                  marginLeft: "8px",
-                  border: "1px solid #e5e7eb",
-                }}>
-                  cvadapt.eu — Score ATS
-                </div>
-              </div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.1] mb-6">
+          Ton CV passe les filtres<br />
+          <span className="text-blue-600">en 30 secondes.</span>
+        </h1>
 
-              {/* Widget body */}
-              <div style={{ padding: "24px" }}>
-                {/* Score circle */}
-                <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
-                  <div style={{ position: "relative", width: 100, height: 100 }}>
-                    <svg viewBox="0 0 100 100" width="100" height="100">
-                      <circle cx="50" cy="50" r="42" fill="none" stroke="#f3f4f6" strokeWidth="10" />
-                      <circle
-                        cx="50" cy="50" r="42" fill="none"
-                        stroke="#f97316" strokeWidth="10"
-                        strokeDasharray={`${(78 / 100) * 264} 264`}
-                        strokeLinecap="round"
-                        transform="rotate(-90 50 50)"
-                      />
-                    </svg>
-                    <div style={{
-                      position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-                      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                    }}>
-                      <span style={{ fontSize: "22px", fontWeight: 800, color: "#f97316" }}>78</span>
-                      <span style={{ fontSize: "10px", color: "#9ca3af" }}>/100</span>
-                    </div>
+        <p className="text-lg text-gray-500 max-w-xl mx-auto mb-10 leading-relaxed">
+          75% des CV sont rejetés par un algorithme avant d&apos;être lus.
+          CVAdapt détecte ce qui manque et génère un CV optimisé pour chaque offre — gratuitement.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10">
+          <a href="/analyse" className="bg-blue-600 text-white px-8 py-4 rounded-xl text-base font-semibold hover:bg-blue-700 transition-colors shadow-sm">
+            Analyser mon CV gratuitement →
+          </a>
+          <a href="#comment-ca-marche" className="border border-gray-200 text-gray-700 px-8 py-4 rounded-xl text-base font-semibold hover:bg-gray-50 transition-colors">
+            Comment ça marche
+          </a>
+        </div>
+
+        <p className="text-sm text-gray-400">⭐ 4,9/5 · 12 847 étudiants · Gratuit pour commencer</p>
+
+        {/* Mockup Score ATS */}
+        <div className="mt-14 flex justify-center">
+          <div className="w-full max-w-sm bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden text-left">
+            {/* Browser bar */}
+            <div className="bg-gray-50 px-4 py-2.5 flex items-center gap-1.5 border-b border-gray-100">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-400 inline-block" />
+              <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 inline-block" />
+              <span className="w-2.5 h-2.5 rounded-full bg-green-400 inline-block" />
+              <span className="ml-3 text-xs text-gray-400 bg-white border border-gray-200 rounded px-3 py-0.5">cvadapt.eu — Score ATS</span>
+            </div>
+            <div className="p-5">
+              {/* Score */}
+              <div className="flex items-center gap-4 mb-5">
+                <div className="relative w-16 h-16 shrink-0">
+                  <svg viewBox="0 0 100 100" width="64" height="64">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f3f4f6" strokeWidth="12" />
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#22c55e" strokeWidth="12"
+                      strokeDasharray={`${(91 / 100) * 251} 251`} strokeLinecap="round" transform="rotate(-90 50 50)" />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center flex-col">
+                    <span className="text-sm font-extrabold text-green-600 leading-none">91</span>
+                    <span className="text-[8px] text-gray-400">/100</span>
                   </div>
                 </div>
-
-                {/* Métriques */}
-                {[
-                  { label: "Mots-clés", pct: 45, color: "#ef4444" },
-                  { label: "Structure", pct: 82, color: "#3b82f6" },
-                  { label: "Lisibilité", pct: 91, color: "#22c55e" },
-                ].map(({ label, pct, color }) => (
-                  <div key={label} style={{ marginBottom: "10px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                      <span style={{ color: "#374151", fontWeight: 600 }}>{label}</span>
-                      <span style={{ color, fontWeight: 700 }}>{pct}%</span>
-                    </div>
-                    <div style={{ background: "#f3f4f6", borderRadius: "99px", height: "6px" }}>
-                      <div style={{ width: `${pct}%`, height: "6px", borderRadius: "99px", background: color }}></div>
-                    </div>
+                <div>
+                  <p className="font-bold text-gray-900 text-sm">Score ATS : Excellent</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Optimisé pour cette offre</p>
+                  <span className="inline-block mt-1 bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">+57 points ↑</span>
+                </div>
+              </div>
+              {/* Barres */}
+              {[
+                { label: "Mots-clés", pct: 94, color: "#22c55e" },
+                { label: "Structure", pct: 88, color: "#3b82f6" },
+                { label: "Lisibilité", pct: 91, color: "#8b5cf6" },
+              ].map(({ label, pct, color }) => (
+                <div key={label} className="mb-2.5">
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-gray-600 font-medium">{label}</span>
+                    <span className="font-bold" style={{ color }}>{pct}%</span>
                   </div>
-                ))}
-
-                {/* Badges mots-clés manquants */}
-                <div style={{ marginTop: "16px", marginBottom: "16px" }}>
-                  <p style={{ fontSize: "11px", fontWeight: 700, color: "#ef4444", marginBottom: "8px" }}>Mots-clés manquants :</p>
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    {["Docker", "AWS", "Agile"].map((kw) => (
-                      <span key={kw} style={{
-                        background: "#fef2f2", color: "#dc2626", border: "1px solid #fecaca",
-                        fontSize: "11px", fontWeight: 600, padding: "3px 10px", borderRadius: "99px",
-                      }}>
-                        {kw}
-                      </span>
-                    ))}
+                  <div className="bg-gray-100 rounded-full h-1.5">
+                    <div style={{ width: `${pct}%`, background: color }} className="h-1.5 rounded-full" />
                   </div>
                 </div>
-
-                {/* CTA */}
-                <div style={{
-                  background: "#2563eb", color: "#fff",
-                  fontWeight: 700, fontSize: "13px",
-                  borderRadius: "8px", padding: "11px",
-                  textAlign: "center", cursor: "pointer",
-                }}>
-                  Optimiser mon CV →
-                </div>
+              ))}
+              <div className="mt-4 bg-blue-600 text-white text-xs font-bold text-center py-2.5 rounded-xl cursor-pointer">
+                Télécharger mon CV PDF →
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 3. LOGOS DE CONFIANCE ── */}
-      <section className="py-10 px-4 sm:px-6 bg-gray-50 border-y border-gray-100">
-        <div
-          className="max-w-5xl mx-auto"
-        >
-          <p className="text-center text-sm font-medium text-gray-400 mb-8">Ils ont décroché des stages et alternances chez</p>
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8">
-            {["Capgemini", "Société Générale", "L'Oréal", "BNP Paribas", "Decathlon", "Renault", "Thales", "Orange"].map((brand) => (
-              <span key={brand} style={{ fontSize: "15px", fontWeight: 700, fontStyle: "italic", color: "#4b5563", letterSpacing: "-0.02em" }}>
-                {brand}
-              </span>
-            ))}
-          </div>
+      {/* ─── LOGOS ───────────────────────────────────────────────── */}
+      <section className="py-8 px-5 bg-gray-50 border-y border-gray-100">
+        <p className="text-center text-xs font-medium text-gray-400 uppercase tracking-widest mb-5">Ils ont décroché des postes chez</p>
+        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 max-w-3xl mx-auto">
+          {["Capgemini", "Société Générale", "L'Oréal", "BNP Paribas", "Decathlon", "Orange", "Thales", "Renault"].map((b) => (
+            <span key={b} className="text-sm font-bold italic text-gray-400">{b}</span>
+          ))}
         </div>
       </section>
 
-      {/* ── 4. PROBLÈME ── */}
-      <section style={{ background: "#111827" }} className="py-20 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
-          <div
-            className="text-center mb-12"
-          >
-            <span className="inline-block bg-red-900/40 text-red-400 border border-red-800 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
-              Le problème
-            </span>
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Tu postes. Tu attends. Silence.
-            </h2>
-            <p className="text-gray-400 max-w-xl mx-auto">
-              Ce n&apos;est pas ton profil le problème. C&apos;est que ton CV ne passe même pas le premier filtre automatique.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
-            {[
-              { emoji: "😤", title: "Même CV pour toutes les offres", desc: "Tu envoies le même CV à 30 offres. L'ATS de chaque entreprise le filtre immédiatement faute de mots-clés adaptés." },
-              { emoji: "🤖", title: "Rejeté par un algorithme", desc: "Les grandes entreprises utilisent des logiciels qui trient automatiquement 75% des CV. Le tien ne passe peut-être jamais devant un humain." },
-              { emoji: "📭", title: "0 réponse malgré un bon profil", desc: "Tu as les qualifications. Mais sans les bons mots-clés au bon endroit, ton CV est invisible pour les recruteurs." },
-            ].map((item, index) => (
-              <div
-                key={item.title}
-                style={{ background: "#1f2937", border: "1px solid #374151" }}
-                className="p-7 rounded-2xl"
-              >
-                <div className="text-3xl mb-4">{item.emoji}</div>
-                <h3 className="font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Stats */}
-          <div style={{ background: "#0d1117" }} className="rounded-2xl grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-800">
-            {[
-              { num: "75%", label: "CV rejetés par les ATS" },
-              { num: "6 sec", label: "temps moyen de lecture d'un CV humain" },
-              { num: "3h", label: "perdues à adapter un CV manuellement" },
-            ].map((s, index) => (
-              <div
-                key={s.num}
-                className="text-center py-10 px-6"
-              >
-                <p className="text-4xl font-extrabold text-white mb-2">{s.num}</p>
-                <p className="text-gray-400 text-sm">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. SOLUTION ── */}
-      <section className="py-20 px-4 sm:px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div
-            className="text-center mb-12"
-          >
-            <span className="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
-              La solution
-            </span>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              En 30 secondes, ton CV passe les filtres. Et les recruteurs le lisent.
-            </h2>
-            <p className="text-gray-500 max-w-xl mx-auto">
-              Colle l&apos;offre de stage ou d&apos;alternance. CVAdapt analyse les mots-clés manquants, optimise chaque section et génère un CV adapté instantanément.
-            </p>
-          </div>
-
-          <div
-            className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              {/* Sans CVAdapt */}
-              <div className="bg-red-50 p-8 border-b md:border-b-0 md:border-r border-red-100">
-                <h3 className="font-bold text-red-700 text-lg mb-5">❌ Sans CVAdapt</h3>
-                <ul className="space-y-3">
-                  {[
-                    "CV générique",
-                    "Mots-clés manquants",
-                    "Filtré par ATS",
-                    "2-3h de travail",
-                    "5-10% de réponses",
-                  ].map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-sm text-gray-700">
-                      <span className="text-red-500 font-bold">✗</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Avec CVAdapt */}
-              <div className="bg-green-50 p-8">
-                <h3 className="font-bold text-green-700 text-lg mb-5">✅ Avec CVAdapt</h3>
-                <ul className="space-y-3">
-                  {[
-                    "CV adapté à l'offre",
-                    "Mots-clés intégrés auto",
-                    "Score ATS optimisé",
-                    "30 secondes",
-                    "+68% de réponses",
-                  ].map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-sm text-gray-700 font-medium">
-                      <span className="text-green-600 font-bold">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. COMMENT ÇA MARCHE ── */}
-      <section
-        id="comment-ca-marche"
-        className="py-20 px-6"
-        style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%)" }}
-      >
-        <div className="max-w-5xl mx-auto">
+      {/* ─── COMMENT ÇA MARCHE ───────────────────────────────────── */}
+      <section id="comment-ca-marche" className="py-20 px-5 bg-white">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-white mb-3">3 étapes. 30 secondes. Plus d'entretiens.</h2>
-            <p className="text-white/50">Simple, rapide, efficace.</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Simple</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">3 étapes. 30 secondes.</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <GlowCard glowColor="blue" customSize className="w-full h-auto aspect-auto p-6 flex flex-col gap-4">
-              <div className="text-5xl font-black text-white/10 leading-none select-none">1</div>
-              <div className="text-4xl">📋</div>
-              <div>
-                <h3 className="text-white font-bold text-lg mb-2">Colle l'offre</h3>
-                <p className="text-white/60 text-sm leading-relaxed">Copie-colle n'importe quelle offre depuis LinkedIn, Indeed, etc.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              { n: "1", emoji: "📋", title: "Colle l'offre", desc: "Copie n'importe quelle offre depuis LinkedIn, Indeed, APEC…" },
+              { n: "2", emoji: "✍️", title: "Entre tes infos", desc: "Ton expérience, tes compétences, ta formation en quelques lignes." },
+              { n: "3", emoji: "🚀", title: "Reçois ton CV", desc: "Score ATS, mots-clés intégrés, CV PDF prêt à envoyer." },
+            ].map((step) => (
+              <div key={step.n} className="relative bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                <div className="text-6xl font-black text-gray-100 absolute top-4 right-5 leading-none select-none">{step.n}</div>
+                <div className="text-3xl mb-4">{step.emoji}</div>
+                <h3 className="font-bold text-gray-900 mb-1.5">{step.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
               </div>
-              <div className="mt-auto bg-white/10 rounded-xl p-4 space-y-2">
-                <div className="h-2 bg-white/20 rounded-full w-[90%]"></div>
-                <div className="h-2 bg-white/20 rounded-full w-[75%]"></div>
-                <div className="h-2 bg-white/20 rounded-full w-[60%]"></div>
-              </div>
-            </GlowCard>
-
-            <GlowCard glowColor="blue" customSize className="w-full h-auto aspect-auto p-6 flex flex-col gap-4">
-              <div className="text-5xl font-black text-white/10 leading-none select-none">2</div>
-              <div className="text-4xl">✍️</div>
-              <div>
-                <h3 className="text-white font-bold text-lg mb-2">Entre tes infos</h3>
-                <p className="text-white/60 text-sm leading-relaxed">Ton expérience, tes compétences, ta formation.</p>
-              </div>
-              <div className="mt-auto bg-white/10 rounded-xl p-4 space-y-2">
-                {["Nom complet", "Titre du poste", "Expérience"].map((l) => (
-                  <div key={l}>
-                    <div className="text-white/40 text-[10px] font-semibold mb-1">{l}</div>
-                    <div className="h-6 bg-white/20 rounded-lg"></div>
-                  </div>
-                ))}
-              </div>
-            </GlowCard>
-
-            <GlowCard glowColor="blue" customSize className="w-full h-auto aspect-auto p-6 flex flex-col gap-4">
-              <div className="text-5xl font-black text-white/10 leading-none select-none">3</div>
-              <div className="text-4xl">🚀</div>
-              <div>
-                <h3 className="text-white font-bold text-lg mb-2">Reçois ton CV + Score ATS</h3>
-                <p className="text-white/60 text-sm leading-relaxed">Un CV PDF adapté à l'offre, prêt à envoyer en 30 secondes.</p>
-              </div>
-              <div className="mt-auto bg-white/10 rounded-xl overflow-hidden">
-                <div className="bg-blue-600/60 px-4 py-3">
-                  <div className="h-2.5 bg-white/60 rounded-full w-[55%] mb-2"></div>
-                  <div className="h-2 bg-white/30 rounded-full w-[70%]"></div>
-                </div>
-                <div className="p-4 space-y-2">
-                  <div className="h-2 bg-white/20 rounded-full w-[90%]"></div>
-                  <div className="h-2 bg-white/20 rounded-full w-[75%]"></div>
-                  <div className="h-2 bg-white/20 rounded-full w-[55%]"></div>
-                </div>
-              </div>
-            </GlowCard>
+            ))}
           </div>
 
-          <div className="text-center mt-12">
-            <a
-              href="/generate"
-              className="inline-block bg-white text-blue-700 px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-blue-50 transition-colors shadow-lg"
-            >
-              Essayer maintenant — c'est gratuit
+          <div className="text-center mt-10">
+            <a href="/generate" className="inline-block bg-blue-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-blue-700 transition-colors text-sm">
+              Essayer gratuitement →
             </a>
           </div>
         </div>
       </section>
 
-      {/* ── 7. AVANT / APRÈS SCORE ATS ── */}
-      <section className="py-20 px-4 sm:px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div
-            className="text-center mb-12"
-          >
-            <span className="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
-              Résultat concret
-            </span>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Avant / Après CVAdapt</h2>
+      {/* ─── AVANT / APRÈS ───────────────────────────────────────── */}
+      <section className="py-20 px-5 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Résultat concret</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Avant / Après CVAdapt</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* AVANT */}
-            <div className="rounded-2xl border-2 border-red-300 overflow-hidden">
-              <div style={{ background: "#7f1d1d" }} className="px-6 py-4 flex items-center gap-3">
-                <span className="text-2xl">❌</span>
-                <p className="font-bold text-white">CV générique</p>
+            <div className="bg-white rounded-2xl border-2 border-red-100 overflow-hidden">
+              <div className="bg-red-50 px-5 py-3 border-b border-red-100 flex items-center gap-2">
+                <span className="text-lg">❌</span>
+                <span className="font-bold text-red-700 text-sm">CV générique</span>
               </div>
-              <div className="p-6">
-                {/* Score circle */}
-                <div className="flex justify-center mb-5">
-                  <div style={{ position: "relative", width: 90, height: 90 }}>
-                    <svg viewBox="0 0 100 100" width="90" height="90">
-                      <circle cx="50" cy="50" r="42" fill="none" stroke="#fee2e2" strokeWidth="10" />
-                      <circle
-                        cx="50" cy="50" r="42" fill="none"
-                        stroke="#ef4444" strokeWidth="10"
-                        strokeDasharray={`${(34 / 100) * 264} 264`}
-                        strokeLinecap="round"
-                        transform="rotate(-90 50 50)"
-                      />
+              <div className="p-5">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="relative w-14 h-14 shrink-0">
+                    <svg viewBox="0 0 100 100" width="56" height="56">
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#fee2e2" strokeWidth="12" />
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#ef4444" strokeWidth="12"
+                        strokeDasharray={`${(34 / 100) * 251} 251`} strokeLinecap="round" transform="rotate(-90 50 50)" />
                     </svg>
-                    <div style={{
-                      position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-                      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                    }}>
-                      <span style={{ fontSize: "20px", fontWeight: 800, color: "#ef4444" }}>34</span>
-                      <span style={{ fontSize: "10px", color: "#9ca3af" }}>/100</span>
+                    <div className="absolute inset-0 flex items-center justify-center flex-col">
+                      <span className="text-sm font-extrabold text-red-500 leading-none">34</span>
+                      <span className="text-[8px] text-gray-400">/100</span>
                     </div>
                   </div>
+                  <div>
+                    <p className="text-sm font-bold text-gray-900">Score ATS : Faible</p>
+                    <p className="text-xs text-gray-400">Filtré automatiquement</p>
+                  </div>
                 </div>
-                <ul className="space-y-2 mb-4">
-                  {["Pas de mots-clés", "Structure basique", "Lisibilité faible"].map((t) => (
-                    <li key={t} className="flex items-center gap-2 text-sm text-gray-600">
-                      <span className="text-red-500 font-bold">✗</span> {t}
+                <ul className="space-y-2 text-sm text-gray-500">
+                  {["Mots-clés manquants", "Structure basique", "Ignoré par l'ATS"].map((t) => (
+                    <li key={t} className="flex items-center gap-2">
+                      <span className="text-red-400 font-bold text-xs">✗</span>{t}
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-wrap gap-2">
-                  {["Docker manquant", "AWS manquant", "Agile manquant"].map((kw) => (
-                    <span key={kw} style={{
-                      background: "#fef2f2", color: "#dc2626", border: "1px solid #fecaca",
-                      fontSize: "11px", fontWeight: 600, padding: "3px 10px", borderRadius: "99px",
-                    }}>{kw}</span>
-                  ))}
-                </div>
               </div>
             </div>
 
             {/* APRÈS */}
-            <div className="rounded-2xl border-2 border-green-300 overflow-hidden">
-              <div style={{ background: "#14532d" }} className="px-6 py-4 flex items-center gap-3">
-                <span className="text-2xl">✅</span>
-                <p className="font-bold text-white">CV optimisé par CVAdapt</p>
+            <div className="bg-white rounded-2xl border-2 border-green-200 overflow-hidden">
+              <div className="bg-green-50 px-5 py-3 border-b border-green-100 flex items-center gap-2">
+                <span className="text-lg">✅</span>
+                <span className="font-bold text-green-700 text-sm">CV optimisé par CVAdapt</span>
               </div>
-              <div className="p-6">
-                {/* Score circle */}
-                <div className="flex justify-center mb-5">
-                  <div style={{ position: "relative", width: 90, height: 90 }}>
-                    <svg viewBox="0 0 100 100" width="90" height="90">
-                      <circle cx="50" cy="50" r="42" fill="none" stroke="#dcfce7" strokeWidth="10" />
-                      <circle
-                        cx="50" cy="50" r="42" fill="none"
-                        stroke="#22c55e" strokeWidth="10"
-                        strokeDasharray={`${(91 / 100) * 264} 264`}
-                        strokeLinecap="round"
-                        transform="rotate(-90 50 50)"
-                      />
+              <div className="p-5">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="relative w-14 h-14 shrink-0">
+                    <svg viewBox="0 0 100 100" width="56" height="56">
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#dcfce7" strokeWidth="12" />
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#22c55e" strokeWidth="12"
+                        strokeDasharray={`${(91 / 100) * 251} 251`} strokeLinecap="round" transform="rotate(-90 50 50)" />
                     </svg>
-                    <div style={{
-                      position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-                      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                    }}>
-                      <span style={{ fontSize: "20px", fontWeight: 800, color: "#22c55e" }}>91</span>
-                      <span style={{ fontSize: "10px", color: "#9ca3af" }}>/100</span>
+                    <div className="absolute inset-0 flex items-center justify-center flex-col">
+                      <span className="text-sm font-extrabold text-green-600 leading-none">91</span>
+                      <span className="text-[8px] text-gray-400">/100</span>
                     </div>
                   </div>
+                  <div>
+                    <p className="text-sm font-bold text-gray-900">Score ATS : Excellent</p>
+                    <p className="text-xs text-green-600 font-semibold">🎯 Entretien décroché en 3 jours</p>
+                  </div>
                 </div>
-                <ul className="space-y-2 mb-4">
-                  {["Mots-clés intégrés", "Structure optimisée", "Lisibilité excellente"].map((t) => (
-                    <li key={t} className="flex items-center gap-2 text-sm text-gray-700 font-medium">
-                      <span className="text-green-600 font-bold">✓</span> {t}
+                <ul className="space-y-2 text-sm text-gray-700">
+                  {["Tous les mots-clés intégrés", "Structure optimisée", "Lu par un humain"].map((t) => (
+                    <li key={t} className="flex items-center gap-2 font-medium">
+                      <span className="text-green-500 font-bold text-xs">✓</span>{t}
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {["Docker ✓", "AWS ✓", "Agile ✓"].map((kw) => (
-                    <span key={kw} style={{
-                      background: "#f0fdf4", color: "#16a34a", border: "1px solid #bbf7d0",
-                      fontSize: "11px", fontWeight: 600, padding: "3px 10px", borderRadius: "99px",
-                    }}>{kw}</span>
-                  ))}
-                </div>
-                <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "8px" }} className="px-4 py-2">
-                  <p className="text-green-700 text-sm font-semibold">🎯 Entretien décroché 3 jours après</p>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 8. FONCTIONNALITÉS ── */}
-      <section className="py-20 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <div
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Tout ce dont tu as besoin pour décrocher le poste</h2>
+      {/* ─── TÉMOIGNAGES ─────────────────────────────────────────── */}
+      <section className="py-20 px-5 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="flex justify-center gap-0.5 mb-3">
+              {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">12 847 étudiants ont décroché leurs entretiens</h2>
+            <p className="text-gray-400 text-sm">Stages, alternances, premiers emplois</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { emoji: "🔍", title: "Détection des mots-clés", desc: "Analyse chaque mot-clé de l'offre et identifie les manquants dans ton CV" },
-              { emoji: "⚡", title: "Optimisation automatique", desc: "Réécriture intelligente de tes expériences pour matcher l'offre" },
-              { emoji: "🎯", title: "Score ATS en temps réel", desc: "Un score /100 clair qui mesure ta compatibilité avec l'offre" },
-              { emoji: "💡", title: "Suggestions concrètes", desc: "Actions précises et applicables pour améliorer ton score immédiatement" },
-              { emoji: "🔄", title: "Adapté à chaque offre", desc: "Un CV unique pour chaque candidature, en 30 secondes" },
-              { emoji: "✉️", title: "Lettre de motivation", desc: "Générée automatiquement, adaptée à l'offre, prête à envoyer" },
-            ].map((f, index) => (
-              <div
-                key={f.title}
-                className="bg-white rounded-2xl border border-gray-200 p-7 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="text-3xl mb-4">{f.emoji}</div>
-                <h3 className="font-bold text-gray-900 mb-2">{f.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {TESTIMONIALS.map((t) => {
+              const initials = t.name.split(" ").map(w => w[0]).join("").slice(0, 2);
+              const colors = ["#2563eb", "#7c3aed", "#0891b2", "#059669", "#dc2626", "#d97706"];
+              const color = colors[TESTIMONIALS.indexOf(t) % colors.length];
+              return (
+                <div key={t.name} className="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+                        style={{ background: color }}>
+                        {initials}
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-gray-900 leading-tight">{t.name}</p>
+                        <p className="text-xs text-gray-400">{t.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-green-50 text-green-700 text-xs font-bold px-3 py-1 rounded-full inline-block mb-3">
+                    ✓ {t.result}
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed">&ldquo;{t.text}&rdquo;</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── 9. POUR QUI ── */}
-      <section className="py-20 px-4 sm:px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Que tu cherches un stage, une alternance ou ton premier CDI</h2>
+      {/* ─── TARIFS ──────────────────────────────────────────────── */}
+      <section className="py-20 px-5 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Tarifs</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Prix pensés pour les étudiants</h2>
+            <p className="text-gray-400 text-sm">Sans engagement · Annule quand tu veux</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                emoji: "🎓",
-                title: "Stage de fin d'études",
-                desc: "Pas d'expérience pro ? CVAdapt met en avant tes projets, ta formation et tes compétences dans le bon format pour chaque offre.",
-              },
-              {
-                emoji: "🔄",
-                title: "Alternance / Apprentissage",
-                desc: "Les offres d'alternance sont très compétitives. CVAdapt te donne l'avantage en adaptant ton CV aux mots-clés exacts de chaque entreprise.",
-              },
-              {
-                emoji: "🚀",
-                title: "Premier emploi (0-2 ans)",
-                desc: "La transition études→emploi est critique. CVAdapt reformule ton parcours étudiant en langage professionnel que les recruteurs comprennent.",
-              },
-              {
-                emoji: "📈",
-                title: "Reconversion / Reprise d'études",
-                desc: "Tu reviens sur le marché après une pause ou un changement de cap ? CVAdapt valorise ta trajectoire comme un atout.",
-              },
-            ].map((p, index) => (
-              <div
-                key={p.title}
-                className="rounded-2xl border border-gray-200 p-7 hover:border-blue-200 hover:shadow-sm transition-all"
-              >
-                <div className="text-3xl mb-3">{p.emoji}</div>
-                <h3 className="font-bold text-gray-900 mb-2">{p.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed mb-4">{p.desc}</p>
-                <a href="/generate" className="text-blue-600 text-sm font-semibold hover:text-blue-700 transition-colors">
-                  Voir un exemple →
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ── 10. TÉMOIGNAGES ANIMÉS ── */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col items-center text-center max-w-xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-3 bg-yellow-50 border border-yellow-200 rounded-2xl px-6 py-3 mb-6">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-yellow-400 text-lg">★</span>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+            {/* Gratuit */}
+            <div className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col">
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Gratuit</p>
+              <div className="flex items-end gap-1 mb-6">
+                <span className="text-4xl font-extrabold text-gray-900">0€</span>
+                <span className="text-gray-400 text-sm mb-1">pour toujours</span>
+              </div>
+              <ul className="space-y-2.5 mb-6 flex-1 text-sm">
+                {[
+                  { t: "3 CV complets", ok: true },
+                  { t: "4 templates", ok: true },
+                  { t: "Téléchargement PDF", ok: true },
+                  { t: "Score ATS complet", ok: false },
+                  { t: "Lettre de motivation", ok: false },
+                ].map((f) => (
+                  <li key={f.t} className={`flex items-center gap-2 ${f.ok ? "text-gray-700" : "text-gray-300"}`}>
+                    <span className={`text-xs font-bold ${f.ok ? "text-gray-500" : "text-gray-200"}`}>{f.ok ? "✓" : "✗"}</span>
+                    {f.t}
+                  </li>
                 ))}
-              </div>
-              <div className="text-left border-l border-yellow-200 pl-4">
-                <p className="font-bold text-gray-900 text-sm">4,9 / 5 — Basé sur 127+ avis vérifiés ✓</p>
-              </div>
+              </ul>
+              <a href="/generate" className="block text-center bg-gray-100 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-200 transition-colors text-sm">
+                Commencer
+              </a>
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">12 847 étudiants ont décroché leurs entretiens</h2>
-            <p className="text-gray-500">Stages, alternances, premiers CDI — des résultats concrets</p>
-          </div>
 
-          <div className="flex justify-center gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)] max-h-[680px] overflow-hidden">
-            <TestimonialsColumn testimonials={col1} duration={25} />
-            <TestimonialsColumn testimonials={col2} className="hidden md:block" duration={30} />
-            <TestimonialsColumn testimonials={col3} className="hidden lg:block" duration={22} />
-          </div>
-        </div>
-      </section>
-
-      {/* ── 11. STATS COMPTEURS ── */}
-      <section style={{ background: "#0f172a" }} className="py-16 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { num: "12 847", label: "CV optimisés" },
-              { num: "4,9★", label: "Note moyenne" },
-              { num: "+68%", label: "Taux de réponse moyen" },
-              { num: "30s", label: "Pour générer un CV optimisé" },
-            ].map((s, index) => (
-              <div
-                key={s.num}
-                className="text-center"
-              >
-                <p className="text-4xl font-extrabold text-white mb-2">{s.num}</p>
-                <p className="text-gray-400 text-sm">{s.label}</p>
+            {/* Étudiant — populaire */}
+            <div className="rounded-2xl p-6 flex flex-col sm:-mt-4 sm:-mb-4 shadow-xl"
+              style={{ background: "linear-gradient(145deg, #1e40af, #2563eb)" }}>
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-200">Étudiant</p>
+                <span className="bg-yellow-400 text-yellow-900 text-xs font-bold px-2.5 py-1 rounded-full">⭐ Populaire</span>
               </div>
-            ))}
+              <div className="flex items-end gap-1 mb-6">
+                <span className="text-4xl font-extrabold text-white">4,99€</span>
+                <span className="text-blue-200 text-sm mb-1">/mois</span>
+              </div>
+              <ul className="space-y-2.5 mb-6 flex-1 text-sm text-white">
+                {["15 CV par mois", "Score ATS complet", "4 templates", "Lettre de motivation", "Mots-clés automatiques", "Support prioritaire"].map((f) => (
+                  <li key={f} className="flex items-center gap-2">
+                    <span className="text-blue-300 text-xs font-bold">✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+              <a href="/tarifs" className="block text-center bg-white text-blue-700 font-bold py-3 rounded-xl hover:bg-blue-50 transition-colors text-sm">
+                Choisir Étudiant →
+              </a>
+            </div>
+
+            {/* Pro */}
+            <div className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col">
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Pro</p>
+              <div className="flex items-end gap-1 mb-6">
+                <span className="text-4xl font-extrabold text-gray-900">9,99€</span>
+                <span className="text-gray-400 text-sm mb-1">/mois</span>
+              </div>
+              <ul className="space-y-2.5 mb-6 flex-1 text-sm text-gray-700">
+                {["CV illimités", "Score ATS complet", "4 templates", "Lettre de motivation", "Conseils personnalisés", "Support prioritaire"].map((f) => (
+                  <li key={f} className="flex items-center gap-2">
+                    <span className="text-blue-500 text-xs font-bold">✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+              <a href="/tarifs" className="block text-center border-2 border-gray-900 text-gray-900 font-bold py-3 rounded-xl hover:bg-gray-900 hover:text-white transition-colors text-sm">
+                Choisir Pro →
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── 11b. GALERIE SUCCÈS ── */}
-      <section className="py-16 px-4 sm:px-6 bg-white overflow-hidden">
-        <div className="max-w-5xl mx-auto">
-          <PhotoGallery
-            style="carousel"
-            animationDelay={0.3}
-            title="Leur carrière a décollé"
-            subtitle="Ils ont utilisé CVAdapt"
-            ctaLabel="Rejoins-les — c'est gratuit →"
-            onCtaClick={() => window.location.href = "/generate"}
-            photos={[
-              {
-                id: 1,
-                src: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600",
-                alt: "Équipe en entreprise",
-                direction: "left",
-              },
-              {
-                id: 2,
-                src: "https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg?auto=compress&cs=tinysrgb&w=600",
-                alt: "Entretien réussi",
-                direction: "right",
-              },
-              {
-                id: 3,
-                src: "https://images.pexels.com/photos/5989925/pexels-photo-5989925.jpeg?auto=compress&cs=tinysrgb&w=600",
-                alt: "Jeune diplômé heureux",
-                direction: "right",
-              },
-              {
-                id: 4,
-                src: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=600",
-                alt: "Réunion professionnelle",
-                direction: "left",
-              },
-              {
-                id: 5,
-                src: "https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=600",
-                alt: "Travail sur ordinateur",
-                direction: "right",
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      {/* ── 12. FAQ ── */}
-      <section className="py-20 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-3xl mx-auto">
-          <div
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Questions fréquentes</h2>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden divide-y divide-gray-100">
+      {/* ─── FAQ ─────────────────────────────────────────────────── */}
+      <section className="py-20 px-5 bg-white">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-10">Questions fréquentes</h2>
+          <div className="divide-y divide-gray-100 border border-gray-100 rounded-2xl overflow-hidden bg-gray-50">
             {faqItems.map((item, i) => (
-              <div
-                key={i}
-              >
+              <div key={i}>
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-4 md:px-6 py-5 text-left hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-white transition-colors gap-4"
                 >
-                  <span className="font-semibold text-gray-900 text-sm pr-4">{item.q}</span>
-                  <span className="text-gray-400 text-xl font-light flex-shrink-0">{openFaq === i ? "−" : "+"}</span>
+                  <span className="font-semibold text-gray-900 text-sm">{item.q}</span>
+                  <span className="text-gray-400 text-xl font-light shrink-0">{openFaq === i ? "−" : "+"}</span>
                 </button>
                 {openFaq === i && (
-                  <div className="px-4 md:px-6 pb-5">
-                    <p className="text-gray-600 text-sm leading-relaxed">{item.a}</p>
+                  <div className="px-5 pb-4 bg-white">
+                    <p className="text-gray-500 text-sm leading-relaxed">{item.a}</p>
                   </div>
                 )}
               </div>
@@ -807,183 +432,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 13. PRICING ── */}
-      <section className="py-24 px-4 sm:px-6" style={{ background: "linear-gradient(180deg, #f8faff 0%, #fff 100%)" }}>
-        <div className="max-w-5xl mx-auto">
-          <div
-          >
-            <div className="text-center mb-4">
-              <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Tarifs</span>
-            </div>
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-3">Des tarifs pensés pour les étudiants</h2>
-              <p className="text-gray-500">Sans engagement · Annule quand tu veux · 🎓 Prix étudiant dès 4,99€</p>
-            </div>
-          </div>
+      {/* ─── CTA FINAL + NEWSLETTER ──────────────────────────────── */}
+      <section className="py-20 px-5" style={{ background: "linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%)" }}>
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+            Ton prochain entretien commence maintenant.
+          </h2>
+          <p className="text-blue-200 mb-8">3 CV gratuits · Aucune carte · Résultat en 30 secondes</p>
+          <a href="/analyse"
+            className="inline-block bg-white text-blue-700 font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-lg mb-10 text-base">
+            🎯 Analyser mon CV gratuitement →
+          </a>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-            {/* Gratuit */}
-            <div
-              className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow"
-            >
-              <div className="text-4xl mb-4">🎯</div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Gratuit</p>
-              <div className="flex items-end gap-1 mb-1">
-                <span className="text-5xl font-extrabold text-gray-900">0€</span>
-              </div>
-              <p className="text-gray-400 text-sm mb-8">pour toujours</p>
-              <ul className="space-y-3 mb-10 flex-1">
-                {[
-                  { t: "3 CV au total", ok: true },
-                  { t: "4 templates visuels", ok: true },
-                  { t: "Téléchargement PDF", ok: true },
-                  { t: "CV illimités", ok: false },
-                  { t: "Lettre de motivation", ok: false },
-                ].map((f) => (
-                  <li key={f.t} className={`flex items-center gap-3 text-sm ${f.ok ? "text-gray-700" : "text-gray-300"}`}>
-                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold ${f.ok ? "bg-gray-100 text-gray-500" : "bg-gray-50 text-gray-200"}`}>
-                      {f.ok ? "✓" : "✗"}
-                    </span>
-                    {f.t}
-                  </li>
-                ))}
-              </ul>
-              <a href="/generate" className="block text-center bg-gray-100 text-gray-700 font-semibold py-3.5 rounded-xl hover:bg-gray-200 transition-colors text-sm">
-                Commencer gratuitement
-              </a>
-            </div>
-
-            {/* Essentiel */}
-            <div
-              className="rounded-2xl flex flex-col relative overflow-hidden shadow-2xl md:-mt-4 md:-mb-4"
-              style={{ background: "linear-gradient(145deg, #1e3a5f 0%, #2563eb 100%)" }}
-            >
-              <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">⭐ POPULAIRE</div>
-              <div className="p-8 flex flex-col flex-1">
-                <div className="text-4xl mb-4">⚡</div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-blue-200 mb-2">Étudiant</p>
-                <div className="flex items-end gap-1 mb-1">
-                  <span className="text-5xl font-extrabold text-white">4,99€</span>
-                </div>
-                <p className="text-blue-200 text-sm mb-8">par mois</p>
-                <ul className="space-y-3 mb-10 flex-1">
-                  {["15 CV par mois", "Score ATS complet + recommandations", "4 templates professionnels", "Lettre de motivation incluse", "Mots-clés détectés automatiquement", "Support prioritaire"].map((f) => (
-                    <li key={f} className="flex items-center gap-3 text-sm text-white">
-                      <span className="w-5 h-5 rounded-full bg-blue-400 flex items-center justify-center text-white text-xs flex-shrink-0 font-bold">✓</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a href="/tarifs" className="block text-center bg-white text-blue-700 font-bold py-3.5 rounded-xl hover:bg-blue-50 transition-colors text-sm">
-                  Choisir Étudiant →
-                </a>
-              </div>
-            </div>
-
-            {/* Pro */}
-            <div
-              className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-lg transition-shadow"
-            >
-              <div className="text-4xl mb-4">🚀</div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Pro</p>
-              <div className="flex items-end gap-1 mb-1">
-                <span className="text-5xl font-extrabold text-gray-900">9,99€</span>
-              </div>
-              <p className="text-gray-400 text-sm mb-8">par mois</p>
-              <ul className="space-y-3 mb-10 flex-1">
-                {["CV illimités", "4 templates visuels", "Lettre de motivation incluse", "Téléchargement PDF", "CV optimisés par IA", "Conseils Pro", "Support prioritaire"].map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
-                    <span className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 text-xs flex-shrink-0 font-bold">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <a href="/tarifs" className="block text-center border-2 border-gray-900 text-gray-900 font-bold py-3.5 rounded-xl hover:bg-gray-900 hover:text-white transition-colors text-sm">
-                Choisir Pro →
-              </a>
-            </div>
+          {/* Newsletter compact */}
+          <div className="border-t border-white/10 pt-8">
+            <p className="text-white/70 text-sm mb-4">Reçois des conseils emploi chaque semaine</p>
+            {emailStatus === "success" ? (
+              <p className="text-green-300 text-sm font-semibold">✓ Merci, tu es inscrit !</p>
+            ) : (
+              <form onSubmit={handleNewsletter} className="flex gap-2 max-w-sm mx-auto">
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                  placeholder="ton@email.fr" required
+                  className="flex-1 px-4 py-2.5 rounded-xl text-gray-900 bg-white text-sm outline-none focus:ring-2 focus:ring-white/50 min-w-0" />
+                <button type="submit" disabled={emailStatus === "loading"}
+                  className="bg-yellow-400 text-yellow-900 font-bold px-5 py-2.5 rounded-xl hover:bg-yellow-300 transition-colors text-sm whitespace-nowrap disabled:opacity-50">
+                  {emailStatus === "loading" ? "..." : "S'inscrire"}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>
 
-      {/* ── 14. CTA FINAL ── */}
-      <section className="py-20 px-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1e3a5f 0%, #2563eb 60%, #7c3aed 100%)" }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
-        <div className="max-w-2xl mx-auto text-center relative">
-          <h2 className="text-4xl font-bold text-white mb-4">Ton prochain entretien commence maintenant.</h2>
-          <p className="text-blue-100 text-lg mb-10">Analyse ton CV gratuitement. Vois exactement ce qui manque. Corrige-le en 30 secondes.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-            <a
-              href="/analyse"
-              className="bg-white text-blue-700 font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-lg text-center"
-            >
-              🎯 Analyser mon CV gratuitement →
-            </a>
-            <a
-              href="/tarifs"
-              className="border-2 border-white text-white font-bold px-8 py-4 rounded-xl hover:bg-white/10 transition-colors text-center"
-            >
-              Voir les tarifs
-            </a>
-          </div>
-          <p className="text-blue-200 text-sm">✓ 3 CV gratuits · ✓ Aucune carte requise · ✓ Résultat en 30 secondes</p>
-        </div>
-      </section>
-
-      {/* ── 16. NEWSLETTER ── */}
-      <section className="py-24 px-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1e3a5f 0%, #2563eb 60%, #7c3aed 100%)" }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
-        <div className="max-w-2xl mx-auto text-center relative">
-          <div className="text-5xl mb-6">📬</div>
-          <h2 className="text-3xl font-bold text-white mb-3">Reçois des conseils emploi gratuits</h2>
-          <p className="text-blue-100 mb-10 text-lg">
-            Chaque semaine : astuces CV, erreurs à éviter, conseils entretien — directement dans ta boîte mail.
-          </p>
-          {status === "success" ? (
-            <div className="bg-green-500/10 border border-green-500/20 rounded-xl px-6 py-4">
-              <p className="text-green-400 font-semibold">✓ Merci ! On te contacte bientôt.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="ton@email.fr"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="flex-1 px-5 py-4 rounded-xl text-gray-900 bg-white border-0 placeholder-gray-400 outline-none focus:ring-2 focus:ring-white shadow-lg"
-              />
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="bg-yellow-400 text-yellow-900 font-bold px-8 py-4 rounded-xl hover:bg-yellow-300 transition-colors disabled:opacity-50 whitespace-nowrap shadow-lg"
-              >
-                {status === "loading" ? "..." : "Je m'inscris →"}
-              </button>
-            </form>
-          )}
-          {status === "error" && (
-            <p className="text-red-300 text-sm mt-3">Une erreur est survenue, réessaie.</p>
-          )}
-          <p className="text-blue-200 text-sm mt-6">🔒 Zéro spam · Désinscription en 1 clic</p>
-        </div>
-      </section>
-
-      {/* ── 15. FOOTER ── */}
-      <footer className="border-t border-gray-100 py-8 px-6">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* ─── FOOTER ──────────────────────────────────────────────── */}
+      <footer className="border-t border-gray-100 py-8 px-5">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Logo size={28} />
-            <span className="text-blue-600 font-bold">CVAdapt</span>
+            <Logo size={24} />
+            <span className="text-blue-600 font-bold text-sm">CVAdapt</span>
           </div>
-          <div className="flex gap-6 text-sm text-gray-500">
-            <a href="/blog" className="hover:text-gray-900 transition-colors">Blog</a>
-            <a href="/tarifs" className="hover:text-gray-900 transition-colors">Tarifs</a>
-            <a href="/generate" className="hover:text-gray-900 transition-colors">Générer un CV</a>
-            <a href="/mentions-legales" className="hover:text-gray-900 transition-colors">Mentions légales</a>
-            <a href="/cgu" className="hover:text-gray-900 transition-colors">CGU</a>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
+            <a href="/blog" className="hover:text-gray-700 transition-colors">Blog</a>
+            <a href="/tarifs" className="hover:text-gray-700 transition-colors">Tarifs</a>
+            <a href="/generate" className="hover:text-gray-700 transition-colors">Générer un CV</a>
+            <a href="/analyse" className="hover:text-gray-700 transition-colors">Analyser mon CV</a>
+            <a href="/mentions-legales" className="hover:text-gray-700 transition-colors">Mentions légales</a>
+            <a href="/cgu" className="hover:text-gray-700 transition-colors">CGU</a>
           </div>
-          <p className="text-sm text-gray-400">© 2025 CVAdapt — Fait en France 🇫🇷</p>
+          <p className="text-xs text-gray-400">© 2025 CVAdapt 🇫🇷</p>
         </div>
       </footer>
     </main>
