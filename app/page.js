@@ -125,13 +125,13 @@ export default function Home() {
           <Logo size={32} />
           <span className="text-xl font-bold text-blue-600 tracking-tight">CVAdapt</span>
         </div>
-        <nav className="flex items-center gap-6">
-          <a href="/blog" className="hidden sm:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Blog</a>
-          <Link href="/analyse" className="text-sm text-gray-600 hover:text-gray-900 font-medium">Analyser mon CV</Link>
-          <a href="/tarifs" className="hidden sm:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Tarifs</a>
+        <nav className="flex items-center gap-3 sm:gap-6">
+          <a href="/blog" className="hidden md:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Blog</a>
+          <a href="/analyse" className="hidden sm:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Analyser mon CV</a>
+          <a href="/tarifs" className="hidden md:inline text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Tarifs</a>
           <a
             href="/generate"
-            className="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors whitespace-nowrap"
           >
             Commencer gratuitement
           </a>

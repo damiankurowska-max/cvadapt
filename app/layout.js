@@ -125,7 +125,35 @@ const softwareSchema = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider localization={frFR}>
+    <ClerkProvider
+      localization={frFR}
+      appearance={{
+        variables: {
+          colorPrimary: "#2563eb",
+          colorBackground: "#ffffff",
+          colorText: "#111827",
+          colorTextSecondary: "#6b7280",
+          colorInputBackground: "#f9fafb",
+          colorInputText: "#111827",
+          borderRadius: "0.75rem",
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontSize: "15px",
+        },
+        elements: {
+          card: "shadow-xl border border-gray-100 rounded-2xl",
+          headerTitle: "text-gray-900 font-bold text-xl",
+          headerSubtitle: "text-gray-500",
+          socialButtonsBlockButton: "border border-gray-200 hover:bg-gray-50 font-medium",
+          formButtonPrimary: "bg-blue-600 hover:bg-blue-700 font-semibold",
+          footerActionLink: "text-blue-600 hover:text-blue-700 font-semibold",
+          identityPreviewText: "text-gray-900",
+          identityPreviewEditButton: "text-blue-600",
+          avatarBox: "rounded-xl",
+          badge: "bg-blue-100 text-blue-700",
+          navbarButton__active: "text-blue-600",
+        },
+      }}
+    >
       <html lang="fr">
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
