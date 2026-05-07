@@ -9,6 +9,23 @@ export const metadata = {
   },
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Accueil", item: "https://cvadapt.eu" },
+    { "@type": "ListItem", position: 2, name: "Analyser mon CV", item: "https://cvadapt.eu/analyse" },
+  ],
+};
+
 export default function AnalyseLayout({ children }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {children}
+    </>
+  );
 }

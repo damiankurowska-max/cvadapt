@@ -78,6 +78,19 @@ const faqItems = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
+
 export default function Home() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle");
@@ -103,29 +116,7 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "CVAdapt",
-            url: "https://cvadapt.eu",
-            description:
-              "Générateur de CV adapté à chaque offre d'emploi grâce à l'intelligence artificielle. Créez un CV optimisé en 30 secondes.",
-            applicationCategory: "BusinessApplication",
-            operatingSystem: "Web",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "EUR",
-              description: "3 CV gratuits sans carte bancaire",
-            },
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "4.9",
-              ratingCount: "127",
-            },
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       {/* ── 1. HEADER ── */}
