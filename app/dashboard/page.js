@@ -95,7 +95,7 @@ export default function Dashboard() {
             <Link href="/analyse" className="text-sm text-gray-600 hover:text-gray-900 font-medium hidden sm:inline">
               Analyser
             </Link>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton afterSignOutUrl="/" userProfileUrl="/account" userProfileMode="navigation" />
           </nav>
         </div>
       </header>

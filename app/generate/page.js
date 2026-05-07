@@ -234,7 +234,7 @@ export default function Generate() {
             </div>
           )}
 
-          <UserButton />
+          <UserButton userProfileUrl="/account" userProfileMode="navigation" />
         </div>
       </header>
 
