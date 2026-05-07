@@ -149,7 +149,8 @@ export default function Generate() {
         setLoadingLM(false);
       }
 
-      // Sauvegarde dans l'historique
+      // Sauvegarde dans l'historique (avec score ATS si disponible)
+      const currentAts = atsData?.score ?? null;
       const newEntry = {
         id: Date.now(),
         date: new Date().toLocaleDateString("fr-FR"),
@@ -158,6 +159,7 @@ export default function Generate() {
         template,
         cv: cvData.cv,
         lm: lmContent,
+        atsScore: currentAts,
       };
       const newHistory = [newEntry, ...history].slice(0, 10);
       setHistory(newHistory);
@@ -229,6 +231,11 @@ export default function Generate() {
                 </Link>
               )}
             </>
+          )}
+          {user && (
+            <Link href="/dashboard" className="text-sm text-gray-500 hover:text-gray-900 font-medium transition-colors hidden sm:inline">
+              Mon dashboard
+            </Link>
           )}
           <UserButton />
         </div>
