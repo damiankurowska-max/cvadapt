@@ -4,6 +4,7 @@ import Link from "next/link";
 import Logo from "./components/Logo";
 import { GlowCard } from "../components/ui/spotlight-card";
 import { TestimonialsColumn } from "../components/ui/testimonials-columns";
+import { PhotoGallery } from "../components/ui/gallery";
 
 const allTestimonials = [
   { name: "Thomas R.", role: "Commercial B2B → Chef de projet · Paris", image: "https://randomuser.me/api/portraits/men/32.jpg", result: "Entretien décroché en 4 jours", text: "J'étais en reconversion et CVAdapt a parfaitement reformulé mon profil. Entretien 4 jours après." },
@@ -726,6 +727,52 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── 11b. GALERIE SUCCÈS ── */}
+      <section className="py-16 px-4 sm:px-6 bg-white overflow-hidden">
+        <div className="max-w-5xl mx-auto">
+          <PhotoGallery
+            style="carousel"
+            animationDelay={0.3}
+            title="Leur carrière a décollé"
+            subtitle="Ils ont utilisé CVAdapt"
+            ctaLabel="Rejoins-les — c'est gratuit →"
+            onCtaClick={() => window.location.href = "/generate"}
+            photos={[
+              {
+                id: 1,
+                src: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600",
+                alt: "Équipe en entreprise",
+                direction: "left",
+              },
+              {
+                id: 2,
+                src: "https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg?auto=compress&cs=tinysrgb&w=600",
+                alt: "Entretien réussi",
+                direction: "right",
+              },
+              {
+                id: 3,
+                src: "https://images.pexels.com/photos/5989925/pexels-photo-5989925.jpeg?auto=compress&cs=tinysrgb&w=600",
+                alt: "Jeune diplômé heureux",
+                direction: "right",
+              },
+              {
+                id: 4,
+                src: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=600",
+                alt: "Réunion professionnelle",
+                direction: "left",
+              },
+              {
+                id: 5,
+                src: "https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=600",
+                alt: "Travail sur ordinateur",
+                direction: "right",
+              },
+            ]}
+          />
         </div>
       </section>
 
