@@ -106,7 +106,7 @@ export default function OGImage() {
 
         {/* Tags */}
         <div style={{ display: "flex", gap: "16px" }}>
-          {["✓ Score ATS", "✓ Mots-clés", "✓ Lettre de motivation"].map((tag) => (
+          {["Score ATS", "Mots-cles", "Lettre de motivation"].map((tag) => (
             <div
               key={tag}
               style={{
