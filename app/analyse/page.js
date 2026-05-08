@@ -245,12 +245,23 @@ export default function Analyse() {
                       : "CVAdapt peut optimiser ton CV pour intégrer les mots-clés manquants et améliorer ton score."}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <Link
-                      href="/generate"
+                    <button
+                      onClick={() => {
+                        try {
+                          localStorage.setItem("cvadapt_analyse_data", JSON.stringify({
+                            offre: form.offre,
+                            nom: form.nom,
+                            experience: form.experience,
+                            competences: form.competences,
+                            formation: form.formation,
+                          }));
+                        } catch {}
+                        window.location.href = "/generate";
+                      }}
                       className="bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-center"
                     >
                       Générer mon CV optimisé →
-                    </Link>
+                    </button>
                     <button
                       onClick={() => { setResult(null); setError(""); }}
                       className="border border-gray-200 text-gray-600 font-semibold px-6 py-3 rounded-xl hover:bg-gray-50 transition-colors"
@@ -331,12 +342,23 @@ export default function Analyse() {
             <div className="bg-blue-600 rounded-2xl p-8 text-center text-white">
               <h3 className="text-xl font-bold mb-2">Génère maintenant ton CV optimisé</h3>
               <p className="text-blue-100 mb-6 text-sm">CVAdapt intègre automatiquement les mots-clés manquants et optimise ton CV pour décrocher l&apos;entretien.</p>
-              <Link
-                href="/generate"
+              <button
+                onClick={() => {
+                  try {
+                    localStorage.setItem("cvadapt_analyse_data", JSON.stringify({
+                      offre: form.offre,
+                      nom: form.nom,
+                      experience: form.experience,
+                      competences: form.competences,
+                      formation: form.formation,
+                    }));
+                  } catch {}
+                  window.location.href = "/generate";
+                }}
                 className="inline-block bg-white text-blue-600 font-bold px-8 py-3.5 rounded-xl hover:bg-blue-50 transition-colors"
               >
                 Générer mon CV optimisé →
-              </Link>
+              </button>
               <p className="text-blue-200 text-xs mt-4">✓ 3 CV gratuits · ✓ Sans carte bancaire · ✓ Résultat en 30 secondes</p>
             </div>
           </>

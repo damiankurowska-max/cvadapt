@@ -28,6 +28,7 @@ export default function Generate() {
   const [cvMonthCount, setCvMonthCount] = useState(0);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [wizardStep, setWizardStep] = useState(1);
   const CV_LIMIT = 3;
 
   const isPro = user?.unsafeMetadata?.isPro || false;
@@ -39,7 +40,7 @@ export default function Generate() {
       setCvCount(count);
 
       if (isPro && plan === "essentiel") {
-        const currentMonthKey = new Date().toISOString().slice(0, 7); // "YYYY-MM"
+        const currentMonthKey = new Date().toISOString().slice(0, 7);
         const storedKey = user.unsafeMetadata?.cvMonthKey;
         const storedMonthCount = parseInt(user.unsafeMetadata?.cvMonthCount || 0);
         if (storedKey === currentMonthKey) {
@@ -55,6 +56,18 @@ export default function Generate() {
     } catch {}
   }, [user, isPro, plan]);
 
+  // Pré-remplissage depuis localStorage (ex: page analyse)
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("cvadapt_analyse_data") || "null");
+      if (saved) {
+        setForm(f => ({ ...f, ...saved }));
+        setWizardStep(2);
+        localStorage.removeItem("cvadapt_analyse_data");
+      }
+    } catch {}
+  }, []);
+
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -62,7 +75,6 @@ export default function Generate() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // Vérification des limites selon le plan
     if (!isPro) {
       if (cvCount >= CV_LIMIT) {
         setError("Tu as atteint la limite de 3 CV gratuits. Passe à un abonnement pour continuer.");
@@ -74,7 +86,6 @@ export default function Generate() {
         return;
       }
     }
-    // plan === "pro" : pas de limite
 
     setLoading(true);
     setError("");
@@ -82,7 +93,6 @@ export default function Generate() {
     setLm("");
 
     try {
-      // Génération du CV
       const cvRes = await fetch("/api/generate-cv", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -99,7 +109,6 @@ export default function Generate() {
       setCv(cvData.cv);
       setActiveTab("cv");
 
-      // Lancement de l'analyse ATS en parallèle
       setLoadingATS(true);
       setAtsData(null);
       fetch("/api/analyze-ats", {
@@ -111,7 +120,6 @@ export default function Generate() {
         setLoadingATS(false);
       }).catch(() => setLoadingATS(false));
 
-      // Mise à jour du compteur selon le plan
       if (!isPro) {
         const newCount = cvCount + 1;
         setCvCount(newCount);
@@ -130,9 +138,7 @@ export default function Generate() {
           });
         }
       }
-      // plan === "pro" : pas de mise à jour de compteur
 
-      // Génération de la LM en parallèle
       let lmContent = "";
       if (withLM) {
         setLoadingLM(true);
@@ -149,7 +155,6 @@ export default function Generate() {
         setLoadingLM(false);
       }
 
-      // Sauvegarde dans l'historique (avec score ATS si disponible)
       const currentAts = atsData?.score ?? null;
       const newEntry = {
         id: Date.now(),
@@ -189,6 +194,13 @@ export default function Generate() {
     setShowHistory(false);
   }
 
+  const isStep1Valid = form.offre.trim().length > 0;
+  const isStep2Valid = form.nom.trim().length > 0 && form.experience.trim().length > 0 && form.competences.trim().length > 0 && form.formation.trim().length > 0;
+  const isGenerateDisabled = loading || (!isPro && cvCount >= CV_LIMIT) || (isPro && plan === "essentiel" && cvMonthCount >= 10);
+
+  const selectedTemplate = TEMPLATES.find(t => t.id === template);
+  const offrePreview = form.offre.split("\n").slice(0, 4).join("\n").substring(0, 200);
+
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -199,7 +211,6 @@ export default function Generate() {
         </Link>
 
         <div className="flex items-center gap-2">
-          {/* Historique : icône seule sur mobile */}
           <button
             onClick={() => setShowHistory(!showHistory)}
             className="relative flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
@@ -214,7 +225,6 @@ export default function Generate() {
             )}
           </button>
 
-          {/* Badge plan */}
           {isPro ? (
             <div className="flex items-center gap-1 bg-green-100 px-2.5 py-1 rounded-lg">
               <span className="text-xs font-bold text-green-700">PRO</span>
@@ -271,29 +281,12 @@ export default function Generate() {
         </div>
       )}
 
-      <div className="max-w-4xl mx-auto px-6 py-10">
+      <div className="max-w-lg mx-auto px-4 py-8">
         {!cv ? (
           <>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Génère ton CV adapté</h1>
-            <p className="text-gray-600 mb-6">Remplis le formulaire et reçois un CV optimisé en 30 secondes.</p>
-
-            {/* Conseils rapides */}
-            <div className="grid grid-cols-3 gap-2 mb-8">
-              {[
-                { emoji: "🔄", label: "Reconversion", href: "/blog/cv-reconversion-professionnelle" },
-                { emoji: "✉️", label: "Lettre de motiv.", href: "/blog/lettre-motivation-efficace-2025" },
-                { emoji: "🌱", label: "Sans expérience", href: "/blog/cv-sans-experience-premier-emploi" },
-              ].map((c) => (
-                <a key={c.href} href={c.href} target="_blank" rel="noopener noreferrer"
-                  className="flex flex-col items-center gap-1.5 bg-blue-50 border border-blue-100 rounded-xl px-2 py-3 text-center hover:bg-blue-100 transition-colors">
-                  <span className="text-lg">{c.emoji}</span>
-                  <span className="text-xs text-blue-700 font-semibold leading-tight">{c.label}</span>
-                </a>
-              ))}
-            </div>
-
+            {/* Banners upsell — toujours visibles en haut */}
             {!isPro && cvCount >= CV_LIMIT && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-6 flex items-center justify-between">
+              <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-5 flex items-center justify-between">
                 <p className="text-amber-800 text-sm font-medium">Tu as utilisé tes 3 CV gratuits.</p>
                 <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
                   Voir les abonnements →
@@ -301,7 +294,7 @@ export default function Generate() {
               </div>
             )}
             {isPro && plan === "essentiel" && cvMonthCount >= 10 && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-6 flex items-center justify-between">
+              <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-5 flex items-center justify-between">
                 <p className="text-amber-800 text-sm font-medium">Tu as atteint les 10 CV de ce mois (plan Essentiel).</p>
                 <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
                   Passer au plan Pro →
@@ -309,96 +302,238 @@ export default function Generate() {
               </div>
             )}
 
-            {/* Sélecteur de template */}
-            <div className="mb-8">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">Choisis un template</label>
-              <div className="grid grid-cols-4 gap-2">
-                {TEMPLATES.map((t) => (
-                  <button key={t.id} type="button" onClick={() => setTemplate(t.id)}
-                    className={`rounded-xl border-2 text-center transition-all cursor-pointer overflow-hidden ${
-                      template === t.id ? "border-blue-500 shadow-md" : "border-gray-200 hover:border-gray-300"
-                    }`}>
-                    {/* Mini aperçu CV */}
-                    <div style={{ background: t.bg, padding: "8px 6px", display: "flex", gap: 4, height: 72 }}>
-                      {t.sidebar && (
-                        <div style={{ width: 18, background: t.accent, borderRadius: 3, flexShrink: 0 }} />
-                      )}
-                      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 3 }}>
-                        <div style={{ height: 8, background: t.accent, borderRadius: 2, width: "70%" }} />
-                        <div style={{ height: 4, background: t.accent + "60", borderRadius: 2, width: "50%" }} />
-                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, marginTop: 2 }} />
-                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "90%" }} />
-                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "75%" }} />
-                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, marginTop: 2 }} />
-                        <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "80%" }} />
-                      </div>
-                    </div>
-                    <div className={`px-1 py-1.5 ${template === t.id ? "bg-blue-50" : "bg-white"}`}>
-                      <p className={`text-xs font-bold leading-tight ${template === t.id ? "text-blue-600" : "text-gray-700"}`}>{t.name}</p>
-                    </div>
-                  </button>
-                ))}
+            {/* Barre de progression */}
+            <div className="mb-6">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Étape {wizardStep} sur 3</span>
+                <span className="text-xs text-gray-400">{wizardStep === 1 ? "L'offre" : wizardStep === 2 ? "Ton profil" : "Finaliser"}</span>
+              </div>
+              <div className="bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                <div
+                  className="bg-blue-600 h-1.5 rounded-full transition-all duration-300"
+                  style={{ width: `${(wizardStep / 3) * 100}%` }}
+                />
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Ton nom complet</label>
-                <input type="text" name="nom" value={form.nom} onChange={handleChange} required
-                  placeholder="Ex: Jean Dupont"
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Colle l'offre d'emploi ici</label>
-                <textarea name="offre" value={form.offre} onChange={handleChange} required rows={6}
-                  placeholder="Copie-colle l'offre d'emploi depuis LinkedIn, Indeed, etc."
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Ton expérience professionnelle</label>
-                <textarea name="experience" value={form.experience} onChange={handleChange} required rows={4}
-                  placeholder="Ex: 2 ans chez Carrefour comme vendeur, 1 an chez McDonald's..."
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tes compétences</label>
-                <input type="text" name="competences" value={form.competences} onChange={handleChange} required
-                  placeholder="Ex: Excel, gestion d'équipe, service client, permis B..."
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Ta formation</label>
-                <input type="text" name="formation" value={form.formation} onChange={handleChange} required
-                  placeholder="Ex: Bac Pro Commerce, BTS Marketing..."
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white" />
-              </div>
+            {/* Step 1 — L'offre */}
+            {wizardStep === 1 && (
+              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                <h1 className="text-xl font-bold text-gray-900 mb-1">Quelle offre cibles-tu ?</h1>
+                <p className="text-sm text-gray-500 mb-5">Choisis un template et colle l'offre d'emploi.</p>
 
-              {/* Option lettre de motivation */}
-              <label className="flex items-center gap-3 bg-purple-50 border border-purple-100 rounded-xl px-4 py-4 cursor-pointer hover:bg-purple-100 transition-colors">
-                <input type="checkbox" checked={withLM} onChange={(e) => setWithLM(e.target.checked)}
-                  className="w-4 h-4 accent-purple-600" />
-                <div>
-                  <p className="text-sm font-semibold text-purple-800">✉️ Générer aussi une lettre de motivation</p>
-                  <p className="text-xs text-purple-500 mt-0.5">Adaptée à l'offre, prête à envoyer</p>
+                {/* Sélecteur de template */}
+                <div className="mb-5">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">Choisis un template</label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {TEMPLATES.map((t) => (
+                      <button key={t.id} type="button" onClick={() => setTemplate(t.id)}
+                        className={`rounded-xl border-2 text-center transition-all cursor-pointer overflow-hidden ${
+                          template === t.id ? "border-blue-500 shadow-md" : "border-gray-200 hover:border-gray-300"
+                        }`}>
+                        <div style={{ background: t.bg, padding: "8px 6px", display: "flex", gap: 4, height: 72 }}>
+                          {t.sidebar && (
+                            <div style={{ width: 18, background: t.accent, borderRadius: 3, flexShrink: 0 }} />
+                          )}
+                          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 3 }}>
+                            <div style={{ height: 8, background: t.accent, borderRadius: 2, width: "70%" }} />
+                            <div style={{ height: 4, background: t.accent + "60", borderRadius: 2, width: "50%" }} />
+                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, marginTop: 2 }} />
+                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "90%" }} />
+                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "75%" }} />
+                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, marginTop: 2 }} />
+                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "80%" }} />
+                          </div>
+                        </div>
+                        <div className={`px-1 py-1.5 ${template === t.id ? "bg-blue-50" : "bg-white"}`}>
+                          <p className={`text-xs font-bold leading-tight ${template === t.id ? "text-blue-600" : "text-gray-700"}`}>{t.name}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </label>
 
-              {error && <p className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3">{error}</p>}
+                {/* Textarea offre */}
+                <div className="mb-5">
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Colle l'offre d'emploi ici</label>
+                  <textarea
+                    name="offre"
+                    value={form.offre}
+                    onChange={handleChange}
+                    rows={8}
+                    placeholder="Copie-colle l'offre d'emploi depuis LinkedIn, Indeed, etc."
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white resize-none"
+                  />
+                </div>
 
-              <button type="submit" disabled={
-                loading ||
-                (!isPro && cvCount >= CV_LIMIT) ||
-                (isPro && plan === "essentiel" && cvMonthCount >= 10)
-              }
-                className="w-full bg-blue-600 text-white font-semibold py-4 rounded-xl hover:bg-blue-700 disabled:opacity-50 text-lg transition-colors">
-                {loading
-                  ? (withLM ? "Génération CV + lettre... ⏳" : "Génération en cours... ⏳")
-                  : (withLM ? "Générer CV + lettre de motivation →" : "Générer mon CV →")}
-              </button>
-            </form>
+                <button
+                  type="button"
+                  onClick={() => setWizardStep(2)}
+                  disabled={!isStep1Valid}
+                  className="bg-blue-600 text-white w-full py-3.5 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                >
+                  Continuer →
+                </button>
+              </div>
+            )}
+
+            {/* Step 2 — Ton profil */}
+            {wizardStep === 2 && (
+              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                <h1 className="text-xl font-bold text-gray-900 mb-1">Parle-nous de toi</h1>
+                <p className="text-sm text-gray-500 mb-5">Ces infos serviront à personnaliser ton CV.</p>
+
+                <div className="space-y-4 mb-5">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Ton nom complet</label>
+                    <input
+                      type="text"
+                      name="nom"
+                      value={form.nom}
+                      onChange={handleChange}
+                      placeholder="Ex : Jean Dupont"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Ton expérience professionnelle</label>
+                    <textarea
+                      name="experience"
+                      value={form.experience}
+                      onChange={handleChange}
+                      rows={4}
+                      placeholder="Ex : 2 ans chez Carrefour comme vendeur, 1 an chez McDonald's..."
+                      className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white resize-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Tes compétences</label>
+                    <input
+                      type="text"
+                      name="competences"
+                      value={form.competences}
+                      onChange={handleChange}
+                      placeholder="Ex : Excel, gestion d'équipe, service client, permis B..."
+                      className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Ta formation</label>
+                    <input
+                      type="text"
+                      name="formation"
+                      value={form.formation}
+                      onChange={handleChange}
+                      placeholder="Ex : Bac Pro Commerce, BTS Marketing..."
+                      className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setWizardStep(1)}
+                    className="text-gray-500 text-sm hover:text-gray-700 transition-colors py-3.5 px-2"
+                  >
+                    ← Retour
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setWizardStep(3)}
+                    disabled={!isStep2Valid}
+                    className="flex-1 bg-blue-600 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Continuer →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3 — Finaliser */}
+            {wizardStep === 3 && (
+              <form onSubmit={handleSubmit}>
+                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                  <h1 className="text-xl font-bold text-gray-900 mb-1">Presque prêt !</h1>
+                  <p className="text-sm text-gray-500 mb-5">Vérifie le récapitulatif et génère ton CV.</p>
+
+                  {/* Récapitulatif */}
+                  <div className="bg-gray-50 rounded-xl border border-gray-100 p-4 mb-5 space-y-3">
+                    {/* Template choisi */}
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-8 h-10 rounded flex-shrink-0 overflow-hidden border border-gray-200"
+                        style={{ background: selectedTemplate?.bg }}
+                      >
+                        <div style={{ padding: "3px 2px", display: "flex", gap: 2, height: "100%" }}>
+                          {selectedTemplate?.sidebar && (
+                            <div style={{ width: 5, background: selectedTemplate?.accent, borderRadius: 1 }} />
+                          )}
+                          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 1, paddingTop: 1 }}>
+                            <div style={{ height: 3, background: selectedTemplate?.accent, borderRadius: 1, width: "70%" }} />
+                            <div style={{ height: 1.5, background: selectedTemplate?.accent + "60", borderRadius: 1, width: "50%" }} />
+                            <div style={{ height: 1, background: "#e5e7eb", borderRadius: 1, marginTop: 1 }} />
+                            <div style={{ height: 1, background: "#e5e7eb", borderRadius: 1, width: "90%" }} />
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-400 font-medium uppercase tracking-wide">Template</p>
+                        <p className="text-sm font-semibold text-gray-800">{selectedTemplate?.name} — {selectedTemplate?.desc}</p>
+                      </div>
+                    </div>
+
+                    {/* Aperçu offre */}
+                    {offrePreview && (
+                      <div>
+                        <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Offre</p>
+                        <p className="text-xs text-gray-400 leading-relaxed line-clamp-4 whitespace-pre-line">{offrePreview}{form.offre.length > 200 ? "…" : ""}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Checkbox lettre de motivation */}
+                  <label className="flex items-center gap-3 bg-purple-50 border border-purple-100 rounded-xl px-4 py-4 cursor-pointer hover:bg-purple-100 transition-colors mb-5">
+                    <input
+                      type="checkbox"
+                      checked={withLM}
+                      onChange={(e) => setWithLM(e.target.checked)}
+                      className="w-4 h-4 accent-purple-600"
+                    />
+                    <div>
+                      <p className="text-sm font-semibold text-purple-800">✉️ Générer aussi une lettre de motivation</p>
+                      <p className="text-xs text-purple-500 mt-0.5">Adaptée à l'offre, prête à envoyer</p>
+                    </div>
+                  </label>
+
+                  {error && (
+                    <p className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3 mb-4">{error}</p>
+                  )}
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setWizardStep(2)}
+                      className="text-gray-500 text-sm hover:text-gray-700 transition-colors py-3.5 px-2"
+                    >
+                      ← Retour
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isGenerateDisabled}
+                      className="flex-1 bg-blue-600 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
+                    >
+                      {loading
+                        ? (withLM ? "Génération CV + lettre... ⏳" : "Génération en cours... ⏳")
+                        : (withLM ? "Générer CV + LM →" : "Générer mon CV →")}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            )}
           </>
         ) : (
-          <>
+          <div className="max-w-4xl mx-auto">
             {/* Barre succès */}
             <div className="bg-green-50 border border-green-200 rounded-xl px-5 py-4 mb-4 flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center gap-3">
@@ -411,7 +546,7 @@ export default function Generate() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <button onClick={() => { setCv(""); setLm(""); setAtsData(null); }}
+                <button onClick={() => { setCv(""); setLm(""); setAtsData(null); setWizardStep(1); }}
                   className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 text-sm font-medium">
                   ← Nouveau
                 </button>
@@ -426,7 +561,7 @@ export default function Generate() {
               </div>
             </div>
 
-            {/* ── Banners post-génération ── */}
+            {/* Banners post-génération */}
             <div className="flex flex-col gap-3 mb-6">
 
               {/* 1. LM non générée → upsell lettre */}
@@ -557,7 +692,6 @@ export default function Generate() {
                   <div className="p-8">
                     {/* Score principal */}
                     <div className="flex items-center gap-8 mb-8 p-6 bg-gray-50 rounded-2xl">
-                      {/* Cercle score */}
                       <div className="flex-shrink-0 relative w-28 h-28">
                         <svg viewBox="0 0 100 100" className="w-28 h-28 -rotate-90">
                           <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="10"/>
@@ -584,7 +718,6 @@ export default function Generate() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                      {/* Mots-clés trouvés */}
                       <div className="bg-green-50 border border-green-100 rounded-2xl p-5">
                         <h4 className="font-bold text-green-800 mb-3 flex items-center gap-2">
                           <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
@@ -597,7 +730,6 @@ export default function Generate() {
                         </div>
                       </div>
 
-                      {/* Mots-clés manquants */}
                       <div className="bg-red-50 border border-red-100 rounded-2xl p-5">
                         <h4 className="font-bold text-red-800 mb-3 flex items-center gap-2">
                           <span className="w-6 h-6 bg-red-400 rounded-full flex items-center justify-center text-white text-xs">✗</span>
@@ -611,7 +743,6 @@ export default function Generate() {
                       </div>
                     </div>
 
-                    {/* Points forts */}
                     <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5 mb-6">
                       <h4 className="font-bold text-blue-800 mb-3">💪 Points forts de ton profil</h4>
                       <ul className="space-y-2">
@@ -624,7 +755,6 @@ export default function Generate() {
                       </ul>
                     </div>
 
-                    {/* Recommandations */}
                     <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5">
                       <h4 className="font-bold text-amber-800 mb-3">🎯 Recommandations pour améliorer ton score</h4>
                       <ul className="space-y-2">
@@ -653,7 +783,7 @@ export default function Generate() {
                 )
               )}
             </div>
-          </>
+          </div>
         )}
       </div>
     </main>
