@@ -400,7 +400,7 @@ export default function Generate() {
         ) : (
           <>
             {/* Barre succès */}
-            <div className="bg-green-50 border border-green-200 rounded-xl px-5 py-4 mb-6 flex items-center justify-between flex-wrap gap-3">
+            <div className="bg-green-50 border border-green-200 rounded-xl px-5 py-4 mb-4 flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">✅</span>
                 <div>
@@ -424,6 +424,98 @@ export default function Generate() {
                   📄 Télécharger PDF
                 </button>
               </div>
+            </div>
+
+            {/* ── Banners post-génération ── */}
+            <div className="flex flex-col gap-3 mb-6">
+
+              {/* 1. LM non générée → upsell lettre */}
+              {!lm && !loadingLM && !withLM && (
+                <div className="flex items-center justify-between gap-4 bg-purple-50 border border-purple-100 rounded-xl px-5 py-3.5">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-xl shrink-0">✉️</span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-purple-900">Ajoute une lettre de motivation</p>
+                      <p className="text-xs text-purple-500 truncate">Adaptée à cette offre · Prête en 20 secondes</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={async () => {
+                      setWithLM(true);
+                      setLoadingLM(true);
+                      setActiveTab("lm");
+                      const lmRes = await fetch("/api/generate-lm", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(form),
+                      });
+                      const lmData = await lmRes.json();
+                      if (lmRes.ok) setLm(lmData.lm);
+                      setLoadingLM(false);
+                    }}
+                    className="bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors whitespace-nowrap shrink-0">
+                    Générer →
+                  </button>
+                </div>
+              )}
+
+              {/* 2. Upsell plan — dernier CV gratuit */}
+              {!isPro && cvCount === CV_LIMIT - 1 && (
+                <div className="flex items-center justify-between gap-4 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3.5">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-xl shrink-0">⚠️</span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-amber-900">Plus qu'un CV gratuit restant</p>
+                      <p className="text-xs text-amber-600">Passe à Étudiant pour des CV illimités à 4,99€/mois</p>
+                    </div>
+                  </div>
+                  <a href="/tarifs"
+                    className="bg-amber-500 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors whitespace-nowrap shrink-0">
+                    Voir l'offre →
+                  </a>
+                </div>
+              )}
+
+              {/* 3. Upsell plan — limite atteinte */}
+              {!isPro && cvCount >= CV_LIMIT && (
+                <div className="flex items-center justify-between gap-4 bg-blue-50 border border-blue-200 rounded-xl px-5 py-3.5">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-xl shrink-0">🚀</span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-blue-900">Tu as utilisé tes 3 CV gratuits</p>
+                      <p className="text-xs text-blue-600">Continue avec le plan Étudiant à 4,99€/mois</p>
+                    </div>
+                  </div>
+                  <a href="/tarifs"
+                    className="bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap shrink-0">
+                    Passer Pro →
+                  </a>
+                </div>
+              )}
+
+              {/* 4. Partage */}
+              <div className="flex items-center justify-between gap-4 bg-gray-50 border border-gray-100 rounded-xl px-5 py-3.5">
+                <div className="flex items-center gap-3 min-w-0">
+                  <span className="text-xl shrink-0">🎁</span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-gray-800">Un ami cherche un emploi ?</p>
+                    <p className="text-xs text-gray-400">Partage CVAdapt — c'est gratuit pour commencer</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    if (navigator.share) {
+                      navigator.share({ title: "CVAdapt", text: "Génère un CV optimisé ATS en 30 secondes — gratuit !", url: "https://cvadapt.eu" });
+                    } else {
+                      navigator.clipboard.writeText("https://cvadapt.eu");
+                      alert("Lien copié !");
+                    }
+                  }}
+                  className="border border-gray-200 text-gray-600 text-xs font-bold px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0">
+                  Partager
+                </button>
+              </div>
+
             </div>
 
             {/* Tabs */}
