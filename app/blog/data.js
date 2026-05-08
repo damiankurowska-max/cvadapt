@@ -624,4 +624,331 @@ ${[
 </div>
     `,
   },
+  // ─── NOUVEAUX ARTICLES SEO ───────────────────────────────────
+  {
+    slug: "cv-alternance-2025",
+    titre: "CV alternance 2025 : le guide complet pour décrocher ton contrat",
+    description: "Comment faire un CV pour une alternance en 2025 ? Structure, mots-clés, exemples — tout ce qu'il faut pour convaincre une entreprise de te prendre en alternance, même sans expérience.",
+    date: "2025-05-07",
+    categorie: "Alternance",
+    tempsLecture: "5 min",
+    illustration: "🎓",
+    couleur: "from-blue-500 to-indigo-600",
+    contenu: `
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">📊 Le marché 2025</p>
+  <p style="color:#1d4ed8;margin:0;font-size:15px">Plus de <strong>1 million d'alternants</strong> en France en 2025. La concurrence est réelle — ton CV fait toute la différence.</p>
+</div>
+
+<h2>Ce qu'un recruteur cherche dans un CV d'alternance</h2>
+<p>Pour une alternance, le recruteur sait que tu n'as pas d'expérience pro significative. Ce qu'il cherche : <strong>motivation, compétences techniques de base, et compatibilité avec l'équipe</strong>.</p>
+
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["🎯", "La formation", "Ton école, ton programme, ta spécialisation — c'est ton principal atout"],
+    ["💡", "Les projets scolaires", "Mémoires, projets de groupe, présentations techniques"],
+    ["🛠", "Les compétences techniques", "Logiciels, langages, certifications — même basiques"],
+    ["🤝", "Les jobs étudiants", "Même un job d'été montre ton sérieux et ta capacité à travailler"],
+    ["🏆", "Les activités extra", "BDE, sport, bénévolat — montrent ton caractère"],
+  ].map(([icon, title, desc]) => `
+  <div style="display:flex;gap:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px">
+    <span style="font-size:22px;flex-shrink:0">${icon}</span>
+    <div>
+      <p style="font-weight:700;color:#111827;margin:0 0 3px 0;font-size:14px">${title}</p>
+      <p style="color:#6b7280;margin:0;font-size:13px">${desc}</p>
+    </div>
+  </div>`).join("")}
+</div>
+
+<h2>Structure idéale d'un CV alternance</h2>
+
+<div style="display:grid;gap:8px;margin:20px 0">
+  ${[
+    ["1", "Profil / Objectif", "2-3 phrases : ton domaine, l'alternance visée, ta valeur ajoutée", "#2563eb"],
+    ["2", "Formation", "En premier ! C'est ton atout principal. École, programme, dates, projets notables", "#7c3aed"],
+    ["3", "Compétences techniques", "Liste adaptée à l'offre. Utilise les mots-clés exacts de l'entreprise", "#059669"],
+    ["4", "Expériences", "Stages, jobs, bénévolat — même courtes, avec des résultats concrets", "#d97706"],
+    ["5", "Activités", "BDE, sport, projets perso — montre ta personnalité", "#dc2626"],
+  ].map(([n, title, desc, color]) => `
+  <div style="display:flex;gap:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px">
+    <div style="width:28px;height:28px;background:${color};color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">${n}</div>
+    <div>
+      <p style="font-weight:700;color:#111827;margin:0 0 3px 0;font-size:14px">${title}</p>
+      <p style="color:#6b7280;margin:0;font-size:13px">${desc}</p>
+    </div>
+  </div>`).join("")}
+</div>
+
+<h2>Les mots-clés qui font la différence selon le secteur</h2>
+
+<div style="display:grid;gap:12px;margin:20px 0">
+  ${[
+    ["💻 Alternance tech / Dev", ["JavaScript", "React", "Python", "Git", "Agile", "SQL", "Docker", "API"], "#3b82f6", "#eff6ff"],
+    ["📣 Alternance marketing", ["SEO", "Community management", "Google Analytics", "Canva", "Adobe", "CRM", "Réseaux sociaux"], "#ec4899", "#fdf2f8"],
+    ["💰 Alternance finance / compta", ["Excel", "Sage", "Comptabilité générale", "Reporting", "TVA", "Bilan", "SAP"], "#16a34a", "#f0fdf4"],
+    ["👥 Alternance RH", ["Recrutement", "SIRH", "Onboarding", "Droit social", "Paie", "Entretiens", "Formation"], "#7c3aed", "#f5f3ff"],
+  ].map(([sector, kws, color, bg]) => `
+  <div style="background:${bg};border:1px solid ${color}30;border-radius:12px;padding:16px">
+    <p style="font-weight:700;color:${color};margin:0 0 10px 0;font-size:14px">${sector}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      ${kws.map(kw => `<span style="background:#fff;border:1px solid ${color}40;color:#374151;font-size:12px;font-weight:600;padding:3px 10px;border-radius:16px">${kw}</span>`).join("")}
+    </div>
+  </div>`).join("")}
+</div>
+
+<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ Astuce CVAdapt pour l'alternance</p>
+  <p style="color:#166534;margin:0;font-size:14px">Colle l'offre d'alternance dans CVAdapt — l'IA adapte automatiquement ton CV aux mots-clés exacts de l'entreprise. Gratuit, 30 secondes.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#2563eb;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV alternance →</a>
+</div>
+    `,
+  },
+  {
+    slug: "exemple-cv-bts",
+    titre: "Exemple CV BTS 2025 : modèle et conseils pour décrocher votre alternance",
+    description: "Exemple de CV pour un BTS en 2025 : que tu sois en BTS MCO, NRC, SIO, CG ou autre — voici la structure exacte, les mots-clés et les erreurs à éviter pour décrocher ton alternance ou stage.",
+    date: "2025-05-07",
+    categorie: "Alternance",
+    tempsLecture: "4 min",
+    illustration: "📋",
+    couleur: "from-teal-500 to-cyan-600",
+    contenu: `
+<div style="background:#f0fdfa;border-left:4px solid #0d9488;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#0f766e;margin:0 0 4px 0">🎓 BTS = profil recherché</p>
+  <p style="color:#115e59;margin:0;font-size:15px">Les entreprises recrutent massivement en BTS. Un CV bien construit suffit pour décrocher une alternance — même en première année.</p>
+</div>
+
+<h2>Structure recommandée pour un CV BTS</h2>
+
+<div style="background:#fff;border:2px solid #e5e7eb;border-radius:16px;overflow:hidden;margin:20px 0;font-size:13px">
+  <div style="background:#0d9488;padding:12px 16px">
+    <p style="color:#fff;font-weight:700;margin:0;font-size:15px">PRÉNOM NOM</p>
+    <p style="color:#99f6e4;margin:0;font-size:12px">BTS [Spécialité] — Alternance [Poste visé]</p>
+  </div>
+  <div style="padding:16px;display:grid;gap:12px">
+    ${[
+      ["Formation", "BTS NOM · École · 2024-2026 · Alternance"],
+      ["Compétences", "Liste des compétences clés adaptées à l'offre"],
+      ["Expériences", "Jobs d'été, stages, bénévolat"],
+      ["Projets scolaires", "Projets en lien avec le poste visé"],
+      ["Activités", "Sport, associations, centres d'intérêt pertinents"],
+    ].map(([section, desc]) => `
+    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f3f4f6">
+      <span style="font-weight:700;color:#0d9488;min-width:130px;font-size:12px;text-transform:uppercase;letter-spacing:0.05em">${section}</span>
+      <span style="color:#6b7280;font-size:13px">${desc}</span>
+    </div>`).join("")}
+  </div>
+</div>
+
+<h2>Mots-clés par spécialité BTS</h2>
+
+<div style="display:grid;gap:12px;margin:20px 0">
+  ${[
+    ["BTS MCO / NRC (Commerce)", ["Relation client", "Prospection", "Fidélisation", "CRM", "Vente", "Négociation", "Merchandising", "Réseaux sociaux"], "#ea580c", "#fff7ed"],
+    ["BTS SIO (Informatique)", ["Python", "JavaScript", "SQL", "Réseau", "Cybersécurité", "Linux", "HTML/CSS", "PHP"], "#3b82f6", "#eff6ff"],
+    ["BTS CG (Comptabilité)", ["Comptabilité", "Excel", "Sage", "TVA", "Paie", "Bilan", "Rapprochement bancaire"], "#16a34a", "#f0fdf4"],
+    ["BTS Communication", ["Canva", "Photoshop", "Rédaction", "Événementiel", "Réseaux sociaux", "Communiqué de presse"], "#ec4899", "#fdf2f8"],
+  ].map(([bts, kws, color, bg]) => `
+  <div style="background:${bg};border-radius:12px;padding:14px">
+    <p style="font-weight:700;color:${color};font-size:13px;margin:0 0 10px 0">${bts}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      ${kws.map(kw => `<span style="background:#fff;border:1px solid ${color}40;color:#374151;font-size:12px;font-weight:600;padding:3px 10px;border-radius:16px">${kw}</span>`).join("")}
+    </div>
+  </div>`).join("")}
+</div>
+
+<h2>Erreurs fréquentes sur un CV BTS</h2>
+
+<div style="display:grid;gap:8px;margin:20px 0">
+  ${[
+    "Mettre \"Bac Pro\" ou le collège — commence directement avec le BTS",
+    "Ne pas mentionner l'alternance visée dans le titre",
+    "Oublier les projets scolaires (souvent les seuls exemples concrets)",
+    "Utiliser une photo mal cadrée ou trop informelle",
+    "CV de plus d'1 page — pour un BTS, 1 page suffit largement",
+  ].map(err => `
+  <div style="display:flex;gap:10px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 14px">
+    <span style="color:#ef4444;font-weight:700;flex-shrink:0">✗</span>
+    <span style="color:#374151;font-size:14px">${err}</span>
+  </div>`).join("")}
+</div>
+
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Génère ton CV BTS en 30 secondes</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">CVAdapt adapte automatiquement ton CV à chaque offre d'alternance. Entre ta spécialité, tes compétences et l'offre — ton CV est prêt à envoyer.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#0d9488;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Générer mon CV BTS →</a>
+</div>
+    `,
+  },
+  {
+    slug: "cv-stage-etudiant-2025",
+    titre: "CV stage étudiant 2025 : comment décrocher ton stage même sans expérience",
+    description: "Comment faire un CV pour un stage quand tu es étudiant ? Guide complet 2025 : structure, mots-clés, projets scolaires à valoriser — pour décrocher ton stage de licence, master ou école.",
+    date: "2025-05-08",
+    categorie: "Stage",
+    tempsLecture: "4 min",
+    illustration: "🌱",
+    couleur: "from-green-500 to-emerald-600",
+    contenu: `
+<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">💡 Ce que le recruteur sait déjà</p>
+  <p style="color:#166534;margin:0;font-size:15px">Il sait que tu cherches un stage donc que tu n'as pas d'expérience pro. Il cherche du <strong>potentiel</strong>, pas un expert.</p>
+</div>
+
+<h2>Quoi mettre dans un CV de stage sans expérience</h2>
+
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["🎓", "Ta formation en premier", "Université/école, filière, niveau, projets notables, note si bonne"],
+    ["💻", "Projets académiques", "Ton mémoire, tes projets de groupe, les sujets traités"],
+    ["🛠", "Compétences techniques", "Logiciels, langages, outils — adaptés à l'offre"],
+    ["🤝", "Expériences courtes", "Job d'été, baby-sitting, caissier — montrent que tu sais travailler"],
+    ["🏆", "Engagement extra", "BDE, tutorat, bénévolat, sport — montrent ta personnalité"],
+    ["🌍", "Langues et mobilité", "Ton niveau d'anglais, expériences à l'étranger, permis"],
+  ].map(([icon, title, desc]) => `
+  <div style="display:flex;gap:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px">
+    <span style="font-size:20px;flex-shrink:0">${icon}</span>
+    <div>
+      <p style="font-weight:700;color:#111827;margin:0 0 3px 0;font-size:14px">${title}</p>
+      <p style="color:#6b7280;margin:0;font-size:13px">${desc}</p>
+    </div>
+  </div>`).join("")}
+</div>
+
+<h2>Exemples de formulations qui marchent</h2>
+
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:13px">
+  <thead>
+    <tr style="background:#f3f4f6">
+      <th style="padding:10px 14px;text-align:left;color:#6b7280;border:1px solid #e5e7eb">Ce que tu as fait</th>
+      <th style="padding:10px 14px;text-align:left;color:#16a34a;border:1px solid #e5e7eb">✅ Comment le formuler</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${[
+      ["Projet de groupe en L3", "Développement d'une application web en équipe de 4, présentée à un jury professionnel"],
+      ["Trésorier d'une asso étudiante", "Gestion d'un budget annuel de 8 000€, suivi des comptes et reporting mensuel"],
+      ["Tutorat de camarades", "Accompagnement pédagogique de 5 étudiants, taux de réussite 100% aux examens"],
+      ["Stage d'observation 2 semaines", "Découverte du service commercial : participation aux réunions client et CRM"],
+    ].map(([from, to]) => `
+    <tr>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#374151">${from}</td>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#111827;font-weight:500">${to}</td>
+    </tr>`).join("")}
+  </tbody>
+</table>
+
+<h2>La lettre de motivation : obligatoire pour un stage</h2>
+<p>Pour un stage, la lettre de motivation est encore plus importante que le CV. Elle répond à la question : <strong>pourquoi cette entreprise ? pourquoi maintenant ?</strong></p>
+
+<div style="background:#faf5ff;border:1px solid #e9d5ff;border-radius:12px;padding:20px;margin:16px 0">
+  <p style="font-weight:700;color:#6d28d9;margin:0 0 12px 0">Structure en 3 paragraphes :</p>
+  ${[
+    ["1.", "Pourquoi cette entreprise", "Montre que tu les connais. Site, actualités, secteur."],
+    ["2.", "Ce que tu apportes", "Compétences + projets pertinents + motivation réelle."],
+    ["3.", "Ce que tu cherches à apprendre", "Les recruteurs adorent les stagiaires qui savent ce qu'ils veulent."],
+  ].map(([n, title, desc]) => `
+  <div style="display:flex;gap:10px;margin-bottom:8px">
+    <span style="font-weight:700;color:#7c3aed;min-width:20px">${n}</span>
+    <div>
+      <span style="font-weight:700;color:#111827">${title}</span>
+      <span style="color:#6b7280;font-size:13px"> — ${desc}</span>
+    </div>
+  </div>`).join("")}
+</div>
+
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ CV + lettre de motivation en 30 secondes</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">CVAdapt génère ton CV ET ta lettre de motivation adaptés à chaque offre de stage. Coche l'option "Lettre de motivation" avant de générer.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#16a34a;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV de stage →</a>
+</div>
+    `,
+  },
+  {
+    slug: "cv-premier-emploi-jeune-diplome",
+    titre: "CV jeune diplômé 2025 : décrocher son premier emploi après les études",
+    description: "Tu viens de finir tes études et tu cherches ton premier CDI ? Voici comment construire un CV de jeune diplômé qui convainc les recruteurs — même avec peu d'expérience professionnelle.",
+    date: "2025-05-08",
+    categorie: "Débutants",
+    tempsLecture: "4 min",
+    illustration: "🚀",
+    couleur: "from-orange-500 to-amber-500",
+    contenu: `
+<div style="background:#fff7ed;border-left:4px solid #f59e0b;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#b45309;margin:0 0 4px 0">🎓 La bonne nouvelle</p>
+  <p style="color:#92400e;margin:0;font-size:15px">Les entreprises cherchent des jeunes diplômés. Tu arrives avec des <strong>connaissances récentes et à jour</strong> — c'est un vrai avantage.</p>
+</div>
+
+<h2>Ce qui différencie les jeunes diplômés qui décrochent</h2>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0">
+  ${[
+    ["❌", "CV copie des autres", "Même structure, mêmes formules génériques, aucune différenciation"],
+    ["✅", "CV adapté à l'offre", "Mots-clés repris de l'offre, profil qui répond exactement au besoin"],
+    ["❌", "Formation en dernier", "Expériences (rares) en premier, formation noyée à la fin"],
+    ["✅", "Formation mise en avant", "Projets, spécialisation, compétences acquises — ton vrai atout"],
+  ].map(([emoji, title, desc]) => `
+  <div style="background:${emoji === "✅" ? "#f0fdf4" : "#fef2f2"};border:1px solid ${emoji === "✅" ? "#bbf7d0" : "#fecaca"};border-radius:10px;padding:14px">
+    <p style="font-size:18px;margin:0 0 6px 0">${emoji}</p>
+    <p style="font-weight:700;color:#111827;font-size:13px;margin:0 0 4px 0">${title}</p>
+    <p style="color:#6b7280;font-size:12px;margin:0;line-height:1.5">${desc}</p>
+  </div>`).join("")}
+</div>
+
+<h2>Les 3 questions que se pose le recruteur</h2>
+
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["❓", "Est-ce qu'il/elle peut faire le job ?", "Montre tes compétences techniques + projets où tu les as appliquées"],
+    ["❓", "S'intégrera-t-il/elle à l'équipe ?", "Montre tes expériences de travail en groupe, ton engagement associatif"],
+    ["❓", "A-t-il/elle envie de progresser ?", "Montre ta curiosité : certifications, projets perso, veille sectorielle"],
+  ].map(([icon, question, reponse]) => `
+  <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:16px">
+    <p style="font-weight:700;color:#111827;margin:0 0 6px 0;font-size:14px">${icon} ${question}</p>
+    <p style="color:#6b7280;font-size:13px;margin:0;padding-left:20px;border-left:2px solid #e5e7eb">${reponse}</p>
+  </div>`).join("")}
+</div>
+
+<h2>Transforme tes études en expérience concrète</h2>
+
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:13px">
+  <thead>
+    <tr style="background:#f3f4f6">
+      <th style="padding:10px 14px;text-align:left;color:#6b7280;border:1px solid #e5e7eb">Ce que tu as fait pendant tes études</th>
+      <th style="padding:10px 14px;text-align:left;color:#16a34a;border:1px solid #e5e7eb">✅ Comment le valoriser</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${[
+      ["Mémoire de fin d'études", "Recherche sur [sujet], analyse de données, présentation orale jury 5 personnes"],
+      ["Stage de 6 mois", "Mission X, résultat Y, compétences acquises Z"],
+      ["Cours en groupe", "Gestion de projet, répartition des tâches, livraison dans les délais"],
+      ["Double diplôme / échange Erasmus", "Adaptabilité, langues, ouverture interculturelle"],
+    ].map(([from, to]) => `
+    <tr>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#374151">${from}</td>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#111827;font-weight:500">${to}</td>
+    </tr>`).join("")}
+  </tbody>
+</table>
+
+<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ Adapte ton CV à chaque offre</p>
+  <p style="color:#166534;margin:0;font-size:14px">Le secret des jeunes diplômés qui décrochent : ils adaptent leur CV à chaque offre. CVAdapt le fait automatiquement en 30 secondes.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#f59e0b;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV jeune diplômé →</a>
+</div>
+    `,
+  },
 ];
