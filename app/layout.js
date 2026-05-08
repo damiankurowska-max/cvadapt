@@ -24,7 +24,7 @@ export const metadata = {
     siteName: "CVAdapt",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: "https://cvadapt.eu/logo-256.png", width: 256, height: 256, alt: "CVAdapt — Générateur de CV ATS" }],
+    images: [{ url: "https://cvadapt.eu/opengraph-image", width: 1200, height: 630, alt: "CVAdapt — Génère un CV ATS en 30 secondes" }],
   },
   twitter: {
     card: "summary_large_image",
