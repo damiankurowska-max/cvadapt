@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "../components/Logo";
+import CountdownBanner from "../components/CountdownBanner";
 
 const PLANS = {
   mensuel: {
@@ -47,6 +48,7 @@ export default function Tarifs() {
 
   return (
     <main className="min-h-screen bg-white">
+      <CountdownBanner />
       {/* Header */}
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">

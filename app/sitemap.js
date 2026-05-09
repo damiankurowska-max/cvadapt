@@ -69,6 +69,24 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: 0.85,
     },
+    {
+      url: "https://cvadapt.eu/cv-marketing",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: "https://cvadapt.eu/cv-comptable",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: "https://cvadapt.eu/cv-rh",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
     ...blogUrls,
     {
       url: "https://cvadapt.eu/mentions-legales",

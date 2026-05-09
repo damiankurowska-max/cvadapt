@@ -1,6 +1,7 @@
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { frFR } from "@clerk/localizations";
+import ClientProviders from "./components/ClientProviders";
 
 export const metadata = {
   title: "CVAdapt — Génère un CV ATS en 30 sec · Gratuit pour les Étudiants",
@@ -170,7 +171,7 @@ export default function RootLayout({ children }) {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
           />
         </head>
-        <body>{children}</body>
+        <body><ClientProviders>{children}</ClientProviders></body>
       </html>
     </ClerkProvider>
   );

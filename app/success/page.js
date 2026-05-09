@@ -80,6 +80,36 @@ export default function Success() {
             </div>
           </div>
 
+          {/* Parrainage */}
+          <div className="bg-white rounded-3xl border border-gray-200/60 shadow-sm overflow-hidden p-6"
+            style={{ animation: show ? "fadeUp 0.4s ease 0.9s both" : "none" }}>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-2xl">🎁</span>
+              <div>
+                <p className="text-sm font-bold text-gray-900">Invite un ami, aide-le à décrocher son poste</p>
+                <p className="text-xs text-gray-400">Partage CVAdapt — gratuit pour commencer</p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <div className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs text-gray-500 font-mono overflow-hidden text-ellipsis whitespace-nowrap">
+                https://cvadapt.eu
+              </div>
+              <button
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({ title: "CVAdapt — CV ATS en 30 sec", text: "J'utilise CVAdapt pour adapter mon CV à chaque offre en 30 secondes. C'est gratuit pour commencer !", url: "https://cvadapt.eu" });
+                  } else {
+                    navigator.clipboard.writeText("https://cvadapt.eu");
+                    alert("Lien copié !");
+                  }
+                }}
+                className="bg-blue-600 text-white text-xs font-bold px-4 rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap"
+              >
+                Partager
+              </button>
+            </div>
+          </div>
+
           {/* Actions secondaires */}
           <div className="bg-white rounded-3xl border border-gray-200/60 shadow-sm overflow-hidden divide-y divide-gray-50">
             {[
