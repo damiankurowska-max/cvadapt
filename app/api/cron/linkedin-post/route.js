@@ -15,10 +15,17 @@ const THEMES = [
 ];
 
 export async function GET(request) {
-  // Vérification du secret cron
+  // Vérification : header Vercel cron OU query param secret
   const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  const url = new URL(request.url);
+  const querySecret = url.searchParams.get("secret");
+  const secret = process.env.CRON_SECRET || "cvadapt-cron-2025";
+
+  const validHeader = authHeader === `Bearer ${secret}`;
+  const validQuery = querySecret === secret;
+
+  if (!validHeader && !validQuery) {
+    return Response.json({ error: "Unauthorized", debug: { secret: secret?.slice(0, 4) + "..." } }, { status: 401 });
   }
 
   // Choisir un thème selon le jour de la semaine
