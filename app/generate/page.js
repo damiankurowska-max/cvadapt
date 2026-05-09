@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
 import Logo from "../components/Logo";
+import UpgradeModal from "../components/UpgradeModal";
 
 const TEMPLATES = [
   { id: "moderne",     name: "Moderne",     desc: "Gradient bleu",    accent: "#2563eb", bg: "#eff6ff", sidebar: false },
@@ -26,6 +27,7 @@ export default function Generate() {
   const [error, setError] = useState("");
   const [cvCount, setCvCount] = useState(0);
   const [cvMonthCount, setCvMonthCount] = useState(0);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const [wizardStep, setWizardStep] = useState(1);
@@ -124,6 +126,20 @@ export default function Generate() {
         const newCount = cvCount + 1;
         setCvCount(newCount);
         if (user) await user.update({ unsafeMetadata: { ...user.unsafeMetadata, cvCount: newCount } });
+
+        // Dernier CV gratuit utilisé → email de relance + modal
+        if (newCount >= CV_LIMIT) {
+          setShowUpgradeModal(true);
+          const userEmail = user?.primaryEmailAddress?.emailAddress;
+          const prenom = user?.firstName || "";
+          if (userEmail) {
+            fetch("/api/send-upgrade-email", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email: userEmail, prenom }),
+            }).catch(() => {});
+          }
+        }
       } else if (plan === "essentiel") {
         const currentMonthKey = new Date().toISOString().slice(0, 7);
         const newMonthCount = cvMonthCount + 1;
@@ -203,6 +219,9 @@ export default function Generate() {
 
   return (
     <main className="min-h-screen bg-gray-50">
+      {/* Modal upgrade */}
+      {showUpgradeModal && <UpgradeModal onClose={() => setShowUpgradeModal(false)} />}
+
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between gap-2">
         <Link href="/" className="flex items-center gap-2 shrink-0">
