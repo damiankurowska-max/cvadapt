@@ -62,11 +62,23 @@ Génère UNIQUEMENT le texte du post, sans introduction ni commentaire.`,
 
     const postContent = message.content[0].text;
 
-    // Envoyer par email
+    // Envoyer vers Make (LinkedIn automatique)
+    const makeWebhookUrl = "https://hook.eu1.make.com/vjwe41hw42ua1l3aayf6rflbg6pzvahi";
+    await fetch(makeWebhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        theme: theme.theme,
+        content: postContent,
+        date: new Date().toLocaleDateString("fr-FR"),
+      }),
+    });
+
+    // Envoyer aussi par email (backup)
     await resend.emails.send({
       from: "CVAdapt <contact@cvadapt.eu>",
       to: "damiankurowska@icloud.com",
-      subject: `📱 Post LinkedIn du jour — Thème : ${theme.theme}`,
+      subject: `📱 Post LinkedIn publié — Thème : ${theme.theme}`,
       html: linkedinPostEmail({ theme: theme.theme, content: postContent }),
     });
 
