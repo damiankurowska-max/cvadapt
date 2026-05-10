@@ -40,22 +40,24 @@ export async function GET(request) {
       messages: [
         {
           role: "user",
-          content: `Tu es un expert en personal branding et recrutement en France.
-Génère un post LinkedIn en français, engageant et authentique pour promouvoir CVAdapt (cvadapt.eu).
+          content: `Tu écris un post LinkedIn en français pour CVAdapt (cvadapt.eu).
 
 Thème : ${theme.theme}
 Angle : ${theme.angle}
 
-Contraintes :
-- 150-250 mots maximum
-- Commence par une accroche forte (question choc, stat, ou affirmation surprenante)
-- Ton conversationnel et authentique, pas corporate
-- 2-3 emojis maximum, bien placés
-- Termine par une question pour générer des commentaires
-- Mentionne CVAdapt (cvadapt.eu) de façon naturelle, pas publicitaire
-- Ajoute 3-5 hashtags pertinents à la fin (#emploi #CV #recrutement #alternance etc.)
+Règles Stop Slop — applique-les toutes :
+- Commence par un fait précis ou une stat réelle, pas une question rhétorique
+- Aucune phrase du type "Voici ce que j'ai appris", "On ne le dit pas assez", "Let that sink in"
+- Aucun em tiret (—) inutile
+- Aucune liste de trois éléments systématiquement
+- Ton direct, une personne qui parle à une autre, pas un article de blog
+- 2 emojis maximum, placés naturellement
+- 150-200 mots
+- Termine par une vraie question ouverte (pas "Et toi ?")
+- CVAdapt mentionné une fois, naturellement, pas en signature
+- 3-4 hashtags à la fin
 
-Génère UNIQUEMENT le texte du post, sans introduction ni commentaire.`,
+Texte du post uniquement, aucune introduction.`,
         },
       ],
     });
