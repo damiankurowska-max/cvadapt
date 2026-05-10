@@ -2,7 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
 
 const THEMES = [
   { theme: "ATS", angle: "Révèle un fait choquant sur les ATS (filtres automatiques CV) et comment s'en sortir. Mentionne CVAdapt naturellement à la fin." },

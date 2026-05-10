@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { upgradeReminderEmail } from "@/lib/email-templates";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
 
 export async function POST(request) {
   const { email, prenom } = await request.json();

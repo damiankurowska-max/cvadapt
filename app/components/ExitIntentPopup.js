@@ -1,4 +1,5 @@
 "use client";
+// Skills appliqués : popup-cro · stop-slop
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -6,11 +7,9 @@ export default function ExitIntentPopup() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    // Ne pas afficher si déjà vu dans les 24h
     const lastSeen = localStorage.getItem("exitPopupLastSeen");
     if (lastSeen && Date.now() - parseInt(lastSeen) < 24 * 60 * 60 * 1000) return;
 
-    // Ne pas afficher sur /tarifs ou /generate (déjà en conversion)
     const path = window.location.pathname;
     if (path === "/tarifs" || path === "/generate" || path === "/sign-up") return;
 
@@ -24,7 +23,6 @@ export default function ExitIntentPopup() {
       }
     }
 
-    // Délai avant activation (évite le trigger immédiat)
     const timer = setTimeout(() => {
       document.addEventListener("mouseleave", handleMouseLeave);
     }, 5000);
@@ -53,39 +51,55 @@ export default function ExitIntentPopup() {
         style={{ animation: "popIn 0.35s cubic-bezier(0.34,1.56,0.64,1)" }}
         onClick={e => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 px-7 pt-7 pb-5 text-center relative">
-          <button onClick={close} className="absolute top-4 right-4 text-white/60 hover:text-white text-lg">✕</button>
-          <div className="text-4xl mb-2">✋</div>
-          <h2 className="text-xl font-extrabold text-white mb-1">Attends ! Avant de partir…</h2>
-          <p className="text-blue-100 text-sm">Essaie CVAdapt gratuitement — 3 CV sans carte bancaire.</p>
+        {/* Header — accroche factuelle, pas émotionnelle */}
+        <div style={{ background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)" }}
+          className="px-7 pt-6 pb-5 relative">
+          <button onClick={close}
+            className="absolute top-4 right-4 text-white/50 hover:text-white text-lg leading-none">✕</button>
+
+          {/* Stat choc */}
+          <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-400/30 rounded-full px-3 py-1 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+            <span className="text-red-200 text-xs font-bold">75% des CV sont filtrés avant d'être lus</span>
+          </div>
+
+          <h2 className="text-xl font-extrabold text-white mb-1 leading-snug">
+            Ton CV passe-t-il les filtres automatiques ?
+          </h2>
+          <p className="text-blue-200 text-sm">
+            Vérifie ton score ATS en 30 secondes — gratuit.
+          </p>
         </div>
 
         {/* Body */}
         <div className="px-7 py-5">
-          <div className="space-y-2 mb-5">
+          {/* Ce qu'ils obtiennent concrètement */}
+          <div className="space-y-2.5 mb-5">
             {[
-              "CV adapté à l'offre en 30 secondes",
-              "Score ATS et mots-clés manquants",
-              "Lettre de motivation incluse",
-              "Gratuit, sans carte bancaire",
+              { icon: "🎯", text: "Score ATS sur ton CV actuel" },
+              { icon: "🔑", text: "Mots-clés manquants détectés" },
+              { icon: "⚡", text: "CV optimisé généré en 30s" },
+              { icon: "💳", text: "Aucune carte bancaire" },
             ].map((f, i) => (
-              <div key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                <span className="text-blue-600 font-bold">✓</span> {f}
+              <div key={i} className="flex items-center gap-3 text-sm text-gray-700">
+                <span className="text-base w-5 text-center">{f.icon}</span>
+                <span>{f.text}</span>
               </div>
             ))}
           </div>
 
           <Link
-            href="/generate"
+            href="/analyse"
             onClick={close}
-            className="block w-full bg-blue-600 text-white text-center font-bold py-3.5 rounded-2xl hover:bg-blue-700 transition-colors"
+            className="block w-full text-center font-bold py-3.5 rounded-2xl transition-all hover:-translate-y-0.5 text-sm shadow-md hover:shadow-lg"
+            style={{ background: "linear-gradient(135deg, #1e40af, #2563eb)", color: "white" }}
           >
-            Essayer gratuitement →
+            Analyser mon CV gratuitement →
           </Link>
 
-          <button onClick={close} className="w-full text-center text-xs text-gray-400 hover:text-gray-600 mt-3">
-            Non merci, je pars sans essayer
+          <button onClick={close}
+            className="w-full text-center text-xs text-gray-300 hover:text-gray-500 mt-3 py-1 transition-colors">
+            Mon CV est déjà optimisé
           </button>
         </div>
       </div>

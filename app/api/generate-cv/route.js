@@ -1,13 +1,24 @@
 import Anthropic from "@anthropic-ai/sdk";
 
+// Skills appliqués : context-engineering · stop-slop
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const TEMPLATE_STYLES = {
-  moderne: `Design moderne : en-tête avec dégradé bleu (#1e3a5f → #2563eb), nom et titre du poste en blanc sur fond coloré. Corps en 2 colonnes CSS grid (1fr 2fr) : colonne gauche (compétences + formation), colonne droite (profil + expériences). Titres de section en uppercase, petits (11px), bleu #2563eb, avec ligne de séparation bleue.`,
-  classique: `Design classique français : fond blanc, texte noir. En-tête centré avec nom en grand (28px, gras), trait horizontal gris en dessous. Sections linéaires avec titre en gras souligné gris clair. Format traditionnel une colonne. Sobre et formel.`,
-  creatif: `Design créatif : sidebar violette (#7c3aed) sur 32% de largeur à gauche (position fixe, min-height: 100%), contenu blanc sur 68% à droite. Dans la sidebar : nom en blanc gras, titre du poste, compétences avec puces blanches, formation. À droite : profil et expériences avec titres violets (#7c3aed). Impression moderne et dynamique.`,
-  minimaliste: `Design minimaliste : fond blanc pur, beaucoup d'espace. Nom en très grand (32px, font-weight 800, #111). Titre du poste en vert (#059669, 16px). Sections avec juste un accent vert à gauche (border-left: 3px solid #059669, padding-left: 12px). Typographie claire, aucune décoration superflue, ligne-height 1.8.`,
+  moderne: `En-tête dégradé bleu (#1e3a5f→#2563eb), nom+titre en blanc. Grid CSS 2 colonnes (1fr 2fr) : gauche=compétences+formation, droite=profil+expériences. Titres section : uppercase 11px bleu #2563eb + ligne bleue.`,
+  classique: `Fond blanc, texte noir. En-tête centré, nom 28px gras, trait gris. Sections : titre gras souligné, une colonne. Formel.`,
+  creatif: `Sidebar violette #7c3aed (32%, min-height:100%). Sidebar : nom blanc, titre, compétences, formation. Droite (68%) : profil+expériences, titres violets.`,
+  minimaliste: `Fond blanc, nom 32px 800 #111, titre vert #059669. Sections : border-left 3px #059669 + padding-left 12px. Line-height 1.8. Zéro décoration.`,
 };
+
+// Prompt système séparé — Context Engineering : instructions stables = cache côté API
+const SYSTEM_PROMPT = `Expert recruteur français. Tu génères des CV HTML optimisés ATS.
+
+RÈGLES STRICTES :
+- Réponds UNIQUEMENT avec du HTML inline CSS. Aucun markdown, aucun texte hors HTML.
+- Commence par <div et termine par </div>.
+- Intègre TOUS les mots-clés de l'offre dans le profil et les compétences.
+- Chaque expérience : 2-3 bullet points avec résultats chiffrés (%, €, délais).
+- Police sans-serif, taille lisible (13-14px corps), A4 optimisé impression.`;
 
 export async function POST(request) {
   const { offre, nom, experience, competences, formation, template = "moderne" } = await request.json();
@@ -21,33 +32,30 @@ export async function POST(request) {
   try {
     const message = await client.messages.create({
       model: "claude-opus-4-5",
-      max_tokens: 4000,
+      max_tokens: 3500,
+      system: SYSTEM_PROMPT,
       messages: [
         {
           role: "user",
-          content: `Tu es un expert en recrutement français. Génère un CV professionnel adapté à cette offre d'emploi.
+          content: `TEMPLATE : ${styleDesc}
 
-OFFRE D'EMPLOI :
+OFFRE :
 ${offre}
 
-INFORMATIONS DU CANDIDAT :
-- Nom : ${nom}
-- Expérience : ${experience}
-- Compétences : ${competences}
-- Formation : ${formation}
+CANDIDAT :
+Nom: ${nom}
+Expérience: ${experience || "Aucune expérience professionnelle"}
+Compétences: ${competences || "À déduire du profil et de l'offre"}
+Formation: ${formation || "Non précisée"}
 
-RÈGLE ABSOLUE : réponds UNIQUEMENT avec du HTML brut (CSS inline). Pas de markdown. Pas de texte avant ou après. Commence par <div et termine par </div>.
+STRUCTURE DU CV :
+1. En-tête : nom + titre extrait de l'offre
+2. Profil (3 phrases) : mots-clés offre + valeur ajoutée candidate
+3. Expériences : titre | entreprise | dates | 2-3 bullets chiffrés
+4. Compétences : liste filtrée sur l'offre
+5. Formation : diplôme | établissement | année
 
-TEMPLATE À UTILISER : ${styleDesc}
-
-Contenu du CV :
-1. En-tête : nom complet + titre du poste (extrait de l'offre)
-2. Profil : 3-4 phrases percutantes avec les mots-clés de l'offre
-3. Expérience : chaque poste avec titre, entreprise, dates, et 2-3 bullet points avec résultats chiffrés
-4. Compétences : liste adaptée à l'offre
-5. Formation : diplôme, établissement, année
-
-Utilise impérativement les mots-clés de l'offre. Rends le CV convaincant et professionnel.`,
+Génère le CV maintenant.`,
         },
       ],
     });
