@@ -7,18 +7,28 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    width: 390px;
-    height: 844px;
+  html, body {
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
   }
 
   .slide {
     position: absolute;
-    width: 390px;
-    height: 844px;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -256,6 +266,7 @@
 </head>
 <body>
 
+<div class="wrapper">
 <!-- SLIDE 1 -->
 <div class="slide s1 active" id="s0">
   <div class="question">La vraie raison</div>
@@ -345,6 +356,7 @@
 </div>
 <div class="progress" id="progress"></div>
 <div class="tap-hint">Appuie pour avancer →</div>
+</div>
 
 <script>
   const slides = document.querySelectorAll('.slide');
