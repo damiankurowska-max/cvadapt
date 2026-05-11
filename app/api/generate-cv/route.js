@@ -3,6 +3,7 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { Resend } from "resend";
 import { upgradeReminderEmail } from "@/lib/email-templates";
 import { sanitizeInput } from "@/lib/rate-limit";
+import { saveCV } from "@/lib/supabase";
 
 // Skills appliqués : context-engineering · stop-slop · server-side-auth
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -144,17 +145,33 @@ Génère le CV maintenant.`,
       },
     });
 
-    // ── 7. EMAIL DE RELANCE si dernier CV gratuit ─────────────────────────
+    // ── 7. SAUVEGARDE SUPABASE ────────────────────────────────────────────
+    let savedId = null;
+    try {
+      const saved = await saveCV({
+        userId,
+        nom,
+        offre,
+        template,
+        cvHtml: cv,
+      });
+      savedId = saved?.id || null;
+    } catch (dbErr) {
+      // Ne jamais bloquer la génération si Supabase est down
+      console.error("Supabase save error:", dbErr);
+    }
+
+    // ── 8. EMAIL DE RELANCE si dernier CV gratuit ─────────────────────────
     if (!isPro && newCvCount === PLAN_LIMITS.free.max && email) {
       await resend.emails.send({
         from: "CVAdapt <contact@cvadapt.eu>",
         to: email,
         subject: `${prenom ? prenom + ", tu" : "Tu"} as utilisé tes 3 CV gratuits — continue sans limite 🚀`,
         html: upgradeReminderEmail({ prenom }),
-      }).catch(() => {}); // ne jamais bloquer la génération pour un email
+      }).catch(() => {});
     }
 
-    return Response.json({ cv, cvCount: newCvCount, cvMonthCount: newCvMonthCount });
+    return Response.json({ cv, cvCount: newCvCount, cvMonthCount: newCvMonthCount, savedId });
 
   } catch (error) {
     console.error("generate-cv error:", error);
