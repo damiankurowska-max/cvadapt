@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["stripe"],
@@ -34,4 +35,18 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  // Organisation + projet Sentry (à remplir après création du compte)
+  org: process.env.SENTRY_ORG || "cvadapt",
+  project: process.env.SENTRY_PROJECT || "cvadapt-web",
+
+  // Upload des source maps pour voir les vraies erreurs (pas le code minifié)
+  silent: true,
+  widenClientFileUpload: true,
+
+  // Pas de tunnel — on utilise le DSN direct
+  tunnelRoute: undefined,
+
+  // Désactive les logs Sentry en dev
+  disableLogger: true,
+});
