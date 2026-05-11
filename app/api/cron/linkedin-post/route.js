@@ -1,8 +1,11 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
+import { alertCronFailure } from "@/lib/monitoring";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
+const MAKE_LINKEDIN_WEBHOOK = process.env.MAKE_LINKEDIN_WEBHOOK || "https://hook.eu1.make.com/vjwe41hw42ua1l3aayf6rflbg6pzvahi";
+const OWNER_EMAIL = process.env.OWNER_EMAIL || "damiankurowska@icloud.com";
 
 const THEMES = [
   { theme: "ATS", angle: "Révèle un fait choquant sur les ATS (filtres automatiques CV) et comment s'en sortir. Mentionne CVAdapt naturellement à la fin." },
@@ -65,8 +68,7 @@ Texte du post uniquement, aucune introduction.`,
     const postContent = message.content[0].text;
 
     // Envoyer vers Make (LinkedIn automatique)
-    const makeWebhookUrl = "https://hook.eu1.make.com/vjwe41hw42ua1l3aayf6rflbg6pzvahi";
-    await fetch(makeWebhookUrl, {
+    const makeRes = await fetch(MAKE_LINKEDIN_WEBHOOK, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -76,10 +78,14 @@ Texte du post uniquement, aucune introduction.`,
       }),
     });
 
+    if (!makeRes.ok) {
+      throw new Error(`Make.com webhook LinkedIn failed: ${makeRes.status} ${await makeRes.text()}`);
+    }
+
     // Envoyer aussi par email (backup)
     await resend.emails.send({
       from: "CVAdapt <contact@cvadapt.eu>",
-      to: "damiankurowska@icloud.com",
+      to: OWNER_EMAIL,
       subject: `📱 Post LinkedIn publié — Thème : ${theme.theme}`,
       html: linkedinPostEmail({ theme: theme.theme, content: postContent }),
     });
@@ -87,6 +93,8 @@ Texte du post uniquement, aucune introduction.`,
     return Response.json({ success: true, theme: theme.theme });
   } catch (error) {
     console.error("LinkedIn cron error:", error);
+    // 🚨 Alerte monitoring — email automatique si cron plante
+    await alertCronFailure("linkedin-post", error);
     return Response.json({ error: error.message }, { status: 500 });
   }
 }

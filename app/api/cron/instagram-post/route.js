@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { renderMediaOnLambda, getRenderProgress } from "@remotion/lambda/client";
+import { alertCronFailure } from "@/lib/monitoring";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -95,7 +96,7 @@ Caption uniquement, sans introduction.`,
     if (!videoUrl) throw new Error("Timeout rendu vidéo");
 
     // 4. Envoyer à Make.com → Instagram
-    const makeWebhookUrl = "https://hook.eu1.make.com/d8qm5quqc47o4mv43z7zb60qtx9w8bhv";
+    const makeWebhookUrl = process.env.MAKE_INSTAGRAM_WEBHOOK || "https://hook.eu1.make.com/d8qm5quqc47o4mv43z7zb60qtx9w8bhv";
     const makeRes = await fetch(makeWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -106,6 +107,10 @@ Caption uniquement, sans introduction.`,
       }),
     });
 
+    if (!makeRes.ok) {
+      throw new Error(`Make.com webhook Instagram failed: ${makeRes.status}`);
+    }
+
     return Response.json({
       success: true,
       theme: theme.stat,
@@ -115,6 +120,8 @@ Caption uniquement, sans introduction.`,
 
   } catch (error) {
     console.error("Instagram cron error:", error);
+    // 🚨 Alerte monitoring
+    await alertCronFailure("instagram-post", error);
     return Response.json({ error: error.message }, { status: 500 });
   }
 }
