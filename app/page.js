@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
+import { CircularRevealHeading } from "../components/ui/circular-reveal-heading";
 
 const faqItems = [
   {
@@ -220,6 +221,42 @@ export default function Home() {
             <a href="/generate" className="inline-block bg-blue-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-blue-700 transition-colors text-sm">
               Essayer gratuitement →
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CIRCULAR REVEAL ─────────────────────────────────────── */}
+      <section className="py-20 px-5 bg-white">
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex-1 text-center lg:text-left">
+            <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Pour tous les profils</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-5">
+              CVAdapt s'adapte à<br />
+              <span className="text-blue-600">chaque situation</span>
+            </h2>
+            <p className="text-gray-500 text-lg leading-relaxed max-w-md">
+              Étudiant, en reconversion, tech, marketing ou finance — survole les mots pour voir des exemples concrets.
+            </p>
+          </div>
+          <div className="flex-shrink-0">
+            <CircularRevealHeading
+              size="md"
+              items={[
+                { text: "Étudiant", image: "https://randomuser.me/api/portraits/men/32.jpg" },
+                { text: "Alternance", image: "https://randomuser.me/api/portraits/women/44.jpg" },
+                { text: "Reconversion", image: "https://randomuser.me/api/portraits/men/52.jpg" },
+                { text: "Tech", image: "https://randomuser.me/api/portraits/men/41.jpg" },
+                { text: "Marketing", image: "https://randomuser.me/api/portraits/women/26.jpg" },
+                { text: "Finance", image: "https://randomuser.me/api/portraits/men/61.jpg" },
+              ]}
+              centerText={
+                <div className="flex flex-col items-center gap-1">
+                  <span className="text-3xl">🎯</span>
+                  <span className="text-blue-600 font-bold text-sm">CVAdapt</span>
+                  <span className="text-gray-400 text-xs">ton profil</span>
+                </div>
+              }
+            />
           </div>
         </div>
       </section>
