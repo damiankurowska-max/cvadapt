@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CVAdapt TikTok</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 390px;
+    height: 844px;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #000;
+  }
+
+  .slide {
+    position: absolute;
+    width: 390px;
+    height: 844px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    text-align: center;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* ── SLIDE 1 ── */
+  .s1 { background: linear-gradient(160deg, #0f172a 0%, #1e3a5f 100%); }
+  .s1 .emoji { font-size: 72px; margin-bottom: 24px; }
+  .s1 h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .s1 p {
+    font-size: 18px;
+    color: #93c5fd;
+    line-height: 1.5;
+  }
+
+  /* ── SLIDE 2 ── */
+  .s2 { background: linear-gradient(160deg, #1e1b4b 0%, #312e81 100%); }
+  .s2 .stat {
+    font-size: 96px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .s2 .stat span { color: #f87171; }
+  .s2 h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+  .s2 p {
+    font-size: 16px;
+    color: #c7d2fe;
+    line-height: 1.5;
+  }
+
+  /* ── SLIDE 3 ── */
+  .s3 { background: linear-gradient(160deg, #1c1917 0%, #292524 100%); }
+  .s3 .score-before {
+    background: rgba(239,68,68,0.15);
+    border: 2px solid #ef4444;
+    border-radius: 20px;
+    padding: 24px 48px;
+    margin-bottom: 20px;
+  }
+  .s3 .score-before .num {
+    font-size: 72px;
+    font-weight: 900;
+    color: #ef4444;
+    line-height: 1;
+  }
+  .s3 .score-before .label {
+    font-size: 14px;
+    color: #fca5a5;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+  .s3 .arrow { font-size: 40px; margin: 12px 0; }
+  .s3 h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 16px;
+    line-height: 1.4;
+  }
+  .s3 p { font-size: 15px; color: #a8a29e; margin-top: 8px; }
+
+  /* ── SLIDE 4 ── */
+  .s4 { background: linear-gradient(160deg, #052e16 0%, #14532d 100%); }
+  .s4 .score-after {
+    background: rgba(34,197,94,0.15);
+    border: 2px solid #22c55e;
+    border-radius: 20px;
+    padding: 24px 48px;
+    margin-bottom: 20px;
+  }
+  .s4 .score-after .num {
+    font-size: 72px;
+    font-weight: 900;
+    color: #22c55e;
+    line-height: 1;
+  }
+  .s4 .score-after .label {
+    font-size: 14px;
+    color: #86efac;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+  .s4 .timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    padding: 10px 24px;
+    margin-bottom: 24px;
+  }
+  .s4 .timer span { font-size: 16px; color: #fff; font-weight: 600; }
+  .s4 h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .s4 p { font-size: 16px; color: #86efac; margin-top: 12px; }
+
+  /* ── SLIDE 5 ── */
+  .s5 { background: linear-gradient(160deg, #1d4ed8 0%, #2563eb 50%, #1e40af 100%); }
+  .s5 .logo {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    font-size: 40px;
+  }
+  .s5 h2 {
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .s5 .tagline {
+    font-size: 18px;
+    color: #bfdbfe;
+    margin-bottom: 40px;
+    line-height: 1.4;
+  }
+  .s5 .cta {
+    background: #fff;
+    color: #1d4ed8;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 18px 48px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+  .s5 .sub {
+    font-size: 14px;
+    color: #93c5fd;
+  }
+
+  /* ── Progress bar ── */
+  .progress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: #2563eb;
+    transition: width 0.1s linear;
+    z-index: 100;
+  }
+
+  /* ── Dots ── */
+  .dots {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 100;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transition: background 0.3s;
+  }
+  .dot.active { background: #fff; }
+
+  /* ── Tap hint ── */
+  .tap-hint {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    z-index: 100;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .pop {
+    animation: pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes pop {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide s1 active" id="s0">
+  <div class="emoji">😩</div>
+  <h1>3 semaines de candidatures<br/>zéro réponse</h1>
+  <p>Voilà ce que j'ai découvert qui changeait tout…</p>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide s2" id="s1">
+  <div class="stat"><span>75%</span></div>
+  <h2>des CV sont rejetés<br/>avant d'être lus</h2>
+  <p>Un logiciel ATS filtre automatiquement les CV avant qu'un humain les voie 🤖</p>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide s3" id="s2">
+  <h2 style="color:#fff; margin-bottom:24px; font-size:20px;">Mon CV était noté...</h2>
+  <div class="score-before">
+    <div class="num">34</div>
+    <div class="label">Score ATS / 100</div>
+  </div>
+  <div class="arrow">⬇️</div>
+  <h2>Aucune chance de passer<br/>les filtres automatiques</h2>
+  <p>Les mots-clés de l'offre n'étaient pas dans mon CV 💀</p>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide s4" id="s3">
+  <div class="timer">
+    <span>⏱️ 30 secondes plus tard...</span>
+  </div>
+  <div class="score-after">
+    <div class="num">91</div>
+    <div class="label">Score ATS / 100</div>
+  </div>
+  <h2>Premier entretien<br/>4 jours après ✅</h2>
+  <p>CVAdapt a ajouté les bons mots-clés automatiquement</p>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide s5" id="s4">
+  <div class="logo">🎯</div>
+  <h2>CVAdapt</h2>
+  <div class="tagline">Adapte ton CV à chaque offre<br/>en 30 secondes</div>
+  <div class="cta">Essaie gratuitement</div>
+  <div class="sub">3 CV gratuits · Sans carte bancaire · Lien en bio 👆</div>
+</div>
+
+<!-- UI -->
+<div class="dots" id="dots">
+  <div class="dot active"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="tap-hint" id="tapHint">Appuie pour avancer →</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const progressBar = document.getElementById('progress');
+  const tapHint = document.getElementById('tapHint');
+  let current = 0;
+  let timer;
+  let elapsed = 0;
+  const DURATION = 3500; // ms per slide
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    elapsed = 0;
+    tapHint.style.opacity = current === slides.length - 1 ? '0' : '1';
+  }
+
+  function next() {
+    if (current < slides.length - 1) goTo(current + 1);
+    else goTo(0);
+  }
+
+  // Auto-advance
+  function tick() {
+    elapsed += 50;
+    const pct = ((current * DURATION + elapsed) / (slides.length * DURATION)) * 100;
+    progressBar.style.width = pct + '%';
+    if (elapsed >= DURATION) next();
+  }
+
+  timer = setInterval(tick, 50);
+
+  // Tap to advance
+  document.body.addEventListener('click', () => {
+    clearInterval(timer);
+    next();
+    timer = setInterval(tick, 50);
+  });
+</script>
+</body>
+</html>
