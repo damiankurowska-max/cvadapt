@@ -951,4 +951,417 @@ ${[
 </div>
     `,
   },
+  // ─── ARTICLES SEO LONGUE TRAÎNE ─────────────────────────────
+  {
+    slug: "cv-pour-amazon-france",
+    titre: "CV pour Amazon France : comment être recruté en 2025 (guide complet)",
+    description: "Amazon France reçoit des milliers de candidatures. Ce guide te montre exactement quels mots-clés mettre, comment structurer ton CV et ce qu'Amazon recherche vraiment en 2025.",
+    date: "2026-05-13",
+    categorie: "Entreprises",
+    tempsLecture: "5 min",
+    illustration: "📦",
+    couleur: "from-orange-400 to-amber-500",
+    contenu: `
+<div style="background:#fff7ed;border-left:4px solid #f59e0b;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#b45309;margin:0 0 4px 0">📦 Amazon en chiffres</p>
+  <p style="color:#92400e;margin:0;font-size:15px">Amazon France emploie plus de <strong>20 000 personnes</strong> et recrute en continu. Leur ATS est parmi les plus stricts du marché.</p>
+</div>
+
+<h2>Ce qu'Amazon cherche vraiment</h2>
+<p>Amazon a 16 "Leadership Principles" — des valeurs fondamentales qu'ils intègrent dans chaque recrutement. Ton CV doit refléter ces valeurs, même subtilement.</p>
+
+<div style="display:grid;gap:8px;margin:20px 0">
+  ${[
+    ["Customer Obsession", "Montre des exemples où tu as priorisé le client/utilisateur final"],
+    ["Ownership", "Montre que tu prends des initiatives sans attendre qu'on te le demande"],
+    ["Bias for Action", "Résultats obtenus rapidement, projets lancés dans des délais courts"],
+    ["Deliver Results", "Chiffres, KPIs, objectifs atteints ou dépassés — obligatoire"],
+  ].map(([principle, desc]) => `
+  <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 16px">
+    <p style="font-weight:700;color:#ea580c;margin:0 0 3px 0;font-size:13px">${principle}</p>
+    <p style="color:#374151;font-size:13px;margin:0">${desc}</p>
+  </div>`).join("")}
+</div>
+
+<h2>Les mots-clés ATS d'Amazon France</h2>
+
+<div style="display:grid;gap:12px;margin:20px 0">
+  ${[
+    ["📦 Logistique / Opérations", ["Supply chain", "KPI", "Process improvement", "Lean", "Six Sigma", "Kaizen", "WMS", "Throughput", "SLA"], "#f59e0b", "#fffbeb"],
+    ["💻 Tech / IT", ["AWS", "Python", "SQL", "Java", "Machine Learning", "CI/CD", "Microservices", "API", "Agile", "JIRA"], "#3b82f6", "#eff6ff"],
+    ["📣 Marketing / E-commerce", ["SEO", "PPC", "Amazon Ads", "A/B testing", "Conversion", "Retail media", "Marketplace", "CTR", "ACOS"], "#ec4899", "#fdf2f8"],
+    ["💰 Finance / Analyse", ["P&L", "EBITDA", "Forecasting", "Excel", "Power BI", "SQL", "Financial modeling", "Budget variance"], "#16a34a", "#f0fdf4"],
+  ].map(([sector, kws, color, bg]) => `
+  <div style="background:${bg};border-radius:12px;padding:16px">
+    <p style="font-weight:700;color:${color};font-size:13px;margin:0 0 10px 0">${sector}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      ${kws.map(kw => `<span style="background:#fff;border:1px solid ${color}40;color:#374151;font-size:12px;font-weight:600;padding:3px 10px;border-radius:16px">${kw}</span>`).join("")}
+    </div>
+  </div>`).join("")}
+</div>
+
+<h2>Structure CV recommandée pour Amazon</h2>
+
+<div style="display:grid;gap:8px;margin:20px 0">
+  ${[
+    ["✅", "1 page pour les juniors, 2 pages maximum", "Amazon préfère des CV concis"],
+    ["✅", "Format STAR pour chaque expérience", "Situation, Tâche, Action, Résultat — avec des chiffres"],
+    ["✅", "Titre de poste identique à l'offre", "Copie exactement le titre du poste dans ton en-tête"],
+    ["✅", "Section compétences techniques en premier", "Amazon filtre d'abord par compétences techniques"],
+    ["❌", "Pas de photo, pas de tableau, pas de graphique", "Leur ATS ne lit pas les éléments visuels"],
+  ].map(([status, title, desc]) => `
+  <div style="display:flex;gap:12px;background:${status === "✅" ? "#f0fdf4" : "#fef2f2"};border-radius:8px;padding:12px 14px">
+    <span style="font-size:16px;flex-shrink:0">${status}</span>
+    <div>
+      <p style="font-weight:700;color:#111827;font-size:13px;margin:0 0 2px 0">${title}</p>
+      <p style="color:#6b7280;font-size:12px;margin:0">${desc}</p>
+    </div>
+  </div>`).join("")}
+</div>
+
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Adapte ton CV à Amazon en 30 secondes</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">Colle l'offre Amazon dans CVAdapt — l'IA intègre automatiquement les mots-clés Amazon et structure ton CV selon leurs standards.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#f59e0b;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Optimiser mon CV pour Amazon →</a>
+</div>
+    `,
+  },
+  {
+    slug: "cv-data-analyst-junior",
+    titre: "CV Data Analyst Junior 2025 : le guide pour décrocher ton premier poste",
+    description: "Comment faire un CV de data analyst junior en 2025 ? Les mots-clés indispensables, les projets à mettre en avant, et comment passer les ATS des entreprises tech sans expérience professionnelle.",
+    date: "2026-05-13",
+    categorie: "Métiers Tech",
+    tempsLecture: "5 min",
+    illustration: "📊",
+    couleur: "from-blue-600 to-violet-600",
+    contenu: `
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">📊 Marché data analyst</p>
+  <p style="color:#1d4ed8;margin:0;font-size:15px">La data est le secteur qui recrute le plus en France. <strong>+25% d'offres</strong> chaque année. Les profils juniors bien positionnés décrochent en moins d'un mois.</p>
+</div>
+
+<h2>Les compétences techniques incontournables en 2025</h2>
+
+<div style="display:grid;gap:12px;margin:20px 0">
+  ${[
+    ["🐍 Python", ["Pandas", "NumPy", "Matplotlib", "Scikit-learn", "Jupyter"], "#3b82f6", "#eff6ff", "Indispensable — maîtrise au moins les bases"],
+    ["🗄️ SQL", ["MySQL", "PostgreSQL", "BigQuery", "dbt", "Requêtes complexes"], "#7c3aed", "#f5f3ff", "Obligatoire — c'est le socle de tout data analyst"],
+    ["📊 Visualisation", ["Power BI", "Tableau", "Looker", "Google Data Studio", "Excel avancé"], "#16a34a", "#f0fdf4", "Montre que tu peux communiquer les données"],
+    ["☁️ Cloud & Big Data", ["Google Cloud", "AWS", "Azure", "Spark", "Airflow"], "#f59e0b", "#fffbeb", "Bonus — fait vraiment la différence"],
+  ].map(([tool, skills, color, bg, note]) => `
+  <div style="background:${bg};border-radius:12px;padding:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+      <p style="font-weight:700;color:${color};font-size:13px;margin:0">${tool}</p>
+      <span style="font-size:11px;color:#6b7280;font-style:italic">${note}</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      ${skills.map(s => `<span style="background:#fff;border:1px solid ${color}40;color:#374151;font-size:12px;font-weight:600;padding:3px 10px;border-radius:16px">${s}</span>`).join("")}
+    </div>
+  </div>`).join("")}
+</div>
+
+<h2>Sans expérience pro : les projets qui impressionnent</h2>
+
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["Kaggle", "Participe à des compétitions Kaggle et mets tes résultats (même bas dans le classement, ça montre l'initiative)"],
+    ["Projet personnel sur GitHub", "Analyse d'un jeu de données public (crimes à Paris, données vélib, résultats élections)"],
+    ["Dashboard Power BI public", "Crée un dashboard sur une donnée qui t'intéresse et publie-le"],
+    ["Web scraping + analyse", "Scrape des données et fais une analyse — montre Python + SQL + visualisation"],
+  ].map(([project, desc]) => `
+  <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px">
+    <p style="font-weight:700;color:#111827;font-size:13px;margin:0 0 4px 0">📌 ${project}</p>
+    <p style="color:#6b7280;font-size:13px;margin:0">${desc}</p>
+  </div>`).join("")}
+</div>
+
+<h2>Comment formuler tes projets sans expérience</h2>
+
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:13px">
+  <thead>
+    <tr style="background:#f3f4f6">
+      <th style="padding:10px 14px;text-align:left;border:1px solid #e5e7eb;color:#6b7280">❌ Formulation faible</th>
+      <th style="padding:10px 14px;text-align:left;border:1px solid #e5e7eb;color:#16a34a">✅ Formulation forte</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${[
+      ["Projet Python en cours", "Analyse de 50 000 lignes de données de vente (Python/Pandas), identification de 3 segments clients"],
+      ["Dashboard Power BI", "Dashboard Power BI suivi des KPIs e-commerce, consulté par 5 responsables"],
+      ["Cours SQL", "Maîtrise SQL : jointures, agrégations, fenêtres — certifié DataCamp"],
+      ["Mémoire de M2", "Modèle de prédiction churn clients (accuracy 87%) — Python, scikit-learn, XGBoost"],
+    ].map(([bad, good]) => `
+    <tr>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#374151">${bad}</td>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#111827;font-weight:500">${good}</td>
+    </tr>`).join("")}
+  </tbody>
+</table>
+
+<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ CVAdapt pour les profils data</p>
+  <p style="color:#166534;margin:0;font-size:14px">Colle une offre Data Analyst dans CVAdapt — l'IA identifie les compétences clés demandées et réorganise ton CV pour qu'il corresponde exactement.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#2563eb;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV Data Analyst →</a>
+</div>
+    `,
+  },
+  {
+    slug: "trouver-alternance-rapidement",
+    titre: "Comment trouver une alternance rapidement en 2025 (méthode complète)",
+    description: "Tu cherches une alternance et tu n'as pas de retour ? Cette méthode en 5 étapes a permis à des centaines d'étudiants de décrocher leur contrat en moins de 3 semaines.",
+    date: "2026-05-13",
+    categorie: "Alternance",
+    tempsLecture: "6 min",
+    illustration: "⚡",
+    couleur: "from-yellow-400 to-orange-500",
+    contenu: `
+<div style="background:#fffbeb;border-left:4px solid #f59e0b;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#b45309;margin:0 0 4px 0">⚡ La réalité du marché</p>
+  <p style="color:#92400e;margin:0;font-size:15px">Les meilleures alternances se prennent <strong>3 à 6 mois avant la rentrée</strong>. Mais des postes se libèrent jusqu'en août — si tu sais où chercher.</p>
+</div>
+
+<h2>Étape 1 — Ton CV doit être adapté à chaque offre</h2>
+<p>C'est la raison principale pour laquelle les étudiants n'ont pas de retour : ils envoient le même CV générique à 50 entreprises. Un CV adapté à chaque offre multiplie les réponses par 3.</p>
+
+<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:16px 0">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#fef2f2;border-radius:8px;padding:14px;text-align:center">
+      <p style="font-size:24px;margin:0 0 4px 0">😔</p>
+      <p style="font-weight:700;color:#b91c1c;font-size:13px;margin:0 0 4px 0">CV générique</p>
+      <p style="color:#ef4444;font-size:24px;font-weight:900;margin:0">2%</p>
+      <p style="color:#6b7280;font-size:12px;margin:0">taux de réponse moyen</p>
+    </div>
+    <div style="background:#f0fdf4;border-radius:8px;padding:14px;text-align:center">
+      <p style="font-size:24px;margin:0 0 4px 0">😊</p>
+      <p style="font-weight:700;color:#15803d;font-size:13px;margin:0 0 4px 0">CV adapté à l'offre</p>
+      <p style="color:#16a34a;font-size:24px;font-weight:900;margin:0">18%</p>
+      <p style="color:#6b7280;font-size:12px;margin:0">taux de réponse moyen</p>
+    </div>
+  </div>
+</div>
+
+<h2>Étape 2 — Les bonnes plateformes selon ton profil</h2>
+
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["🔵 LinkedIn Jobs", "Filtre sur \"Alternance\" + ta ville. Active les alertes. Postule dans les 24h après la publication."],
+    ["🟠 Indeed", "Requête : \"alternance [ton métier] [ville] 2025\". Coche CDI et CDD court terme aussi."],
+    ["🔴 L'Etudiant / Studyrama", "Spécialisés étudiants. Beaucoup de PME qui ne publient pas ailleurs."],
+    ["⚫ APEC", "Pour les alternances en Master. Postes souvent plus qualifiés et moins de concurrence."],
+    ["🟢 Jobteaser", "Connecté à ton école. Les entreprises y déposent des offres réservées aux étudiants de ton établissement."],
+  ].map(([platform, tip]) => `
+  <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px">
+    <p style="font-weight:700;color:#111827;font-size:13px;margin:0 0 4px 0">${platform}</p>
+    <p style="color:#6b7280;font-size:13px;margin:0">${tip}</p>
+  </div>`).join("")}
+</div>
+
+<h2>Étape 3 — La candidature spontanée (souvent ignorée, très efficace)</h2>
+<p>80% des étudiants ne font que répondre aux offres. Les 20% qui font des candidatures spontanées ont un avantage énorme — pas de concurrence directe.</p>
+
+<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin:16px 0">
+  <p style="font-weight:700;color:#15803d;margin:0 0 12px 0">📋 Template candidature spontanée LinkedIn :</p>
+  <div style="background:#fff;border-radius:8px;padding:14px;font-size:13px;color:#374151;font-style:italic;line-height:1.7">
+    "Bonjour [Prénom], je suis en [BTS/Licence/Master] [spécialité] et je recherche une alternance en [domaine] pour septembre 2025. J'ai vu que [Entreprise] [fait X / vient de lancer Y] et je serais motivé(e) pour y contribuer. Auriez-vous des opportunités ? Je peux vous envoyer mon CV adapté à votre contexte."
+  </div>
+</div>
+
+<h2>Étape 4 — Ton école comme levier</h2>
+
+<div style="display:grid;gap:8px;margin:20px 0">
+  ${[
+    "Parle au service des relations entreprises de ton école",
+    "Contacte les anciens diplômés sur LinkedIn (\"Je suis en [formation], je cherche une alternance\")",
+    "Regarde les entreprises qui ont accueilli des alternants de ton école les années précédentes",
+    "Participe aux forums entreprises organisés par ton établissement",
+  ].map(tip => `
+  <div style="display:flex;gap:10px;background:#eff6ff;border-radius:8px;padding:12px 14px">
+    <span style="color:#2563eb;font-weight:700;flex-shrink:0">→</span>
+    <span style="color:#374151;font-size:14px">${tip}</span>
+  </div>`).join("")}
+</div>
+
+<h2>Étape 5 — La relance (que personne ne fait)</h2>
+<p>Si tu n'as pas eu de réponse après 10 jours : relance. 1 candidat sur 5 qui relance obtient un entretien. C'est simple :</p>
+
+<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:16px 0;font-size:13px;color:#374151;font-style:italic">
+  "Bonjour, je me permets de relancer ma candidature pour l'alternance [poste] envoyée le [date]. Je reste très motivé(e) par votre entreprise. N'hésitez pas si vous avez besoin d'informations complémentaires."
+</div>
+
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Gagne du temps sur ton CV</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">Avec CVAdapt, adapte ton CV à chaque offre en 30 secondes — et consacre ton énergie à envoyer plus de candidatures et à relancer.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#f59e0b;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV alternance →</a>
+</div>
+    `,
+  },
+  {
+    slug: "cv-marketing-digital-2025",
+    titre: "CV Marketing Digital 2025 : les mots-clés et compétences qui recrutent",
+    description: "Comment faire un CV en marketing digital en 2025 ? SEO, Meta Ads, content — les compétences et formulations exactes pour passer les ATS et convaincre les recruteurs marketing.",
+    date: "2026-05-13",
+    categorie: "Métiers Marketing",
+    tempsLecture: "5 min",
+    illustration: "📣",
+    couleur: "from-pink-500 to-rose-600",
+    contenu: `
+<div style="background:#fdf2f8;border-left:4px solid #ec4899;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#9d174d;margin:0 0 4px 0">📣 Le marketing digital recrute</p>
+  <p style="color:#be185d;margin:0;font-size:15px">Le secteur manque de profils qualifiés. Mais les offres sont précises : <strong>sans les bons mots-clés, ton CV est invisible.</strong></p>
+</div>
+
+<h2>Les compétences clés par spécialité</h2>
+
+<div style="display:grid;gap:12px;margin:20px 0">
+  ${[
+    ["🔍 SEO / Content", ["SEO technique", "SEO on-page", "Netlinking", "Google Search Console", "Semrush", "Ahrefs", "WordPress", "Rédaction web", "Balises meta", "Core Web Vitals"], "#16a34a", "#f0fdf4"],
+    ["💰 SEA / Paid Media", ["Google Ads", "Meta Ads", "ROAS", "CPA", "CTR", "A/B testing", "Retargeting", "Audience lookalike", "LinkedIn Ads", "TikTok Ads"], "#3b82f6", "#eff6ff"],
+    ["📱 Social Media / Community", ["Community management", "Instagram", "TikTok", "LinkedIn", "Canva", "Hootsuite", "Engagement rate", "Calendrier éditorial", "UGC"], "#ec4899", "#fdf2f8"],
+    ["📊 Analytics / Data", ["Google Analytics 4", "GTM", "Data Studio", "Excel", "Tableau", "Conversion tracking", "Funnel analysis", "CRO"], "#f59e0b", "#fffbeb"],
+    ["📧 CRM / Email", ["Mailchimp", "HubSpot", "Klaviyo", "Segmentation", "A/B test", "Taux d'ouverture", "Automation", "Scénarios emails"], "#7c3aed", "#f5f3ff"],
+  ].map(([specialty, kws, color, bg]) => `
+  <div style="background:${bg};border-radius:12px;padding:16px">
+    <p style="font-weight:700;color:${color};font-size:13px;margin:0 0 10px 0">${specialty}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      ${kws.map(kw => `<span style="background:#fff;border:1px solid ${color}40;color:#374151;font-size:12px;font-weight:600;padding:3px 10px;border-radius:16px">${kw}</span>`).join("")}
+    </div>
+  </div>`).join("")}
+</div>
+
+<h2>Formulations qui convertissent en marketing</h2>
+
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:13px">
+  <thead>
+    <tr style="background:#f3f4f6">
+      <th style="padding:10px 14px;text-align:left;border:1px solid #e5e7eb;color:#ef4444">❌ Formulation vague</th>
+      <th style="padding:10px 14px;text-align:left;border:1px solid #e5e7eb;color:#16a34a">✅ Formulation avec résultats</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${[
+      ["Gestion des réseaux sociaux", "Community management Instagram (+3 200 abonnés en 4 mois, taux d'engagement 7,2%)"],
+      ["Création de contenu", "Production de 15 posts/semaine, reach organique +45% en 3 mois"],
+      ["SEO du site", "Optimisation SEO : +68% de trafic organique en 6 mois, 12 mots-clés top 3"],
+      ["Campagnes Google Ads", "Gestion Google Ads 8 000€/mois, ROAS 4,2, CPA réduit de 31%"],
+    ].map(([bad, good]) => `
+    <tr>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#374151">${bad}</td>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#111827;font-weight:500">${good}</td>
+    </tr>`).join("")}
+  </tbody>
+</table>
+
+<h2>Les certifications qui font la différence</h2>
+
+<div style="display:grid;gap:8px;margin:20px 0">
+  ${[
+    ["Google Ads (Search, Display, Video)", "Gratuite, reconnue, prend 1-2 jours — obligatoire pour tout poste SEA"],
+    ["Google Analytics 4", "Gratuite et de plus en plus demandée depuis la migration GA4"],
+    ["HubSpot Inbound Marketing", "Gratuite, valorise les compétences CRM et inbound"],
+    ["Meta Blueprint", "Certif Meta Ads — différenciant pour les profils social media/paid"],
+    ["SEMrush SEO Fundamentals", "Pour les profils SEO, montre la maîtrise des outils"],
+  ].map(([certif, note]) => `
+  <div style="display:flex;gap:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px">
+    <span style="color:#16a34a;font-weight:700;flex-shrink:0">✓</span>
+    <div>
+      <p style="font-weight:700;color:#111827;font-size:13px;margin:0 0 2px 0">${certif}</p>
+      <p style="color:#6b7280;font-size:12px;margin:0">${note}</p>
+    </div>
+  </div>`).join("")}
+</div>
+
+<div style="background:#fdf2f8;border-left:4px solid #ec4899;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#9d174d;margin:0 0 4px 0">⚡ Adapte ton CV marketing en 30 secondes</p>
+  <p style="color:#be185d;margin:0;font-size:14px">Colle l'offre dans CVAdapt — l'IA identifie les outils et compétences exacts demandés et les intègre dans ton CV.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#ec4899;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV Marketing →</a>
+</div>
+    `,
+  },
+  {
+    slug: "cv-candidature-spontanee",
+    titre: "CV candidature spontanée 2025 : comment rédiger un CV qui obtient des réponses",
+    description: "Une candidature spontanée bien rédigée obtient 3× plus de réponses qu'une réponse à une offre. Ce guide te montre exactement comment structurer ton CV et ton message pour décrocher un entretien.",
+    date: "2026-05-13",
+    categorie: "Conseils CV",
+    tempsLecture: "4 min",
+    illustration: "📮",
+    couleur: "from-indigo-500 to-purple-600",
+    contenu: `
+<div style="background:#eef2ff;border-left:4px solid #6366f1;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#4338ca;margin:0 0 4px 0">💡 Pourquoi la candidature spontanée marche</p>
+  <p style="color:#4f46e5;margin:0;font-size:15px"><strong>70% des emplois ne sont jamais publiés</strong> sur les jobboards. La candidature spontanée te donne accès au marché caché.</p>
+</div>
+
+<h2>La différence entre une bonne et une mauvaise candidature spontanée</h2>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0">
+  ${[
+    ["❌", "CV générique + message copié", "\"Je vous adresse ma candidature pour tout poste susceptible de...\" — ignoré en 2 secondes"],
+    ["✅", "CV ciblé + message personnalisé", "\"J'ai vu que vous venez de lancer X, je veux y contribuer avec ma compétence Y\" — lu jusqu'au bout"],
+    ["❌", "Aucune recherche sur l'entreprise", "Le recruteur voit immédiatement que tu n'as rien cherché"],
+    ["✅", "Connaissance de l'entreprise", "Actualités, projet en cours, recrutement récent — montre ton intérêt réel"],
+  ].map(([status, title, desc]) => `
+  <div style="background:${status === "✅" ? "#f0fdf4" : "#fef2f2"};border:1px solid ${status === "✅" ? "#bbf7d0" : "#fecaca"};border-radius:10px;padding:14px">
+    <p style="font-size:20px;margin:0 0 6px 0">${status}</p>
+    <p style="font-weight:700;color:#111827;font-size:13px;margin:0 0 4px 0">${title}</p>
+    <p style="color:#6b7280;font-size:12px;margin:0;line-height:1.5">${desc}</p>
+  </div>`).join("")}
+</div>
+
+<h2>Comment adapter ton CV pour une candidature spontanée</h2>
+
+<div style="display:grid;gap:8px;margin:20px 0">
+  ${[
+    ["1", "Identifie le poste qui pourrait exister", "Regarde les offres de postes similaires dans d'autres entreprises pour comprendre ce qu'ils cherchent"],
+    ["2", "Adapte ton titre au poste imaginé", "Mets le titre du poste que tu vises dans ton en-tête — pas ton titre actuel"],
+    ["3", "Intègre les termes de leur secteur", "Utilise le vocabulaire de l'entreprise (site, blog, offres d'emploi passées)"],
+    ["4", "Mets en avant les compétences pertinentes", "Réorganise tes compétences selon ce que l'entreprise valorise probablement"],
+  ].map(([n, title, desc]) => `
+  <div style="display:flex;gap:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px">
+    <div style="width:28px;height:28px;background:#6366f1;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">${n}</div>
+    <div>
+      <p style="font-weight:700;color:#111827;font-size:14px;margin:0 0 3px 0">${title}</p>
+      <p style="color:#6b7280;font-size:13px;margin:0">${desc}</p>
+    </div>
+  </div>`).join("")}
+</div>
+
+<h2>Template email candidature spontanée (à adapter)</h2>
+
+<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin:20px 0">
+  <div style="background:#6366f1;padding:10px 16px">
+    <p style="color:#fff;font-size:12px;font-weight:600;margin:0">📧 Objet : Candidature spontanée — [Poste visé] — [Ton prénom Nom]</p>
+  </div>
+  <div style="padding:16px;font-size:13px;color:#374151;line-height:1.8">
+    <p>Bonjour [Prénom du RH / directeur],</p>
+    <p>J'ai découvert [Entreprise] en [contexte : lisant un article sur X / via LinkedIn / en utilisant votre produit] et votre approche en matière de [secteur/valeur] m'a particulièrement intéressé.</p>
+    <p>Je suis [ton profil en 1 phrase] et je cherche à rejoindre une équipe comme la vôtre pour [apporter X / développer Y].</p>
+    <p>Je serais heureux(se) d'échanger 20 minutes si vous avez un besoin actuel ou à venir dans ce domaine.</p>
+    <p>Cordialement,<br/>[Prénom Nom]<br/>[LinkedIn] · [Email] · [Tel]</p>
+  </div>
+</div>
+
+<div style="background:#eef2ff;border-left:4px solid #6366f1;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#4338ca;margin:0 0 4px 0">⚡ CV adapté à chaque entreprise en 30 sec</p>
+  <p style="color:#4f46e5;margin:0;font-size:14px">Pour chaque candidature spontanée, adapte ton CV à l'entreprise avec CVAdapt — colle une offre similaire ou la description du site pour cibler les bons mots-clés.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#6366f1;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV pour candidature spontanée →</a>
+</div>
+    `,
+  },
 ];
