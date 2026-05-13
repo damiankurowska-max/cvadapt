@@ -8,7 +8,6 @@ function getOrSetExpiry() {
     const expiry = parseInt(stored);
     if (expiry > Date.now()) return expiry;
   }
-  // Nouveau timer : 23h59m depuis maintenant
   const newExpiry = Date.now() + 23 * 60 * 60 * 1000 + 59 * 60 * 1000;
   localStorage.setItem(key, newExpiry.toString());
   return newExpiry;
@@ -19,11 +18,9 @@ export default function CountdownBanner() {
 
   useEffect(() => {
     const expiry = getOrSetExpiry();
-
     function update() {
       const diff = expiry - Date.now();
       if (diff <= 0) {
-        // Renouveler
         localStorage.removeItem("cvadapt_offer_expiry");
         setTimeLeft({ h: "00", m: "00", s: "00" });
         return;
@@ -33,7 +30,6 @@ export default function CountdownBanner() {
       const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, "0");
       setTimeLeft({ h, m, s });
     }
-
     update();
     const interval = setInterval(update, 1000);
     return () => clearInterval(interval);
@@ -42,17 +38,22 @@ export default function CountdownBanner() {
   if (!timeLeft) return null;
 
   return (
-    <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-2.5 px-4">
-      <p className="text-sm font-bold">
-        🔥 Offre étudiante -50% — Expire dans{" "}
-        <span className="font-mono bg-white/20 rounded px-1.5 py-0.5 mx-1">
+    <div className="w-full bg-gray-950 text-white py-2 px-4">
+      <div className="max-w-5xl mx-auto flex items-center justify-center gap-3 flex-wrap text-xs">
+        <span className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse inline-block" />
+          <span className="font-semibold text-white">−50% étudiant</span>
+        </span>
+        <span className="text-gray-500 hidden sm:inline">·</span>
+        <span className="text-gray-400">Expire dans</span>
+        <span className="font-mono text-white bg-white/10 px-2 py-0.5 rounded tabular-nums tracking-wider">
           {timeLeft.h}:{timeLeft.m}:{timeLeft.s}
         </span>
-        {" "}·{" "}
-        <a href="/tarifs" className="underline underline-offset-2 hover:no-underline">
+        <span className="text-gray-500 hidden sm:inline">·</span>
+        <a href="/tarifs" className="text-blue-400 font-semibold hover:text-blue-300 transition-colors">
           En profiter →
         </a>
-      </p>
+      </div>
     </div>
   );
 }

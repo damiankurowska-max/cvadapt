@@ -48,7 +48,6 @@ export default function Tarifs() {
 
   return (
     <main className="min-h-screen bg-white">
-      <CountdownBanner />
       {/* Header */}
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
@@ -132,7 +131,8 @@ export default function Tarifs() {
               LE PLUS POPULAIRE
             </div>
             <p className="text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">Étudiant</p>
-            <div className="flex items-end gap-1 mb-1">
+            <div className="flex items-end gap-2 mb-1">
+              <span className="text-xl font-semibold text-gray-500 line-through mb-1">9,99€</span>
               <span className="text-5xl font-extrabold text-white">{plan.essentiel.prix}</span>
             </div>
             <div className="flex items-center gap-2 mb-8">
@@ -175,7 +175,8 @@ export default function Tarifs() {
           {/* Pro */}
           <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-md transition-shadow">
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Pro</p>
-            <div className="flex items-end gap-1 mb-1">
+            <div className="flex items-end gap-2 mb-1">
+              <span className="text-xl font-semibold text-gray-400 line-through mb-1">19,99€</span>
               <span className="text-5xl font-extrabold text-gray-900">{plan.pro.prix}</span>
             </div>
             <div className="flex items-center gap-2 mb-8">

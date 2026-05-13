@@ -463,7 +463,8 @@ export default function Home() {
                 <p className="text-xs font-bold uppercase tracking-widest text-blue-200">Étudiant</p>
                 <span className="bg-yellow-400 text-yellow-900 text-xs font-bold px-2.5 py-1 rounded-full">⭐ Populaire</span>
               </div>
-              <div className="flex items-end gap-1 mb-6">
+              <div className="flex items-end gap-2 mb-6">
+                <span className="text-lg font-semibold text-blue-300/60 line-through mb-0.5">9,99€</span>
                 <span className="text-4xl font-extrabold text-white">4,99€</span>
                 <span className="text-blue-200 text-sm mb-1">/mois</span>
               </div>
@@ -483,7 +484,8 @@ export default function Home() {
             {/* Pro */}
             <div className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Pro</p>
-              <div className="flex items-end gap-1 mb-6">
+              <div className="flex items-end gap-2 mb-6">
+                <span className="text-lg font-semibold text-gray-400 line-through mb-0.5">19,99€</span>
                 <span className="text-4xl font-extrabold text-gray-900">9,99€</span>
                 <span className="text-gray-400 text-sm mb-1">/mois</span>
               </div>
