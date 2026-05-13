@@ -235,14 +235,30 @@ export default function Home() {
             <p className="text-gray-400 text-sm mt-3">De l'offre d'emploi au CV optimisé — sans effort</p>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-100 bg-black" style={{ paddingTop: "56.25%" }}>
-            <video
-              className="absolute inset-0 w-full h-full object-cover"
-              src="/demo.mp4"
-              controls
-              playsInline
-              preload="metadata"
-            />
+          {/* Cadre téléphone — vidéo portrait autoplay */}
+          <div className="flex justify-center">
+            <div className="relative" style={{ width: 280 }}>
+              {/* Coque téléphone */}
+              <div className="relative bg-gray-900 rounded-[3rem] shadow-2xl border-[6px] border-gray-800 overflow-hidden"
+                style={{ width: 280, height: 607 }}>
+                {/* Encoche */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-7 bg-gray-900 rounded-b-2xl z-10" />
+                {/* Vidéo */}
+                <video
+                  className="w-full h-full object-cover"
+                  src="/demo.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                />
+              </div>
+              {/* Bouton latéral déco */}
+              <div className="absolute -right-2 top-24 w-1 h-10 bg-gray-700 rounded-full" />
+              <div className="absolute -left-2 top-20 w-1 h-8 bg-gray-700 rounded-full" />
+              <div className="absolute -left-2 top-32 w-1 h-8 bg-gray-700 rounded-full" />
+            </div>
           </div>
         </div>
       </section>
