@@ -225,6 +225,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── DEMO VIDEO ──────────────────────────────────────────── */}
+      {/* TODO: remplace VOTRE_VIDEO_ID par l'ID YouTube ou l'URL Loom quand la vidéo est prête */}
+      <section className="py-20 px-5 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Démo</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Vois comment ça marche en 60 secondes</h2>
+            <p className="text-gray-400 text-sm mt-3">De l'offre d'emploi au CV optimisé — sans effort</p>
+          </div>
+
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-100 bg-black" style={{ paddingTop: "56.25%" }}>
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              src="/demo.mp4"
+              controls
+              playsInline
+              preload="metadata"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ─── CIRCULAR REVEAL ─────────────────────────────────────── */}
       <section className="py-20 px-5 bg-white">
         <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-12">
@@ -401,7 +423,7 @@ export default function Home() {
               </div>
               <ul className="space-y-2.5 mb-6 flex-1 text-sm">
                 {[
-                  { t: "3 CV complets", ok: true },
+                  { t: "3 CV à vie (non renouvelables)", ok: true },
                   { t: "4 templates", ok: true },
                   { t: "Téléchargement PDF", ok: true },
                   { t: "Score ATS complet", ok: false },
@@ -439,6 +461,7 @@ export default function Home() {
               <a href="/tarifs" className="block text-center bg-white text-blue-700 font-bold py-3 rounded-xl hover:bg-blue-50 transition-colors text-sm">
                 Choisir Étudiant →
               </a>
+              <p className="text-blue-200/70 text-xs text-center mt-3">Satisfait ou remboursé sous 7 jours</p>
             </div>
 
             {/* Pro */}
@@ -458,6 +481,7 @@ export default function Home() {
               <a href="/tarifs" className="block text-center border-2 border-gray-900 text-gray-900 font-bold py-3 rounded-xl hover:bg-gray-900 hover:text-white transition-colors text-sm">
                 Choisir Pro →
               </a>
+              <p className="text-gray-400 text-xs text-center mt-3">Satisfait ou remboursé sous 7 jours</p>
             </div>
           </div>
         </div>
