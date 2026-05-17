@@ -1,12 +1,22 @@
 import { Resend } from "resend";
 import { welcomeNewsletterEmail, ownerNotificationEmail } from "@/lib/email-templates";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
 
 export async function POST(request) {
+  // Rate limit : 3 inscriptions par IP par heure
+  const ip = getClientIp(request);
+  const { allowed } = rateLimit(`subscribe:${ip}`, 3, 60 * 60 * 1000);
+  if (!allowed) {
+    return Response.json({ error: "Trop de tentatives. Réessaie dans 1 heure." }, { status: 429 });
+  }
+
   const { email } = await request.json();
 
-  if (!email || !email.includes("@")) {
+  // Validation email stricte
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
     return Response.json({ error: "Email invalide" }, { status: 400 });
   }
 

@@ -6,6 +6,17 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request) {
   try {
+    // Vérification du token secret — configuré dans l'URL du webhook Resend
+    // ex: https://cvadapt.eu/api/inbound-email?token=MON_SECRET
+    const secret = process.env.INBOUND_EMAIL_SECRET;
+    if (secret) {
+      const url = new URL(request.url);
+      const token = url.searchParams.get("token");
+      if (token !== secret) {
+        return Response.json({ error: "Non autorisé" }, { status: 401 });
+      }
+    }
+
     const payload = await request.json();
 
     // Resend inbound format

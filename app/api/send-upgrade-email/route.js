@@ -1,13 +1,24 @@
 import { Resend } from "resend";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { upgradeReminderEmail } from "@/lib/email-templates";
 
 const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
 
 export async function POST(request) {
-  const { email, prenom } = await request.json();
+  // Auth requise — seul le serveur (generate-cv) devrait appeler cet endpoint
+  const { userId } = await auth();
+  if (!userId) {
+    return Response.json({ error: "Non autorisé." }, { status: 401 });
+  }
 
-  if (!email || !email.includes("@")) {
-    return Response.json({ error: "Email invalide" }, { status: 400 });
+  // On récupère l'email depuis Clerk — pas depuis le body (non fiable)
+  const clerk = await clerkClient();
+  const user = await clerk.users.getUser(userId);
+  const email = user.emailAddresses?.[0]?.emailAddress;
+  const prenom = user.firstName || "";
+
+  if (!email) {
+    return Response.json({ error: "Email introuvable." }, { status: 400 });
   }
 
   try {

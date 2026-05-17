@@ -83,8 +83,8 @@ export default function Generate() {
         return;
       }
     } else if (plan === "essentiel") {
-      if (cvMonthCount >= 10) {
-        setError("Tu as atteint la limite de 10 CV ce mois-ci. Passe au plan Pro pour des CV illimités.");
+      if (cvMonthCount >= 15) {
+        setError("Tu as atteint la limite de 15 CV ce mois-ci. Passe au plan Pro pour des CV illimités.");
         return;
       }
     }

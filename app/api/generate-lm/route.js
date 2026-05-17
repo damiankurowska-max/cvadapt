@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { sanitizeInput } from "@/lib/rate-limit";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -8,10 +8,37 @@ const SYSTEM_PROMPT = `Expert en recrutement français. Tu génères des lettres
 Réponds UNIQUEMENT avec du HTML brut (CSS inline). Pas de markdown. Commence par <div et termine par </div>.`;
 
 export async function POST(request) {
-  // Auth requise — LM consomme des crédits Claude
+  // Auth requise
   const { userId } = await auth();
   if (!userId) {
     return Response.json({ error: "Connexion requise." }, { status: 401 });
+  }
+
+  // Vérification des limites du plan (même logique que generate-cv)
+  const clerk = await clerkClient();
+  const user = await clerk.users.getUser(userId);
+  const meta = user.unsafeMetadata || {};
+  const isPro = meta.isPro || false;
+  const plan = meta.plan || "free";
+  const cvCount = parseInt(meta.cvCount || 0);
+
+  if (!isPro && cvCount >= 3) {
+    return Response.json(
+      { error: "Limite gratuite atteinte. Abonne-toi pour générer des lettres de motivation.", code: "LIMIT_FREE" },
+      { status: 403 }
+    );
+  }
+
+  if (isPro && plan === "essentiel") {
+    const currentMonthKey = new Date().toISOString().slice(0, 7);
+    const storedMonthKey = meta.cvMonthKey || "";
+    const cvMonthCount = storedMonthKey === currentMonthKey ? parseInt(meta.cvMonthCount || 0) : 0;
+    if (cvMonthCount >= 15) {
+      return Response.json(
+        { error: "Limite mensuelle atteinte. Passe au plan Pro pour des LM illimitées.", code: "LIMIT_ESSENTIEL" },
+        { status: 403 }
+      );
+    }
   }
 
   let body;
