@@ -161,7 +161,25 @@ Génère le CV maintenant.`,
       console.error("Supabase save error:", dbErr);
     }
 
-    // ── 8. EMAIL DE RELANCE si dernier CV gratuit ─────────────────────────
+    // ── 8. BREVO : ajout liste cvadapt-free-users au 1er CV ──────────────────
+    if (cvCount === 0 && email) {
+      fetch("https://api.brevo.com/v3/contacts", {
+        method: "POST",
+        headers: {
+          "accept": "application/json",
+          "content-type": "application/json",
+          "api-key": process.env.BREVO_API_KEY,
+        },
+        body: JSON.stringify({
+          email,
+          attributes: { FIRSTNAME: prenom || "" },
+          listIds: [4],
+          updateEnabled: true,
+        }),
+      }).catch((err) => console.error("Brevo add error:", err));
+    }
+
+    // ── 9. EMAIL DE RELANCE si dernier CV gratuit ─────────────────────────
     if (!isPro && newCvCount === PLAN_LIMITS.free.max && email) {
       await resend.emails.send({
         from: "CVAdapt <contact@cvadapt.eu>",
