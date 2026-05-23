@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
 import Logo from "../components/Logo";
 import UpgradeModal from "../components/UpgradeModal";
+import PostGenerationUpsell from "../components/PostGenerationUpsell";
 
 const TEMPLATES = [
   { id: "moderne",     name: "Moderne",     desc: "Gradient bleu",    accent: "#2563eb", bg: "#eff6ff", sidebar: false },
@@ -28,6 +29,7 @@ export default function Generate() {
   const [cvCount, setCvCount] = useState(0);
   const [cvMonthCount, setCvMonthCount] = useState(0);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showPostGenUpsell, setShowPostGenUpsell] = useState(false);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const [wizardStep, setWizardStep] = useState(1);
@@ -127,6 +129,14 @@ export default function Generate() {
         setCvCount(newCount);
         if (user) await user.update({ unsafeMetadata: { ...user.unsafeMetadata, cvCount: newCount } });
 
+        // 1er CV généré → modal upsell "Pack candidature"
+        try {
+          if (newCount === 1 && !localStorage.getItem("cvadapt_upsell_shown")) {
+            setShowPostGenUpsell(true);
+            localStorage.setItem("cvadapt_upsell_shown", "1");
+          }
+        } catch {}
+
         // Dernier CV gratuit utilisé → email de relance + modal
         if (newCount >= CV_LIMIT) {
           setShowUpgradeModal(true);
@@ -219,8 +229,15 @@ export default function Generate() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      {/* Modal upgrade */}
+      {/* Modal upgrade limite 3 CV */}
       {showUpgradeModal && <UpgradeModal onClose={() => setShowUpgradeModal(false)} />}
+
+      {/* Modal upsell post-génération (1er CV) */}
+      <PostGenerationUpsell
+        show={showPostGenUpsell}
+        isPro={isPro}
+        onClose={() => setShowPostGenUpsell(false)}
+      />
 
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between gap-2">

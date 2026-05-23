@@ -6,12 +6,12 @@ import CountdownBanner from "../components/CountdownBanner";
 
 const PLANS = {
   mensuel: {
-    essentiel: { id: "essentiel",        prix: "4,99€", prixSub: "/mois",      economie: null,      badge: null },
-    pro:       { id: "pro",              prix: "9,99€", prixSub: "/mois",      economie: null,      badge: null },
+    essentiel: { id: "essentiel",        prix: "4,99€",  prixSub: "/mois", economie: null,        badge: null },
+    pro:       { id: "pro",              prix: "14,99€", prixSub: "/mois", economie: null,        badge: null },
   },
   annuel: {
-    essentiel: { id: "essentiel_annuel", prix: "3,33€", prixSub: "/mois",      economie: "39,99€/an", badge: "-33%" },
-    pro:       { id: "pro_annuel",       prix: "6,67€", prixSub: "/mois",      economie: "79,99€/an", badge: "-33%" },
+    essentiel: { id: "essentiel_annuel", prix: "3,33€",  prixSub: "/mois", economie: "39,99€/an",  badge: "-33%" },
+    pro:       { id: "pro_annuel",       prix: "9,99€",  prixSub: "/mois", economie: "119,99€/an", badge: "-33%" },
   },
 };
 
@@ -176,7 +176,7 @@ export default function Tarifs() {
           <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-md transition-shadow">
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Pro</p>
             <div className="flex items-end gap-2 mb-1">
-              <span className="text-xl font-semibold text-gray-400 line-through mb-1">19,99€</span>
+              <span className="text-xl font-semibold text-gray-400 line-through mb-1">29,99€</span>
               <span className="text-5xl font-extrabold text-gray-900">{plan.pro.prix}</span>
             </div>
             <div className="flex items-center gap-2 mb-8">
@@ -212,7 +212,7 @@ export default function Tarifs() {
             </button>
             {periode === "annuel" && (
               <p className="text-center text-green-600 text-xs font-semibold mt-3">
-                Tu économises 39,89€ par an 🎉
+                Tu économises 59,89€ par an 🎉
               </p>
             )}
           </div>

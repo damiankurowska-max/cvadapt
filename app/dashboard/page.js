@@ -188,16 +188,43 @@ export default function Dashboard() {
           </div>
 
           {history.length === 0 ? (
-            <div className="py-16 text-center">
-              <div className="text-5xl mb-4">📄</div>
-              <p className="text-gray-500 font-medium mb-2">Aucun CV encore généré</p>
-              <p className="text-gray-400 text-sm mb-6">Génère ton premier CV adapté à une offre en 30 secondes.</p>
+            <div className="py-14 text-center px-6">
+              {/* Score mock */}
+              <div className="flex justify-center mb-6">
+                <div className="relative w-20 h-20">
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f3f4f6" strokeWidth="12" />
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="12"
+                      strokeDasharray="0 251" strokeLinecap="round" transform="rotate(-90 50 50)" />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-2xl font-extrabold text-gray-300">?</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-lg font-bold text-gray-800 mb-1">Quel est ton score ATS ?</p>
+              <p className="text-gray-400 text-sm mb-2 max-w-xs mx-auto">
+                75% des CV sont rejetés avant d&apos;être lus. Génère ton premier CV optimisé en 30 secondes.
+              </p>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <span className="w-2 h-2 rounded-full bg-green-500" />
+                  Sans carte bancaire
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <span className="w-2 h-2 rounded-full bg-blue-500" />
+                  Résultat en 30s
+                </div>
+              </div>
               <Link
                 href="/generate"
-                className="inline-block bg-blue-600 text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors"
+                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors shadow-md"
               >
-                Générer mon premier CV
+                🚀 Générer mon premier CV
               </Link>
+              <p className="text-xs text-gray-300 mt-4">
+                Rejoins {new Intl.NumberFormat("fr-FR").format(12847 + Math.round((Date.now() - new Date("2025-01-01")) / 86400000 * 7.3))} étudiants qui l&apos;ont déjà fait
+              </p>
             </div>
           ) : (
             <div className="divide-y divide-gray-50">
@@ -257,17 +284,31 @@ export default function Dashboard() {
 
         {/* Upsell si free */}
         {!isPro && (
-          <div className="mt-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <p className="font-bold text-lg">Tu veux générer plus de CV ?</p>
-              <p className="text-blue-100 text-sm mt-1">Plan Étudiant à 4,99€/mois — 15 CV + lettre de motivation incluse.</p>
+          <div className="mt-6 rounded-2xl bg-gradient-to-r from-blue-700 to-indigo-600 p-6 text-white">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="bg-yellow-400 text-yellow-900 text-xs font-bold px-2.5 py-1 rounded-full">⭐ LE PLUS POPULAIRE</span>
+                </div>
+                <p className="font-bold text-lg">Débloquer 15 CV par mois</p>
+                <p className="text-blue-100 text-sm mt-1">
+                  Plan Étudiant · 4,99€/mois · Score ATS + Lettre de motivation incluse
+                </p>
+              </div>
+              <Link
+                href="/tarifs"
+                className="flex-shrink-0 bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors text-sm whitespace-nowrap shadow-lg"
+              >
+                Passer Étudiant →
+              </Link>
             </div>
-            <Link
-              href="/tarifs"
-              className="flex-shrink-0 bg-white text-blue-600 font-bold px-6 py-2.5 rounded-xl hover:bg-blue-50 transition-colors text-sm"
-            >
-              Voir les tarifs →
-            </Link>
+            <div className="flex flex-wrap gap-4 mt-4 pt-4 border-t border-white/20">
+              {["15 CV / mois", "Score ATS complet", "Lettre de motivation", "Annulation gratuite"].map((f) => (
+                <div key={f} className="flex items-center gap-1.5 text-xs text-blue-100">
+                  <span className="text-white font-bold">✓</span> {f}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

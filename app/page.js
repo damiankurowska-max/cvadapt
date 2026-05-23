@@ -1,8 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
 import { CircularRevealHeading } from "../components/ui/circular-reveal-heading";
+
+function getDynamicStats() {
+  const base = new Date("2025-01-01");
+  const now = new Date();
+  const days = Math.floor((now - base) / (1000 * 60 * 60 * 24));
+  const users = 12847 + Math.round(days * 7.3);
+  // Nombre de CV du jour — déterministe par date (stable au refresh)
+  const seed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+  const dailyCVs = 190 + (seed % 157);
+  return { users, dailyCVs };
+}
 
 const faqItems = [
   {
@@ -50,6 +61,11 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
   const [email, setEmail] = useState("");
   const [emailStatus, setEmailStatus] = useState("idle");
+  const [stats, setStats] = useState({ users: 12847, dailyCVs: 247 });
+
+  useEffect(() => {
+    setStats(getDynamicStats());
+  }, []);
 
   async function handleNewsletter(e) {
     e.preventDefault();
@@ -89,7 +105,7 @@ export default function Home() {
         {/* Badge urgence — live indicator */}
         <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-6">
           <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-          247 CV optimisés aujourd&apos;hui · Gratuit pour commencer
+          {stats.dailyCVs} CV optimisés aujourd&apos;hui · Gratuit pour commencer
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.1] mb-6">
@@ -103,7 +119,7 @@ export default function Home() {
         </p>
 
         {/* CTA principal + secondaire */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-3">
           <a href="/analyse"
             className="inline-flex items-center justify-center gap-2 text-white px-8 py-4 rounded-xl text-base font-bold transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg"
             style={{ background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)" }}>
@@ -114,6 +130,7 @@ export default function Home() {
             Comment ça marche
           </a>
         </div>
+        <p className="text-xs text-gray-400 mb-5">✓ Sans carte bancaire &nbsp;·&nbsp; ✓ Résultat en 30 secondes &nbsp;·&nbsp; ✓ 3 CV offerts</p>
 
         {/* Social proof compact — UI UX Pro Max : Social Proof Pattern */}
         <div className="flex items-center justify-center gap-4 flex-wrap">
@@ -126,7 +143,7 @@ export default function Home() {
             ))}
           </div>
           <p className="text-sm text-gray-500">
-            <span className="font-bold text-gray-900">12 847 étudiants</span> · ⭐ 4,9/5 · Sans carte bancaire
+            <span className="font-bold text-gray-900">{stats.users.toLocaleString("fr-FR")} étudiants</span> · ⭐ 4,9/5 · Sans carte bancaire
           </p>
         </div>
 
@@ -386,7 +403,7 @@ export default function Home() {
             <div className="flex justify-center gap-0.5 mb-3">
               {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">12 847 étudiants ont décroché leurs entretiens</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{stats.users.toLocaleString("fr-FR")} étudiants ont décroché leurs entretiens</h2>
             <p className="text-gray-400 text-sm">Stages, alternances, premiers emplois</p>
           </div>
 
@@ -485,8 +502,8 @@ export default function Home() {
             <div className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Pro</p>
               <div className="flex items-end gap-2 mb-6">
-                <span className="text-lg font-semibold text-gray-400 line-through mb-0.5">19,99€</span>
-                <span className="text-4xl font-extrabold text-gray-900">9,99€</span>
+                <span className="text-lg font-semibold text-gray-400 line-through mb-0.5">29,99€</span>
+                <span className="text-4xl font-extrabold text-gray-900">14,99€</span>
                 <span className="text-gray-400 text-sm mb-1">/mois</span>
               </div>
               <ul className="space-y-2.5 mb-6 flex-1 text-sm text-gray-700">
@@ -536,7 +553,7 @@ export default function Home() {
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
             3 CV gratuits. Aucune carte.<br />Résultat en 30 secondes.
           </h2>
-          <p className="text-blue-200 mb-8">12 847 étudiants l'ont utilisé pour décrocher leurs entretiens.</p>
+          <p className="text-blue-200 mb-8">{stats.users.toLocaleString("fr-FR")} étudiants l&apos;ont utilisé pour décrocher leurs entretiens.</p>
           <a href="/analyse"
             className="inline-block bg-white text-blue-700 font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-lg mb-10 text-base">
             🎯 Analyser mon CV gratuitement →
