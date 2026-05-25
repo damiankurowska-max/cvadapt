@@ -53,8 +53,12 @@ export async function POST(request) {
         await resend.emails.send({
           from: "CVAdapt <contact@cvadapt.eu>",
           to: customerEmail,
+          replyTo: "contact@cvadapt.eu",
           subject: "✅ Ton abonnement CVAdapt est actif !",
           html: paymentConfirmationEmail({ plan: plan || "essentiel", email: customerEmail }),
+          headers: {
+            "X-Entity-Ref-ID": `payment-${userId}-${Date.now()}`,
+          },
         });
       }
 
@@ -107,7 +111,11 @@ export async function POST(request) {
           await resend.emails.send({
             from: "CVAdapt <contact@cvadapt.eu>",
             to: userEmail,
+            replyTo: "contact@cvadapt.eu",
             subject: "Ton abonnement CVAdapt a été annulé",
+            headers: {
+              "X-Entity-Ref-ID": `cancel-${user.id}-${Date.now()}`,
+            },
             html: `
               <div style="font-family:sans-serif;max-width:560px;margin:auto;padding:40px 20px;">
                 <h2 style="color:#111827;">Ton abonnement est terminé</h2>

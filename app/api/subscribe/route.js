@@ -25,8 +25,14 @@ export async function POST(request) {
     await resend.emails.send({
       from: "CVAdapt <contact@cvadapt.eu>",
       to: email,
+      replyTo: "contact@cvadapt.eu",
       subject: "Bienvenue dans la liste CVAdapt 👋",
       html: welcomeNewsletterEmail(),
+      headers: {
+        "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        "X-Entity-Ref-ID": `subscribe-welcome-${Date.now()}`,
+      },
     });
 
     // Notification interne

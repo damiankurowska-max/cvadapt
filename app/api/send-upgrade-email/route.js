@@ -25,8 +25,14 @@ export async function POST(request) {
     await resend.emails.send({
       from: "CVAdapt <contact@cvadapt.eu>",
       to: email,
+      replyTo: "contact@cvadapt.eu",
       subject: `${prenom ? prenom + ", tu" : "Tu"} as utilisé tes 3 CV gratuits — continue sans limite 🚀`,
       html: upgradeReminderEmail({ prenom }),
+      headers: {
+        "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        "X-Entity-Ref-ID": `upgrade-reminder-${Date.now()}`,
+      },
     });
 
     return Response.json({ success: true });
