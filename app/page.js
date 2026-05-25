@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
-import { CircularRevealHeading } from "../components/ui/circular-reveal-heading";
 
 function getDynamicStats() {
   const base = new Date("2025-01-01");
@@ -287,38 +286,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── CIRCULAR REVEAL ─────────────────────────────────────── */}
-      <section className="py-20 px-5" style={{ background: "#f0f7ff" }}>
-        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-12">
-          <div className="flex-1 text-center lg:text-left">
-            <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Pour tous les profils</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-5">
-              CVAdapt s'adapte à<br />
-              <span className="text-blue-600">chaque situation</span>
-            </h2>
-            <p className="text-gray-500 text-lg leading-relaxed max-w-md">
-              Étudiant, en reconversion, tech, marketing ou finance — survole les mots pour voir des exemples concrets.
-            </p>
-          </div>
-          <div className="flex-shrink-0">
-            <CircularRevealHeading
-              size="md"
-              items={[
-                { text: "Étudiant", image: "https://randomuser.me/api/portraits/men/32.jpg" },
-                { text: "Alternance", image: "https://randomuser.me/api/portraits/women/44.jpg" },
-                { text: "Reconversion", image: "https://randomuser.me/api/portraits/men/52.jpg" },
-                { text: "Tech", image: "https://randomuser.me/api/portraits/men/41.jpg" },
-                { text: "Marketing", image: "https://randomuser.me/api/portraits/women/26.jpg" },
-                { text: "Finance", image: "https://randomuser.me/api/portraits/men/61.jpg" },
-              ]}
-              centerText={
-                <div className="flex flex-col items-center gap-1">
-                  <span className="text-3xl">🎯</span>
-                  <span className="text-blue-600 font-bold text-sm">CVAdapt</span>
-                  <span className="text-gray-400 text-xs">ton profil</span>
-                </div>
-              }
-            />
+      {/* ─── GRANDES ÉCOLES ──────────────────────────────────────── */}
+      <section className="py-16 px-5" style={{ background: "#f0f7ff" }}>
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-xs font-bold uppercase tracking-widest mb-10" style={{ color: "#3b82f6", letterSpacing: "2px" }}>
+            Utilisé par des étudiants de
+          </p>
+          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+            {[
+              { name: "HEC Paris", abbr: "HEC" },
+              { name: "Sciences Po", abbr: "ScPo" },
+              { name: "Polytechnique", abbr: "X" },
+              { name: "ESSEC", abbr: "ESSEC" },
+              { name: "ESCP", abbr: "ESCP" },
+              { name: "CentraleSupélec", abbr: "CS" },
+              { name: "EDHEC", abbr: "EDHEC" },
+              { name: "EM Lyon", abbr: "EM" },
+              { name: "Dauphine", abbr: "PSL" },
+              { name: "INSA", abbr: "INSA" },
+              { name: "Sorbonne", abbr: "SU" },
+              { name: "Grenoble EM", abbr: "GEM" },
+            ].map((school) => (
+              <div key={school.name}
+                className="flex flex-col items-center justify-center py-4 px-3 rounded-2xl transition-all hover:-translate-y-1"
+                style={{ background: "#ffffff", border: "2px solid #dbeafe" }}
+                title={school.name}>
+                <span className="font-extrabold text-base" style={{ color: "#1e3a8a" }}>{school.abbr}</span>
+                <span className="text-xs mt-1 font-medium" style={{ color: "#93c5fd" }}>{school.name.split(" ")[0]}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -488,7 +484,6 @@ export default function Home() {
                 <span className="bg-yellow-400 text-yellow-900 text-xs font-bold px-2.5 py-1 rounded-full">⭐ Populaire</span>
               </div>
               <div className="flex items-end gap-2 mb-6">
-                <span className="text-lg font-semibold text-blue-300/60 line-through mb-0.5">9,99€</span>
                 <span className="text-4xl font-extrabold text-white">4,99€</span>
                 <span className="text-blue-200 text-sm mb-1">/mois</span>
               </div>
