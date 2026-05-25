@@ -504,7 +504,6 @@ export default function Home() {
             <div className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Pro</p>
               <div className="flex items-end gap-2 mb-6">
-                <span className="text-lg font-semibold text-gray-400 line-through mb-0.5">29,99€</span>
                 <span className="text-4xl font-extrabold text-gray-900">14,99€</span>
                 <span className="text-gray-400 text-sm mb-1">/mois</span>
               </div>
