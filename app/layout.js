@@ -1,7 +1,15 @@
 import "./globals.css";
+import { Outfit } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { frFR } from "@clerk/localizations";
 import ClientProviders from "./components/ClientProviders";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-outfit",
+});
 
 export const metadata = {
   title: "CVAdapt — Génère un CV ATS en 30 sec · Gratuit pour les Étudiants",
@@ -155,7 +163,7 @@ export default function RootLayout({ children }) {
         },
       }}
     >
-      <html lang="fr">
+      <html lang="fr" className={outfit.variable}>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <script
@@ -171,7 +179,7 @@ export default function RootLayout({ children }) {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
           />
         </head>
-        <body><ClientProviders>{children}</ClientProviders></body>
+        <body style={{ fontFamily: "var(--font-outfit, 'Outfit', system-ui, sans-serif)" }}><ClientProviders>{children}</ClientProviders></body>
       </html>
     </ClerkProvider>
   );

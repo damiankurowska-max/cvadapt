@@ -80,40 +80,46 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen" style={{ background: "#f0f7ff", fontFamily: "var(--font-outfit, 'Outfit', system-ui, sans-serif)" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ─── HEADER ──────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
+      <header className="sticky top-0 z-50 border-b" style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", borderColor: "#e0ecff" }}>
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Logo size={28} />
-            <span className="text-lg font-bold text-blue-600">CVAdapt</span>
+            <span className="text-lg font-extrabold" style={{ color: "#1d4ed8" }}>CVAdapt</span>
           </div>
           <nav className="flex items-center gap-2 sm:gap-5">
-            <a href="/tarifs" className="hidden sm:inline text-sm text-gray-500 hover:text-gray-900 font-medium">Tarifs</a>
-            <a href="/blog" className="hidden sm:inline text-sm text-gray-500 hover:text-gray-900 font-medium">Blog</a>
-            <a href="/generate" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors">
+            <a href="/tarifs" className="hidden sm:inline text-sm font-semibold" style={{ color: "#6b7280" }}>Tarifs</a>
+            <a href="/blog" className="hidden sm:inline text-sm font-semibold" style={{ color: "#6b7280" }}>Blog</a>
+            <a href="/generate" className="text-white px-5 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              style={{ background: "#1d4ed8", borderRadius: "999px", boxShadow: "0 4px 14px rgba(29,78,216,0.3)" }}>
               Commencer gratuitement
             </a>
           </nav>
         </div>
       </header>
 
-      {/* ─── HERO — UI UX Pro Max : Flat Design + Vibrant Block + Social Proof ── */}
+      {/* ─── HERO ────────────────────────────────────────────────── */}
       <section className="max-w-5xl mx-auto px-5 pt-16 pb-20 text-center">
-        {/* Badge urgence — live indicator */}
-        <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 text-sm font-bold px-5 py-2 rounded-full mb-6"
+          style={{ background: "#dbeafe", color: "#1d4ed8" }}>
+          <span>🎓</span>
           {stats.dailyCVs} CV optimisés aujourd&apos;hui · Gratuit pour commencer
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.1] mb-6">
-          Ton CV passe les filtres<br />
-          <span className="text-blue-600">en 30 secondes.</span>
+        <h1 className="font-extrabold leading-[1.1] mb-6"
+          style={{ fontSize: "clamp(38px, 6vw, 62px)", color: "#1e3a8a", letterSpacing: "-1.5px" }}>
+          Ton CV adapté à chaque offre en<br />
+          <span className="px-3 py-1 inline-block mt-2"
+            style={{ color: "#3b82f6", background: "#dbeafe", borderRadius: "14px" }}>
+            30 secondes 🚀
+          </span>
         </h1>
 
-        <p className="text-lg text-gray-500 max-w-xl mx-auto mb-8 leading-relaxed">
+        <p className="max-w-xl mx-auto mb-8 leading-relaxed" style={{ fontSize: "18px", color: "#4b5563" }}>
           75% des CV sont filtrés par un algorithme avant d&apos;être lus.
           CVAdapt intègre les mots-clés de l&apos;offre et génère un CV optimisé — gratuitement.
         </p>
@@ -121,29 +127,30 @@ export default function Home() {
         {/* CTA principal + secondaire */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-3">
           <a href="/analyse"
-            className="inline-flex items-center justify-center gap-2 text-white px-8 py-4 rounded-xl text-base font-bold transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg"
-            style={{ background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)" }}>
-            Analyser mon CV gratuitement →
+            className="inline-flex items-center justify-center gap-2 text-white px-8 py-4 text-base font-bold transition-all hover:-translate-y-0.5"
+            style={{ background: "#1d4ed8", borderRadius: "999px", boxShadow: "0 6px 24px rgba(29,78,216,0.35)", fontSize: "17px" }}>
+            Générer mon CV — C&apos;est gratuit 🚀
           </a>
           <a href="#comment-ca-marche"
-            className="inline-flex items-center justify-center gap-2 border border-gray-200 text-gray-700 px-8 py-4 rounded-xl text-base font-semibold hover:bg-gray-50 transition-colors">
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold transition-colors hover:bg-blue-50"
+            style={{ border: "2px solid #bfdbfe", color: "#1d4ed8", borderRadius: "999px" }}>
             Comment ça marche
           </a>
         </div>
-        <p className="text-xs text-gray-400 mb-5">✓ Sans carte bancaire &nbsp;·&nbsp; ✓ Résultat en 30 secondes &nbsp;·&nbsp; ✓ 3 CV offerts</p>
+        <p className="text-sm mb-5" style={{ color: "#93c5fd" }}>✓ Sans carte bancaire &nbsp;·&nbsp; ✓ 30 secondes &nbsp;·&nbsp; ✓ 3 CV gratuits</p>
 
-        {/* Social proof compact — UI UX Pro Max : Social Proof Pattern */}
+        {/* Social proof */}
         <div className="flex items-center justify-center gap-4 flex-wrap">
           <div className="flex -space-x-2">
-            {["#2563eb","#7c3aed","#0891b2","#059669","#dc2626"].map((c,i) => (
-              <div key={i} className="w-7 h-7 rounded-full border-2 border-white text-white text-xs font-bold flex items-center justify-center"
+            {["#1d4ed8","#7c3aed","#0891b2","#059669","#dc2626"].map((c,i) => (
+              <div key={i} className="w-8 h-8 rounded-full border-2 border-white text-white text-xs font-bold flex items-center justify-center"
                 style={{ background: c }}>
                 {["R","E","A","T","J"][i]}
               </div>
             ))}
           </div>
-          <p className="text-sm text-gray-500">
-            <span className="font-bold text-gray-900">{stats.users.toLocaleString("fr-FR")} étudiants</span> · ⭐ 4,9/5 · Sans carte bancaire
+          <p className="text-sm" style={{ color: "#4b5563" }}>
+            <span className="font-bold" style={{ color: "#1e3a8a" }}>{stats.users.toLocaleString("fr-FR")} étudiants</span> · ⭐ 4,9/5 · Sans CB
           </p>
         </div>
 
@@ -202,7 +209,7 @@ export default function Home() {
       </section>
 
       {/* ─── LOGOS ───────────────────────────────────────────────── */}
-      <section className="py-8 px-5 bg-gray-50 border-y border-gray-100">
+      <section className="py-8 px-5 border-y" style={{ background: "#ffffff", borderColor: "#e0ecff" }}>
         <p className="text-center text-xs font-medium text-gray-400 uppercase tracking-widest mb-5">Ils ont décroché des postes chez</p>
         <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 max-w-3xl mx-auto">
           {["Capgemini", "Société Générale", "L'Oréal", "BNP Paribas", "Decathlon", "Orange", "Thales", "Renault"].map((b) => (
@@ -212,11 +219,11 @@ export default function Home() {
       </section>
 
       {/* ─── COMMENT ÇA MARCHE ───────────────────────────────────── */}
-      <section id="comment-ca-marche" className="py-20 px-5 bg-white">
+      <section id="comment-ca-marche" className="py-20 px-5" style={{ background: "#f0f7ff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Simple</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">3 étapes. 30 secondes.</h2>
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#3b82f6", letterSpacing: "2px" }}>Simple</p>
+            <h2 className="font-extrabold" style={{ fontSize: "clamp(28px, 4vw, 40px)", color: "#1e3a8a" }}>3 étapes. 30 secondes.</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -225,26 +232,26 @@ export default function Home() {
               { n: "2", emoji: "✍️", title: "Entre tes infos", desc: "Ton expérience, tes compétences, ta formation en quelques lignes." },
               { n: "3", emoji: "🚀", title: "Reçois ton CV", desc: "Score ATS, mots-clés intégrés, CV PDF prêt à envoyer." },
             ].map((step) => (
-              <div key={step.n} className="relative bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                <div className="text-6xl font-black text-gray-100 absolute top-4 right-5 leading-none select-none">{step.n}</div>
+              <div key={step.n} className="relative rounded-2xl p-6" style={{ background: "#ffffff", border: "2px solid #dbeafe" }}>
+                <div className="absolute top-4 right-5 font-black leading-none select-none" style={{ fontSize: "60px", color: "#eff6ff" }}>{step.n}</div>
                 <div className="text-3xl mb-4">{step.emoji}</div>
-                <h3 className="font-bold text-gray-900 mb-1.5">{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
+                <h3 className="font-bold mb-1.5" style={{ color: "#1e3a8a" }}>{step.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#6b7280" }}>{step.desc}</p>
               </div>
             ))}
           </div>
 
           <div className="text-center mt-10">
-            <a href="/generate" className="inline-block bg-blue-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-blue-700 transition-colors text-sm">
-              Essayer gratuitement →
+            <a href="/generate" className="inline-block text-white px-8 py-3.5 font-bold text-sm transition-all hover:-translate-y-0.5"
+              style={{ background: "#1d4ed8", borderRadius: "999px", boxShadow: "0 4px 16px rgba(29,78,216,0.3)" }}>
+              Essayer gratuitement 🎓
             </a>
           </div>
         </div>
       </section>
 
       {/* ─── DEMO VIDEO ──────────────────────────────────────────── */}
-      {/* TODO: remplace VOTRE_VIDEO_ID par l'ID YouTube ou l'URL Loom quand la vidéo est prête */}
-      <section className="py-20 px-5 bg-gray-50">
+      <section className="py-20 px-5" style={{ background: "#ffffff" }}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Démo</p>
@@ -281,7 +288,7 @@ export default function Home() {
       </section>
 
       {/* ─── CIRCULAR REVEAL ─────────────────────────────────────── */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-20 px-5" style={{ background: "#f0f7ff" }}>
         <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-12">
           <div className="flex-1 text-center lg:text-left">
             <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Pour tous les profils</p>
@@ -317,7 +324,7 @@ export default function Home() {
       </section>
 
       {/* ─── AVANT / APRÈS ───────────────────────────────────────── */}
-      <section className="py-20 px-5 bg-gray-50">
+      <section className="py-20 px-5" style={{ background: "#ffffff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Résultat concret</p>
@@ -397,7 +404,7 @@ export default function Home() {
       </section>
 
       {/* ─── TÉMOIGNAGES ─────────────────────────────────────────── */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-20 px-5" style={{ background: "#f0f7ff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex justify-center gap-0.5 mb-3">
@@ -438,7 +445,7 @@ export default function Home() {
       </section>
 
       {/* ─── TARIFS ──────────────────────────────────────────────── */}
-      <section className="py-20 px-5 bg-gray-50">
+      <section className="py-20 px-5" style={{ background: "#ffffff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Tarifs</p>
@@ -523,7 +530,7 @@ export default function Home() {
       </section>
 
       {/* ─── FAQ ─────────────────────────────────────────────────── */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-20 px-5" style={{ background: "#f0f7ff" }}>
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-10">Questions fréquentes</h2>
           <div className="divide-y divide-gray-100 border border-gray-100 rounded-2xl overflow-hidden bg-gray-50">
@@ -548,14 +555,15 @@ export default function Home() {
       </section>
 
       {/* ─── CTA FINAL + NEWSLETTER ──────────────────────────────── */}
-      <section className="py-20 px-5" style={{ background: "linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%)" }}>
+      <section className="py-20 px-5" style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #3b82f6 100%)" }}>
         <div className="max-w-xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
             3 CV gratuits. Aucune carte.<br />Résultat en 30 secondes.
           </h2>
           <p className="text-blue-200 mb-8">{stats.users.toLocaleString("fr-FR")} étudiants l&apos;ont utilisé pour décrocher leurs entretiens.</p>
           <a href="/analyse"
-            className="inline-block bg-white text-blue-700 font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-lg mb-10 text-base">
+            className="inline-block font-bold px-8 py-4 mb-10 text-base transition-all hover:-translate-y-0.5"
+            style={{ background: "#ffffff", color: "#1d4ed8", borderRadius: "999px", boxShadow: "0 6px 24px rgba(0,0,0,0.15)" }}>
             🎯 Analyser mon CV gratuitement →
           </a>
 
@@ -580,7 +588,7 @@ export default function Home() {
       </section>
 
       {/* ─── FOOTER ──────────────────────────────────────────────── */}
-      <footer className="border-t border-gray-100 py-8 px-5">
+      <footer className="py-8 px-5 border-t" style={{ background: "#ffffff", borderColor: "#e0ecff" }}>
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Logo size={24} />
