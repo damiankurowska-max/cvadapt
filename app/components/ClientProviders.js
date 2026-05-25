@@ -6,7 +6,6 @@ import { LanguageProvider } from "./LanguageContext";
 export default function ClientProviders({ children }) {
   return (
     <LanguageProvider>
-      <CountdownBanner />
       <ExitIntentPopup />
       {children}
     </LanguageProvider>
