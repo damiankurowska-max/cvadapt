@@ -149,7 +149,7 @@ export default function Home() {
             ))}
           </div>
           <p className="text-sm" style={{ color: "#4b5563" }}>
-            <span className="font-bold" style={{ color: "#1e3a8a" }}>{stats.users.toLocaleString("fr-FR")} étudiants</span> · ⭐ 4,9/5 · Sans CB
+            <span className="font-bold" style={{ color: "#1e3a8a" }}>{stats.users.toLocaleString("fr-FR")} étudiants</span> · ⭐ 4,9/5
           </p>
         </div>
 
