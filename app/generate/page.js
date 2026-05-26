@@ -5,6 +5,7 @@ import { useUser, UserButton } from "@clerk/nextjs";
 import Logo from "../components/Logo";
 import UpgradeModal from "../components/UpgradeModal";
 import PostGenerationUpsell from "../components/PostGenerationUpsell";
+import ReferralPopup from "../components/ReferralPopup";
 
 const TEMPLATES = [
   { id: "moderne",     name: "Moderne",     desc: "Gradient bleu",    accent: "#2563eb", bg: "#eff6ff", sidebar: false },
@@ -30,6 +31,7 @@ export default function Generate() {
   const [cvMonthCount, setCvMonthCount] = useState(0);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showPostGenUpsell, setShowPostGenUpsell] = useState(false);
+  const [showReferralPopup, setShowReferralPopup] = useState(false);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const [wizardStep, setWizardStep] = useState(1);
@@ -137,6 +139,14 @@ export default function Generate() {
           }
         } catch {}
 
+        // 2ème CV généré → popup parrainage (gagne 2 CV en partageant)
+        try {
+          if (newCount === 2 && !localStorage.getItem("cvadapt_referral_shown")) {
+            setTimeout(() => setShowReferralPopup(true), 1500);
+            localStorage.setItem("cvadapt_referral_shown", "1");
+          }
+        } catch {}
+
         // Dernier CV gratuit utilisé → email de relance + modal
         if (newCount >= CV_LIMIT) {
           setShowUpgradeModal(true);
@@ -204,11 +214,18 @@ export default function Generate() {
 
   function handlePrint(content, title) {
     const win = window.open("", "_blank");
+    const watermark = !isPro ? `
+      <div style="margin-top:24px;padding:10px 0 6px;text-align:center;border-top:1px solid #e5e7eb;">
+        <span style="font-size:9px;color:#9ca3af;font-family:Arial,sans-serif;letter-spacing:0.2px;">
+          Généré avec <strong style="color:#2563eb;">CVAdapt.eu</strong> —
+          <a href="https://cvadapt.eu/tarifs" style="color:#2563eb;text-decoration:none;">Supprimer cette mention → Plan Étudiant 4,99€/mois</a>
+        </span>
+      </div>` : '';
     win.document.write(`<!DOCTYPE html><html><head><title>${title}</title><style>
       * { box-sizing: border-box; margin: 0; padding: 0; }
       body { font-family: Arial, sans-serif; background: white; }
       @media print { body { margin: 0; } @page { margin: 15mm; } }
-    </style></head><body>${content}</body></html>`);
+    </style></head><body>${content}${watermark}</body></html>`);
     win.document.close();
     setTimeout(() => win.print(), 500);
   }
@@ -237,6 +254,13 @@ export default function Generate() {
         show={showPostGenUpsell}
         isPro={isPro}
         onClose={() => setShowPostGenUpsell(false)}
+      />
+
+      {/* Popup parrainage (2ème CV) */}
+      <ReferralPopup
+        show={showReferralPopup}
+        onClose={() => setShowReferralPopup(false)}
+        userId={user?.id}
       />
 
       {/* Header */}

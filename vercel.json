@@ -9,8 +9,16 @@
       "schedule": "0 9 * * *"
     },
     {
+      "path": "/api/cron/j2-email",
+      "schedule": "0 10 * * *"
+    },
+    {
+      "path": "/api/cron/j5-email",
+      "schedule": "0 10 * * *"
+    },
+    {
       "path": "/api/cron/reactivation-email",
-      "schedule": "0 9 * * *"
+      "schedule": "0 10 * * *"
     }
   ]
 }
