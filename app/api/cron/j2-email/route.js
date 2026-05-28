@@ -10,8 +10,12 @@ const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
 const CRON_SECRET = process.env.CRON_SECRET;
 
 export async function GET(request) {
+  if (!CRON_SECRET) {
+    console.error("CRON_SECRET non configuré — cron désactivé");
+    return Response.json({ error: "Non configuré" }, { status: 500 });
+  }
   const authHeader = request.headers.get("authorization");
-  if (CRON_SECRET && authHeader !== `Bearer ${CRON_SECRET}`) {
+  if (authHeader !== `Bearer ${CRON_SECRET}`) {
     return Response.json({ error: "Non autorisé." }, { status: 401 });
   }
 

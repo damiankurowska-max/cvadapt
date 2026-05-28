@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
+import DOMPurify from "isomorphic-dompurify";
 import Logo from "../components/Logo";
 import UpgradeModal from "../components/UpgradeModal";
 import PostGenerationUpsell from "../components/PostGenerationUpsell";
@@ -839,7 +840,7 @@ export default function Generate() {
                     <p className="font-medium">Génération de la lettre en cours...</p>
                   </div>
                 ) : (
-                  <div className="p-10" dangerouslySetInnerHTML={{ __html: activeTab === "cv" ? cv : lm }} />
+                  <div className="p-10" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(activeTab === "cv" ? cv : lm) }} />
                 )
               )}
             </div>

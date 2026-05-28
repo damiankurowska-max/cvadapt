@@ -38,7 +38,7 @@ export async function POST(request) {
     // Notification interne
     await resend.emails.send({
       from: "CVAdapt <contact@cvadapt.eu>",
-      to: "damiankurowska@icloud.com",
+      to: process.env.OWNER_EMAIL || "contact@cvadapt.eu",
       subject: "📬 Nouvelle inscription newsletter",
       html: ownerNotificationEmail({
         type: "newsletter",

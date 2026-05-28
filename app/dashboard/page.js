@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import DOMPurify from "isomorphic-dompurify";
 import Link from "next/link";
 import Logo from "../components/Logo";
 
@@ -359,7 +360,7 @@ export default function Dashboard() {
               <div
                 className="bg-white rounded-xl shadow-sm mx-auto"
                 style={{ maxWidth: 800 }}
-                dangerouslySetInnerHTML={{ __html: activeTab === "cv" ? previewEntry.cv : previewEntry.lm }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(activeTab === "cv" ? previewEntry.cv : previewEntry.lm) }}
               />
             </div>
           </div>

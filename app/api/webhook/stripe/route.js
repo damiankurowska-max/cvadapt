@@ -71,7 +71,7 @@ export async function POST(request) {
       };
       await resend.emails.send({
         from: "CVAdapt <contact@cvadapt.eu>",
-        to: "damiankurowska@icloud.com",
+        to: process.env.OWNER_EMAIL || "contact@cvadapt.eu",
         subject: "💰 Nouveau paiement CVAdapt !",
         html: ownerNotificationEmail({
           type: "payment",

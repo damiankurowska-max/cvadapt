@@ -4,10 +4,18 @@
  * et +1 CV au parrain (referrer) via son code.
  */
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(req) {
   const { userId } = await auth();
   if (!userId) return Response.json({ error: "Non authentifié" }, { status: 401 });
+
+  // Rate limit : 5 tentatives par IP par heure (anti brute-force)
+  const ip = getClientIp(req);
+  const { allowed } = rateLimit(`referral:${ip}`, 5, 60 * 60 * 1000);
+  if (!allowed) {
+    return Response.json({ error: "Trop de tentatives. Réessaie dans 1 heure." }, { status: 429 });
+  }
 
   const { refCode } = await req.json();
   if (!refCode || typeof refCode !== "string" || refCode.length < 6) {
