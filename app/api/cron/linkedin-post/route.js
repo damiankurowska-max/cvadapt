@@ -3,9 +3,9 @@ import { Resend } from "resend";
 import { alertCronFailure } from "@/lib/monitoring";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
-const MAKE_LINKEDIN_WEBHOOK = process.env.MAKE_LINKEDIN_WEBHOOK || "https://hook.eu1.make.com/vjwe41hw42ua1l3aayf6rflbg6pzvahi";
-const OWNER_EMAIL = process.env.OWNER_EMAIL || "damiankurowska@icloud.com";
+const resend = new Resend(process.env.RESEND_API_KEY);
+const MAKE_LINKEDIN_WEBHOOK = process.env.MAKE_LINKEDIN_WEBHOOK;
+const OWNER_EMAIL = process.env.OWNER_EMAIL || "contact@cvadapt.eu";
 
 const THEMES = [
   { theme: "ATS", angle: "Révèle un fait choquant sur les ATS (filtres automatiques CV) et comment s'en sortir. Mentionne CVAdapt naturellement à la fin." },
@@ -18,17 +18,19 @@ const THEMES = [
 ];
 
 export async function GET(request) {
-  // Vérification : header Vercel cron OU query param secret
+  const secret = process.env.CRON_SECRET;
+  if (!secret) {
+    console.error("CRON_SECRET non configuré — cron désactivé");
+    return Response.json({ error: "Non configuré" }, { status: 500 });
+  }
   const authHeader = request.headers.get("authorization");
-  const url = new URL(request.url);
-  const querySecret = url.searchParams.get("secret");
-  const secret = process.env.CRON_SECRET || "cvadapt-cron-2025";
+  if (authHeader !== `Bearer ${secret}`) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-  const validHeader = authHeader === `Bearer ${secret}`;
-  const validQuery = querySecret === secret;
-
-  if (!validHeader && !validQuery) {
-    return Response.json({ error: "Unauthorized", debug: { secret: secret?.slice(0, 4) + "..." } }, { status: 401 });
+  if (!MAKE_LINKEDIN_WEBHOOK) {
+    console.error("MAKE_LINKEDIN_WEBHOOK non configuré");
+    return Response.json({ error: "Non configuré" }, { status: 500 });
   }
 
   // Choisir un thème selon le jour de la semaine

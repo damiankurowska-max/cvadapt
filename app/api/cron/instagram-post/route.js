@@ -6,7 +6,7 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const REMOTION_FUNCTION = "remotion-render-4-0-459-mem2048mb-disk2048mb-120sec";
 const REMOTION_REGION = "us-east-1";
-const REMOTION_SERVE_URL = "https://remotionlambda-useast1-on2o64ikts.s3.us-east-1.amazonaws.com/sites/cvadapt-reels/index.html";
+const REMOTION_SERVE_URL = process.env.REMOTION_SERVE_URL;
 
 const DAILY_THEMES = [
   { stat: "75%", statLabel: "des CV sont filtrés avant d'être lus", tip: "CVAdapt intègre les mots-clés de chaque offre automatiquement." },
@@ -19,13 +19,19 @@ const DAILY_THEMES = [
 ];
 
 export async function GET(request) {
+  const secret = process.env.CRON_SECRET;
+  if (!secret) {
+    console.error("CRON_SECRET non configuré — cron désactivé");
+    return Response.json({ error: "Non configuré" }, { status: 500 });
+  }
   const authHeader = request.headers.get("authorization");
-  const url = new URL(request.url);
-  const querySecret = url.searchParams.get("secret");
-  const secret = process.env.CRON_SECRET || "cvadapt-cron-2025";
-
-  if (authHeader !== `Bearer ${secret}` && querySecret !== secret) {
+  if (authHeader !== `Bearer ${secret}`) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (!REMOTION_SERVE_URL) {
+    console.error("REMOTION_SERVE_URL non configuré");
+    return Response.json({ error: "Non configuré" }, { status: 500 });
   }
 
   const dayOfWeek = new Date().getDay();
@@ -96,7 +102,8 @@ Caption uniquement, sans introduction.`,
     if (!videoUrl) throw new Error("Timeout rendu vidéo");
 
     // 4. Envoyer à Make.com → Instagram
-    const makeWebhookUrl = process.env.MAKE_INSTAGRAM_WEBHOOK || "https://hook.eu1.make.com/d8qm5quqc47o4mv43z7zb60qtx9w8bhv";
+    const makeWebhookUrl = process.env.MAKE_INSTAGRAM_WEBHOOK;
+    if (!makeWebhookUrl) throw new Error("MAKE_INSTAGRAM_WEBHOOK non configuré");
     const makeRes = await fetch(makeWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

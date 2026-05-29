@@ -6,7 +6,7 @@ import {
   reactivationEmail,
 } from "@/lib/email-templates";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
+const resend = new Resend(process.env.RESEND_API_KEY );
 
 // Token secret pour sécuriser l'endpoint (appels cron ou webhook)
 const CRON_SECRET = process.env.CRON_SECRET;

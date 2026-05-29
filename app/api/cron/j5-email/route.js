@@ -6,7 +6,7 @@
 import { Resend } from "resend";
 import { j5Email } from "@/lib/email-templates";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
+const resend = new Resend(process.env.RESEND_API_KEY );
 const CRON_SECRET = process.env.CRON_SECRET;
 
 export async function GET(request) {

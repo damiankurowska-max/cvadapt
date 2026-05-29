@@ -7,7 +7,7 @@ import { saveCV } from "@/lib/supabase";
 
 // Skills appliqués : context-engineering · stop-slop · server-side-auth
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
+const resend = new Resend(process.env.RESEND_API_KEY );
 
 // Limites par plan (source unique de vérité — côté serveur uniquement)
 const PLAN_LIMITS = {

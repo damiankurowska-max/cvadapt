@@ -4,8 +4,8 @@ import { paymentConfirmationEmail, ownerNotificationEmail } from "@/lib/email-te
 
 export const runtime = "nodejs";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "placeholder");
-const resend = new Resend(process.env.RESEND_API_KEY || "placeholder");
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY );
+const resend = new Resend(process.env.RESEND_API_KEY );
 
 export async function POST(request) {
   const body = await request.text();
