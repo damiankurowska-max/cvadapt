@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CVAdapt — Design Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700;1,900&family=DM+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; }
+
+/* ── TABS ── */
+.tabs { display: flex; gap: 0; background: #0f0f0f; border-bottom: 1px solid #222; }
+.tab { padding: 14px 28px; cursor: pointer; font-size: 13px; font-weight: 600; color: #555; border: none; background: none; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.3px; }
+.tab.active { color: #fff; border-bottom-color: #fff; }
+.tab:hover { color: #ccc; }
+.theme { display: none; }
+.theme.active { display: block; }
+
+/* ════════════════════════════════════════════
+   SKIN 1 — TASTE (DESIGN_VARIANCE: 8)
+   Editorial bold, typographie expressive
+════════════════════════════════════════════ */
+.s1 { background: #faf9f7; min-height: 100vh; }
+.s1-nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: #faf9f7; border-bottom: 1px solid #e8e4de; position: sticky; top: 0; z-index: 10; }
+.s1-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #0d0d0d; letter-spacing: -0.5px; }
+.s1-nav-links { display: flex; gap: 32px; font-size: 13px; color: #888; font-weight: 500; align-items: center; }
+.s1-nav-cta { background: #0d0d0d; color: #faf9f7; padding: 10px 22px; border-radius: 100px; font-size: 13px; font-weight: 600; }
+.s1-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
+.s1-hero-left { padding: 72px 48px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid #e8e4de; }
+.s1-hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #c17c3a; margin-bottom: 32px; }
+.s1-hero-tag::before { content: ''; width: 24px; height: 1px; background: #c17c3a; }
+.s1-hero-title { font-family: 'Fraunces', serif; font-size: 72px; font-weight: 900; line-height: 0.95; color: #0d0d0d; letter-spacing: -3px; margin-bottom: 32px; }
+.s1-hero-title em { font-style: italic; color: #c17c3a; }
+.s1-hero-sub { font-size: 16px; color: #666; line-height: 1.7; max-width: 420px; margin-bottom: 40px; font-weight: 400; }
+.s1-hero-stats { display: flex; gap: 40px; border-top: 1px solid #e8e4de; padding-top: 32px; }
+.s1-stat-num { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 700; color: #0d0d0d; line-height: 1; }
+.s1-stat-label { font-size: 12px; color: #aaa; margin-top: 4px; }
+.s1-hero-right { background: #0d0d0d; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.s1-hero-right-inner { text-align: center; color: #fff; z-index: 1; }
+.s1-hero-badge { font-family: 'Fraunces', serif; font-size: 120px; font-weight: 900; color: #c17c3a; line-height: 1; }
+.s1-hero-badge-label { font-size: 14px; color: #666; margin-top: 8px; letter-spacing: 2px; text-transform: uppercase; }
+.s1-noise { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); opacity: 0.3; }
+.s1-featured-section { padding: 64px 48px 0; }
+.s1-section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #aaa; margin-bottom: 40px; display: flex; align-items: center; gap: 16px; }
+.s1-section-label::after { content: ''; flex: 1; height: 1px; background: #e8e4de; }
+.s1-featured { display: grid; grid-template-columns: 2fr 1fr; gap: 1px; background: #e8e4de; border: 1px solid #e8e4de; margin-bottom: 1px; }
+.s1-featured-main { background: #faf9f7; padding: 48px; }
+.s1-featured-cat { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #c17c3a; margin-bottom: 20px; }
+.s1-featured-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 900; line-height: 1.1; color: #0d0d0d; letter-spacing: -1.5px; margin-bottom: 20px; }
+.s1-featured-desc { font-size: 16px; color: #666; line-height: 1.7; margin-bottom: 32px; max-width: 480px; }
+.s1-featured-link { display: inline-flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 700; color: #0d0d0d; }
+.s1-featured-link::after { content: '→'; font-size: 18px; transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1); }
+.s1-featured-side { background: #c17c3a; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
+.s1-featured-side-num { font-family: 'Fraunces', serif; font-size: 80px; font-weight: 900; color: rgba(255,255,255,0.2); line-height: 1; }
+.s1-featured-side-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; color: #fff; line-height: 1.2; margin-top: 16px; }
+.s1-featured-side-meta { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 12px; }
+.s1-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #e8e4de; border: 1px solid #e8e4de; border-top: none; margin: 0 48px 64px; }
+.s1-card { background: #faf9f7; padding: 32px; }
+.s1-card-cat { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #c17c3a; margin-bottom: 16px; }
+.s1-card-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: #0d0d0d; line-height: 1.2; margin-bottom: 12px; }
+.s1-card-desc { font-size: 14px; color: #888; line-height: 1.6; margin-bottom: 20px; }
+.s1-card-meta { font-size: 12px; color: #bbb; }
+
+/* ════════════════════════════════════════════
+   SKIN 2 — IMPECCABLE /polish mode:product
+   Clean system, precision, product design
+════════════════════════════════════════════ */
+.s2 { background: #fff; min-height: 100vh; font-family: 'DM Sans', sans-serif; }
+.s2-nav { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 60px; background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 10; }
+.s2-logo { font-size: 17px; font-weight: 700; color: #000; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
+.s2-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #7c3aed); }
+.s2-nav-links { display: flex; gap: 6px; font-size: 13px; color: #666; align-items: center; }
+.s2-nav-link { padding: 6px 14px; border-radius: 8px; font-weight: 500; }
+.s2-nav-cta { background: #000; color: #fff; padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; }
+.s2-hero { padding: 80px 40px 64px; text-align: center; }
+.s2-chip { display: inline-flex; align-items: center; gap: 6px; background: #f5f5f5; color: #555; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 28px; border: 1px solid #e8e8e8; }
+.s2-chip-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+.s2-hero-title { font-size: 52px; font-weight: 800; color: #000; line-height: 1.05; letter-spacing: -2.5px; margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.s2-hero-title span { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.s2-hero-sub { font-size: 17px; color: #666; line-height: 1.6; max-width: 520px; margin: 0 auto 40px; font-weight: 400; }
+.s2-hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 64px; }
+.s2-btn-primary { background: #000; color: #fff; padding: 13px 28px; border-radius: 12px; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+.s2-btn-secondary { background: #f5f5f5; color: #000; padding: 13px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; border: 1px solid #e8e8e8; }
+.s2-stats { display: flex; justify-content: center; gap: 48px; padding: 32px; background: #fafafa; border-radius: 20px; max-width: 640px; margin: 0 auto; border: 1px solid #f0f0f0; }
+.s2-stat { text-align: center; }
+.s2-stat-num { font-size: 30px; font-weight: 800; color: #000; letter-spacing: -1px; }
+.s2-stat-label { font-size: 12px; color: #999; margin-top: 2px; font-weight: 500; }
+.s2-divider { height: 1px; background: #f0f0f0; margin: 64px 40px 48px; }
+.s2-featured { margin: 0 40px 16px; background: #000; border-radius: 20px; padding: 48px; display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: center; overflow: hidden; position: relative; }
+.s2-featured::before { content: ''; position: absolute; right: -60px; top: -60px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%); }
+.s2-featured::after { content: ''; position: absolute; left: 40%; bottom: -40px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(37,99,235,0.2) 0%, transparent 70%); }
+.s2-featured-chip { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); padding: 5px 12px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+.s2-featured-title { font-size: 32px; font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -1px; margin-bottom: 16px; }
+.s2-featured-desc { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 28px; }
+.s2-featured-link { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: #000; padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 700; }
+.s2-featured-visual { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; height: 200px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+.s2-featured-score { font-size: 72px; font-weight: 800; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -3px; }
+.s2-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 40px 64px; }
+.s2-card { background: #fafafa; border: 1px solid #f0f0f0; border-radius: 16px; padding: 28px; transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1); }
+.s2-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.s2-card-badge { font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 4px 10px; border-radius: 6px; }
+.s2-badge-blue { background: #eff6ff; color: #2563eb; }
+.s2-badge-purple { background: #f5f3ff; color: #7c3aed; }
+.s2-badge-green { background: #f0fdf4; color: #16a34a; }
+.s2-badge-orange { background: #fff7ed; color: #ea580c; }
+.s2-badge-teal { background: #f0fdfa; color: #0d9488; }
+.s2-badge-pink { background: #fdf2f8; color: #c026d3; }
+.s2-card-time { font-size: 12px; color: #bbb; font-weight: 500; }
+.s2-card-title { font-size: 16px; font-weight: 700; color: #000; line-height: 1.35; margin-bottom: 10px; letter-spacing: -0.3px; }
+.s2-card-desc { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 20px; }
+.s2-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #f0f0f0; }
+.s2-card-date { font-size: 11px; color: #ccc; font-weight: 500; }
+.s2-card-read { font-size: 12px; font-weight: 700; color: #000; }
+
+/* ════════════════════════════════════════════
+   SKIN 3 — EMIL KOWALSKI
+   Motion-first, interactions vivantes
+════════════════════════════════════════════ */
+.s3 { background: #09090b; min-height: 100vh; color: #fafafa; font-family: 'Inter', sans-serif; }
+.s3-nav { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; border-bottom: 1px solid #18181b; }
+.s3-logo { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+.s3-nav-right { display: flex; gap: 8px; align-items: center; }
+.s3-nav-link { padding: 7px 14px; border-radius: 8px; font-size: 13px; color: #71717a; font-weight: 500; }
+.s3-nav-cta { background: #fff; color: #09090b; padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 700; }
+.s3-hero { padding: 96px 40px 80px; position: relative; overflow: hidden; }
+.s3-bg-glow-1 { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(ellipse, rgba(139,92,246,0.08) 0%, transparent 60%); pointer-events: none; }
+.s3-bg-glow-2 { position: absolute; top: 100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 60%); pointer-events: none; }
+.s3-hero-inner { max-width: 760px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+.s3-hero-label { display: inline-flex; align-items: center; gap: 8px; background: #18181b; border: 1px solid #27272a; color: #a1a1aa; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 32px; letter-spacing: 0.5px; }
+.s3-hero-label-dot { width: 6px; height: 6px; border-radius: 50%; background: #8b5cf6; box-shadow: 0 0 8px #8b5cf6; }
+.s3-hero-title { font-size: 64px; font-weight: 900; line-height: 1; letter-spacing: -3px; margin-bottom: 24px; }
+.s3-hero-title .line1 { color: #fff; display: block; }
+.s3-hero-title .line2 { color: #3f3f46; display: block; }
+.s3-hero-title .line3 { background: linear-gradient(90deg, #8b5cf6, #3b82f6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; }
+.s3-hero-sub { font-size: 17px; color: #71717a; line-height: 1.6; margin-bottom: 48px; max-width: 520px; margin-left: auto; margin-right: auto; }
+.s3-stats { display: flex; justify-content: center; gap: 0; margin-bottom: 80px; }
+.s3-stat { text-align: center; padding: 24px 40px; border-right: 1px solid #27272a; }
+.s3-stat:last-child { border-right: none; }
+.s3-stat-num { font-size: 36px; font-weight: 900; color: #fff; letter-spacing: -1.5px; }
+.s3-stat-label { font-size: 12px; color: #52525b; margin-top: 4px; font-weight: 500; }
+.s3-featured { margin: 0 40px 24px; border: 1px solid #27272a; border-radius: 20px; overflow: hidden; background: #0f0f11; }
+.s3-featured-inner { display: grid; grid-template-columns: 1fr 1fr; }
+.s3-featured-content { padding: 48px; border-right: 1px solid #27272a; }
+.s3-featured-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #8b5cf6; margin-bottom: 20px; }
+.s3-featured-title { font-size: 30px; font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -1px; margin-bottom: 16px; }
+.s3-featured-desc { font-size: 14px; color: #71717a; line-height: 1.7; margin-bottom: 32px; }
+.s3-featured-btn { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #09090b; padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 700; }
+.s3-featured-visual { background: #0a0a0c; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.s3-circle { width: 160px; height: 160px; border-radius: 50%; border: 1px solid #27272a; display: flex; align-items: center; justify-content: center; position: relative; }
+.s3-circle::before { content: ''; position: absolute; inset: -1px; border-radius: 50%; background: conic-gradient(from 0deg, #8b5cf6, #3b82f6, #06b6d4, transparent 70%); -webkit-mask: radial-gradient(transparent 65px, #000 66px); animation: spin 4s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.s3-circle-inner { font-size: 56px; font-weight: 900; background: linear-gradient(135deg, #8b5cf6, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.s3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 40px 64px; }
+.s3-card { background: #0f0f11; border: 1px solid #27272a; border-radius: 16px; padding: 28px; position: relative; overflow: hidden; }
+.s3-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 1px; }
+.s3-card.v { .s3-card-accent { background: linear-gradient(90deg, #8b5cf6, transparent); } }
+.s3-card.b { .s3-card-accent { background: linear-gradient(90deg, #3b82f6, transparent); } }
+.s3-card.c { .s3-card-accent { background: linear-gradient(90deg, #06b6d4, transparent); } }
+.s3-card.g { .s3-card-accent { background: linear-gradient(90deg, #22c55e, transparent); } }
+.s3-card.o { .s3-card-accent { background: linear-gradient(90deg, #f59e0b, transparent); } }
+.s3-card.p { .s3-card-accent { background: linear-gradient(90deg, #ec4899, transparent); } }
+.s3-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.s3-card-cat { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #52525b; }
+.s3-card-time { font-size: 11px; color: #3f3f46; font-weight: 500; }
+.s3-card-title { font-size: 16px; font-weight: 700; color: #fafafa; line-height: 1.35; margin-bottom: 10px; letter-spacing: -0.3px; }
+.s3-card-desc { font-size: 13px; color: #52525b; line-height: 1.6; margin-bottom: 20px; }
+.s3-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #18181b; }
+.s3-card-date { font-size: 11px; color: #3f3f46; }
+.s3-card-read { font-size: 12px; font-weight: 700; color: #8b5cf6; }
+
+/* accent bars */
+.s3-card.v .s3-card-accent { background: linear-gradient(90deg, #8b5cf6, transparent); }
+.s3-card.b .s3-card-accent { background: linear-gradient(90deg, #3b82f6, transparent); }
+.s3-card.c .s3-card-accent { background: linear-gradient(90deg, #06b6d4, transparent); }
+.s3-card.g .s3-card-accent { background: linear-gradient(90deg, #22c55e, transparent); }
+.s3-card.o .s3-card-accent { background: linear-gradient(90deg, #f59e0b, transparent); }
+.s3-card.p .s3-card-accent { background: linear-gradient(90deg, #ec4899, transparent); }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <button class="tab active" onclick="show(1)">🎨 Taste — Editorial bold</button>
+  <button class="tab" onclick="show(2)">✦ Impeccable — Product clean</button>
+  <button class="tab" onclick="show(3)">⚡ Emil Kowalski — Motion dark</button>
+</div>
+
+<!-- ════ SKIN 1 : TASTE ════ -->
+<div class="theme s1 active" id="t1">
+  <nav class="s1-nav">
+    <div class="s1-logo">CVAdapt</div>
+    <div class="s1-nav-links">
+      <span>Analyser</span><span>Tarifs</span>
+      <span class="s1-nav-cta">Générer mon CV →</span>
+    </div>
+  </nav>
+  <div class="s1-hero">
+    <div class="s1-hero-left">
+      <div>
+        <div class="s1-hero-tag">Ressources gratuites</div>
+        <h1 class="s1-hero-title">Guides CV<br>pour <em>décrocher</em><br>l'entretien.</h1>
+        <p class="s1-hero-sub">Stratégies ATS, mots-clés, reconversion — des guides concrets basés sur l'analyse de milliers de CV réels.</p>
+      </div>
+      <div class="s1-hero-stats">
+        <div><div class="s1-stat-num">19</div><div class="s1-stat-label">guides publiés</div></div>
+        <div><div class="s1-stat-num">12 847</div><div class="s1-stat-label">CV optimisés</div></div>
+        <div><div class="s1-stat-num">Gratuit</div><div class="s1-stat-label">sans inscription</div></div>
+      </div>
+    </div>
+    <div class="s1-hero-right">
+      <div class="s1-noise"></div>
+      <div class="s1-hero-right-inner">
+        <div class="s1-hero-badge">87</div>
+        <div class="s1-hero-badge-label">Score ATS moyen</div>
+      </div>
+    </div>
+  </div>
+  <div class="s1-featured-section">
+    <div class="s1-section-label">Guide phare</div>
+    <div class="s1-featured">
+      <div class="s1-featured-main">
+        <div class="s1-featured-cat">Conseils CV · 4 min</div>
+        <h2 class="s1-featured-title">Comment faire un CV en 2025 qui attire les recruteurs</h2>
+        <p class="s1-featured-desc">En 2025, 75% des CV ne sont jamais lus par un humain. Ce guide te montre exactement quoi mettre, où et comment pour être rappelé.</p>
+        <a class="s1-featured-link">Lire le guide</a>
+      </div>
+      <div class="s1-featured-side">
+        <div class="s1-featured-side-num">01</div>
+        <div>
+          <div class="s1-featured-side-title">Passe les filtres ATS en 30 secondes</div>
+          <div class="s1-featured-side-meta">2025-05-01</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s1-grid" style="margin-top: 1px;">
+    <div class="s1-card"><div class="s1-card-cat">CV ATS</div><h3 class="s1-card-title">CV ATS : comment passer les filtres automatiques</h3><p class="s1-card-desc">80% des CV sont éliminés par un algorithme avant qu'un humain ne les voie.</p><div class="s1-card-meta">5 min · avr. 2025</div></div>
+    <div class="s1-card"><div class="s1-card-cat">Reconversion</div><h3 class="s1-card-title">Reconversion : comment faire un CV convaincant</h3><p class="s1-card-desc">Tu changes de secteur et tu ne sais pas quoi mettre sur ton CV.</p><div class="s1-card-meta">4 min · avr. 2025</div></div>
+    <div class="s1-card"><div class="s1-card-cat">Lettre de motivation</div><h3 class="s1-card-title">Lettre de motivation : comment en écrire une qui soit lue</h3><p class="s1-card-desc">La plupart des lettres sont ignorées en 8 secondes.</p><div class="s1-card-meta">6 min · avr. 2025</div></div>
+    <div class="s1-card"><div class="s1-card-cat">Débutants</div><h3 class="s1-card-title">CV sans expérience : décrocher un premier emploi</h3><p class="s1-card-desc">Pas d'expérience ? Ce guide te montre exactement comment.</p><div class="s1-card-meta">5 min · avr. 2025</div></div>
+    <div class="s1-card"><div class="s1-card-cat">ATS & Mots-clés</div><h3 class="s1-card-title">Score ATS : comment atteindre 90/100</h3><p class="s1-card-desc">Ton CV peut être à 30/100 sans que tu le saches.</p><div class="s1-card-meta">5 min · avr. 2025</div></div>
+    <div class="s1-card"><div class="s1-card-cat">Reconversion</div><h3 class="s1-card-title">CV cadre en reconversion : valoriser 10 ans d'expérience</h3><p class="s1-card-desc">10 ans dans un secteur mais tu changes de voie.</p><div class="s1-card-meta">6 min · avr. 2025</div></div>
+  </div>
+</div>
+
+<!-- ════ SKIN 2 : IMPECCABLE ════ -->
+<div class="theme s2" id="t2">
+  <nav class="s2-nav">
+    <div class="s2-logo"><div class="s2-logo-dot"></div>CVAdapt</div>
+    <div class="s2-nav-links">
+      <span class="s2-nav-link">Analyser</span>
+      <span class="s2-nav-link">Tarifs</span>
+      <span class="s2-nav-cta">Générer mon CV →</span>
+    </div>
+  </nav>
+  <div class="s2-hero">
+    <div class="s2-chip"><div class="s2-chip-dot"></div>12 847 CV optimisés cette semaine</div>
+    <h1 class="s2-hero-title">Guides CV pour <span>décrocher plus</span> d'entretiens</h1>
+    <p class="s2-hero-sub">Stratégies ATS, mots-clés, reconversion — des guides concrets basés sur l'analyse de milliers de CV réels.</p>
+    <div class="s2-hero-actions">
+      <div class="s2-btn-primary">Voir les guides →</div>
+      <div class="s2-btn-secondary">Analyser mon CV</div>
+    </div>
+    <div class="s2-stats">
+      <div class="s2-stat"><div class="s2-stat-num">19</div><div class="s2-stat-label">guides publiés</div></div>
+      <div class="s2-stat"><div class="s2-stat-num">12 847</div><div class="s2-stat-label">CV optimisés</div></div>
+      <div class="s2-stat"><div class="s2-stat-num">Gratuit</div><div class="s2-stat-label">sans inscription</div></div>
+    </div>
+  </div>
+  <div class="s2-divider"></div>
+  <div class="s2-featured">
+    <div>
+      <div class="s2-featured-chip">⭐ Guide phare</div>
+      <h2 class="s2-featured-title">Comment faire un CV en 2025 qui attire les recruteurs</h2>
+      <p class="s2-featured-desc">En 2025, 75% des CV ne sont jamais lus par un humain. Ce guide te montre exactement quoi mettre, où et comment pour être rappelé en moins de 10 minutes.</p>
+      <div class="s2-featured-link">Lire le guide →</div>
+    </div>
+    <div class="s2-featured-visual">
+      <div class="s2-featured-score">87</div>
+    </div>
+  </div>
+  <div class="s2-grid">
+    <div class="s2-card"><div class="s2-card-top"><span class="s2-card-badge s2-badge-purple">CV ATS</span><span class="s2-card-time">5 min</span></div><h3 class="s2-card-title">CV ATS : comment passer les filtres automatiques</h3><p class="s2-card-desc">80% des CV sont éliminés par un algorithme avant qu'un humain ne les voie.</p><div class="s2-card-footer"><span class="s2-card-date">28 avr. 2025</span><span class="s2-card-read">Lire →</span></div></div>
+    <div class="s2-card"><div class="s2-card-top"><span class="s2-card-badge s2-badge-green">Reconversion</span><span class="s2-card-time">4 min</span></div><h3 class="s2-card-title">Reconversion : comment faire un CV convaincant</h3><p class="s2-card-desc">Tu changes de secteur et tu ne sais pas quoi mettre sur ton CV.</p><div class="s2-card-footer"><span class="s2-card-date">20 avr. 2025</span><span class="s2-card-read">Lire →</span></div></div>
+    <div class="s2-card"><div class="s2-card-top"><span class="s2-card-badge s2-badge-orange">LM</span><span class="s2-card-time">6 min</span></div><h3 class="s2-card-title">Lettre de motivation : comment en écrire une qui soit lue</h3><p class="s2-card-desc">La plupart des lettres sont ignorées en 8 secondes.</p><div class="s2-card-footer"><span class="s2-card-date">15 avr. 2025</span><span class="s2-card-read">Lire →</span></div></div>
+    <div class="s2-card"><div class="s2-card-top"><span class="s2-card-badge s2-badge-blue">Débutants</span><span class="s2-card-time">5 min</span></div><h3 class="s2-card-title">CV sans expérience : décrocher un premier emploi</h3><p class="s2-card-desc">Pas d'expérience ? Ce guide te montre exactement comment.</p><div class="s2-card-footer"><span class="s2-card-date">10 avr. 2025</span><span class="s2-card-read">Lire →</span></div></div>
+    <div class="s2-card"><div class="s2-card-top"><span class="s2-card-badge s2-badge-purple">ATS</span><span class="s2-card-time">5 min</span></div><h3 class="s2-card-title">Score ATS : comment atteindre 90/100 et passer les filtres</h3><p class="s2-card-desc">Ton CV peut être à 30/100 sans que tu le saches.</p><div class="s2-card-footer"><span class="s2-card-date">5 avr. 2025</span><span class="s2-card-read">Lire →</span></div></div>
+    <div class="s2-card"><div class="s2-card-top"><span class="s2-card-badge s2-badge-teal">Reconversion</span><span class="s2-card-time">6 min</span></div><h3 class="s2-card-title">CV cadre en reconversion : valoriser 10 ans d'expérience</h3><p class="s2-card-desc">10 ans dans un secteur mais tu changes de voie.</p><div class="s2-card-footer"><span class="s2-card-date">1 avr. 2025</span><span class="s2-card-read">Lire →</span></div></div>
+  </div>
+</div>
+
+<!-- ════ SKIN 3 : EMIL KOWALSKI ════ -->
+<div class="theme s3" id="t3">
+  <nav class="s3-nav">
+    <div class="s3-logo">CVAdapt</div>
+    <div class="s3-nav-right">
+      <span class="s3-nav-link">Analyser</span>
+      <span class="s3-nav-link">Tarifs</span>
+      <span class="s3-nav-cta">Générer →</span>
+    </div>
+  </nav>
+  <div class="s3-hero">
+    <div class="s3-bg-glow-1"></div>
+    <div class="s3-bg-glow-2"></div>
+    <div class="s3-hero-inner">
+      <div class="s3-hero-label"><div class="s3-hero-label-dot"></div>Ressources gratuites · Sans inscription</div>
+      <h1 class="s3-hero-title">
+        <span class="line1">Guides CV pour</span>
+        <span class="line2">décrocher plus</span>
+        <span class="line3">d'entretiens.</span>
+      </h1>
+      <p class="s3-hero-sub">Stratégies ATS, mots-clés, reconversion — des guides concrets basés sur l'analyse de milliers de CV réels.</p>
+    </div>
+    <div class="s3-stats">
+      <div class="s3-stat"><div class="s3-stat-num">19</div><div class="s3-stat-label">guides publiés</div></div>
+      <div class="s3-stat"><div class="s3-stat-num">12 847</div><div class="s3-stat-label">CV optimisés</div></div>
+      <div class="s3-stat"><div class="s3-stat-num">100%</div><div class="s3-stat-label">gratuit</div></div>
+    </div>
+  </div>
+  <div class="s3-featured">
+    <div class="s3-featured-inner">
+      <div class="s3-featured-content">
+        <div class="s3-featured-tag">⭐ Guide phare · Conseils CV</div>
+        <h2 class="s3-featured-title">Comment faire un CV en 2025 qui attire les recruteurs</h2>
+        <p class="s3-featured-desc">En 2025, 75% des CV ne sont jamais lus par un humain. Ce guide te montre exactement quoi mettre, où et comment pour être rappelé.</p>
+        <div class="s3-featured-btn">Lire le guide →</div>
+      </div>
+      <div class="s3-featured-visual">
+        <div class="s3-circle">
+          <div class="s3-circle-inner">87</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s3-grid">
+    <div class="s3-card v"><div class="s3-card-accent"></div><div class="s3-card-top"><span class="s3-card-cat">CV ATS</span><span class="s3-card-time">5 min</span></div><h3 class="s3-card-title">CV ATS : comment passer les filtres automatiques</h3><p class="s3-card-desc">80% des CV sont éliminés avant d'être lus.</p><div class="s3-card-footer"><span class="s3-card-date">28 avr. 2025</span><span class="s3-card-read">Lire →</span></div></div>
+    <div class="s3-card b"><div class="s3-card-accent"></div><div class="s3-card-top"><span class="s3-card-cat">Reconversion</span><span class="s3-card-time">4 min</span></div><h3 class="s3-card-title">Reconversion : comment faire un CV convaincant</h3><p class="s3-card-desc">Tu changes de secteur et tu ne sais pas quoi mettre.</p><div class="s3-card-footer"><span class="s3-card-date">20 avr. 2025</span><span class="s3-card-read">Lire →</span></div></div>
+    <div class="s3-card o"><div class="s3-card-accent"></div><div class="s3-card-top"><span class="s3-card-cat">Lettre de motivation</span><span class="s3-card-time">6 min</span></div><h3 class="s3-card-title">Lettre de motivation : comment en écrire une qui soit lue</h3><p class="s3-card-desc">La plupart des lettres sont ignorées en 8 secondes.</p><div class="s3-card-footer"><span class="s3-card-date">15 avr. 2025</span><span class="s3-card-read">Lire →</span></div></div>
+    <div class="s3-card c"><div class="s3-card-accent"></div><div class="s3-card-top"><span class="s3-card-cat">Débutants</span><span class="s3-card-time">5 min</span></div><h3 class="s3-card-title">CV sans expérience : décrocher un premier emploi</h3><p class="s3-card-desc">Pas d'expérience ? Ce guide te montre comment.</p><div class="s3-card-footer"><span class="s3-card-date">10 avr. 2025</span><span class="s3-card-read">Lire →</span></div></div>
+    <div class="s3-card g"><div class="s3-card-accent"></div><div class="s3-card-top"><span class="s3-card-cat">ATS & Mots-clés</span><span class="s3-card-time">5 min</span></div><h3 class="s3-card-title">Score ATS : comment atteindre 90/100</h3><p class="s3-card-desc">Ton CV peut être à 30/100 sans que tu le saches.</p><div class="s3-card-footer"><span class="s3-card-date">5 avr. 2025</span><span class="s3-card-read">Lire →</span></div></div>
+    <div class="s3-card p"><div class="s3-card-accent"></div><div class="s3-card-top"><span class="s3-card-cat">Reconversion</span><span class="s3-card-time">6 min</span></div><h3 class="s3-card-title">CV cadre en reconversion : valoriser 10 ans d'expérience</h3><p class="s3-card-desc">10 ans dans un secteur mais tu changes de voie.</p><div class="s3-card-footer"><span class="s3-card-date">1 avr. 2025</span><span class="s3-card-read">Lire →</span></div></div>
+  </div>
+</div>
+
+<script>
+function show(n) {
+  document.querySelectorAll('.theme').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('t'+n).classList.add('active');
+  document.querySelectorAll('.tab')[n-1].classList.add('active');
+}
+</script>
+</body>
+</html>
