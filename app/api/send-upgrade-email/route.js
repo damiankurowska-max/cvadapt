@@ -2,9 +2,10 @@ import { Resend } from "resend";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { upgradeReminderEmail } from "@/lib/email-templates";
 
-const resend = new Resend(process.env.RESEND_API_KEY );
+// resend initialized per-request
 
 export async function POST(request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   // Auth requise — seul le serveur (generate-cv) devrait appeler cet endpoint
   const { userId } = await auth();
   if (!userId) {

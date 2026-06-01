@@ -5,7 +5,7 @@
  */
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// resend initialized per-request
 const CRON_SECRET = process.env.CRON_SECRET;
 const ALERT_EMAIL = "damiankurowska@icloud.com";
 const BASE_URL = "https://cvadapt.eu";
@@ -52,6 +52,7 @@ async function checkBrevo() {
 }
 
 export async function GET(request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   if (!CRON_SECRET) return Response.json({ error: "Non configuré" }, { status: 500 });
   const authHeader = request.headers.get("authorization");
   if (authHeader !== `Bearer ${CRON_SECRET}`) {

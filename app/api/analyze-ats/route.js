@@ -1,8 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { rateLimit, getClientIp, sanitizeInput } from "@/lib/rate-limit";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
+// const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }); — initialized per-request
 // L'analyse ATS est gratuite et sans inscription — rate limit par IP : 20/heure
 const RATE_LIMIT_MAX    = 20;
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 heure

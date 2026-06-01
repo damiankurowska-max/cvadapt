@@ -2,8 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { renderMediaOnLambda, getRenderProgress } from "@remotion/lambda/client";
 import { alertCronFailure } from "@/lib/monitoring";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
+// const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }); — initialized per-request
 const REMOTION_FUNCTION = "remotion-render-4-0-459-mem2048mb-disk2048mb-120sec";
 const REMOTION_REGION = "us-east-1";
 const REMOTION_SERVE_URL = process.env.REMOTION_SERVE_URL;

@@ -6,7 +6,7 @@ import {
   reactivationEmail,
 } from "@/lib/email-templates";
 
-const resend = new Resend(process.env.RESEND_API_KEY );
+// resend initialized per-request
 
 // Token secret pour sécuriser l'endpoint (appels cron ou webhook)
 const CRON_SECRET = process.env.CRON_SECRET;
@@ -30,6 +30,7 @@ const SEQUENCES = {
 };
 
 export async function POST(request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   // Vérification du secret
   const authHeader = request.headers.get("authorization");
   if (CRON_SECRET && authHeader !== `Bearer ${CRON_SECRET}`) {

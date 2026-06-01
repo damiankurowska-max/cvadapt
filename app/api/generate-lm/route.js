@@ -2,8 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { sanitizeInput } from "@/lib/rate-limit";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
+// const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }); — initialized per-request
 const SYSTEM_PROMPT = `Expert en recrutement français. Tu génères des lettres de motivation HTML inline CSS professionnelles.
 Réponds UNIQUEMENT avec du HTML brut (CSS inline). Pas de markdown. Commence par <div et termine par </div>.`;
 

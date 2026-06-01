@@ -7,12 +7,13 @@ import { Resend } from "resend";
 import { surveyThanksEmail } from "@/lib/email-templates";
 import { createClient } from "@supabase/supabase-js";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// resend initialized per-request
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
+let _supabase = null;
+function getSupabase() {
+  if (!_supabase) _supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+  return _supabase;
+}
 
 const QUESTION_LABELS = {
   objectif: "Ce que tu cherches",
@@ -36,6 +37,7 @@ const ANSWER_LABELS = {
 };
 
 export async function GET(request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { searchParams } = new URL(request.url);
   const email = searchParams.get("email");
   const question = searchParams.get("q");
@@ -47,7 +49,7 @@ export async function GET(request) {
 
   try {
     // 1. Enregistrer la réponse dans Supabase
-    const { error: dbError } = await supabase
+    const { error: dbError } = await getSupabase()
       .from("survey_responses")
       .upsert(
         { email, question, answer, created_at: new Date().toISOString() },

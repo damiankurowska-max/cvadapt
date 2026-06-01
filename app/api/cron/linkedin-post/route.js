@@ -2,8 +2,8 @@ import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
 import { alertCronFailure } from "@/lib/monitoring";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const resend = new Resend(process.env.RESEND_API_KEY);
+// const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }); — initialized per-request
+// resend initialized per-request
 const MAKE_LINKEDIN_WEBHOOK = process.env.MAKE_LINKEDIN_WEBHOOK;
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "contact@cvadapt.eu";
 
@@ -18,6 +18,7 @@ const THEMES = [
 ];
 
 export async function GET(request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const secret = process.env.CRON_SECRET;
   if (!secret) {
     console.error("CRON_SECRET non configuré — cron désactivé");

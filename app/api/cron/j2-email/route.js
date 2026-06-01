@@ -6,10 +6,11 @@
 import { Resend } from "resend";
 import { j2Email } from "@/lib/email-templates";
 
-const resend = new Resend(process.env.RESEND_API_KEY );
+// resend initialized per-request
 const CRON_SECRET = process.env.CRON_SECRET;
 
 export async function GET(request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   if (!CRON_SECRET) {
     console.error("CRON_SECRET non configuré — cron désactivé");
     return Response.json({ error: "Non configuré" }, { status: 500 });

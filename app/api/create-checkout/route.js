@@ -1,8 +1,7 @@
 import Stripe from "stripe";
 import { auth } from "@clerk/nextjs/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY );
-
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ); — initialized per-request
 const PRICES = {
   essentiel: {
     name: "CVAdapt Étudiant — Mensuel",
@@ -31,6 +30,7 @@ const PRICES = {
 };
 
 export async function POST(request) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
   const { userId } = await auth();
 
   if (!userId) {

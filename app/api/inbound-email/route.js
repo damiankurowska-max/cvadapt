@@ -1,10 +1,12 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY  });
-const resend = new Resend(process.env.RESEND_API_KEY );
+// const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY  }); — initialized per-request
+// resend initialized per-request
 
 export async function POST(request) {
+  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     // Vérification du token secret — obligatoire
     const secret = process.env.INBOUND_EMAIL_SECRET;

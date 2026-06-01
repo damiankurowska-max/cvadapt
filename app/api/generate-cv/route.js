@@ -6,8 +6,8 @@ import { sanitizeInput } from "@/lib/rate-limit";
 import { saveCV } from "@/lib/supabase";
 
 // Skills appliqués : context-engineering · stop-slop · server-side-auth
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const resend = new Resend(process.env.RESEND_API_KEY );
+// const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }); — initialized per-request
+// resend initialized per-request
 
 // Limites par plan (source unique de vérité — côté serveur uniquement)
 const PLAN_LIMITS = {
@@ -34,6 +34,7 @@ RÈGLES STRICTES :
 - Police sans-serif, taille lisible (13-14px corps), A4 optimisé impression.`;
 
 export async function POST(request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   // ── 1. AUTHENTIFICATION ──────────────────────────────────────────────
   const { userId } = await auth();
   if (!userId) {

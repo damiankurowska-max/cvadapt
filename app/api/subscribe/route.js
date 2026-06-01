@@ -2,9 +2,10 @@ import { Resend } from "resend";
 import { welcomeNewsletterEmail, ownerNotificationEmail } from "@/lib/email-templates";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
-const resend = new Resend(process.env.RESEND_API_KEY );
+// resend initialized per-request
 
 export async function POST(request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   // Rate limit : 3 inscriptions par IP par heure
   const ip = getClientIp(request);
   const { allowed } = rateLimit(`subscribe:${ip}`, 3, 60 * 60 * 1000);

@@ -4,10 +4,12 @@ import { paymentConfirmationEmail, ownerNotificationEmail } from "@/lib/email-te
 
 export const runtime = "nodejs";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY );
-const resend = new Resend(process.env.RESEND_API_KEY );
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ); — initialized per-request
+// resend initialized per-request
 
 export async function POST(request) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
 
