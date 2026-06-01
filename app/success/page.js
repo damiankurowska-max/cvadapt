@@ -9,6 +9,8 @@ export default function Success() {
   useEffect(() => {
     // Petit délai pour l'animation d'entrée
     setTimeout(() => setShow(true), 100);
+    // Track conversion
+    try { window.clarity?.("event", "payment_success"); } catch {}
   }, []);
 
   const UNLOCKED = [

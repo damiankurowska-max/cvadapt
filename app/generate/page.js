@@ -296,7 +296,7 @@ export default function Generate() {
           {isPro ? (
             <div className="flex items-center gap-1 bg-green-100 px-2.5 py-1 rounded-lg">
               <span className="text-xs font-bold text-green-700">PRO</span>
-              {plan === "essentiel" && <span className="text-xs text-green-600 hidden sm:inline">· {10 - cvMonthCount} restants</span>}
+              {plan === "essentiel" && <span className="text-xs text-green-600 hidden sm:inline">· {15 - cvMonthCount} restants</span>}
             </div>
           ) : (
             <div className="flex items-center gap-1.5">
