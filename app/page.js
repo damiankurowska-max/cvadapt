@@ -259,6 +259,47 @@ export default function Home() {
         .cvl-m { width:75%; }
         .cvl-s { width:55%; }
         .cvl-xs { width:38%; }
+
+        /* ══════════════════════════════════════
+           MOBILE — max 768px
+        ══════════════════════════════════════ */
+        @media (max-width: 768px) {
+          /* Nav — cache les liens, garde juste le CTA */
+          .cv-nav-desktop { display: none !important; }
+          .cv-header-inner { flex-wrap: nowrap; }
+
+          /* Hero — colonne unique, cache la carte 3D */
+          .cv-hero-layout { grid-template-columns: 1fr !important; gap: 0 !important; }
+          .cv-hero-card { display: none !important; }
+          .cv-orb { display: none !important; }
+          .cv-hero-grid { display: none !important; }
+
+          /* Steps — 1 colonne */
+          .cv-steps-grid { grid-template-columns: 1fr !important; }
+          .cv-steps-connector { display: none !important; }
+
+          /* Flip section — cache la flip card, garde le texte */
+          .cv-flip-grid { grid-template-columns: 1fr !important; }
+          .cv-flip-grid > div:last-child { display: none !important; }
+
+          /* Avant/Après — 1 colonne */
+          .cv-ba-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+          /* Témoignages — 1 colonne */
+          .cv-testi-grid { grid-template-columns: 1fr !important; }
+
+          /* Tarifs — 1 colonne, retire le margin négatif du plan étudiant */
+          .cv-price-grid { grid-template-columns: 1fr !important; }
+          .cv-price-grid > div:nth-child(2) { margin: 0 !important; }
+
+          /* Padding global réduit */
+          section { padding-left: 16px !important; padding-right: 16px !important; }
+        }
+
+        @media (max-width: 480px) {
+          .cv-hero-ctas { flex-direction: column !important; }
+          .cv-hero-ctas a { text-align: center; justify-content: center; }
+        }
       `}</style>
 
       {/* ══════════════════════════════════════════
@@ -274,12 +315,12 @@ export default function Home() {
           borderBottom: headerScrolled ? "1px solid rgba(37,99,235,.1)" : "1px solid transparent",
         }}
       >
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+        <div className="cv-header-inner" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
           <a href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
             <Logo size={32} />
             <span style={{ fontSize: 18, fontWeight: 800, color: headerScrolled ? "#1d4ed8" : "#fff", transition: "color .3s" }}>CVAdapt</span>
           </a>
-          <nav style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          <nav className="cv-nav-desktop" style={{ display: "flex", alignItems: "center", gap: 4 }}>
             {[["#comment-ca-marche", "Comment ça marche"], ["/tarifs", "Tarifs"], ["/blog", "Blog"]].map(([href, label]) => (
               <a key={href} href={href} style={{
                 fontSize: 14, fontWeight: 600, textDecoration: "none", padding: "8px 14px", borderRadius: 8,
@@ -315,7 +356,7 @@ export default function Home() {
         <div className="cv-hero-grid" />
 
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1, width: "100%" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 460px", gap: 60, alignItems: "center" }}>
+          <div className="cv-hero-layout" style={{ display: "grid", gridTemplateColumns: "1fr 460px", gap: 60, alignItems: "center" }}>
 
             {/* LEFT — texte */}
             <div>
@@ -458,7 +499,7 @@ export default function Home() {
           <h2 className="cv-reveal" style={{ fontSize: "clamp(28px,3.5vw,46px)", fontWeight: 900, color: "#0f172a", textAlign: "center", letterSpacing: "-1.5px", marginBottom: 14 }}>3 étapes. 30 secondes.</h2>
           <p className="cv-reveal" style={{ textAlign: "center", color: "#64748b", fontSize: 16, marginBottom: 60 }}>De l&apos;offre d&apos;emploi au CV optimisé ATS — sans effort</p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24, position: "relative" }}>
+          <div className="cv-steps-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24, position: "relative" }}>
             <div className="cv-steps-connector" />
             {[
               { n:"1", emoji:"📋", title:"Colle l'offre", desc:"Copie n'importe quelle offre depuis LinkedIn, Indeed, APEC ou directement depuis le site de l'entreprise." },
@@ -488,7 +529,7 @@ export default function Home() {
       <section style={{ padding: "100px 0", background: "#fff", position: "relative" }}>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 70% 50% at 50% 50%,#eff6ff,transparent)" }} />
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+          <div className="cv-flip-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
 
             {/* Texte */}
             <div>
@@ -567,7 +608,7 @@ export default function Home() {
       <section style={{ padding: "100px 0", background: "#0f172a", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 70% 70% at 80% 50%,rgba(37,99,235,.18),transparent)" }} />
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
+          <div className="cv-ba-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
 
             {/* Texte */}
             <div>
@@ -653,7 +694,7 @@ export default function Home() {
           </h2>
           <p className="cv-reveal" style={{ textAlign: "center", color: "#64748b", fontSize: 16, marginBottom: 60 }}>Stages, alternances, premiers emplois</p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+          <div className="cv-testi-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
             {TESTIMONIALS.map((t, i) => (
               <div key={t.name} className={`cv-testi-card cv-reveal stagger-${i + 1}`} style={{ background: "#fff", borderRadius: 20, padding: 24, border: "1.5px solid #e2e8f0" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
@@ -685,7 +726,7 @@ export default function Home() {
           <h2 className="cv-reveal" style={{ fontSize: "clamp(28px,3.5vw,46px)", fontWeight: 900, color: "#0f172a", textAlign: "center", letterSpacing: "-1.5px", marginBottom: 14 }}>Prix pensés pour les étudiants</h2>
           <p className="cv-reveal" style={{ textAlign: "center", color: "#64748b", fontSize: 16, marginBottom: 60 }}>Sans engagement · Annule quand tu veux</p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, alignItems: "center" }}>
+          <div className="cv-price-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, alignItems: "center" }}>
             {/* FREE */}
             <div className="cv-price-card cv-reveal stagger-1" style={{ background: "#f8fafc", borderRadius: 24, padding: 32, border: "1.5px solid #e2e8f0" }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#94a3b8", marginBottom: 16 }}>Gratuit</div>
