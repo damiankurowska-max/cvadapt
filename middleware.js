@@ -6,10 +6,10 @@ const isProtectedRoute = createRouteMatcher(["/generate(.*)", "/dashboard(.*)", 
 export default clerkMiddleware((auth, req) => {
   const { userId } = auth();
 
-  // Visiteur non connecté sur /generate → redirige vers /tarifs avec tracking
+  // Visiteur non connecté sur /generate → inscription (pas tarifs — frein conversion)
   if (!userId && isProtectedRoute(req)) {
-    const url = new URL("/tarifs", req.url);
-    url.searchParams.set("from", req.nextUrl.pathname.replace("/", ""));
+    const url = new URL("/sign-up", req.url);
+    url.searchParams.set("redirect_url", req.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
 });
