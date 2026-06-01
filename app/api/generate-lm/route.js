@@ -7,6 +7,7 @@ const SYSTEM_PROMPT = `Expert en recrutement français. Tu génères des lettres
 Réponds UNIQUEMENT avec du HTML brut (CSS inline). Pas de markdown. Commence par <div et termine par </div>.`;
 
 export async function POST(request) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   // Auth requise
   const { userId } = await auth();
   if (!userId) {

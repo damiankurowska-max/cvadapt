@@ -18,6 +18,7 @@ const DAILY_THEMES = [
 ];
 
 export async function GET(request) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const secret = process.env.CRON_SECRET;
   if (!secret) {
     console.error("CRON_SECRET non configuré — cron désactivé");

@@ -34,6 +34,7 @@ RÈGLES STRICTES :
 - Police sans-serif, taille lisible (13-14px corps), A4 optimisé impression.`;
 
 export async function POST(request) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const resend = new Resend(process.env.RESEND_API_KEY);
   // ── 1. AUTHENTIFICATION ──────────────────────────────────────────────
   const { userId } = await auth();

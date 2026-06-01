@@ -7,6 +7,7 @@ const RATE_LIMIT_MAX    = 20;
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 heure
 
 export async function POST(request) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   // ── Rate limiting par IP ──────────────────────────────────────────────
   const ip = getClientIp(request);
   const { allowed, remaining, resetIn } = rateLimit(ip, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW);

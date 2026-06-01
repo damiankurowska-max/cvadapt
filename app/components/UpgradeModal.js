@@ -110,6 +110,7 @@ export default function UpgradeModal({ onClose }) {
         <div className="px-8 pb-6">
           <Link
             href="/tarifs"
+            onClick={() => { try { window.clarity?.("event", "upgrade_modal_cta_clicked"); } catch {} }}
             className="block w-full text-center font-bold py-4 rounded-2xl transition-all text-base shadow-md hover:shadow-lg hover:-translate-y-0.5"
             style={{ background: "linear-gradient(135deg, #1e40af, #2563eb)", color: "white" }}
           >

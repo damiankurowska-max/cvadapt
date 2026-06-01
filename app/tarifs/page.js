@@ -25,6 +25,7 @@ export default function Tarifs() {
   async function handleCheckout(planId) {
     setLoading(planId);
     setError("");
+    try { window.clarity?.("event", `checkout_attempt_${planId}`); } catch {}
     try {
       const res = await fetch("/api/create-checkout", {
         method: "POST",

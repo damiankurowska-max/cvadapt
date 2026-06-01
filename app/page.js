@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
+import CountdownBanner from "./components/CountdownBanner";
 
 function getDynamicStats() {
   const base = new Date("2025-01-01");
@@ -360,6 +361,11 @@ export default function Home() {
 
             {/* LEFT — texte */}
             <div>
+              {/* Offre limitée — urgence */}
+              <div style={{ marginBottom: 16, borderRadius: 12, overflow: "hidden", display: "inline-block" }}>
+                <CountdownBanner />
+              </div>
+
               <div className="cv-hero-badge" style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.15)",
@@ -739,7 +745,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <a href="/generate" style={{ display: "block", textAlign: "center", padding: 14, borderRadius: 14, fontWeight: 700, fontSize: 14, textDecoration: "none", border: "2px solid #e2e8f0", color: "#0f172a", transition: "all .2s" }}>Commencer</a>
+              <a href="/generate" onClick={() => { try { window.clarity?.("event", "pricing_cta_free"); } catch {} }} style={{ display: "block", textAlign: "center", padding: 14, borderRadius: 14, fontWeight: 700, fontSize: 14, textDecoration: "none", border: "2px solid #e2e8f0", color: "#0f172a", transition: "all .2s" }}>Commencer</a>
             </div>
 
             {/* ÉTUDIANT */}
@@ -757,7 +763,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <a href="/tarifs" style={{ display: "block", textAlign: "center", padding: 14, borderRadius: 14, fontWeight: 700, fontSize: 14, textDecoration: "none", background: "#fff", color: "#1d4ed8", transition: "all .2s" }}>Choisir Étudiant →</a>
+              <a href="/tarifs" onClick={() => { try { window.clarity?.("event", "pricing_cta_etudiant"); } catch {} }} style={{ display: "block", textAlign: "center", padding: 14, borderRadius: 14, fontWeight: 700, fontSize: 14, textDecoration: "none", background: "#fff", color: "#1d4ed8", transition: "all .2s" }}>Choisir Étudiant →</a>
               <div style={{ fontSize: 12, color: "rgba(255,255,255,.35)", textAlign: "center", marginTop: 14 }}>Satisfait ou remboursé sous 7 jours</div>
             </div>
 
@@ -773,7 +779,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <a href="/tarifs" style={{ display: "block", textAlign: "center", padding: 14, borderRadius: 14, fontWeight: 700, fontSize: 14, textDecoration: "none", background: "#0f172a", color: "#fff", transition: "all .2s" }}>Choisir Pro →</a>
+              <a href="/tarifs" onClick={() => { try { window.clarity?.("event", "pricing_cta_pro"); } catch {} }} style={{ display: "block", textAlign: "center", padding: 14, borderRadius: 14, fontWeight: 700, fontSize: 14, textDecoration: "none", background: "#0f172a", color: "#fff", transition: "all .2s" }}>Choisir Pro →</a>
             </div>
           </div>
         </div>

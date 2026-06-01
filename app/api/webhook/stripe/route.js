@@ -4,8 +4,23 @@ import { paymentConfirmationEmail, ownerNotificationEmail } from "@/lib/email-te
 
 export const runtime = "nodejs";
 
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ); — initialized per-request
-// resend initialized per-request
+// ─── Idempotence : évite le double-traitement si Stripe renvoie l'event ────────
+async function isEventAlreadyProcessed(eventId) {
+  try {
+    if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+      const { kv } = await import("@vercel/kv");
+      const key = `stripe_event:${eventId}`;
+      const existing = await kv.get(key);
+      if (existing) return true;
+      // TTL 7 jours (Stripe retente pendant 3 jours max)
+      await kv.set(key, "1", { ex: 60 * 60 * 24 * 7 });
+      return false;
+    }
+  } catch (err) {
+    console.warn("KV idempotency check failed, processing anyway:", err.message);
+  }
+  return false; // fallback : traite toujours si KV non dispo
+}
 
 export async function POST(request) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -23,6 +38,13 @@ export async function POST(request) {
   } catch (err) {
     console.error("Webhook signature verification failed:", err.message);
     return Response.json({ error: "Invalid signature" }, { status: 400 });
+  }
+
+  // Vérifie l'idempotence AVANT tout traitement
+  const alreadyProcessed = await isEventAlreadyProcessed(event.id);
+  if (alreadyProcessed) {
+    console.log(`Webhook event ${event.id} already processed, skipping.`);
+    return Response.json({ received: true, skipped: true });
   }
 
   try {

@@ -18,6 +18,7 @@ const THEMES = [
 ];
 
 export async function GET(request) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const resend = new Resend(process.env.RESEND_API_KEY);
   const secret = process.env.CRON_SECRET;
   if (!secret) {

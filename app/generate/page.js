@@ -85,15 +85,18 @@ export default function Generate() {
     if (!isPro) {
       if (cvCount >= CV_LIMIT) {
         setError("Tu as atteint la limite de 3 CV gratuits. Passe à un abonnement pour continuer.");
+        try { window.clarity?.("event", "limit_hit_free"); } catch {}
         return;
       }
     } else if (plan === "essentiel") {
       if (cvMonthCount >= 15) {
         setError("Tu as atteint la limite de 15 CV ce mois-ci. Passe au plan Pro pour des CV illimités.");
+        try { window.clarity?.("event", "limit_hit_essentiel"); } catch {}
         return;
       }
     }
 
+    try { window.clarity?.("event", "cv_generation_started"); } catch {}
     setLoading(true);
     setError("");
     setCv("");
@@ -115,6 +118,7 @@ export default function Generate() {
 
       setCv(cvData.cv);
       setActiveTab("cv");
+      try { window.clarity?.("event", "cv_generation_success"); } catch {}
 
       setLoadingATS(true);
       setAtsData(null);
@@ -137,6 +141,7 @@ export default function Generate() {
           if (newCount === 1 && !localStorage.getItem("cvadapt_upsell_shown")) {
             setShowPostGenUpsell(true);
             localStorage.setItem("cvadapt_upsell_shown", "1");
+            window.clarity?.("event", "upsell_pack_shown");
           }
         } catch {}
 
@@ -145,12 +150,14 @@ export default function Generate() {
           if (newCount === 2 && !localStorage.getItem("cvadapt_referral_shown")) {
             setTimeout(() => setShowReferralPopup(true), 1500);
             localStorage.setItem("cvadapt_referral_shown", "1");
+            window.clarity?.("event", "referral_popup_shown");
           }
         } catch {}
 
         // Dernier CV gratuit utilisé → email de relance + modal
         if (newCount >= CV_LIMIT) {
           setShowUpgradeModal(true);
+          try { window.clarity?.("event", "upgrade_modal_shown_limit"); } catch {}
           const userEmail = user?.primaryEmailAddress?.emailAddress;
           const prenom = user?.firstName || "";
           if (userEmail) {
