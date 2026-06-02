@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { frFR } from "@clerk/localizations";
 import ClientProviders from "./components/ClientProviders";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -187,6 +188,7 @@ export default function RootLayout({ children }) {
         </head>
         <body style={{ fontFamily: "var(--font-outfit, 'Outfit', system-ui, sans-serif)" }}>
           <ClientProviders>{children}</ClientProviders>
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
