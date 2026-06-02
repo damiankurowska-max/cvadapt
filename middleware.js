@@ -1,15 +1,12 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher(["/generate(.*)", "/dashboard(.*)", "/account(.*)"]);
 
-export default clerkMiddleware((auth, req) => {
-  const { userId } = auth();
-
-  // Visiteur non connecté sur /generate → page inscription directe
-  if (!userId && isProtectedRoute(req)) {
-    const url = new URL("/sign-up", req.url);
-    return NextResponse.redirect(url);
+export default clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) {
+    await auth.protect({
+      unauthenticatedUrl: new URL("/sign-up", req.url).toString(),
+    });
   }
 });
 

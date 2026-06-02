@@ -11,7 +11,15 @@ export default function SignInPage() {
       justifyContent: "center",
       padding: "24px",
     }}>
-      <SignIn />
+      <SignIn
+        routing="path"
+        path="/sign-in"
+        fallback={
+          <div style={{ color: "#6b7280", fontSize: "15px" }}>
+            Chargement…
+          </div>
+        }
+      />
     </main>
   );
 }
