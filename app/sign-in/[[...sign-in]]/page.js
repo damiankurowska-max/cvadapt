@@ -11,7 +11,7 @@ export default function SignInPage() {
       justifyContent: "center",
       padding: "24px",
     }}>
-      <SignIn forceRedirectUrl="/generate" />
+      <SignIn routing="path" path="/sign-in" forceRedirectUrl="/generate" />
     </main>
   );
 }

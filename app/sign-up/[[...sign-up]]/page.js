@@ -11,7 +11,7 @@ export default function SignUpPage() {
       justifyContent: "center",
       padding: "24px",
     }}>
-      <SignUp forceRedirectUrl="/generate" />
+      <SignUp routing="path" path="/sign-up" forceRedirectUrl="/generate" />
     </main>
   );
 }

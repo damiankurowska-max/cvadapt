@@ -137,6 +137,10 @@ const softwareSchema = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+      afterSignInUrl="/generate"
+      afterSignUpUrl="/generate"
       localization={frFR}
       appearance={{
         variables: {
