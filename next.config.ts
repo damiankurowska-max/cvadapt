@@ -28,28 +28,9 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-Frame-Options", value: "DENY" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
-          {
-            key: "Content-Security-Policy",
-            value: [
-              "default-src 'self'",
-              // Next.js requiert unsafe-inline pour les styles et scripts inline
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://challenges.cloudflare.com https://www.clarity.ms https://scripts.clarity.ms https://clerk.cvadapt.eu https://*.clerk.accounts.dev",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "font-src 'self' https://fonts.gstatic.com",
-              // Images depuis n'importe quelle source HTTPS + data URIs
-              "img-src 'self' https: data: blob:",
-              // Connexions API autorisées
-              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com https://clerk.cvadapt.eu https://*.clerk.accounts.dev https://api.resend.com https://*.clarity.ms https://www.clarity.ms",
-              // Stripe + Clerk iframes
-              "frame-src https://js.stripe.com https://hooks.stripe.com https://clerk.cvadapt.eu https://*.clerk.accounts.dev",
-              // Pas de worker externe
-              "worker-src 'self' blob:",
-            ].join("; "),
-          },
         ],
       },
     ];
