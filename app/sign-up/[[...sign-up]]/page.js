@@ -1,9 +1,20 @@
+"use client";
 import { SignUp } from "@clerk/nextjs";
 
 export default function SignUpPage() {
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <SignUp forceRedirectUrl="/generate" />
+    <main style={{
+      minHeight: "100vh",
+      background: "#f9fafb",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "24px",
+    }}>
+      <SignUp
+        afterSignUpUrl="/generate"
+        redirectUrl="/generate"
+      />
     </main>
   );
 }
