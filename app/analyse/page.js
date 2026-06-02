@@ -1,13 +1,52 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Logo from "../components/Logo";
+
+// ── Animated score counter hook ──────────────────────────────────────────────
+function useCountUp(target, duration = 1400, start = false) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!start || target === 0) return;
+    let startTime = null;
+    const tick = (now) => {
+      if (!startTime) startTime = now;
+      const p = Math.min((now - startTime) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 4);
+      setVal(Math.round(target * ease));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [target, start, duration]);
+  return val;
+}
+
+// ── Score color helper ────────────────────────────────────────────────────────
+function scoreColor(s) {
+  if (s >= 75) return { stroke: "#22c55e", bg: "rgba(34,197,94,.12)", text: "#16a34a", label: "Excellent" };
+  if (s >= 50) return { stroke: "#f59e0b", bg: "rgba(245,158,11,.12)", text: "#d97706", label: "Bon" };
+  return { stroke: "#ef4444", bg: "rgba(239,68,68,.12)", text: "#dc2626", label: "À améliorer" };
+}
 
 export default function Analyse() {
   const [form, setForm] = useState({ offre: "", nom: "", experience: "", competences: "", formation: "" });
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+  const [animate, setAnimate] = useState(false);
+  const resultRef = useRef(null);
+
+  const displayScore = useCountUp(result?.score ?? 0, 1600, animate);
+  const colors = result ? scoreColor(result.score) : scoreColor(0);
+  const circumference = 2 * Math.PI * 42;
+  const dash = result ? circumference * (displayScore / 100) : 0;
+
+  useEffect(() => {
+    if (result) {
+      setTimeout(() => setAnimate(true), 100);
+      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
+    }
+  }, [result]);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,6 +57,7 @@ export default function Analyse() {
     setLoading(true);
     setError("");
     setResult(null);
+    setAnimate(false);
     try {
       const res = await fetch("/api/analyze-ats", {
         method: "POST",
@@ -25,345 +65,447 @@ export default function Analyse() {
         body: JSON.stringify(form),
       });
       const data = await res.json();
-      if (!res.ok || data.error) {
-        setError(data.error || "Erreur lors de l'analyse");
-      } else {
-        setResult(data);
-      }
+      if (!res.ok || data.error) setError(data.error || "Erreur lors de l'analyse");
+      else setResult(data);
     } catch {
       setError("Une erreur est survenue, réessaie.");
     }
     setLoading(false);
   }
 
+  function goGenerate() {
+    try { localStorage.setItem("cvadapt_analyse_data", JSON.stringify(form)); } catch {}
+    window.location.href = "/generate";
+  }
+
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* Header minimal */}
-      <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-5xl mx-auto">
-        <Link href="/" className="flex items-center gap-2">
+    <main style={{ minHeight: "100vh", background: "#060d1f", fontFamily: "var(--font-outfit, Outfit, system-ui, sans-serif)" }}>
+
+      {/* ── GLOBAL STYLES ── */}
+      <style>{`
+        @keyframes fadeUp   { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
+        @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+        @keyframes scaleIn  { from { opacity:0; transform:scale(.88); } to { opacity:1; transform:scale(1); } }
+        @keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        @keyframes pulse    { 0%,100%{opacity:.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.06)} }
+        @keyframes shimmer  { 0%{background-position:200% center} 100%{background-position:-200% center} }
+        @keyframes spin     { to { stroke-dashoffset: 0; } }
+        @keyframes drawCircle { from { stroke-dashoffset: 264; } to { stroke-dashoffset: 0; } }
+
+        .ats-reveal { opacity:0; transform:translateY(24px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
+        .ats-visible { opacity:1 !important; transform:none !important; }
+
+        .ats-input {
+          width: 100%; background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.08);
+          border-radius: 14px; padding: 12px 16px; color: #fff; font-size: 14px;
+          outline: none; resize: none; transition: border-color .2s, background .2s;
+          font-family: inherit;
+        }
+        .ats-input::placeholder { color: rgba(255,255,255,.25); }
+        .ats-input:focus { border-color: #3b82f6; background: rgba(59,130,246,.06); }
+
+        .ats-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 8px; display: block; }
+
+        .ats-card {
+          background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.08);
+          border-radius: 20px; padding: 24px; backdrop-filter: blur(12px);
+          transition: border-color .25s, transform .25s;
+        }
+        .ats-card:hover { border-color: rgba(59,130,246,.3); }
+
+        .ats-btn-primary {
+          display: block; width: 100%; background: linear-gradient(135deg,#1d4ed8,#2563eb);
+          color: #fff; font-weight: 800; font-size: 16px; padding: 18px 32px;
+          border-radius: 999px; border: none; cursor: pointer;
+          box-shadow: 0 12px 40px rgba(37,99,235,.45);
+          transition: transform .2s, box-shadow .2s; font-family: inherit;
+        }
+        .ats-btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 18px 50px rgba(37,99,235,.55); }
+        .ats-btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+
+        .ats-keyword-found { display:inline-flex; align-items:center; gap:5px; background:rgba(34,197,94,.12); color:#4ade80; border:1px solid rgba(34,197,94,.2); font-size:12px; font-weight:700; padding:5px 12px; border-radius:999px; }
+        .ats-keyword-miss  { display:inline-flex; align-items:center; gap:5px; background:rgba(239,68,68,.1); color:#f87171; border:1px solid rgba(239,68,68,.2); font-size:12px; font-weight:700; padding:5px 12px; border-radius:999px; }
+
+        .score-ring-track { fill:none; stroke:rgba(255,255,255,.06); stroke-width:8; }
+        .score-ring-fill  { fill:none; stroke-width:8; stroke-linecap:round; transform-origin:center; transition: stroke-dashoffset .05s linear; }
+
+        .orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; }
+
+        @media (max-width: 768px) {
+          .ats-grid { grid-template-columns: 1fr !important; }
+          .ats-result-flex { flex-direction: column !important; align-items: center !important; text-align: center !important; }
+        }
+      `}</style>
+
+      {/* ── HEADER ── */}
+      <header style={{ padding: "20px 24px", maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
           <Logo size={28} />
-          <span className="text-lg font-bold text-blue-600">CVAdapt</span>
+          <span style={{ fontSize: 17, fontWeight: 800, color: "#fff" }}>CVAdapt</span>
         </Link>
-        <Link href="/generate" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
+        <a href="/generate" style={{
+          fontSize: 13, fontWeight: 700, color: "#fff", textDecoration: "none",
+          background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.15)",
+          padding: "9px 20px", borderRadius: 999, backdropFilter: "blur(8px)",
+          transition: "background .2s",
+        }}>
           Générer mon CV →
-        </Link>
+        </a>
       </header>
 
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        {!result ? (
-          /* === PHASE 1 : FORMULAIRE === */
-          <>
-            {/* En-tête */}
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-sm font-semibold px-4 py-2 rounded-full mb-4 border border-blue-100">
-                🎯 Analyse ATS gratuite
+      {/* ── HERO ── */}
+      <section style={{ position: "relative", overflow: "hidden", paddingTop: 40, paddingBottom: 60, textAlign: "center" }}>
+        <div className="orb" style={{ width: 500, height: 500, background: "rgba(99,102,241,.15)", top: -200, left: "50%", transform: "translateX(-50%)" }} />
+
+        <div style={{ position: "relative", zIndex: 1, maxWidth: 680, margin: "0 auto", padding: "0 24px" }}>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            background: "rgba(59,130,246,.12)", border: "1px solid rgba(59,130,246,.25)",
+            color: "#93c5fd", fontSize: 12, fontWeight: 700, padding: "7px 16px", borderRadius: 999,
+            marginBottom: 24, animation: "fadeUp .6s both",
+          }}>
+            🎯 <span>Analyse ATS gratuite · Sans inscription</span>
+          </div>
+
+          <h1 style={{
+            fontSize: "clamp(34px,5vw,58px)", fontWeight: 900, color: "#fff",
+            letterSpacing: "-2px", lineHeight: 1.06, marginBottom: 18,
+            animation: "fadeUp .6s .08s both",
+          }}>
+            Ton CV passe-t-il<br />
+            <span style={{
+              background: "linear-gradient(135deg,#60a5fa,#a78bfa)",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            }}>les filtres ATS ?</span>
+          </h1>
+
+          <p style={{
+            fontSize: 17, color: "rgba(255,255,255,.5)", lineHeight: 1.7, marginBottom: 48,
+            animation: "fadeUp .6s .16s both",
+          }}>
+            Colle ton offre et ton profil — reçois ton score en 30 secondes.<br />
+            Gratuit, sans compte requis.
+          </p>
+
+          {/* Steps */}
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 0,
+            animation: "fadeUp .6s .24s both",
+          }}>
+            {[["1","Colle l'offre"],["2","Entre ton profil"],["3","Score instantané"]].map(([n, label], i) => (
+              <div key={n} style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{
+                    width: 30, height: 30, borderRadius: "50%",
+                    background: "linear-gradient(135deg,#1d4ed8,#2563eb)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: 12, fontWeight: 800, color: "#fff",
+                    boxShadow: "0 4px 14px rgba(37,99,235,.4)",
+                  }}>{n}</div>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.65)" }}>{label}</span>
+                </div>
+                {i < 2 && <div style={{ width: 32, height: 1, background: "rgba(255,255,255,.1)", margin: "0 12px" }} />}
               </div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-3">
-                Ton CV passe-t-il les filtres ATS ?
-              </h1>
-              <p className="text-gray-500 text-lg max-w-xl mx-auto">
-                Colle ton offre d&apos;emploi et ton profil — reçois ton score de compatibilité en 30 secondes.
-              </p>
-            </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Étapes */}
-            <div className="flex items-center justify-center gap-4 mb-10 text-sm">
-              {[
-                { n: "1", label: "Colle l'offre" },
-                { n: "2", label: "Entre ton profil" },
-                { n: "3", label: "Reçois ton score" },
-              ].map((step, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <div className="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">{step.n}</div>
-                  <span className="text-gray-600 font-medium">{step.label}</span>
-                  {i < 2 && <span className="text-gray-300 ml-2">→</span>}
-                </div>
-              ))}
-            </div>
+      {/* ── FORM ── */}
+      {!result && (
+        <section style={{ maxWidth: 1000, margin: "0 auto", padding: "0 24px 80px", animation: "fadeUp .7s .3s both" }}>
+          <form onSubmit={handleSubmit}>
+            <div className="ats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
 
-            {/* Formulaire en 2 colonnes */}
-            <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                {/* Colonne gauche — Offre */}
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                  <h2 className="font-bold text-gray-900 mb-1 flex items-center gap-2">
-                    <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">1</span>
-                    L&apos;offre d&apos;emploi
-                  </h2>
-                  <p className="text-gray-400 text-xs mb-4">Copie-colle l&apos;offre depuis LinkedIn, Indeed, etc.</p>
-                  <textarea
-                    name="offre"
-                    value={form.offre}
-                    onChange={handleChange}
-                    required
-                    rows={12}
-                    placeholder="Développeur React H/F&#10;&#10;Nous recherchons un développeur React expérimenté...&#10;&#10;Compétences requises :&#10;- React, TypeScript&#10;- Node.js&#10;- Docker, AWS"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-blue-500 resize-none placeholder-gray-300"
-                  />
-                </div>
-
-                {/* Colonne droite — Profil */}
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
-                  <h2 className="font-bold text-gray-900 flex items-center gap-2">
-                    <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                    Ton profil
-                  </h2>
-
+              {/* LEFT — Offre */}
+              <div className="ats-card">
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 10, background: "linear-gradient(135deg,#1d4ed8,#2563eb)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, color: "#fff" }}>1</div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Nom complet</label>
-                    <input
-                      type="text"
-                      name="nom"
-                      value={form.nom}
-                      onChange={handleChange}
-                      required
-                      placeholder="Jean Dupont"
-                      className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Expérience professionnelle</label>
-                    <textarea
-                      name="experience"
-                      value={form.experience}
-                      onChange={handleChange}
-                      required
-                      rows={4}
-                      placeholder="2 ans chez Accenture en tant que développeur React, 1 an chez une startup SaaS..."
-                      className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Compétences</label>
-                    <input
-                      type="text"
-                      name="competences"
-                      value={form.competences}
-                      onChange={handleChange}
-                      required
-                      placeholder="React, JavaScript, Node.js, SQL, Git..."
-                      className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Formation</label>
-                    <input
-                      type="text"
-                      name="formation"
-                      value={form.formation}
-                      onChange={handleChange}
-                      required
-                      placeholder="Licence Informatique, École d'ingénieur..."
-                      className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>L'offre d'emploi</div>
+                    <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)" }}>Copie-colle depuis LinkedIn, Indeed…</div>
                   </div>
                 </div>
+                <textarea
+                  className="ats-input"
+                  name="offre"
+                  value={form.offre}
+                  onChange={handleChange}
+                  required
+                  rows={14}
+                  placeholder={"Développeur React H/F\n\nNous recherchons un développeur React expérimenté…\n\nCompétences requises :\n- React, TypeScript\n- Node.js, Docker, AWS"}
+                />
               </div>
 
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl px-5 py-4 mb-4 text-red-700 text-sm">
-                  {error}
+              {/* RIGHT — Profil */}
+              <div className="ats-card" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 2 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 10, background: "linear-gradient(135deg,#6d28d9,#7c3aed)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, color: "#fff" }}>2</div>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>Ton profil</div>
+                    <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)" }}>Tes infos pour l'analyse</div>
+                  </div>
                 </div>
-              )}
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl hover:bg-blue-700 disabled:opacity-50 text-lg transition-colors shadow-lg shadow-blue-600/20"
-              >
-                {loading ? (
-                  <span className="flex items-center justify-center gap-3">
-                    <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
-                    </svg>
-                    Analyse ATS en cours...
-                  </span>
-                ) : "🎯 Analyser mon CV gratuitement →"}
-              </button>
-
-              <p className="text-center text-gray-400 text-sm mt-4">
-                ✓ Gratuit · ✓ Sans inscription · ✓ Résultat en 30 secondes
-              </p>
-            </form>
-          </>
-        ) : (
-          /* === PHASE 2 : RÉSULTATS === */
-          <>
-            {/* En-tête résultats */}
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 text-sm font-semibold px-4 py-2 rounded-full mb-4 border border-green-100">
-                ✅ Analyse terminée
+                {[
+                  { name: "nom", label: "Nom complet", placeholder: "Sophie Martin", type: "input" },
+                  { name: "experience", label: "Expérience", placeholder: "2 ans chez Accenture en tant que développeur React…", type: "textarea", rows: 3 },
+                  { name: "competences", label: "Compétences", placeholder: "React, JavaScript, Node.js, SQL, Git…", type: "input" },
+                  { name: "formation", label: "Formation", placeholder: "Licence Informatique, École d'ingénieur…", type: "input" },
+                ].map(({ name, label, placeholder, type, rows }) => (
+                  <div key={name}>
+                    <label className="ats-label">{label}</label>
+                    {type === "textarea" ? (
+                      <textarea className="ats-input" name={name} value={form[name]} onChange={handleChange} required rows={rows} placeholder={placeholder} />
+                    ) : (
+                      <input className="ats-input" type="text" name={name} value={form[name]} onChange={handleChange} required placeholder={placeholder} />
+                    )}
+                  </div>
+                ))}
               </div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Ton score ATS</h1>
-              <p className="text-gray-500">Voici comment ton profil correspond à cette offre d&apos;emploi</p>
             </div>
 
-            {/* Score principal */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 mb-6">
-              <div className="flex flex-col md:flex-row items-center gap-8">
-                {/* Cercle SVG */}
-                <div className="relative w-36 h-36 flex-shrink-0">
-                  <svg viewBox="0 0 100 100" className="w-36 h-36 -rotate-90">
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f3f4f6" strokeWidth="10"/>
-                    <circle
-                      cx="50" cy="50" r="40" fill="none"
-                      stroke={result.score >= 75 ? "#22c55e" : result.score >= 50 ? "#f59e0b" : "#ef4444"}
-                      strokeWidth="10"
-                      strokeLinecap="round"
-                      strokeDasharray={`${2 * Math.PI * 40}`}
-                      strokeDashoffset={`${2 * Math.PI * 40 * (1 - result.score / 100)}`}
-                      style={{ transition: "stroke-dashoffset 1s ease" }}
-                    />
+            {error && (
+              <div style={{ background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.25)", borderRadius: 14, padding: "14px 20px", marginBottom: 16, color: "#f87171", fontSize: 14 }}>
+                {error}
+              </div>
+            )}
+
+            <button type="submit" className="ats-btn-primary" disabled={loading}>
+              {loading ? (
+                <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
+                  <svg style={{ animation: "spin 1s linear infinite" }} width="20" height="20" fill="none" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,.25)" strokeWidth="3"/>
+                    <path d="M12 2a10 10 0 0 1 10 10" stroke="#fff" strokeWidth="3" strokeLinecap="round"/>
                   </svg>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-3xl font-extrabold text-gray-900">{result.score}</span>
-                    <span className="text-sm text-gray-400">/100</span>
-                  </div>
+                  Analyse ATS en cours…
+                </span>
+              ) : "🎯 Analyser mon CV gratuitement →"}
+            </button>
+
+            <p style={{ textAlign: "center", color: "rgba(255,255,255,.25)", fontSize: 13, marginTop: 16 }}>
+              ✓ Gratuit · ✓ Sans inscription · ✓ Résultat en 30 secondes
+            </p>
+          </form>
+        </section>
+      )}
+
+      {/* ── RESULTS ── */}
+      {result && (
+        <section ref={resultRef} style={{ maxWidth: 1000, margin: "0 auto", padding: "0 24px 100px" }}>
+
+          {/* Score hero card */}
+          <div style={{
+            position: "relative", overflow: "hidden",
+            background: `linear-gradient(135deg, rgba(15,36,96,.9) 0%, rgba(29,78,216,.6) 100%)`,
+            border: "1.5px solid rgba(59,130,246,.3)",
+            borderRadius: 28, padding: "40px 40px", marginBottom: 20,
+            animation: "scaleIn .6s cubic-bezier(.16,1,.3,1) both",
+          }}>
+            <div className="orb" style={{ width: 400, height: 400, background: `${colors.bg}`, top: -150, right: -100 }} />
+
+            <div className="ats-result-flex" style={{ display: "flex", alignItems: "center", gap: 48, position: "relative", zIndex: 1 }}>
+
+              {/* 3D Score gauge */}
+              <div style={{
+                flexShrink: 0, position: "relative",
+                animation: "float 4s ease-in-out infinite",
+                filter: `drop-shadow(0 20px 40px ${colors.stroke}44)`,
+              }}>
+                <svg width="160" height="160" viewBox="0 0 100 100" style={{ transform: "rotate(-90deg)" }}>
+                  {/* Background rings for 3D depth */}
+                  <circle cx="50" cy="50" r="47" fill="none" stroke="rgba(255,255,255,.02)" strokeWidth="1"/>
+                  <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.03)" strokeWidth="1"/>
+                  {/* Track */}
+                  <circle className="score-ring-track" cx="50" cy="50" r="42" />
+                  {/* Fill */}
+                  <circle
+                    className="score-ring-fill"
+                    cx="50" cy="50" r="42"
+                    stroke={colors.stroke}
+                    strokeDasharray={circumference}
+                    strokeDashoffset={circumference - dash}
+                    style={{ filter: `drop-shadow(0 0 8px ${colors.stroke})` }}
+                  />
+                </svg>
+                {/* Center number */}
+                <div style={{
+                  position: "absolute", inset: 0, display: "flex", flexDirection: "column",
+                  alignItems: "center", justifyContent: "center",
+                }}>
+                  <span style={{ fontSize: 36, fontWeight: 900, color: "#fff", lineHeight: 1, letterSpacing: "-1px" }}>{displayScore}</span>
+                  <span style={{ fontSize: 13, color: "rgba(255,255,255,.4)", fontWeight: 600 }}>/100</span>
+                </div>
+              </div>
+
+              {/* Text */}
+              <div style={{ flex: 1 }}>
+                <div style={{
+                  display: "inline-flex", alignItems: "center", gap: 6,
+                  background: colors.bg, border: `1px solid ${colors.stroke}44`,
+                  color: colors.stroke, fontSize: 12, fontWeight: 800,
+                  padding: "5px 14px", borderRadius: 999, marginBottom: 14,
+                  animation: "fadeIn .5s .4s both",
+                }}>
+                  {colors.label}
                 </div>
 
-                {/* Infos score */}
-                <div className="flex-1 text-center md:text-left">
-                  <div className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-3 ${
-                    result.score >= 75 ? "bg-green-100 text-green-700" :
-                    result.score >= 50 ? "bg-yellow-100 text-yellow-700" :
-                    "bg-red-100 text-red-700"
-                  }`}>
-                    {result.niveau}
-                  </div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                    {result.score >= 75 ? "Excellent ! Ton CV est bien adapté à cette offre." :
-                     result.score >= 50 ? "Bon début, mais tu peux encore améliorer ton score." :
-                     "Ton CV nécessite des optimisations importantes pour cette offre."}
-                  </h2>
-                  <p className="text-gray-500 mb-6">
-                    {result.score >= 75
-                      ? "Tu as de bonnes chances de passer les filtres ATS. Génère ton CV optimisé pour maximiser tes chances."
-                      : "CVAdapt peut optimiser ton CV pour intégrer les mots-clés manquants et améliorer ton score."}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <button
-                      onClick={() => {
-                        try {
-                          localStorage.setItem("cvadapt_analyse_data", JSON.stringify({
-                            offre: form.offre,
-                            nom: form.nom,
-                            experience: form.experience,
-                            competences: form.competences,
-                            formation: form.formation,
-                          }));
-                        } catch {}
-                        window.location.href = "/generate";
-                      }}
-                      className="bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-center"
-                    >
-                      Générer mon CV optimisé →
-                    </button>
-                    <button
-                      onClick={() => { setResult(null); setError(""); }}
-                      className="border border-gray-200 text-gray-600 font-semibold px-6 py-3 rounded-xl hover:bg-gray-50 transition-colors"
-                    >
-                      ← Nouvelle analyse
-                    </button>
-                  </div>
+                <h2 style={{
+                  fontSize: "clamp(20px,2.5vw,28px)", fontWeight: 900, color: "#fff",
+                  letterSpacing: "-0.5px", lineHeight: 1.2, marginBottom: 12,
+                  animation: "fadeUp .5s .3s both",
+                }}>
+                  {result.score >= 75
+                    ? "Excellent ! Ton profil correspond bien à cette offre."
+                    : result.score >= 50
+                    ? "Bon début — quelques ajustements pour décrocher l'entretien."
+                    : "Ton CV nécessite des optimisations importantes."}
+                </h2>
+
+                <p style={{ color: "rgba(255,255,255,.5)", fontSize: 14, lineHeight: 1.7, marginBottom: 24, animation: "fadeUp .5s .4s both" }}>
+                  {result.score >= 75
+                    ? "Tu as de bonnes chances de passer les filtres automatiques. Génère ton CV pour maximiser tes chances."
+                    : "CVAdapt peut intégrer automatiquement les mots-clés manquants et booster ton score."}
+                </p>
+
+                <div style={{ display: "flex", gap: 12, flexWrap: "wrap", animation: "fadeUp .5s .5s both" }}>
+                  <button onClick={goGenerate} className="ats-btn-primary" style={{ width: "auto", padding: "13px 28px", fontSize: 14 }}>
+                    Générer mon CV optimisé →
+                  </button>
+                  <button
+                    onClick={() => { setResult(null); setError(""); setAnimate(false); }}
+                    style={{
+                      background: "rgba(255,255,255,.06)", border: "1.5px solid rgba(255,255,255,.1)",
+                      color: "rgba(255,255,255,.7)", fontWeight: 700, fontSize: 14,
+                      padding: "13px 24px", borderRadius: 999, cursor: "pointer", fontFamily: "inherit",
+                      transition: "background .2s",
+                    }}
+                  >
+                    ← Nouvelle analyse
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Grille résultats */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              {/* Mots-clés trouvés */}
-              <div className="bg-white rounded-2xl border border-green-100 shadow-sm p-6">
-                <h3 className="font-bold text-green-800 mb-4 flex items-center gap-2">
-                  <span className="w-7 h-7 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-sm">✓</span>
-                  Mots-clés présents
-                  <span className="ml-auto text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">{result.keywords_found?.length}</span>
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {result.keywords_found?.map((kw, i) => (
-                    <span key={i} className="bg-green-50 text-green-700 text-sm font-semibold px-3 py-1.5 rounded-xl border border-green-100">
-                      ✓ {kw}
-                    </span>
-                  ))}
+          {/* Keywords grid */}
+          <div className="ats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+
+            {/* Found */}
+            <div className="ats-card" style={{ animation: "fadeUp .5s .2s both" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: 8, background: "rgba(34,197,94,.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>✓</div>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#4ade80" }}>Mots-clés présents</span>
                 </div>
+                <span style={{ background: "rgba(34,197,94,.15)", color: "#4ade80", fontSize: 12, fontWeight: 800, padding: "3px 10px", borderRadius: 999 }}>
+                  {result.keywords_found?.length}
+                </span>
               </div>
-
-              {/* Mots-clés manquants */}
-              <div className="bg-white rounded-2xl border border-red-100 shadow-sm p-6">
-                <h3 className="font-bold text-red-800 mb-4 flex items-center gap-2">
-                  <span className="w-7 h-7 bg-red-100 rounded-full flex items-center justify-center text-red-500 text-sm">✗</span>
-                  Mots-clés manquants
-                  <span className="ml-auto text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-bold">{result.keywords_missing?.length}</span>
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {result.keywords_missing?.map((kw, i) => (
-                    <span key={i} className="bg-red-50 text-red-700 text-sm font-semibold px-3 py-1.5 rounded-xl border border-red-100">
-                      ✗ {kw}
-                    </span>
-                  ))}
-                </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {result.keywords_found?.map((kw, i) => (
+                  <span key={i} className="ats-keyword-found" style={{ animationDelay: `${.1 + i * .05}s` }}>✓ {kw}</span>
+                ))}
               </div>
             </div>
 
-            {/* Points forts */}
-            <div className="bg-white rounded-2xl border border-blue-100 shadow-sm p-6 mb-6">
-              <h3 className="font-bold text-blue-800 mb-4 flex items-center gap-2">
-                💪 Points forts de ton profil
-              </h3>
-              <div className="space-y-2">
+            {/* Missing */}
+            <div className="ats-card" style={{ animation: "fadeUp .5s .3s both" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: 8, background: "rgba(239,68,68,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>✗</div>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#f87171" }}>Mots-clés manquants</span>
+                </div>
+                <span style={{ background: "rgba(239,68,68,.15)", color: "#f87171", fontSize: 12, fontWeight: 800, padding: "3px 10px", borderRadius: 999 }}>
+                  {result.keywords_missing?.length}
+                </span>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {result.keywords_missing?.map((kw, i) => (
+                  <span key={i} className="ats-keyword-miss">✗ {kw}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Strengths + Recommendations */}
+          <div className="ats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
+
+            {/* Strengths */}
+            <div className="ats-card" style={{ animation: "fadeUp .5s .4s both" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+                <span style={{ fontSize: 18 }}>💪</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: "#93c5fd" }}>Points forts</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {result.strengths?.map((s, i) => (
-                  <div key={i} className="flex items-start gap-3 bg-blue-50 rounded-xl px-4 py-3">
-                    <span className="text-blue-400 font-bold mt-0.5 flex-shrink-0">→</span>
-                    <span className="text-blue-800 text-sm">{s}</span>
+                  <div key={i} style={{
+                    display: "flex", alignItems: "flex-start", gap: 10,
+                    background: "rgba(59,130,246,.06)", borderRadius: 12, padding: "10px 14px",
+                  }}>
+                    <span style={{ color: "#3b82f6", fontWeight: 800, flexShrink: 0, marginTop: 1 }}>→</span>
+                    <span style={{ color: "rgba(255,255,255,.75)", fontSize: 13, lineHeight: 1.6 }}>{s}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Recommandations */}
-            <div className="bg-white rounded-2xl border border-amber-100 shadow-sm p-6 mb-8">
-              <h3 className="font-bold text-amber-800 mb-4 flex items-center gap-2">
-                🎯 Recommandations pour améliorer ton score
-              </h3>
-              <div className="space-y-3">
+            {/* Recommendations */}
+            <div className="ats-card" style={{ animation: "fadeUp .5s .5s both" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+                <span style={{ fontSize: 18 }}>🎯</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: "#fbbf24" }}>Recommandations</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {result.recommendations?.map((r, i) => (
-                  <div key={i} className="flex items-start gap-4 border-b border-amber-50 pb-3 last:border-0 last:pb-0">
-                    <span className="w-7 h-7 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</span>
-                    <span className="text-gray-700 text-sm leading-relaxed">{r}</span>
+                  <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+                    <span style={{
+                      width: 22, height: 22, borderRadius: "50%",
+                      background: "rgba(251,191,36,.12)", color: "#fbbf24",
+                      fontSize: 11, fontWeight: 800, flexShrink: 0,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}>{i + 1}</span>
+                    <span style={{ color: "rgba(255,255,255,.65)", fontSize: 13, lineHeight: 1.6 }}>{r}</span>
                   </div>
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* CTA final */}
-            <div className="bg-blue-600 rounded-2xl p-8 text-center text-white">
-              <h3 className="text-xl font-bold mb-2">Génère maintenant ton CV optimisé</h3>
-              <p className="text-blue-100 mb-6 text-sm">CVAdapt intègre automatiquement les mots-clés manquants et optimise ton CV pour décrocher l&apos;entretien.</p>
-              <button
-                onClick={() => {
-                  try {
-                    localStorage.setItem("cvadapt_analyse_data", JSON.stringify({
-                      offre: form.offre,
-                      nom: form.nom,
-                      experience: form.experience,
-                      competences: form.competences,
-                      formation: form.formation,
-                    }));
-                  } catch {}
-                  window.location.href = "/generate";
-                }}
-                className="inline-block bg-white text-blue-600 font-bold px-8 py-3.5 rounded-xl hover:bg-blue-50 transition-colors"
+          {/* CTA final */}
+          <div style={{
+            position: "relative", overflow: "hidden",
+            background: "linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 50%,#4f46e5 100%)",
+            borderRadius: 24, padding: "40px 48px", textAlign: "center",
+            animation: "fadeUp .5s .6s both",
+            boxShadow: "0 24px 60px rgba(37,99,235,.35)",
+          }}>
+            <div className="orb" style={{ width: 300, height: 300, background: "rgba(255,255,255,.05)", top: -100, right: -60 }} />
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <div style={{ fontSize: "clamp(20px,3vw,28px)", fontWeight: 900, color: "#fff", marginBottom: 10, letterSpacing: "-0.5px" }}>
+                Génère maintenant ton CV optimisé
+              </div>
+              <p style={{ color: "rgba(255,255,255,.6)", fontSize: 15, marginBottom: 28 }}>
+                CVAdapt intègre automatiquement les mots-clés manquants.<br/>Passe de {result.score} à 90+ en 30 secondes.
+              </p>
+              <button onClick={goGenerate} style={{
+                background: "#fff", color: "#1d4ed8", fontWeight: 800, fontSize: 15,
+                padding: "14px 36px", borderRadius: 999, border: "none", cursor: "pointer",
+                boxShadow: "0 8px 28px rgba(0,0,0,.2)", fontFamily: "inherit",
+                transition: "transform .2s, box-shadow .2s",
+              }}
+                onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 14px 36px rgba(0,0,0,.3)"; }}
+                onMouseLeave={e => { e.target.style.transform = "none"; e.target.style.boxShadow = "0 8px 28px rgba(0,0,0,.2)"; }}
               >
                 Générer mon CV optimisé →
               </button>
-              <p className="text-blue-200 text-xs mt-4">✓ 3 CV gratuits · ✓ Sans carte bancaire · ✓ Résultat en 30 secondes</p>
+              <p style={{ color: "rgba(255,255,255,.35)", fontSize: 12, marginTop: 16 }}>
+                ✓ 3 CV gratuits · ✓ Sans carte bancaire · ✓ 30 secondes
+              </p>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </section>
+      )}
     </main>
   );
 }
