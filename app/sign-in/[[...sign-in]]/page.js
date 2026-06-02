@@ -5,7 +5,7 @@ export default function SignInPage() {
   return (
     <main style={{
       minHeight: "100vh",
-      background: "#f9fafb",
+      background: "#0f172a",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -14,6 +14,7 @@ export default function SignInPage() {
       <SignIn
         routing="path"
         path="/sign-in"
+        afterSignInUrl="/generate"
         fallback={
           <div style={{ color: "#6b7280", fontSize: "15px" }}>
             Chargement…
