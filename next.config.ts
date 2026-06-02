@@ -37,7 +37,7 @@ const nextConfig: NextConfig = {
             value: [
               "default-src 'self'",
               // Next.js requiert unsafe-inline pour les styles et scripts inline
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://challenges.cloudflare.com https://www.clarity.ms https://clerk.cvadapt.eu https://*.clerk.accounts.dev",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://challenges.cloudflare.com https://www.clarity.ms https://scripts.clarity.ms https://clerk.cvadapt.eu https://*.clerk.accounts.dev",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               // Images depuis n'importe quelle source HTTPS + data URIs
