@@ -238,7 +238,7 @@ export default function Home() {
 
         /* Grid lines */
         .cv-hero-grid {
-          position:absolute; inset:0;
+          position:absolute; inset:0; pointer-events:none;
           background-image: linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
           background-size: 48px 48px;
         }
@@ -397,12 +397,6 @@ export default function Home() {
                 }}>
                   🚀 Générer mon CV — C&apos;est gratuit
                 </a>
-                <a href="#comment-ca-marche" style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  border: "2px solid rgba(255,255,255,.2)", color: "rgba(255,255,255,.85)",
-                  fontWeight: 700, fontSize: 15, padding: "14px 26px", borderRadius: 999,
-                  textDecoration: "none", transition: "all .2s",
-                }}>Comment ça marche</a>
               </div>
 
               <div className="cv-hero-trust" style={{ display: "flex", alignItems: "center", gap: 14 }}>

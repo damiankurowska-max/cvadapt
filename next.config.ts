@@ -44,8 +44,8 @@ const nextConfig: NextConfig = {
               "img-src 'self' https: data: blob:",
               // Connexions API autorisées
               "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com https://clerk.cvadapt.eu https://*.clerk.accounts.dev https://api.resend.com https://*.clarity.ms https://www.clarity.ms",
-              // Stripe iframes (paiement)
-              "frame-src https://js.stripe.com https://hooks.stripe.com",
+              // Stripe + Clerk iframes
+              "frame-src https://js.stripe.com https://hooks.stripe.com https://clerk.cvadapt.eu https://*.clerk.accounts.dev",
               // Pas de worker externe
               "worker-src 'self' blob:",
             ].join("; "),
