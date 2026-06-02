@@ -127,9 +127,12 @@ export default function Generate() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       }).then(r => r.json()).then(data => {
-        if (!data.error) setAtsData(data);
+        setAtsData(data.error ? { error: true, message: data.error } : data);
         setLoadingATS(false);
-      }).catch(() => setLoadingATS(false));
+      }).catch(() => {
+        setAtsData({ error: true, message: "Analyse ATS indisponible" });
+        setLoadingATS(false);
+      });
 
       if (!isPro) {
         const newCount = cvCount + 1;
@@ -222,6 +225,10 @@ export default function Generate() {
 
   function handlePrint(content, title) {
     const win = window.open("", "_blank");
+    if (!win) {
+      alert("Impossible d'ouvrir le PDF. Autorise les pop-ups pour ce site dans ton navigateur.");
+      return;
+    }
     const watermark = !isPro ? `
       <div style="margin-top:24px;padding:10px 0 6px;text-align:center;border-top:1px solid #e5e7eb;">
         <span style="font-size:9px;color:#9ca3af;font-family:Arial,sans-serif;letter-spacing:0.2px;">
@@ -247,7 +254,7 @@ export default function Generate() {
 
   const isStep1Valid = form.offre.trim().length > 0;
   const isStep2Valid = form.nom.trim().length > 0 && form.experience.trim().length > 0 && form.competences.trim().length > 0 && form.formation.trim().length > 0;
-  const isGenerateDisabled = loading || (!isPro && cvCount >= CV_LIMIT) || (isPro && plan === "essentiel" && cvMonthCount >= 10);
+  const isGenerateDisabled = loading || (!isPro && cvCount >= CV_LIMIT) || (isPro && plan === "essentiel" && cvMonthCount >= 15);
 
   const selectedTemplate = TEMPLATES.find(t => t.id === template);
   const offrePreview = form.offre.split("\n").slice(0, 4).join("\n").substring(0, 200);
@@ -361,9 +368,9 @@ export default function Generate() {
                 </Link>
               </div>
             )}
-            {isPro && plan === "essentiel" && cvMonthCount >= 10 && (
+            {isPro && plan === "essentiel" && cvMonthCount >= 15 && (
               <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-5 flex items-center justify-between">
-                <p className="text-amber-800 text-sm font-medium">Tu as atteint les 10 CV de ce mois (plan Essentiel).</p>
+                <p className="text-amber-800 text-sm font-medium">Tu as atteint les 15 CV de ce mois (plan Étudiant).</p>
                 <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
                   Passer au plan Pro →
                 </Link>
@@ -647,13 +654,23 @@ export default function Generate() {
                       setWithLM(true);
                       setLoadingLM(true);
                       setActiveTab("lm");
-                      const lmRes = await fetch("/api/generate-lm", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(form),
-                      });
-                      const lmData = await lmRes.json();
-                      if (lmRes.ok) setLm(lmData.lm);
+                      try {
+                        const lmRes = await fetch("/api/generate-lm", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify(form),
+                        });
+                        const lmData = await lmRes.json();
+                        if (lmRes.ok) {
+                          setLm(lmData.lm);
+                        } else {
+                          setError(lmData.error || "Erreur lors de la génération de la lettre de motivation.");
+                          setActiveTab("cv");
+                        }
+                      } catch {
+                        setError("Connexion impossible, réessaie.");
+                        setActiveTab("cv");
+                      }
                       setLoadingLM(false);
                     }}
                     className="bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors whitespace-nowrap shrink-0">

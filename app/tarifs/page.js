@@ -32,11 +32,15 @@ export default function Tarifs() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plan: planId }),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.url) {
         window.location.href = data.url;
       } else if (data.redirect) {
-        window.location.href = data.redirect + "?redirect_url=/tarifs";
+        // Redirige vers sign-up sans redirect_url (évite les erreurs Clerk)
+        window.location.href = data.redirect;
+      } else if (!res.ok) {
+        setError(data.error || `Erreur ${res.status} — réessaie dans quelques secondes.`);
+        setLoading("");
       } else {
         setError(data.error || "Erreur lors du paiement, réessaie.");
         setLoading("");

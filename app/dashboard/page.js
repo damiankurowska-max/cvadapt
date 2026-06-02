@@ -71,6 +71,10 @@ export default function Dashboard() {
 
   function handlePrint(content, title = "CV") {
     const win = window.open("", "_blank");
+    if (!win) {
+      alert("Impossible d'ouvrir le PDF. Autorise les pop-ups pour ce site dans ton navigateur.");
+      return;
+    }
     win.document.write(`<!DOCTYPE html><html><head><title>${title}</title><style>
       * { box-sizing: border-box; margin: 0; padding: 0; }
       body { font-family: Arial, sans-serif; background: white; }
