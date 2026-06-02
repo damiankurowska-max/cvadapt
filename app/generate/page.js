@@ -238,8 +238,14 @@ export default function Generate() {
       </div>` : '';
     win.document.write(`<!DOCTYPE html><html><head><title>${title}</title><style>
       * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: Arial, sans-serif; background: white; }
-      @media print { body { margin: 0; } @page { margin: 15mm; } }
+      html, body { background: white; }
+      body { display: flex; justify-content: center; padding: 0; }
+      @media screen { body { background: #e5e7eb; padding: 20px 0; } }
+      @media print {
+        html, body { background: white; padding: 0; display: block; }
+        body > div { box-shadow: none !important; margin: 0 !important; }
+        @page { margin: 0; size: A4; }
+      }
     </style></head><body>${content}${watermark}</body></html>`);
     win.document.close();
     setTimeout(() => win.print(), 500);
