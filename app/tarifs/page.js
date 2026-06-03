@@ -7,7 +7,7 @@ import CountdownBanner from "../components/CountdownBanner";
 const PLANS = {
   mensuel: {
     essentiel: { id: "essentiel",        prix: "4,99€",  prixSub: "/mois", economie: null,        badge: null },
-    pro:       { id: "pro",              prix: "14,99€", prixSub: "/mois", economie: null,        badge: null },
+    pro:       { id: "pro",              prix: "9,99€",  prixSub: "/mois", economie: null,        badge: null },
   },
   annuel: {
     essentiel: { id: "essentiel_annuel", prix: "3,33€",  prixSub: "/mois", economie: "39,99€/an",  badge: "-33%" },
