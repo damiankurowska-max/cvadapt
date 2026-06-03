@@ -148,7 +148,8 @@ function PlanCard({ plan }) {
 
 export default function TarifsEtablissements() {
   return (
-    <main style={{ minHeight: "100vh", background: "#f8faff", fontFamily: "var(--font-outfit, system-ui, sans-serif)" }}>
+    <main style={{ minHeight: "100vh", background: "#f8faff", fontFamily: "var(--font-outfit, system-ui, sans-serif)", colorScheme: "light" }}>
+      <style>{`html,body{background:#f8faff!important;color-scheme:light}`}</style>
 
       {/* Header */}
       <header style={{ background: "rgba(255,255,255,0.97)", backdropFilter: "blur(12px)", borderBottom: "1px solid #e8f0fe", position: "sticky", top: 0, zIndex: 50 }}>
@@ -254,6 +255,17 @@ export default function TarifsEtablissements() {
           </p>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer style={{ borderTop: "1px solid #e2e8f0", padding: "24px", textAlign: "center", background: "#f8faff" }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 10, flexWrap: "wrap" }}>
+          <a href="/" style={{ fontSize: 13, color: "#94a3b8", textDecoration: "none" }}>Accueil</a>
+          <a href="/tarifs" style={{ fontSize: 13, color: "#94a3b8", textDecoration: "none" }}>Tarifs étudiants</a>
+          <a href="/generate" style={{ fontSize: 13, color: "#94a3b8", textDecoration: "none" }}>Générer un CV</a>
+          <a href="/mentions-legales" style={{ fontSize: 13, color: "#94a3b8", textDecoration: "none" }}>Mentions légales</a>
+        </div>
+        <p style={{ fontSize: 12, color: "#cbd5e1" }}>© 2026 CVAdapt — Fait en France 🇫🇷</p>
+      </footer>
 
     </main>
   );
