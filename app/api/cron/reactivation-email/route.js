@@ -53,12 +53,12 @@ export async function GET(request) {
       return Response.json({ sent: 0, message: "Aucun contact à réactiver." });
     }
 
-    // Filtrer ceux créés autour de J-7
+    // Filtrer ceux créés autour de J+21 (après la promo J+14)
     const targets = contacts.filter((c) => {
       if (!c.createdAt) return false;
       const created = new Date(c.createdAt);
       const diff = (Date.now() - created.getTime()) / (1000 * 60 * 60 * 24);
-      return diff >= 6.5 && diff <= 7.5;
+      return diff >= 20.5 && diff <= 21.5;
     });
 
     if (targets.length === 0) {

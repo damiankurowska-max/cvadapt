@@ -43,6 +43,11 @@ export async function GET(request) {
         from: "Damian de CVAdapt <contact@cvadapt.eu>",
         to: contact.email,
         subject: "Ça fait 2 semaines — une offre pour toi",
+        headers: {
+          "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+          "X-Entity-Ref-ID": `cron-j14-${contact.email}-${new Date().toISOString().split("T")[0]}`,
+        },
         html: `
           <div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;color:#111;line-height:1.6">
             <p>Bonjour ${firstName},</p>
@@ -69,7 +74,7 @@ export async function GET(request) {
 
             <p style="color:#888;font-size:13px">
               Tu reçois cet email car tu as créé un compte sur cvadapt.eu.<br/>
-              <a href="https://cvadapt.eu/unsubscribe?email=${contact.email}" style="color:#888">Se désabonner</a>
+              <a href="mailto:contact@cvadapt.eu?subject=unsubscribe" style="color:#888">Se désabonner</a>
             </p>
           </div>
         `,
