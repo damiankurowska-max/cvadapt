@@ -227,6 +227,45 @@ export default function Tarifs() {
           <p className="text-blue-600 text-sm font-semibold">🎓 Remise de 50% disponible sur justificatif étudiant — <a href="mailto:contact@cvadapt.eu" className="underline">contact@cvadapt.eu</a></p>
         </div>
 
+        {/* Bloc établissements */}
+        <div style={{ margin: "56px 0 0", background: "linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%)", border: "1px solid #c7d2fe", borderRadius: 20, padding: "36px 32px" }}>
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
+            <div style={{ flex: 1, minWidth: 260 }}>
+              <div style={{ display: "inline-block", background: "#dbeafe", color: "#1d4ed8", fontSize: 11, fontWeight: 800, padding: "3px 12px", borderRadius: 980, letterSpacing: "0.08em", marginBottom: 12, textTransform: "uppercase" }}>
+                Établissements
+              </div>
+              <h3 style={{ fontSize: 22, fontWeight: 800, color: "#1e3a8a", marginBottom: 8, letterSpacing: "-0.02em" }}>
+                CVAdapt pour vos étudiants
+              </h3>
+              <p style={{ fontSize: 14, color: "#475569", lineHeight: 1.6, marginBottom: 16 }}>
+                Offrez un accès collectif à toute une promo. Lien d'invitation, dashboard admin et statistiques inclus.
+              </p>
+              <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+                {[
+                  { label: "Essentiel", price: "299€/an", quota: "50 CV/mois" },
+                  { label: "Starter",   price: "599€/an", quota: "200 CV/mois" },
+                  { label: "Pro",       price: "990€/an", quota: "500 CV/mois" },
+                  { label: "Campus",    price: "1 990€/an", quota: "Illimité" },
+                ].map(p => (
+                  <div key={p.label} style={{ textAlign: "center", minWidth: 80 }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>{p.label}</div>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: "#1e3a8a" }}>{p.price}</div>
+                    <div style={{ fontSize: 11, color: "#94a3b8" }}>{p.quota}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, justifyContent: "center" }}>
+              <a href="/tarifs-etablissements" style={{ display: "inline-block", background: "#1d4ed8", color: "#fff", fontWeight: 700, fontSize: 14, padding: "13px 28px", borderRadius: 10, textDecoration: "none", whiteSpace: "nowrap" }}>
+                Voir les offres établissements →
+              </a>
+              <a href="mailto:contact@cvadapt.eu?subject=Devis CVAdapt Établissement" style={{ fontSize: 13, color: "#6b7280", textDecoration: "none" }}>
+                Demander un devis par email
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* FAQ */}
         <div className="mt-20">
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">Questions fréquentes</h2>
