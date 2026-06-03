@@ -1,9 +1,9 @@
 /**
  * GET /api/institution/setup-me
- * Crée l'établissement demo pour l'utilisateur connecté.
- * Route temporaire — à désactiver après usage.
+ * Crée l'établissement demo — lookup Clerk par email côté serveur.
+ * Protégé par ADMIN_SECRET.
  */
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
 import { createInstitution, getUserInstitution, joinInstitution } from "@/lib/supabase";
 
 const SETUP_SECRET = process.env.ADMIN_SECRET;
@@ -16,22 +16,27 @@ export async function GET(request) {
     return Response.json({ error: "Non autorisé." }, { status: 401 });
   }
 
-  const { userId } = await auth();
-  if (!userId) {
-    return Response.json({ error: "Connecte-toi d'abord sur cvadapt.eu" }, { status: 401 });
+  const adminEmail = searchParams.get("email") || "damiankurowska@icloud.com";
+  const name  = searchParams.get("name")  || "BTS Montaigne Bordeaux";
+  const slug  = searchParams.get("slug")  || "bts-montaigne-bordeaux";
+  const plan  = searchParams.get("plan")  || "starter";
+
+  // Lookup Clerk user by email (côté serveur, pas besoin de session)
+  let adminUserId;
+  try {
+    const clerk = await clerkClient();
+    const { data: users } = await clerk.users.getUserList({ emailAddress: [adminEmail] });
+    if (!users || users.length === 0) {
+      return Response.json({ error: `Aucun compte Clerk trouvé pour ${adminEmail}` }, { status: 404 });
+    }
+    adminUserId = users[0].id;
+  } catch (err) {
+    return Response.json({ error: `Erreur Clerk: ${err.message}` }, { status: 500 });
   }
 
-  const user = await currentUser();
-  const adminEmail = user?.emailAddresses?.[0]?.emailAddress || "";
-
-  // Récupère les paramètres ou utilise les valeurs par défaut
-  const name = searchParams.get("name") || "BTS Montaigne Bordeaux";
-  const slug = searchParams.get("slug") || "bts-montaigne-bordeaux";
-  const plan = searchParams.get("plan") || "starter";
-
   try {
-    // Vérifie si l'institution existe déjà
-    const existing = await getUserInstitution(userId);
+    // Vérifie si déjà créé
+    const existing = await getUserInstitution(adminUserId);
     if (existing) {
       return Response.json({
         message: "Établissement déjà existant.",
@@ -42,26 +47,22 @@ export async function GET(request) {
     }
 
     const institution = await createInstitution({
-      name,
-      slug,
-      type: "bts",
-      plan,
-      adminUserId: userId,
-      adminEmail,
+      name, slug, type: "bts", plan,
+      adminUserId, adminEmail,
     });
 
-    // Rattache l'admin comme membre aussi
-    await joinInstitution(institution.id, userId, adminEmail);
+    await joinInstitution(institution.id, adminUserId, adminEmail);
 
     return Response.json({
       success: true,
+      adminUserId,
       institution,
       dashboard: "https://cvadapt.eu/institution/dashboard",
       inviteLink: `https://cvadapt.eu/join/${slug}`,
     });
   } catch (err) {
     if (err.code === "23505") {
-      return Response.json({ error: `Le slug "${slug}" est déjà pris. Ajoute ?slug=autre-nom dans l'URL.` }, { status: 409 });
+      return Response.json({ error: `Slug "${slug}" déjà pris.` }, { status: 409 });
     }
     return Response.json({ error: err.message }, { status: 500 });
   }
