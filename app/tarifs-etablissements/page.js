@@ -10,137 +10,137 @@ const PLANS = [
     name: "Essentiel",
     price: "800",
     quota: "150 CV/mois",
-    desc: "Idéal pour une classe ou une section",
-    color: "#6b7280",
-    features: [
-      "150 CV générés/mois",
-      "Lien d'invitation unique",
-      "Dashboard admin",
-      "Score ATS inclus",
-      "Support email",
-    ],
-    cta: "Demander un devis",
+    target: "1 classe · 1 section",
+    color: "#4f46e5",
+    bg: "#f5f3ff",
+    borderColor: "#c7d2fe",
+    features: ["150 CV optimisés/mois", "Lien d'invitation unique", "Dashboard admin", "Score ATS inclus", "Support email"],
     highlight: false,
   },
   {
     name: "Starter",
     price: "990",
     quota: "300 CV/mois",
-    desc: "Pour un BTS ou une filière complète",
+    target: "BTS · Filière complète",
     color: "#1d4ed8",
-    features: [
-      "300 CV générés/mois",
-      "Lien d'invitation unique",
-      "Dashboard admin + stats",
-      "Score ATS + recommandations",
-      "Lettre de motivation incluse",
-      "Support prioritaire",
-    ],
-    cta: "Demander un devis",
+    bg: "#1e3a8a",
+    borderColor: "transparent",
+    features: ["300 CV optimisés/mois", "Lien d'invitation unique", "Dashboard admin + stats", "Score ATS + recommandations", "Lettre de motivation incluse", "Support prioritaire"],
     highlight: true,
   },
   {
     name: "Pro",
     price: "1 990",
     quota: "1 000 CV/mois",
-    desc: "Pour un lycée ou un département",
+    target: "Lycée · Département",
     color: "#7c3aed",
-    features: [
-      "1 000 CV générés/mois",
-      "Plusieurs promotions",
-      "Dashboard admin avancé",
-      "Statistiques détaillées",
-      "Score ATS + recommandations",
-      "Lettre de motivation incluse",
-      "Support dédié",
-    ],
-    cta: "Demander un devis",
+    bg: "#faf5ff",
+    borderColor: "#ddd6fe",
+    features: ["1 000 CV optimisés/mois", "Plusieurs promotions", "Dashboard avancé", "Statistiques détaillées", "Score ATS + recommandations", "Lettre de motivation incluse", "Support dédié"],
     highlight: false,
   },
   {
     name: "Campus",
     price: "3 990",
     quota: "Illimité",
-    desc: "Pour une université ou un grand campus",
+    target: "Université · Grand campus",
     color: "#059669",
-    features: [
-      "CV illimités",
-      "Toutes les filières",
-      "Dashboard multi-admin",
-      "Rapports d'insertion mensuel",
-      "Score ATS + recommandations",
-      "Lettre de motivation incluse",
-      "Account manager dédié",
-      "Facturation annuelle",
-    ],
-    cta: "Nous contacter",
+    bg: "#f0fdf4",
+    borderColor: "#a7f3d0",
+    features: ["CV illimités", "Toutes les filières", "Dashboard multi-admin", "Rapports insertion mensuels", "Score ATS + recommandations", "Lettre de motivation incluse", "Account manager dédié"],
     highlight: false,
   },
 ];
 
+const STEPS = [
+  { n: "1", t: "Devis en 24h", d: "Envoyez un email — on répond avec un devis PDF." },
+  { n: "2", t: "Activation immédiate", d: "Après signature, votre lien d'invitation est actif le jour même." },
+  { n: "3", t: "Partagez le lien", d: "ENT, WhatsApp, email — les étudiants rejoignent en 30 secondes." },
+  { n: "4", t: "Suivez les stats", d: "CV générés, score ATS moyen, étudiants inscrits." },
+];
+
+function Check({ color }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}>
+      <circle cx="8" cy="8" r="8" fill={color} fillOpacity="0.12" />
+      <path d="M5 8l2 2 4-4" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function PlanCard({ plan }) {
+  const isDark = plan.highlight;
+  const textPrimary = isDark ? "#fff" : "#1e3a8a";
+  const textSecondary = isDark ? "rgba(255,255,255,0.65)" : "#6b7280";
+  const textFeature = isDark ? "rgba(255,255,255,0.9)" : "#374151";
+  const checkColor = isDark ? "#93c5fd" : plan.color;
+
   return (
     <div style={{
-      background: plan.highlight ? "#1e3a8a" : "#fff",
-      border: `1px solid ${plan.highlight ? "transparent" : "#e0ecff"}`,
-      borderRadius: 20,
-      padding: "36px 28px",
+      background: isDark ? plan.bg : "#fff",
+      border: `1px solid ${plan.borderColor}`,
+      borderRadius: 18,
+      padding: "32px 26px 28px",
       flex: 1,
-      minWidth: 240,
-      maxWidth: 300,
+      minWidth: 220,
+      maxWidth: 272,
       position: "relative",
-      boxShadow: plan.highlight ? "0 8px 40px rgba(29,78,216,0.25)" : "none",
+      boxShadow: isDark ? "0 12px 48px rgba(29,78,216,0.28)" : "0 1px 3px rgba(0,0,0,0.05)",
+      display: "flex",
+      flexDirection: "column",
     }}>
-      {plan.highlight && (
+      {isDark && (
         <div style={{
-          position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)",
-          background: "#2563eb", color: "#fff", fontSize: 11, fontWeight: 800,
-          padding: "4px 14px", borderRadius: 980, letterSpacing: "0.08em",
+          position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)",
+          background: "linear-gradient(90deg, #3b82f6, #6366f1)",
+          color: "#fff", fontSize: 10, fontWeight: 800,
+          padding: "4px 16px", borderRadius: 980, letterSpacing: "0.1em",
           whiteSpace: "nowrap", textTransform: "uppercase",
         }}>
           Le plus choisi
         </div>
       )}
 
-      <div style={{ fontSize: 12, fontWeight: 700, color: plan.highlight ? "rgba(255,255,255,0.6)" : plan.color, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>
+      {/* Plan name */}
+      <div style={{ fontSize: 11, fontWeight: 800, color: isDark ? "rgba(255,255,255,0.5)" : plan.color, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 12 }}>
         {plan.name}
       </div>
 
-      <div style={{ display: "flex", alignItems: "flex-end", gap: 4, marginBottom: 4 }}>
-        <span style={{ fontSize: 42, fontWeight: 800, color: plan.highlight ? "#fff" : "#1e3a8a", lineHeight: 1 }}>{plan.price}€</span>
-        <span style={{ fontSize: 13, color: plan.highlight ? "rgba(255,255,255,0.6)" : "#9ca3af", marginBottom: 6 }}>/an HT</span>
+      {/* Price */}
+      <div style={{ marginBottom: 4 }}>
+        <span style={{ fontSize: 44, fontWeight: 800, color: textPrimary, lineHeight: 1, letterSpacing: "-1px" }}>{plan.price}€</span>
+        <span style={{ fontSize: 13, color: textSecondary, marginLeft: 4 }}>/an HT</span>
       </div>
 
-      <div style={{ fontSize: 12, color: plan.highlight ? "rgba(255,255,255,0.5)" : "#9ca3af", marginBottom: 6 }}>
-        {plan.quota}
+      {/* Quota + target */}
+      <div style={{ fontSize: 13, fontWeight: 600, color: isDark ? "#93c5fd" : plan.color, marginBottom: 4 }}>{plan.quota}</div>
+      <div style={{ fontSize: 12, color: textSecondary, marginBottom: 24, paddingBottom: 20, borderBottom: `1px solid ${isDark ? "rgba(255,255,255,0.12)" : "#f1f5f9"}` }}>
+        {plan.target}
       </div>
 
-      <p style={{ fontSize: 13, color: plan.highlight ? "rgba(255,255,255,0.7)" : "#6b7280", marginBottom: 24, lineHeight: 1.5 }}>
-        {plan.desc}
-      </p>
-
-      <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: 10 }}>
+      {/* Features */}
+      <ul style={{ listStyle: "none", padding: 0, margin: "0 0 auto", display: "flex", flexDirection: "column", gap: 11 }}>
         {plan.features.map((f, i) => (
-          <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 13, color: plan.highlight ? "rgba(255,255,255,0.85)" : "#374151" }}>
-            <span style={{ color: plan.highlight ? "#60a5fa" : plan.color, flexShrink: 0, marginTop: 1 }}>✓</span>
+          <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 9, fontSize: 13, color: textFeature, lineHeight: 1.4 }}>
+            <Check color={checkColor} />
             {f}
           </li>
         ))}
       </ul>
 
+      {/* CTA */}
       <a
-        href={`mailto:contact@cvadapt.eu?subject=Demande devis CVAdapt ${plan.name}&body=Bonjour, je souhaite un devis pour le plan ${plan.name} (${plan.price}€/an) pour notre établissement.`}
+        href={`mailto:contact@cvadapt.eu?subject=Devis CVAdapt ${plan.name} — ${plan.price}€/an&body=Bonjour,%0A%0AJe souhaite un devis pour le plan ${plan.name} (${plan.price}€/an HT).%0A%0AÉtablissement :%0ANombre d'étudiants :%0AContact :%0A%0AMerci`}
         style={{
-          display: "block", textAlign: "center",
-          background: plan.highlight ? "#fff" : plan.color,
-          color: plan.highlight ? "#1e3a8a" : "#fff",
+          display: "block", textAlign: "center", marginTop: 28,
+          background: isDark ? "#fff" : plan.color,
+          color: isDark ? "#1e3a8a" : "#fff",
           fontWeight: 700, fontSize: 14,
-          padding: "13px 20px", borderRadius: 12,
+          padding: "13px 20px", borderRadius: 10,
           textDecoration: "none",
-          transition: "opacity 0.15s",
         }}
       >
-        {plan.cta} →
+        Demander un devis →
       </a>
     </div>
   );
@@ -148,82 +148,111 @@ function PlanCard({ plan }) {
 
 export default function TarifsEtablissements() {
   return (
-    <main style={{ minHeight: "100vh", background: "#f0f7ff", fontFamily: "var(--font-outfit, system-ui, sans-serif)" }}>
+    <main style={{ minHeight: "100vh", background: "#f8faff", fontFamily: "var(--font-outfit, system-ui, sans-serif)" }}>
 
       {/* Header */}
-      <header style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid #e0ecff", position: "sticky", top: 0, zIndex: 50 }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <header style={{ background: "rgba(255,255,255,0.97)", backdropFilter: "blur(12px)", borderBottom: "1px solid #e8f0fe", position: "sticky", top: 0, zIndex: 50 }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto", padding: "0 24px", height: 58, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <a href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-            <Logo size={26} />
-            <span style={{ fontWeight: 700, fontSize: 15, color: "#1d4ed8" }}>CVAdapt</span>
+            <Logo size={28} />
+            <span style={{ fontWeight: 700, fontSize: 16, color: "#1d4ed8" }}>CVAdapt</span>
           </a>
-          <a href="mailto:contact@cvadapt.eu" style={{ fontSize: 13, color: "#1d4ed8", fontWeight: 600 }}>
-            contact@cvadapt.eu
-          </a>
+          <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+            <a href="/tarifs" style={{ fontSize: 13, color: "#6b7280", textDecoration: "none", fontWeight: 500 }}>Tarifs étudiants</a>
+            <a href="mailto:contact@cvadapt.eu?subject=Demande renseignements établissement"
+              style={{ background: "#1d4ed8", color: "#fff", fontWeight: 700, fontSize: 13, padding: "8px 18px", borderRadius: 8, textDecoration: "none" }}>
+              Nous contacter
+            </a>
+          </div>
         </div>
       </header>
 
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px 80px" }}>
-
-        {/* Hero */}
-        <div style={{ textAlign: "center", marginBottom: 64 }}>
-          <div style={{ display: "inline-block", background: "#dbeafe", color: "#1d4ed8", fontSize: 12, fontWeight: 700, padding: "5px 14px", borderRadius: 980, letterSpacing: "0.06em", marginBottom: 20 }}>
-            ÉTABLISSEMENTS
-          </div>
-          <h1 style={{ fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 800, color: "#1e3a8a", letterSpacing: "-0.5px", marginBottom: 16, lineHeight: 1.15 }}>
-            Offrez CVAdapt à vos étudiants
-          </h1>
-          <p style={{ fontSize: 18, color: "#6b7280", maxWidth: 600, margin: "0 auto 12px", lineHeight: 1.6 }}>
-            Un lien d'invitation, un dashboard admin, des stats d'insertion. Vos étudiants génèrent des CV optimisés ATS dès le premier jour.
-          </p>
-          <p style={{ fontSize: 14, color: "#9ca3af" }}>
-            BTS · Lycées professionnels · IUT · Universités · Écoles de commerce
-          </p>
+      {/* Hero */}
+      <section style={{ maxWidth: 760, margin: "0 auto", padding: "72px 24px 56px", textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#eff6ff", border: "1px solid #bfdbfe", color: "#1d4ed8", fontSize: 12, fontWeight: 700, padding: "5px 14px", borderRadius: 980, letterSpacing: "0.06em", marginBottom: 24 }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          POUR LES ÉTABLISSEMENTS
         </div>
+        <h1 style={{ fontSize: "clamp(30px, 5vw, 52px)", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.03em", marginBottom: 18, lineHeight: 1.1, textWrap: "balance" }}>
+          Donnez à vos étudiants<br />un avantage réel sur le marché
+        </h1>
+        <p style={{ fontSize: 17, color: "#475569", maxWidth: 540, margin: "0 auto 14px", lineHeight: 1.65 }}>
+          CVAdapt génère des CV optimisés pour les filtres ATS en 30 secondes. Un lien d'invitation, un dashboard admin, des statistiques d'insertion.
+        </p>
+        <p style={{ fontSize: 13, color: "#94a3b8", letterSpacing: "0.02em" }}>
+          BTS · Lycées Pro · IUT · Universités · Écoles de commerce
+        </p>
+      </section>
 
-        {/* Plans */}
-        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center", marginBottom: 64 }}>
+      {/* Plans grid */}
+      <section style={{ maxWidth: 1140, margin: "0 auto", padding: "0 20px 72px" }}>
+        <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start" }}>
           {PLANS.map(plan => <PlanCard key={plan.name} plan={plan} />)}
         </div>
+        <p style={{ textAlign: "center", fontSize: 12, color: "#94a3b8", marginTop: 20 }}>
+          Tous les prix sont HT · Facturation annuelle · Résiliation libre à chaque renouvellement
+        </p>
+      </section>
 
-        {/* How it works */}
-        <div style={{ background: "#fff", border: "1px solid #e0ecff", borderRadius: 20, padding: "40px 48px", marginBottom: 40 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 800, color: "#1e3a8a", marginBottom: 32, textAlign: "center" }}>
-            Déploiement en 24h
+      {/* How it works */}
+      <section style={{ background: "#fff", borderTop: "1px solid #e8f0fe", borderBottom: "1px solid #e8f0fe", padding: "56px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <h2 style={{ fontSize: 24, fontWeight: 800, color: "#0f172a", marginBottom: 8, textAlign: "center" }}>
+            De la signature à l'activation en 24h
           </h2>
-          <div style={{ display: "flex", gap: 32, flexWrap: "wrap", justifyContent: "center" }}>
-            {[
-              { n: "1", t: "Vous signez", d: "Devis par email, paiement sécurisé. Activation immédiate." },
-              { n: "2", t: "Lien d'invitation", d: "Un lien unique à partager sur votre intranet, ENT ou groupe WhatsApp." },
-              { n: "3", t: "Vos étudiants s'inscrivent", d: "Compte gratuit en 30 secondes. Rattachement automatique à votre établissement." },
-              { n: "4", t: "Vous suivez les stats", d: "Dashboard admin : membres inscrits, CV générés, score ATS moyen." },
-            ].map(s => (
-              <div key={s.n} style={{ flex: 1, minWidth: 180, maxWidth: 220, textAlign: "center" }}>
-                <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#dbeafe", color: "#1d4ed8", fontWeight: 800, fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px" }}>
+          <p style={{ fontSize: 14, color: "#64748b", textAlign: "center", marginBottom: 48 }}>Pas de tunnel d'onboarding complexe. Juste un lien et un dashboard.</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 32 }}>
+            {STEPS.map(s => (
+              <div key={s.n} style={{ textAlign: "center" }}>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: "#eff6ff", color: "#1d4ed8", fontWeight: 800, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 14px" }}>
                   {s.n}
                 </div>
-                <div style={{ fontWeight: 700, fontSize: 15, color: "#1e3a8a", marginBottom: 6 }}>{s.t}</div>
-                <div style={{ fontSize: 13, color: "#6b7280", lineHeight: 1.5 }}>{s.d}</div>
+                <div style={{ fontWeight: 700, fontSize: 15, color: "#0f172a", marginBottom: 6 }}>{s.t}</div>
+                <div style={{ fontSize: 13, color: "#64748b", lineHeight: 1.55 }}>{s.d}</div>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* CTA */}
-        <div style={{ background: "#1e3a8a", borderRadius: 20, padding: "40px 48px", textAlign: "center", color: "#fff" }}>
-          <h2 style={{ fontSize: 24, fontWeight: 800, marginBottom: 10 }}>Une question ? Un devis ?</h2>
-          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.7)", marginBottom: 24 }}>
-            Réponse sous 24h. Pas de contrat long terme, résiliation possible chaque année.
+      {/* Social proof */}
+      <section style={{ maxWidth: 900, margin: "0 auto", padding: "48px 24px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
+          {[
+            { stat: "75%", label: "des CV rejetés sans être lus par un humain" },
+            { stat: "30s", label: "pour générer un CV optimisé ATS" },
+            { stat: "+40%", label: "de taux d'entretien observé en moyenne" },
+            { stat: "4,8/5", label: "satisfaction utilisateurs (312 avis)" },
+          ].map(({ stat, label }) => (
+            <div key={stat} style={{ background: "#fff", border: "1px solid #e8f0fe", borderRadius: 14, padding: "24px 20px", textAlign: "center" }}>
+              <div style={{ fontSize: 32, fontWeight: 800, color: "#1d4ed8", letterSpacing: "-0.03em", marginBottom: 6 }}>{stat}</div>
+              <div style={{ fontSize: 13, color: "#64748b", lineHeight: 1.4 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA final */}
+      <section style={{ maxWidth: 700, margin: "0 auto 80px", padding: "0 24px" }}>
+        <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%)", borderRadius: 20, padding: "44px 48px", textAlign: "center" }}>
+          <h2 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 10, letterSpacing: "-0.02em" }}>
+            Un devis en moins de 24h
+          </h2>
+          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.72)", marginBottom: 28, lineHeight: 1.6 }}>
+            Dites-nous le nom de votre établissement et le nombre d'étudiants. On s'occupe du reste.
           </p>
           <a
-            href="mailto:contact@cvadapt.eu?subject=Demande renseignements CVAdapt Établissement"
-            style={{ display: "inline-block", background: "#fff", color: "#1e3a8a", fontWeight: 700, fontSize: 15, padding: "14px 32px", borderRadius: 12, textDecoration: "none" }}
+            href="mailto:contact@cvadapt.eu?subject=Demande devis CVAdapt Établissement&body=Bonjour,%0A%0AJe souhaite un devis pour CVAdapt pour notre établissement.%0A%0AÉtablissement :%0AType (BTS / lycée / IUT / université) :%0ANombre d'étudiants :%0ABudget indicatif :%0AContact :%0A%0AMerci"
+            style={{ display: "inline-block", background: "#fff", color: "#1e3a8a", fontWeight: 700, fontSize: 15, padding: "14px 32px", borderRadius: 10, textDecoration: "none" }}
           >
-            Écrire à contact@cvadapt.eu →
+            contact@cvadapt.eu →
           </a>
+          <p style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", marginTop: 16 }}>
+            Réponse garantie sous 24h · Aucun engagement avant signature
+          </p>
         </div>
+      </section>
 
-      </div>
     </main>
   );
 }
