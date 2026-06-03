@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
 import CountdownBanner from "./components/CountdownBanner";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 function getDynamicStats() {
   return { users: 4200, dailyCVs: 87 };
@@ -143,55 +144,57 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Mockup Score ATS */}
-        <div className="mt-14 flex justify-center">
-          <div className="w-full max-w-sm bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden text-left">
-            <div className="bg-gray-50 px-4 py-2.5 flex items-center gap-1.5 border-b border-gray-100">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-400 inline-block" />
-              <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 inline-block" />
-              <span className="w-2.5 h-2.5 rounded-full bg-green-400 inline-block" />
-              <span className="ml-3 text-xs text-gray-400 bg-white border border-gray-200 rounded px-3 py-0.5">cvadapt.eu — Score ATS</span>
-            </div>
-            <div className="p-5">
-              <div className="flex items-center gap-4 mb-5">
-                <div className="relative w-16 h-16 shrink-0">
-                  <svg viewBox="0 0 100 100" width="64" height="64">
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f3f4f6" strokeWidth="12" />
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="#22c55e" strokeWidth="12"
-                      strokeDasharray={`${(91 / 100) * 251} 251`} strokeLinecap="round" transform="rotate(-90 50 50)" />
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center flex-col">
-                    <span className="text-sm font-extrabold text-green-600 leading-none">91</span>
-                    <span className="text-[8px] text-gray-400">/100</span>
+        {/* Mockup Score ATS — 3D scroll */}
+        <div className="mt-8 -mx-5">
+          <ContainerScroll>
+            <div className="text-left">
+              <div className="bg-gray-50 px-4 py-2.5 flex items-center gap-1.5 border-b border-gray-100">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-400 inline-block" />
+                <span className="ml-3 text-xs text-gray-400 bg-white border border-gray-200 rounded px-3 py-0.5">cvadapt.eu — Score ATS</span>
+              </div>
+              <div className="p-5">
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="relative w-16 h-16 shrink-0">
+                    <svg viewBox="0 0 100 100" width="64" height="64">
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#f3f4f6" strokeWidth="12" />
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#22c55e" strokeWidth="12"
+                        strokeDasharray={`${(91 / 100) * 251} 251`} strokeLinecap="round" transform="rotate(-90 50 50)" />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center flex-col">
+                      <span className="text-sm font-extrabold text-green-600 leading-none">91</span>
+                      <span className="text-[8px] text-gray-400">/100</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="font-bold text-gray-900 text-sm">Score ATS : Excellent</p>
+                    <p className="text-xs text-gray-400 mt-0.5">Optimisé pour cette offre</p>
+                    <span className="inline-block mt-1 bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">+57 points ↑</span>
                   </div>
                 </div>
-                <div>
-                  <p className="font-bold text-gray-900 text-sm">Score ATS : Excellent</p>
-                  <p className="text-xs text-gray-400 mt-0.5">Optimisé pour cette offre</p>
-                  <span className="inline-block mt-1 bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">+57 points ↑</span>
+                {[
+                  { label: "Mots-clés", pct: 94, color: "#22c55e" },
+                  { label: "Structure", pct: 88, color: "#3b82f6" },
+                  { label: "Lisibilité", pct: 91, color: "#8b5cf6" },
+                ].map(({ label, pct, color }) => (
+                  <div key={label} className="mb-2.5">
+                    <div className="flex justify-between text-xs mb-1">
+                      <span className="text-gray-600 font-medium">{label}</span>
+                      <span className="font-bold" style={{ color }}>{pct}%</span>
+                    </div>
+                    <div className="bg-gray-100 rounded-full h-1.5">
+                      <div style={{ width: `${pct}%`, background: color }} className="h-1.5 rounded-full" />
+                    </div>
+                  </div>
+                ))}
+                <div className="mt-4 bg-blue-600 text-white text-xs font-bold text-center py-2.5 rounded-xl opacity-60 select-none"
+                  style={{ pointerEvents: "none", cursor: "default" }}>
+                  ✓ CV PDF généré — Aperçu
                 </div>
               </div>
-              {[
-                { label: "Mots-clés", pct: 94, color: "#22c55e" },
-                { label: "Structure", pct: 88, color: "#3b82f6" },
-                { label: "Lisibilité", pct: 91, color: "#8b5cf6" },
-              ].map(({ label, pct, color }) => (
-                <div key={label} className="mb-2.5">
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-gray-600 font-medium">{label}</span>
-                    <span className="font-bold" style={{ color }}>{pct}%</span>
-                  </div>
-                  <div className="bg-gray-100 rounded-full h-1.5">
-                    <div style={{ width: `${pct}%`, background: color }} className="h-1.5 rounded-full" />
-                  </div>
-                </div>
-              ))}
-              <div className="mt-4 bg-blue-600 text-white text-xs font-bold text-center py-2.5 rounded-xl opacity-60 select-none"
-                style={{ pointerEvents: "none", cursor: "default" }}>
-                ✓ CV PDF généré — Aperçu
-              </div>
             </div>
-          </div>
+          </ContainerScroll>
         </div>
       </section>
 
