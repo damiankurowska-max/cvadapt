@@ -2,32 +2,18 @@
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "../components/Logo";
-import CountdownBanner from "../components/CountdownBanner";
-
-const PLANS = {
-  mensuel: {
-    essentiel: { id: "essentiel",        prix: "4,99€",  prixSub: "/mois", economie: null,        badge: null },
-    pro:       { id: "pro",              prix: "9,99€",  prixSub: "/mois", economie: null,        badge: null },
-  },
-  annuel: {
-    essentiel: { id: "essentiel_annuel", prix: "3,33€",  prixSub: "/mois", economie: "39,99€/an",  badge: "-33%" },
-    pro:       { id: "pro_annuel",       prix: "9,99€",  prixSub: "/mois", economie: "119,99€/an", badge: "-33%" },
-  },
-};
+import { Pricing } from "@/components/blocks/pricing";
 
 export default function Tarifs() {
-  const [loading, setLoading]   = useState("");
-  const [error, setError]       = useState("");
-  const [periode, setPeriode]   = useState("mensuel"); // "mensuel" | "annuel"
-
-  const plan = PLANS[periode];
+  const [loading, setLoading] = useState("");
+  const [error, setError]     = useState("");
 
   async function handleCheckout(planId) {
     setLoading(planId);
     setError("");
     try { window.clarity?.("event", `checkout_attempt_${planId}`); } catch {}
     try {
-      const res = await fetch("/api/create-checkout", {
+      const res  = await fetch("/api/create-checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plan: planId }),
@@ -36,13 +22,9 @@ export default function Tarifs() {
       if (data.url) {
         window.location.href = data.url;
       } else if (data.redirect) {
-        // Redirige vers sign-up sans redirect_url (évite les erreurs Clerk)
         window.location.href = data.redirect;
-      } else if (!res.ok) {
-        setError(data.error || `Erreur ${res.status} — réessaie dans quelques secondes.`);
-        setLoading("");
       } else {
-        setError(data.error || "Erreur lors du paiement, réessaie.");
+        setError(data.error || `Erreur ${res.status} — réessaie dans quelques secondes.`);
         setLoading("");
       }
     } catch {
@@ -51,256 +33,307 @@ export default function Tarifs() {
     }
   }
 
+  /** Plans CVAdapt — price / yearlyPrice en nombre (€/mois) */
+  const plans = [
+    {
+      name: "Gratuit",
+      price: 0,
+      yearlyPrice: 0,
+      period: "mois",
+      features: [
+        "3 CV au total",
+        "4 templates visuels",
+        "Téléchargement PDF",
+      ],
+      description: "Pour découvrir CVAdapt sans engagement.",
+      buttonText: "Commencer gratuitement",
+      href: "/generate",
+      isPopular: false,
+    },
+    {
+      name: "Étudiant",
+      price: 4.99,
+      yearlyPrice: 3.33,
+      period: "mois",
+      features: [
+        "15 CV par mois",
+        "Score ATS complet + recommandations",
+        "4 templates professionnels",
+        "Lettre de motivation incluse",
+        "Mots-clés détectés automatiquement",
+        "Support prioritaire",
+      ],
+      description: "Sans engagement · Annule quand tu veux.",
+      buttonText: "Choisir Étudiant →",
+      onAction: (billing) =>
+        handleCheckout(billing === "monthly" ? "essentiel" : "essentiel_annuel"),
+      isLoading: loading === "essentiel" || loading === "essentiel_annuel",
+      isPopular: true,
+    },
+    {
+      name: "Pro",
+      price: 9.99,
+      yearlyPrice: 7.99,
+      period: "mois",
+      features: [
+        "CV illimités",
+        "4 templates visuels",
+        "Lettre de motivation incluse",
+        "Téléchargement PDF",
+        "CV optimisés par IA",
+        "Conseils personnalisés",
+        "Support prioritaire",
+      ],
+      description: "Pour les candidatures intensives.",
+      buttonText: "Choisir Pro →",
+      onAction: (billing) =>
+        handleCheckout(billing === "monthly" ? "pro" : "pro_annuel"),
+      isLoading: loading === "pro" || loading === "pro_annuel",
+      isPopular: false,
+    },
+  ];
+
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white" style={{ colorScheme: "light" }}>
+      <style>{`html,body{background:#fff!important}`}</style>
+
       {/* Header */}
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
           <Logo size={30} />
           <span className="text-xl font-bold text-blue-600">CVAdapt</span>
         </Link>
-        <Link href="/generate" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+        <Link
+          href="/generate"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+        >
           Essayer gratuitement
         </Link>
       </header>
 
-      <div className="max-w-5xl mx-auto px-6 py-16">
+      {/* Hero titre */}
+      <div className="text-center pt-16 pb-2 px-6">
+        <h1 className="text-4xl font-bold text-gray-900 mb-3">
+          Des tarifs pensés pour les étudiants
+        </h1>
+        <p className="text-gray-500">
+          Sans engagement · Annule quand tu veux · 🎓 Remise étudiant disponible
+        </p>
+      </div>
 
-        {/* Titre */}
-        <div className="text-center mb-10">
-          <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">Tarifs</span>
-          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-3">Des tarifs pensés pour les étudiants</h1>
-          <p className="text-gray-500">Sans engagement · Annule quand tu veux · 🎓 Remise étudiant disponible</p>
-        </div>
+      {error && (
+        <p className="text-red-500 text-sm my-6 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-center max-w-md mx-auto">
+          {error}
+        </p>
+      )}
 
-        {/* Toggle mensuel / annuel */}
-        <div className="flex items-center justify-center gap-4 mb-12">
-          <button
-            onClick={() => setPeriode("mensuel")}
-            className={`text-sm font-semibold px-5 py-2 rounded-lg transition-colors ${
-              periode === "mensuel" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900"
-            }`}
+      {/* Composant pricing animé */}
+      <Pricing
+        plans={plans}
+        title=""
+        description=""
+      />
+
+      {/* Garantie */}
+      <div className="text-center space-y-2 px-6 pb-6 -mt-6">
+        <p className="text-gray-500 text-sm">
+          🔒 Paiement 100% sécurisé par Stripe · Annulation en 1 clic · Aucun engagement
+        </p>
+        <p className="text-blue-600 text-sm font-semibold">
+          🎓 Remise de 50% disponible sur justificatif étudiant —{" "}
+          <a href="mailto:contact@cvadapt.eu" className="underline">
+            contact@cvadapt.eu
+          </a>
+        </p>
+      </div>
+
+      {/* Bloc établissements */}
+      <div className="max-w-5xl mx-auto px-6 py-6">
+        <div
+          style={{
+            background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%)",
+            borderRadius: 24,
+            padding: "44px 40px",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute", top: -60, right: -60,
+              width: 240, height: 240, borderRadius: "50%",
+              background: "rgba(255,255,255,0.04)", pointerEvents: "none",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute", bottom: -40, left: -40,
+              width: 180, height: 180, borderRadius: "50%",
+              background: "rgba(255,255,255,0.03)", pointerEvents: "none",
+            }}
+          />
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: 32,
+            }}
           >
-            Mensuel
-          </button>
-          <button
-            onClick={() => setPeriode("annuel")}
-            className={`flex items-center gap-2 text-sm font-semibold px-5 py-2 rounded-lg transition-colors ${
-              periode === "annuel" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900"
-            }`}
-          >
-            Annuel
-            <span className="bg-green-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-              -33%
-            </span>
-          </button>
-        </div>
-
-        {error && (
-          <p className="text-red-500 text-sm mb-8 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-center max-w-md mx-auto">
-            {error}
-          </p>
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-
-          {/* Gratuit */}
-          <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-md transition-shadow">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Gratuit</p>
-            <div className="mb-1">
-              <span className="text-5xl font-extrabold text-gray-900">0€</span>
-            </div>
-            <p className="text-gray-400 text-sm mb-8">pour toujours</p>
-            <ul className="space-y-3 mb-10 flex-1">
-              {["3 CV au total", "4 templates visuels", "Téléchargement PDF"].map(f => (
-                <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
-                  <span className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-xs flex-shrink-0">✓</span>
-                  {f}
-                </li>
-              ))}
-              {["CV illimités", "Lettre de motivation", "Conseils personnalisés"].map(f => (
-                <li key={f} className="flex items-center gap-3 text-sm text-gray-300">
-                  <span className="w-5 h-5 rounded-full bg-gray-50 flex items-center justify-center text-gray-200 text-xs flex-shrink-0">✗</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <Link href="/generate" className="block text-center bg-gray-100 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-200 transition-colors text-sm">
-              Commencer gratuitement
-            </Link>
-          </div>
-
-          {/* Étudiant */}
-          <div className="rounded-2xl p-8 flex flex-col relative bg-gray-900 shadow-xl ring-1 ring-gray-800 md:-mt-4 md:-mb-4">
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full tracking-wide whitespace-nowrap">
-              LE PLUS POPULAIRE
-            </div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">Étudiant</p>
-            <div className="flex items-end gap-2 mb-1">
-              <span className="text-5xl font-extrabold text-white">{plan.essentiel.prix}</span>
-            </div>
-            <div className="flex items-center gap-2 mb-8">
-              <span className="text-gray-400 text-sm">{plan.essentiel.prixSub}</span>
-              {plan.essentiel.economie && (
-                <span className="text-xs font-bold text-green-400 bg-green-400/10 px-2 py-0.5 rounded-full">
-                  {plan.essentiel.economie} facturé
-                </span>
-              )}
-            </div>
-            <ul className="space-y-3 mb-10 flex-1">
-              {[
-                "15 CV par mois",
-                "Score ATS complet + recommandations",
-                "4 templates professionnels",
-                "Lettre de motivation incluse",
-                "Mots-clés détectés automatiquement",
-                "Support prioritaire",
-              ].map(f => (
-                <li key={f} className="flex items-center gap-3 text-sm text-gray-200">
-                  <span className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs flex-shrink-0">✓</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => handleCheckout(plan.essentiel.id)}
-              disabled={loading === plan.essentiel.id}
-              className="block w-full text-center bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-500 transition-colors text-sm disabled:opacity-50"
-            >
-              {loading === plan.essentiel.id ? "Chargement..." : "Choisir Étudiant →"}
-            </button>
-            {periode === "annuel" && (
-              <p className="text-center text-green-400 text-xs font-semibold mt-3">
-                Tu économises 19,89€ par an 🎉
-              </p>
-            )}
-          </div>
-
-          {/* Pro */}
-          <div className="rounded-2xl border border-gray-200 p-8 flex flex-col bg-white hover:shadow-md transition-shadow">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Pro</p>
-            <div className="flex items-end gap-2 mb-1">
-              <span className="text-5xl font-extrabold text-gray-900">{plan.pro.prix}</span>
-            </div>
-            <div className="flex items-center gap-2 mb-8">
-              <span className="text-gray-500 text-sm">{plan.pro.prixSub}</span>
-              {plan.pro.economie && (
-                <span className="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
-                  {plan.pro.economie} facturé
-                </span>
-              )}
-            </div>
-            <ul className="space-y-3 mb-10 flex-1">
-              {[
-                "CV illimités",
-                "4 templates visuels",
-                "Lettre de motivation incluse",
-                "Téléchargement PDF",
-                "CV optimisés par IA",
-                "Conseils Pro personnalisés",
-                "Support prioritaire",
-              ].map(f => (
-                <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
-                  <span className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 text-xs flex-shrink-0">✓</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => handleCheckout(plan.pro.id)}
-              disabled={loading === plan.pro.id}
-              className="block w-full text-center border-2 border-gray-900 text-gray-900 font-bold py-3 rounded-xl hover:bg-gray-900 hover:text-white transition-colors text-sm disabled:opacity-50"
-            >
-              {loading === plan.pro.id ? "Chargement..." : "Choisir Pro →"}
-            </button>
-            {periode === "annuel" && (
-              <p className="text-center text-green-600 text-xs font-semibold mt-3">
-                Tu économises 59,89€ par an 🎉
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Garantie */}
-        <div className="mt-12 text-center space-y-2">
-          <p className="text-gray-500 text-sm">🔒 Paiement 100% sécurisé par Stripe · Annulation en 1 clic · Aucun engagement</p>
-          <p className="text-blue-600 text-sm font-semibold">🎓 Remise de 50% disponible sur justificatif étudiant — <a href="mailto:contact@cvadapt.eu" className="underline">contact@cvadapt.eu</a></p>
-        </div>
-
-        {/* Bloc établissements */}
-        <div style={{ margin: "56px 0 0", background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%)", borderRadius: 24, padding: "44px 40px", position: "relative", overflow: "hidden" }}>
-          {/* Déco cercle */}
-          <div style={{ position: "absolute", top: -60, right: -60, width: 240, height: 240, borderRadius: "50%", background: "rgba(255,255,255,0.04)", pointerEvents: "none" }} />
-          <div style={{ position: "absolute", bottom: -40, left: -40, width: 180, height: 180, borderRadius: "50%", background: "rgba(255,255,255,0.03)", pointerEvents: "none" }} />
-
-          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 32 }}>
-            {/* Gauche */}
             <div style={{ flex: 1, minWidth: 280 }}>
-              <div style={{ display: "inline-block", background: "rgba(255,255,255,0.12)", color: "#93c5fd", fontSize: 11, fontWeight: 800, padding: "4px 12px", borderRadius: 980, letterSpacing: "0.1em", marginBottom: 14, textTransform: "uppercase" }}>
+              <div
+                style={{
+                  display: "inline-block",
+                  background: "rgba(255,255,255,0.12)",
+                  color: "#93c5fd",
+                  fontSize: 11,
+                  fontWeight: 800,
+                  padding: "4px 12px",
+                  borderRadius: 980,
+                  letterSpacing: "0.1em",
+                  marginBottom: 14,
+                  textTransform: "uppercase",
+                }}
+              >
                 🏫 Pour les établissements
               </div>
-              <h3 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 10, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+              <h3
+                style={{
+                  fontSize: 26, fontWeight: 800, color: "#fff",
+                  marginBottom: 10, letterSpacing: "-0.03em", lineHeight: 1.2,
+                }}
+              >
                 Offrez CVAdapt à toute votre promo
               </h3>
-              <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.65, marginBottom: 24, maxWidth: 420 }}>
-                Un lien, tous vos étudiants inscrits en 30 secondes. Dashboard admin, statistiques d'insertion et quota mensuel inclus. À partir de <strong style={{ color: "#fff" }}>299€/an.</strong>
+              <p
+                style={{
+                  fontSize: 14,
+                  color: "rgba(255,255,255,0.65)",
+                  lineHeight: 1.65,
+                  marginBottom: 24,
+                  maxWidth: 420,
+                }}
+              >
+                Un lien, tous vos étudiants inscrits en 30 secondes. Dashboard admin,
+                statistiques d'insertion et quota mensuel inclus. À partir de{" "}
+                <strong style={{ color: "#fff" }}>299€/an.</strong>
               </p>
-              {/* Prix mini */}
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {[
-                  { label: "Essentiel", price: "299€", sub: "50 CV/mois" },
-                  { label: "Starter",   price: "599€", sub: "200 CV/mois" },
-                  { label: "Pro",       price: "990€", sub: "500 CV/mois" },
+                  { label: "Essentiel", price: "299€",   sub: "50 CV/mois" },
+                  { label: "Starter",   price: "599€",   sub: "200 CV/mois" },
+                  { label: "Pro",       price: "990€",   sub: "500 CV/mois" },
                   { label: "Campus",    price: "1 990€", sub: "Illimité" },
-                ].map(p => (
-                  <div key={p.label} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 10, padding: "8px 14px", textAlign: "center", minWidth: 80 }}>
-                    <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 2 }}>{p.label}</div>
-                    <div style={{ fontSize: 15, fontWeight: 800, color: "#fff" }}>{p.price}<span style={{ fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>/an</span></div>
-                    <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", marginTop: 1 }}>{p.sub}</div>
+                ].map((p) => (
+                  <div
+                    key={p.label}
+                    style={{
+                      background: "rgba(255,255,255,0.08)",
+                      border: "1px solid rgba(255,255,255,0.12)",
+                      borderRadius: 10,
+                      padding: "8px 14px",
+                      textAlign: "center",
+                      minWidth: 80,
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: 10, fontWeight: 700,
+                        color: "rgba(255,255,255,0.45)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.08em",
+                        marginBottom: 2,
+                      }}
+                    >
+                      {p.label}
+                    </div>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: "#fff" }}>
+                      {p.price}
+                      <span style={{ fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>
+                        /an
+                      </span>
+                    </div>
+                    <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", marginTop: 1 }}>
+                      {p.sub}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* Droite — CTAs */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "stretch", minWidth: 200 }}>
-              <a href="/tarifs-etablissements"
-                style={{ display: "block", textAlign: "center", background: "#fff", color: "#1e3a8a", fontWeight: 800, fontSize: 15, padding: "14px 28px", borderRadius: 12, textDecoration: "none" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, minWidth: 200 }}>
+              <a
+                href="/tarifs-etablissements"
+                style={{
+                  display: "block", textAlign: "center",
+                  background: "#fff", color: "#1e3a8a",
+                  fontWeight: 800, fontSize: 15,
+                  padding: "14px 28px", borderRadius: 12, textDecoration: "none",
+                }}
+              >
                 Voir les offres →
               </a>
-              <a href="mailto:contact@cvadapt.eu?subject=Devis CVAdapt Établissement&body=Bonjour, je souhaite un devis pour mon établissement.%0AType :%0ANombre d'étudiants :%0AContact :"
-                style={{ display: "block", textAlign: "center", background: "rgba(255,255,255,0.1)", color: "#fff", fontWeight: 600, fontSize: 13, padding: "11px 20px", borderRadius: 10, textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)" }}>
+              <a
+                href="mailto:contact@cvadapt.eu?subject=Devis CVAdapt Établissement&body=Bonjour, je souhaite un devis pour mon établissement.%0AType :%0ANombre d'étudiants :%0AContact :"
+                style={{
+                  display: "block", textAlign: "center",
+                  background: "rgba(255,255,255,0.1)", color: "#fff",
+                  fontWeight: 600, fontSize: 13,
+                  padding: "11px 20px", borderRadius: 10,
+                  textDecoration: "none",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                }}
+              >
                 Demander un devis
               </a>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* FAQ */}
-        <div className="mt-20">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">Questions fréquentes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { q: "Puis-je annuler à tout moment ?",         r: "Oui, sans condition. Tu peux annuler depuis ton espace Stripe à tout moment, l'accès reste actif jusqu'à la fin de la période payée." },
-              { q: "L'offre annuelle est-elle remboursable ?", r: "Oui, sous 14 jours après l'achat (droit de rétractation légal français). Au-delà, l'accès reste actif jusqu'à la fin de l'année." },
-              { q: "La lettre de motivation est-elle incluse ?",r: "Oui, dans les plans Étudiant et Pro. Elle est générée automatiquement en même temps que ton CV, adaptée à l'offre d'emploi." },
-              { q: "Les CV générés m'appartiennent ?",         r: "Oui, à 100%. Tu peux télécharger, modifier et utiliser tes CV comme tu le souhaites, sans restriction." },
-            ].map((item) => (
-              <div key={item.q} className="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                <p className="font-semibold text-gray-900 mb-2">{item.q}</p>
-                <p className="text-gray-600 text-sm leading-relaxed">{item.r}</p>
-              </div>
-            ))}
-          </div>
+      {/* FAQ */}
+      <div className="max-w-5xl mx-auto px-6 pb-16 mt-10">
+        <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">
+          Questions fréquentes
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {[
+            {
+              q: "Puis-je annuler à tout moment ?",
+              r: "Oui, sans condition. Tu peux annuler depuis ton espace Stripe à tout moment, l'accès reste actif jusqu'à la fin de la période payée.",
+            },
+            {
+              q: "L'offre annuelle est-elle remboursable ?",
+              r: "Oui, sous 14 jours après l'achat (droit de rétractation légal français). Au-delà, l'accès reste actif jusqu'à la fin de l'année.",
+            },
+            {
+              q: "La lettre de motivation est-elle incluse ?",
+              r: "Oui, dans les plans Étudiant et Pro. Elle est générée automatiquement en même temps que ton CV, adaptée à l'offre d'emploi.",
+            },
+            {
+              q: "Les CV générés m'appartiennent ?",
+              r: "Oui, à 100%. Tu peux télécharger, modifier et utiliser tes CV comme tu le souhaites, sans restriction.",
+            },
+          ].map((item) => (
+            <div
+              key={item.q}
+              className="bg-gray-50 rounded-xl p-6 border border-gray-100"
+            >
+              <p className="font-semibold text-gray-900 mb-2">{item.q}</p>
+              <p className="text-gray-600 text-sm leading-relaxed">{item.r}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      <footer className="border-t border-gray-100 py-8 px-6 text-center text-sm text-gray-400 mt-16">
+      {/* Footer */}
+      <footer className="border-t border-gray-100 py-8 px-6 text-center text-sm text-gray-400">
         <div className="flex justify-center gap-6 mb-3">
-          <Link href="/"               className="hover:text-gray-600">Accueil</Link>
-          <Link href="/blog"           className="hover:text-gray-600">Blog</Link>
+          <Link href="/"                className="hover:text-gray-600">Accueil</Link>
+          <Link href="/blog"            className="hover:text-gray-600">Blog</Link>
           <Link href="/mentions-legales" className="hover:text-gray-600">Mentions légales</Link>
-          <Link href="/cgu"            className="hover:text-gray-600">CGU</Link>
+          <Link href="/cgu"             className="hover:text-gray-600">CGU</Link>
         </div>
         © 2025 CVAdapt — Fait en France 🇫🇷
       </footer>
