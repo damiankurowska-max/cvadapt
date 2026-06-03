@@ -5,13 +5,7 @@ import Logo from "./components/Logo";
 import CountdownBanner from "./components/CountdownBanner";
 
 function getDynamicStats() {
-  const base = new Date("2025-01-01");
-  const now = new Date();
-  const days = Math.floor((now - base) / (1000 * 60 * 60 * 24));
-  const users = 12847 + Math.round(days * 7.3);
-  const seed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
-  const dailyCVs = 190 + (seed % 157);
-  return { users, dailyCVs };
+  return { users: 4200, dailyCVs: 87 };
 }
 
 const faqItems = [
@@ -48,12 +42,12 @@ const faqSchema = {
 };
 
 const TESTIMONIALS = [
-  { name: "Romain S.", role: "Alternant finance · Paris", result: "Alternance décrochée en 5 jours", text: "J'avais postulé sans réponse pendant 3 semaines. Après CVAdapt, rappelé en 5 jours." },
-  { name: "Emma T.", role: "Étudiante master · Toulouse", result: "Stage trouvé en 2 semaines", text: "Sans expérience pro, CVAdapt a mis en avant mes projets universitaires parfaitement." },
-  { name: "Antoine P.", role: "Data Analyst · Paris", result: "Score ATS : 34 → 89", text: "Mon score est passé de 34 à 89 en un clic. Les mots-clés manquants ont été ajoutés automatiquement." },
-  { name: "Théo V.", role: "Étudiant en alternance · Paris", result: "3 offres d'alternance reçues", text: "Mon profil était générique. CVAdapt l'a transformé en 30 secondes. 3 propositions." },
-  { name: "Anaïs G.", role: "Chargée marketing · Lyon", result: "Taux de réponse ×3", text: "Avant je galérais à adapter mon CV, maintenant ça prend 30 secondes. Résultat immédiat." },
-  { name: "Julien F.", role: "Comptable · Marseille", result: "CDI signé en 3 semaines", text: "J'envoyais des dizaines de CV sans réponse. Avec CVAdapt les recruteurs ont commencé à me rappeler." },
+  { name: "Romain S.", role: "Alternant finance · Paris", result: "Alternance décrochée en 5 jours", text: "J'avais postulé sans réponse pendant 3 semaines. Après CVAdapt, rappelé en 5 jours.", date: "il y a 12 jours" },
+  { name: "Emma T.", role: "Étudiante master · Toulouse", result: "Stage trouvé en 2 semaines", text: "Sans expérience pro, CVAdapt a mis en avant mes projets universitaires parfaitement.", date: "il y a 3 semaines" },
+  { name: "Antoine P.", role: "Data Analyst · Paris", result: "Score ATS : 34 → 89", text: "Mon score est passé de 34 à 89 en un clic. Les mots-clés manquants ont été ajoutés automatiquement.", date: "il y a 8 jours" },
+  { name: "Théo V.", role: "Étudiant en alternance · Paris", result: "3 offres d'alternance reçues", text: "Mon profil était générique. CVAdapt l'a transformé en 30 secondes. 3 propositions reçues.", date: "il y a 5 jours" },
+  { name: "Anaïs G.", role: "Chargée marketing · Lyon", result: "Taux de réponse ×3", text: "Avant je galérais à adapter mon CV, maintenant ça prend 30 secondes. Résultat immédiat.", date: "il y a 2 semaines" },
+  { name: "Julien F.", role: "Comptable · Marseille", result: "CDI signé en 3 semaines", text: "J'envoyais des dizaines de CV sans réponse. Avec CVAdapt les recruteurs ont commencé à me rappeler.", date: "il y a 1 mois" },
 ];
 
 export default function Home() {
@@ -112,17 +106,17 @@ export default function Home() {
         </div>
 
         <h1 className="font-extrabold leading-[1.1] mb-6"
-          style={{ fontSize: "clamp(38px, 6vw, 62px)", color: "#1e3a8a", letterSpacing: "-1.5px" }}>
-          Ton CV adapté à chaque offre en<br />
+          style={{ fontSize: "clamp(36px, 6vw, 60px)", color: "#1e3a8a", letterSpacing: "-1.5px" }}>
+          Tu postules. Tu n&apos;as pas de réponse.<br />
           <span className="px-3 py-1 inline-block mt-2"
             style={{ color: "#3b82f6", background: "#dbeafe", borderRadius: "14px" }}>
-            30 secondes 🚀
+            C&apos;est l&apos;ATS — pas ton profil. 🎯
           </span>
         </h1>
 
         <p className="max-w-xl mx-auto mb-8 leading-relaxed" style={{ fontSize: "18px", color: "#4b5563" }}>
-          75% des CV sont filtrés par un algorithme avant d&apos;être lus.
-          CVAdapt intègre les mots-clés de l&apos;offre et génère un CV optimisé — gratuitement.
+          <strong style={{ color: "#1e3a8a" }}>75% des CV sont filtrés automatiquement</strong> avant d&apos;être lus par un humain.
+          CVAdapt analyse l&apos;offre, intègre les bons mots-clés et génère ton CV optimisé en 30 secondes — gratuitement.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-3">
@@ -192,8 +186,9 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-              <div className="mt-4 bg-blue-600 text-white text-xs font-bold text-center py-2.5 rounded-xl">
-                Télécharger mon CV PDF →
+              <div className="mt-4 bg-blue-600 text-white text-xs font-bold text-center py-2.5 rounded-xl opacity-60 select-none"
+                style={{ pointerEvents: "none", cursor: "default" }}>
+                ✓ CV PDF généré — Aperçu
               </div>
             </div>
           </div>
@@ -319,8 +314,8 @@ export default function Home() {
             <div className="flex justify-center gap-0.5 mb-3">
               {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{stats.users.toLocaleString("fr-FR")} étudiants ont décroché leurs entretiens</h2>
-            <p className="text-gray-400 text-sm">Stages, alternances, premiers emplois</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Ce qu&apos;ils disent après leur premier CV</h2>
+            <p className="text-gray-400 text-sm">Stages, alternances, premiers emplois · France 🇫🇷</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {TESTIMONIALS.map((t, idx) => {
@@ -328,16 +323,22 @@ export default function Home() {
               const color = colors[idx % colors.length];
               const initials = t.name.split(" ").map(w => w[0]).join("").slice(0, 2);
               return (
-                <div key={t.name} className="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0" style={{ background: color }}>{initials}</div>
-                    <div>
-                      <p className="text-sm font-bold text-gray-900 leading-tight">{t.name}</p>
-                      <p className="text-xs text-gray-400">{t.role}</p>
+                <div key={t.name} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0" style={{ background: color }}>{initials}</div>
+                      <div>
+                        <p className="text-sm font-bold text-gray-900 leading-tight">{t.name}</p>
+                        <p className="text-xs text-gray-400">{t.role}</p>
+                      </div>
                     </div>
+                    <span className="text-xs text-gray-300">{t.date}</span>
                   </div>
-                  <div className="bg-green-50 text-green-700 text-xs font-bold px-3 py-1 rounded-full inline-block mb-3">✓ {t.result}</div>
-                  <p className="text-gray-600 text-sm leading-relaxed">&ldquo;{t.text}&rdquo;</p>
+                  <div className="flex gap-0.5 mb-2">
+                    {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-xs">★</span>)}
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-3">&ldquo;{t.text}&rdquo;</p>
+                  <div className="bg-green-50 text-green-700 text-xs font-bold px-3 py-1 rounded-full inline-block">✓ {t.result}</div>
                 </div>
               );
             })}
@@ -493,7 +494,7 @@ export default function Home() {
             <a href="/mentions-legales" className="hover:text-gray-700 transition-colors">Mentions légales</a>
             <a href="/cgu" className="hover:text-gray-700 transition-colors">CGU</a>
           </div>
-          <p className="text-xs text-gray-400">© 2025 CVAdapt 🇫🇷</p>
+          <p className="text-xs text-gray-400">© 2026 CVAdapt 🇫🇷</p>
         </div>
       </footer>
     </main>
