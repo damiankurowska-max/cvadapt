@@ -3,7 +3,7 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { Resend } from "resend";
 import { upgradeReminderEmail } from "@/lib/email-templates";
 import { sanitizeInput } from "@/lib/rate-limit";
-import { saveCV } from "@/lib/supabase";
+import { saveCV, consumeInstitutionQuota } from "@/lib/supabase";
 
 // Skills appliqués : context-engineering · stop-slop · server-side-auth
 // const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }); — initialized per-request
@@ -127,7 +127,20 @@ export async function POST(request) {
     : 0;
 
   // ── 3. VÉRIFICATION DES LIMITES (côté serveur) ───────────────────────
-  if (!isPro) {
+  const institutionId = meta.institutionId || null;
+
+  if (institutionId) {
+    // Membre institution : quota géré au niveau de l'établissement
+    const { allowed, remaining } = await consumeInstitutionQuota(institutionId);
+    if (!allowed) {
+      return Response.json(
+        { error: "Le quota mensuel de ton établissement est atteint. Contacte ton responsable insertion.", code: "LIMIT_INSTITUTION" },
+        { status: 403 }
+      );
+    }
+    // On continue sans vérifier les limites personnelles
+    void remaining;
+  } else if (!isPro) {
     if (cvCount >= PLAN_LIMITS.free.max) {
       return Response.json(
         { error: "Limite gratuite atteinte (3 CV). Abonne-toi pour continuer.", code: "LIMIT_FREE" },
@@ -221,6 +234,7 @@ Génère le CV maintenant.`,
         offre,
         template,
         cvHtml: cv,
+        institutionId: institutionId || undefined,
       });
       savedId = saved?.id || null;
     } catch (dbErr) {
