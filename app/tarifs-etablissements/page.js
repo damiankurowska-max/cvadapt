@@ -174,14 +174,16 @@ export default function TarifsEtablissements() {
           POUR LES ÉTABLISSEMENTS
         </div>
         <h1 style={{ fontSize: "clamp(30px, 5vw, 52px)", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.03em", marginBottom: 18, lineHeight: 1.1, textWrap: "balance" }}>
-          Donnez à vos étudiants<br />un avantage réel sur le marché
+          75% des CV de vos étudiants<br />sont rejetés avant d'être lus
         </h1>
-        <p style={{ fontSize: 17, color: "#475569", maxWidth: 540, margin: "0 auto 14px", lineHeight: 1.65 }}>
-          CVAdapt génère des CV optimisés pour les filtres ATS en 30 secondes. Un lien d'invitation, un dashboard admin, des statistiques d'insertion.
+        <p style={{ fontSize: 17, color: "#475569", maxWidth: 580, margin: "0 auto 20px", lineHeight: 1.65 }}>
+          Les filtres ATS éliminent automatiquement les CV mal optimisés. CVAdapt corrige ça en 30 secondes — et vos étudiants décrochent plus d'entretiens.
         </p>
-        <p style={{ fontSize: 13, color: "#94a3b8", letterSpacing: "0.02em" }}>
-          BTS · Lycées Pro · IUT · Universités · Écoles de commerce
-        </p>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 8 }}>
+          {["BTS", "Lycées Pro", "IUT", "Universités", "Écoles de commerce"].map(t => (
+            <span key={t} style={{ background: "#fff", border: "1px solid #e2e8f0", color: "#475569", fontSize: 12, fontWeight: 600, padding: "4px 12px", borderRadius: 980 }}>{t}</span>
+          ))}
+        </div>
       </section>
 
       {/* Plans grid */}
@@ -219,10 +221,10 @@ export default function TarifsEtablissements() {
       <section style={{ maxWidth: 900, margin: "0 auto", padding: "48px 24px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
           {[
-            { stat: "75%", label: "des CV rejetés sans être lus par un humain" },
-            { stat: "30s", label: "pour générer un CV optimisé ATS" },
-            { stat: "+40%", label: "de taux d'entretien observé en moyenne" },
-            { stat: "4,8/5", label: "satisfaction utilisateurs (312 avis)" },
+            { stat: "75%", label: "des CV éliminés par les filtres ATS avant d'atteindre un recruteur" },
+            { stat: "30s", label: "pour générer un CV adapté à une offre, score ATS inclus" },
+            { stat: "+40%", label: "de taux d'entretien obtenu par les étudiants utilisant CVAdapt" },
+            { stat: "4,8/5", label: "satisfaction des étudiants utilisateurs (312 avis)" },
           ].map(({ stat, label }) => (
             <div key={stat} style={{ background: "#fff", border: "1px solid #e8f0fe", borderRadius: 14, padding: "24px 20px", textAlign: "center" }}>
               <div style={{ fontSize: 32, fontWeight: 800, color: "#1d4ed8", letterSpacing: "-0.03em", marginBottom: 6 }}>{stat}</div>
