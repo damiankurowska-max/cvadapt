@@ -228,39 +228,49 @@ export default function Tarifs() {
         </div>
 
         {/* Bloc établissements */}
-        <div style={{ margin: "56px 0 0", background: "linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%)", border: "1px solid #c7d2fe", borderRadius: 20, padding: "36px 32px" }}>
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
-            <div style={{ flex: 1, minWidth: 260 }}>
-              <div style={{ display: "inline-block", background: "#dbeafe", color: "#1d4ed8", fontSize: 11, fontWeight: 800, padding: "3px 12px", borderRadius: 980, letterSpacing: "0.08em", marginBottom: 12, textTransform: "uppercase" }}>
-                Établissements
+        <div style={{ margin: "56px 0 0", background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%)", borderRadius: 24, padding: "44px 40px", position: "relative", overflow: "hidden" }}>
+          {/* Déco cercle */}
+          <div style={{ position: "absolute", top: -60, right: -60, width: 240, height: 240, borderRadius: "50%", background: "rgba(255,255,255,0.04)", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", bottom: -40, left: -40, width: 180, height: 180, borderRadius: "50%", background: "rgba(255,255,255,0.03)", pointerEvents: "none" }} />
+
+          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 32 }}>
+            {/* Gauche */}
+            <div style={{ flex: 1, minWidth: 280 }}>
+              <div style={{ display: "inline-block", background: "rgba(255,255,255,0.12)", color: "#93c5fd", fontSize: 11, fontWeight: 800, padding: "4px 12px", borderRadius: 980, letterSpacing: "0.1em", marginBottom: 14, textTransform: "uppercase" }}>
+                🏫 Pour les établissements
               </div>
-              <h3 style={{ fontSize: 22, fontWeight: 800, color: "#1e3a8a", marginBottom: 8, letterSpacing: "-0.02em" }}>
-                CVAdapt pour vos étudiants
+              <h3 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 10, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+                Offrez CVAdapt à toute votre promo
               </h3>
-              <p style={{ fontSize: 14, color: "#475569", lineHeight: 1.6, marginBottom: 16 }}>
-                Offrez un accès collectif à toute une promo. Lien d'invitation, dashboard admin et statistiques inclus.
+              <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.65, marginBottom: 24, maxWidth: 420 }}>
+                Un lien, tous vos étudiants inscrits en 30 secondes. Dashboard admin, statistiques d'insertion et quota mensuel inclus. À partir de <strong style={{ color: "#fff" }}>299€/an.</strong>
               </p>
-              <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+              {/* Prix mini */}
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {[
-                  { label: "Essentiel", price: "299€/an", quota: "50 CV/mois" },
-                  { label: "Starter",   price: "599€/an", quota: "200 CV/mois" },
-                  { label: "Pro",       price: "990€/an", quota: "500 CV/mois" },
-                  { label: "Campus",    price: "1 990€/an", quota: "Illimité" },
+                  { label: "Essentiel", price: "299€", sub: "50 CV/mois" },
+                  { label: "Starter",   price: "599€", sub: "200 CV/mois" },
+                  { label: "Pro",       price: "990€", sub: "500 CV/mois" },
+                  { label: "Campus",    price: "1 990€", sub: "Illimité" },
                 ].map(p => (
-                  <div key={p.label} style={{ textAlign: "center", minWidth: 80 }}>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>{p.label}</div>
-                    <div style={{ fontSize: 16, fontWeight: 800, color: "#1e3a8a" }}>{p.price}</div>
-                    <div style={{ fontSize: 11, color: "#94a3b8" }}>{p.quota}</div>
+                  <div key={p.label} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 10, padding: "8px 14px", textAlign: "center", minWidth: 80 }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 2 }}>{p.label}</div>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: "#fff" }}>{p.price}<span style={{ fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>/an</span></div>
+                    <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", marginTop: 1 }}>{p.sub}</div>
                   </div>
                 ))}
               </div>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, justifyContent: "center" }}>
-              <a href="/tarifs-etablissements" style={{ display: "inline-block", background: "#1d4ed8", color: "#fff", fontWeight: 700, fontSize: 14, padding: "13px 28px", borderRadius: 10, textDecoration: "none", whiteSpace: "nowrap" }}>
-                Voir les offres établissements →
+
+            {/* Droite — CTAs */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "stretch", minWidth: 200 }}>
+              <a href="/tarifs-etablissements"
+                style={{ display: "block", textAlign: "center", background: "#fff", color: "#1e3a8a", fontWeight: 800, fontSize: 15, padding: "14px 28px", borderRadius: 12, textDecoration: "none" }}>
+                Voir les offres →
               </a>
-              <a href="mailto:contact@cvadapt.eu?subject=Devis CVAdapt Établissement" style={{ fontSize: 13, color: "#6b7280", textDecoration: "none" }}>
-                Demander un devis par email
+              <a href="mailto:contact@cvadapt.eu?subject=Devis CVAdapt Établissement&body=Bonjour, je souhaite un devis pour mon établissement.%0AType :%0ANombre d'étudiants :%0AContact :"
+                style={{ display: "block", textAlign: "center", background: "rgba(255,255,255,0.1)", color: "#fff", fontWeight: 600, fontSize: 13, padding: "11px 20px", borderRadius: 10, textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)" }}>
+                Demander un devis
               </a>
             </div>
           </div>
