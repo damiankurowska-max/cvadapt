@@ -147,12 +147,7 @@ export default function SignUpPage() {
           <SignUp
             routing="path"
             path="/sign-up"
-            afterSignUpUrl="/generate"
-            fallback={
-              <div style={{ color: "#6b7280", fontSize: "15px" }}>
-                Chargement du formulaire…
-              </div>
-            }
+            forceRedirectUrl="/generate"
           />
         </div>
       </div>

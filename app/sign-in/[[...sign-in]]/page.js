@@ -14,12 +14,7 @@ export default function SignInPage() {
       <SignIn
         routing="path"
         path="/sign-in"
-        afterSignInUrl="/generate"
-        fallback={
-          <div style={{ color: "#6b7280", fontSize: "15px" }}>
-            Chargement…
-          </div>
-        }
+        forceRedirectUrl="/generate"
       />
     </main>
   );
