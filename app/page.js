@@ -5,7 +5,6 @@ import Logo from "./components/Logo";
 import CountdownBanner from "./components/CountdownBanner";
 import { CinematicHero } from "@/components/ui/cinematic-landing-hero";
 import { SimpleHeader } from "@/components/ui/simple-header";
-import { CVCarousel3D } from "@/components/ui/cv-carousel-3d";
 
 function getDynamicStats() {
   return { users: 4200, dailyCVs: 87 };
@@ -135,11 +134,7 @@ export default function Home() {
           </p>
         </div>
 
-        {/* pas de carousel ici — il est en section séparée ci-dessous */}
       </section>
-
-      {/* ─── CAROUSEL 3D ─────────────────────────────────────────── */}
-      <CVCarousel3D />
 
       {/* ─── LOGOS ───────────────────────────────────────────────── */}
       <section className="py-8 px-5 border-y" style={{ background: "#ffffff", borderColor: "#e0ecff" }}>
