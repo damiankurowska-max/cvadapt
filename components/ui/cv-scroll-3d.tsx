@@ -2,34 +2,23 @@
 import { useRef } from "react";
 import { useScroll, useTransform, useSpring, motion } from "motion/react";
 
-/* ─────────────────────────────────────────────────────────────────────────
-   CVScroll3D
-   A realistic A4 CV sheet that spins into view as the user scrolls.
-   The document starts at a steep 3D angle (like a card on a table viewed
-   from the side), then rotates face-on, simulating a physical paper flip.
-   ───────────────────────────────────────────────────────────────────────── */
-
 export function CVScroll3D() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "center 40%"],
+    offset: ["start end", "center 42%"],
   });
 
-  /* Raw transforms */
-  const rotYRaw  = useTransform(scrollYProgress, [0, 1], [-72, 0]);
-  const rotXRaw  = useTransform(scrollYProgress, [0, 1], [22, 0]);
-  const scaleRaw = useTransform(scrollYProgress, [0, 1], [0.58, 1]);
-  const yRaw     = useTransform(scrollYProgress, [0, 1], [100, 0]);
-  const opRaw    = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
+  const rotYRaw  = useTransform(scrollYProgress, [0, 1], [-78, 0]);
+  const rotXRaw  = useTransform(scrollYProgress, [0, 1], [18, 0]);
+  const scaleRaw = useTransform(scrollYProgress, [0, 1], [0.55, 1]);
+  const yRaw     = useTransform(scrollYProgress, [0, 1], [120, 0]);
+  const opRaw    = useTransform(scrollYProgress, [0, 0.22], [0, 1]);
+  const shY      = useTransform(scrollYProgress, [0, 1], [6,  55]);
+  const shBl     = useTransform(scrollYProgress, [0, 1], [10, 100]);
 
-  /* Shadow tracks the tilt angle — long & blue when tilted, soft when flat */
-  const shY  = useTransform(scrollYProgress, [0, 1], [8, 50]);
-  const shBl = useTransform(scrollYProgress, [0, 1], [12, 90]);
-
-  /* Spring physics for physical feel */
-  const sp = { stiffness: 55, damping: 16, mass: 1.1 };
+  const sp = { stiffness: 52, damping: 17, mass: 1.1 };
   const rotY  = useSpring(rotYRaw,  sp);
   const rotX  = useSpring(rotXRaw,  sp);
   const scale = useSpring(scaleRaw, sp);
@@ -38,23 +27,16 @@ export function CVScroll3D() {
   const boxShadow = useTransform(
     [shY, shBl],
     ([sy, sb]: number[]) =>
-      `0 ${sy}px ${sb}px -12px rgba(29,78,216,0.22), 0 ${Math.round(sy * 0.5)}px ${Math.round(sb * 0.45)}px -8px rgba(0,0,0,0.14)`,
+      `0 ${sy}px ${sb}px -10px rgba(15,37,96,0.25), 0 ${Math.round(sy * 0.4)}px ${Math.round(sb * 0.4)}px -8px rgba(0,0,0,0.12)`,
   );
 
   return (
-    /* Tall container gives the scroll room to play */
-    <div
-      ref={containerRef}
-      className="relative w-full"
-      style={{ height: "190vh" }}
-    >
-      {/* Sticky so the document stays on screen while scroll drives the rotation */}
+    <div ref={containerRef} className="relative w-full" style={{ height: "200vh" }}>
       <div
-        className="sticky flex items-center justify-center w-full overflow-visible"
-        style={{ top: "12vh", paddingBottom: "8vh" }}
+        className="sticky flex items-center justify-center w-full"
+        style={{ top: "10vh" }}
       >
-        {/* Deep perspective wrapper */}
-        <div style={{ perspective: "2600px", perspectiveOrigin: "50% 45%" }}>
+        <div style={{ perspective: "2800px", perspectiveOrigin: "50% 44%" }}>
           <motion.div
             style={{
               rotateY: rotY,
@@ -66,30 +48,8 @@ export function CVScroll3D() {
               transformOrigin: "center center",
               boxShadow,
             }}
-            className="relative bg-white overflow-hidden"
           >
-            <CVPage />
-
-            {/* Paper edge — gives it physical depth */}
-            <div
-              aria-hidden="true"
-              className="absolute inset-y-0 right-0 w-px"
-              style={{ background: "rgba(0,0,0,0.06)" }}
-            />
-            <div
-              aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 h-px"
-              style={{ background: "rgba(0,0,0,0.06)" }}
-            />
-            {/* Top-edge highlight */}
-            <div
-              aria-hidden="true"
-              className="absolute inset-x-0 top-0 h-px"
-              style={{
-                background:
-                  "linear-gradient(90deg,transparent,rgba(255,255,255,0.9) 20%,rgba(255,255,255,0.9) 80%,transparent)",
-              }}
-            />
+            <CVDocument />
           </motion.div>
         </div>
       </div>
@@ -97,220 +57,252 @@ export function CVScroll3D() {
   );
 }
 
-/* ── The actual CV document ────────────────────────────────────────────── */
-function CVPage() {
+/* ─────────────────────────────────────────────────────────────────────
+   Professional two-column French CV
+   Left sidebar: dark navy   |   Right: white content
+   ───────────────────────────────────────────────────────────────────── */
+function CVDocument() {
+  const SIDEBAR = "#0f1f4a";
+  const ACCENT  = "#3b82f6";
+  const W = 520;
+
   return (
     <div
-      className="relative select-none"
       style={{
-        width: 480,
-        fontFamily: "'Outfit', system-ui, sans-serif",
-        fontSize: 11,
-        color: "#1e293b",
+        width: W,
+        display: "flex",
+        fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
         background: "#fff",
+        overflow: "hidden",
+        userSelect: "none",
       }}
     >
-      {/* Blue header band */}
+      {/* ── LEFT SIDEBAR ─────────────────────────────────────────── */}
       <div
         style={{
-          background: "linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%)",
-          padding: "28px 28px 22px",
+          width: 158,
+          background: SIDEBAR,
+          flexShrink: 0,
+          padding: "28px 18px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 22,
         }}
       >
-        <div className="flex items-start justify-between">
-          <div>
-            <p
-              style={{
-                fontSize: 22,
-                fontWeight: 800,
-                color: "#fff",
-                letterSpacing: "-0.03em",
-                lineHeight: 1.1,
-                marginBottom: 4,
-              }}
-            >
-              Alexandre Martin
-            </p>
-            <p style={{ fontSize: 12, color: "#93c5fd", fontWeight: 600 }}>
-              Développeur Web Full Stack
-            </p>
-          </div>
-          {/* ATS score badge */}
+        {/* Avatar */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
           <div
             style={{
-              background: "rgba(255,255,255,0.12)",
-              border: "1px solid rgba(255,255,255,0.25)",
-              borderRadius: 10,
-              padding: "6px 10px",
-              textAlign: "center",
-              backdropFilter: "blur(8px)",
+              width: 72,
+              height: 72,
+              borderRadius: "50%",
+              background: "linear-gradient(135deg,#3b82f6,#1d4ed8)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              border: "3px solid rgba(255,255,255,0.15)",
+              flexShrink: 0,
             }}
           >
-            <p style={{ color: "#86efac", fontSize: 16, fontWeight: 800, lineHeight: 1 }}>91</p>
-            <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 8, fontWeight: 600, letterSpacing: "0.08em", marginTop: 1 }}>
-              SCORE ATS
+            <span style={{ fontSize: 22, fontWeight: 800, color: "#fff", letterSpacing: "-0.02em" }}>SL</span>
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <p style={{ color: "#fff", fontSize: 11.5, fontWeight: 800, letterSpacing: "-0.01em", lineHeight: 1.2 }}>
+              Sarah<br />Leclerc
             </p>
           </div>
         </div>
 
-        {/* Contact row */}
-        <div
-          style={{
-            marginTop: 14,
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "6px 16px",
-          }}
-        >
+        {/* Contact */}
+        <SideSection title="CONTACT" accent={ACCENT}>
           {[
-            { icon: "✉", text: "alexandre@email.com" },
-            { icon: "📱", text: "06 12 34 56 78" },
-            { icon: "📍", text: "Paris, France" },
-            { icon: "🔗", text: "linkedin.com/in/alexandre" },
+            { icon: "✉", text: "sarah.leclerc\n@gmail.com" },
+            { icon: "☎", text: "06 78 23 45 67" },
+            { icon: "⌖", text: "Paris 8e, France" },
+            { icon: "in", text: "linkedin.com/in\n/sarah-leclerc" },
           ].map((c) => (
-            <span key={c.text} style={{ color: "rgba(255,255,255,0.75)", fontSize: 9, display: "flex", alignItems: "center", gap: 4 }}>
-              <span>{c.icon}</span>
-              {c.text}
-            </span>
+            <div key={c.icon} style={{ display: "flex", gap: 7, alignItems: "flex-start", marginBottom: 7 }}>
+              <span style={{ color: ACCENT, fontSize: 9, marginTop: 1, flexShrink: 0, width: 10, textAlign: "center", fontWeight: 700 }}>{c.icon}</span>
+              <span style={{ color: "rgba(255,255,255,0.65)", fontSize: 8.5, lineHeight: 1.5, whiteSpace: "pre-line" }}>{c.text}</span>
+            </div>
           ))}
+        </SideSection>
+
+        {/* Compétences */}
+        <SideSection title="COMPÉTENCES" accent={ACCENT}>
+          {[
+            { name: "Gestion de projet",  lvl: 5 },
+            { name: "Agile / Scrum",       lvl: 5 },
+            { name: "Salesforce CRM",      lvl: 4 },
+            { name: "Power BI",            lvl: 4 },
+            { name: "JIRA / Confluence",   lvl: 4 },
+            { name: "Excel / VBA",         lvl: 3 },
+          ].map((s) => (
+            <div key={s.name} style={{ marginBottom: 7 }}>
+              <span style={{ color: "rgba(255,255,255,0.8)", fontSize: 8.5, fontWeight: 600 }}>{s.name}</span>
+              <div style={{ display: "flex", gap: 3, marginTop: 3 }}>
+                {[1,2,3,4,5].map((i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: 18, height: 3, borderRadius: 99,
+                      background: i <= s.lvl ? ACCENT : "rgba(255,255,255,0.15)",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </SideSection>
+
+        {/* Langues */}
+        <SideSection title="LANGUES" accent={ACCENT}>
+          {[
+            { lang: "Français", level: "Natif" },
+            { lang: "Anglais",  level: "C2" },
+            { lang: "Espagnol", level: "B2" },
+          ].map((l) => (
+            <div key={l.lang} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+              <span style={{ color: "rgba(255,255,255,0.75)", fontSize: 8.5, fontWeight: 600 }}>{l.lang}</span>
+              <span
+                style={{
+                  fontSize: 7.5, fontWeight: 700, color: ACCENT,
+                  background: "rgba(59,130,246,0.15)",
+                  border: "1px solid rgba(59,130,246,0.35)",
+                  padding: "1px 6px", borderRadius: 99,
+                }}
+              >
+                {l.level}
+              </span>
+            </div>
+          ))}
+        </SideSection>
+
+        {/* ATS badge at bottom */}
+        <div style={{ marginTop: "auto" }}>
+          <div
+            style={{
+              background: "rgba(34,197,94,0.12)",
+              border: "1px solid rgba(34,197,94,0.3)",
+              borderRadius: 8,
+              padding: "7px 10px",
+              textAlign: "center",
+            }}
+          >
+            <p style={{ color: "#86efac", fontSize: 9.5, fontWeight: 800, letterSpacing: "0.04em" }}>Score ATS</p>
+            <p style={{ color: "#4ade80", fontSize: 22, fontWeight: 900, lineHeight: 1.1, letterSpacing: "-0.03em" }}>91<span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>/100</span></p>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 7.5, marginTop: 1 }}>Optimisé • CVAdapt</p>
+          </div>
         </div>
       </div>
 
-      {/* Body */}
-      <div style={{ padding: "20px 28px 24px", display: "grid", gridTemplateColumns: "1fr 148px", gap: "0 20px" }}>
+      {/* ── RIGHT MAIN CONTENT ────────────────────────────────────── */}
+      <div style={{ flex: 1, padding: "26px 22px 20px 20px", display: "flex", flexDirection: "column", gap: 18 }}>
 
-        {/* Left column — main content */}
-        <div>
-          {/* Section: Expérience */}
-          <Section title="EXPÉRIENCE">
-            <Job
-              title="Développeur Frontend"
-              company="TechStartup Paris"
-              period="Mars – Août 2024"
-              bullets={[
-                "Développement de composants React / TypeScript",
-                "Optimisation LCP : −40% temps de chargement",
-                "Intégration API REST + gestion Redux Toolkit",
-              ]}
-            />
-            <Job
-              title="Alternance Développeur Web"
-              company="Agence Digitale Lyon"
-              period="Sept 2023 – Mars 2024"
-              bullets={[
-                "Refonte e-commerce Next.js + Stripe : +30% conversion",
-                "Mise en place pipeline CI/CD GitHub Actions",
-                "Responsive design mobile-first (Figma → code)",
-              ]}
-            />
-          </Section>
-
-          {/* Section: Formation */}
-          <Section title="FORMATION">
-            <div style={{ marginBottom: 10 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                <p style={{ fontWeight: 700, fontSize: 10.5, color: "#0f172a" }}>Master Informatique</p>
-                <p style={{ fontSize: 9, color: "#64748b" }}>2022 – 2024</p>
-              </div>
-              <p style={{ color: "#3b82f6", fontSize: 9.5, fontWeight: 600 }}>École Polytechnique de Paris</p>
-              <p style={{ color: "#64748b", fontSize: 9, marginTop: 2 }}>Spécialisation Web & Cloud Computing</p>
-            </div>
-            <div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                <p style={{ fontWeight: 700, fontSize: 10.5, color: "#0f172a" }}>BUT Informatique</p>
-                <p style={{ fontSize: 9, color: "#64748b" }}>2019 – 2022</p>
-              </div>
-              <p style={{ color: "#3b82f6", fontSize: 9.5, fontWeight: 600 }}>IUT Paris Descartes — Mention Très Bien</p>
-            </div>
-          </Section>
+        {/* Name + title header */}
+        <div style={{ borderBottom: "2px solid #e0ecff", paddingBottom: 14 }}>
+          <p style={{ fontSize: 20, fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.1 }}>
+            Sarah Leclerc
+          </p>
+          <p style={{ fontSize: 11, fontWeight: 700, color: "#3b82f6", marginTop: 3, letterSpacing: "0.01em" }}>
+            Chef de Projet Digital Senior
+          </p>
+          <p style={{ fontSize: 8.5, color: "#64748b", marginTop: 6, lineHeight: 1.6 }}>
+            5 ans d'expérience en pilotage de projets digitaux complexes. Spécialisée dans la transformation numérique des organisations et la coordination d'équipes pluridisciplinaires.
+          </p>
         </div>
 
-        {/* Right sidebar */}
-        <div>
-          {/* Skills */}
-          <Section title="COMPÉTENCES">
-            {[
-              { name: "React / Next.js", pct: 92 },
-              { name: "TypeScript", pct: 88 },
-              { name: "Node.js", pct: 80 },
-              { name: "PostgreSQL", pct: 75 },
-              { name: "Docker / CI/CD", pct: 70 },
-            ].map((s) => (
-              <div key={s.name} style={{ marginBottom: 8 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                  <span style={{ fontSize: 9, fontWeight: 600, color: "#334155" }}>{s.name}</span>
-                  <span style={{ fontSize: 8, color: "#3b82f6", fontWeight: 700 }}>{s.pct}%</span>
-                </div>
-                <div style={{ height: 3, background: "#e0ecff", borderRadius: 99, overflow: "hidden" }}>
-                  <div style={{ width: `${s.pct}%`, height: "100%", background: "linear-gradient(90deg,#3b82f6,#1d4ed8)", borderRadius: 99 }} />
-                </div>
-              </div>
-            ))}
-          </Section>
+        {/* Expérience */}
+        <MainSection title="EXPÉRIENCE PROFESSIONNELLE" accent="#3b82f6">
+          <Job
+            title="Chef de Projet Digital"
+            company="BNP Paribas"
+            period="2021 – Aujourd'hui"
+            location="Paris"
+            bullets={[
+              "Pilotage de 3 projets e-banking simultanés — budget total 2,4M€",
+              "Coordination d'équipes pluridisciplinaires de 12 personnes (dev, UX, métier)",
+              "Réduction de 35% du time-to-market sur les nouvelles fonctionnalités",
+              "Mise en œuvre de la méthodologie SAFe Agile à l'échelle",
+            ]}
+          />
+          <Job
+            title="Consultante Junior"
+            company="Capgemini Consulting"
+            period="2019 – 2021"
+            location="Paris · Lyon"
+            bullets={[
+              "Audit et transformation digitale de 8 clients CAC 40 (retail, finance, industrie)",
+              "Déploiement d'une solution CRM Salesforce pour 5 000 utilisateurs",
+              "Animation de 40+ ateliers de cadrage et conduite du changement",
+            ]}
+          />
+        </MainSection>
 
-          {/* Languages */}
-          <Section title="LANGUES">
-            {[
-              { lang: "Français", level: "Natif" },
-              { lang: "Anglais",  level: "C1" },
-              { lang: "Espagnol", level: "B2" },
-            ].map((l) => (
-              <div key={l.lang} style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-                <span style={{ fontSize: 9, fontWeight: 600, color: "#334155" }}>{l.lang}</span>
-                <span
-                  style={{
-                    fontSize: 8, fontWeight: 700, color: "#1d4ed8",
-                    background: "#eff6ff", padding: "1px 6px", borderRadius: 99,
-                    border: "1px solid #bfdbfe",
-                  }}
-                >
-                  {l.level}
-                </span>
-              </div>
-            ))}
-          </Section>
-
-          {/* CVAdapt stamp */}
-          <div
-            style={{
-              marginTop: 16,
-              background: "linear-gradient(135deg,#eff6ff,#dbeafe)",
-              border: "1px solid #bfdbfe",
-              borderRadius: 8,
-              padding: "8px 10px",
-              textAlign: "center",
-            }}
-          >
-            <p style={{ fontSize: 8, fontWeight: 800, color: "#1d4ed8", letterSpacing: "0.05em" }}>
-              ✓ OPTIMISÉ PAR CVADAPT
-            </p>
-            <p style={{ fontSize: 7, color: "#60a5fa", marginTop: 2 }}>
-              Mots-clés ATS intégrés · Score 91/100
-            </p>
+        {/* Formation */}
+        <MainSection title="FORMATION" accent="#3b82f6">
+          <div style={{ marginBottom: 10 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+              <p style={{ fontSize: 10, fontWeight: 800, color: "#0f172a" }}>Master Management de Projet Digital</p>
+              <p style={{ fontSize: 8.5, color: "#94a3b8", flexShrink: 0 }}>2017 – 2019</p>
+            </div>
+            <p style={{ fontSize: 9, fontWeight: 700, color: "#3b82f6", marginTop: 1 }}>Sciences Po Paris</p>
+            <p style={{ fontSize: 8, color: "#94a3b8", marginTop: 1 }}>Mention Très Bien · Major de promotion</p>
           </div>
-        </div>
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+              <p style={{ fontSize: 10, fontWeight: 800, color: "#0f172a" }}>Licence Économie-Gestion</p>
+              <p style={{ fontSize: 8.5, color: "#94a3b8", flexShrink: 0 }}>2014 – 2017</p>
+            </div>
+            <p style={{ fontSize: 9, fontWeight: 700, color: "#3b82f6", marginTop: 1 }}>Université Paris-Dauphine</p>
+            <p style={{ fontSize: 8, color: "#94a3b8", marginTop: 1 }}>Spécialisation Finance d'entreprise</p>
+          </div>
+        </MainSection>
+
+        {/* Certifications */}
+        <MainSection title="CERTIFICATIONS" accent="#3b82f6">
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+            {["PMP® Project Management", "Salesforce Administrator", "Google Analytics 4", "SAFe® 5 Agilist"].map((c) => (
+              <span
+                key={c}
+                style={{
+                  fontSize: 8, fontWeight: 600,
+                  color: "#1d4ed8",
+                  background: "#eff6ff",
+                  border: "1px solid #bfdbfe",
+                  padding: "3px 8px",
+                  borderRadius: 99,
+                }}
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+        </MainSection>
       </div>
     </div>
   );
 }
 
-/* ── Sub-components ─────────────────────────────────────────────────────── */
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+/* ── Sub-components ─────────────────────────────────────────────────── */
+function SideSection({ title, accent, children }: { title: string; accent: string; children: React.ReactNode }) {
   return (
-    <div style={{ marginBottom: 16 }}>
-      <div
-        style={{
-          fontSize: 8,
-          fontWeight: 800,
-          color: "#1d4ed8",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          borderBottom: "1.5px solid #bfdbfe",
-          paddingBottom: 4,
-          marginBottom: 10,
-        }}
-      >
-        {title}
+    <div>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 9 }}>
+        <div style={{ width: 14, height: 1.5, background: accent, borderRadius: 99 }} />
+        <p style={{ color: accent, fontSize: 7.5, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" as const }}>{title}</p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function MainSection({ title, accent, children }: { title: string; accent: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+        <p style={{ color: "#0f172a", fontSize: 8, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase" as const }}>{title}</p>
+        <div style={{ flex: 1, height: 1, background: "#e0ecff" }} />
       </div>
       {children}
     </div>
@@ -318,30 +310,26 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 function Job({
-  title,
-  company,
-  period,
-  bullets,
+  title, company, period, location, bullets,
 }: {
-  title: string;
-  company: string;
-  period: string;
-  bullets: string[];
+  title: string; company: string; period: string; location: string; bullets: string[];
 }) {
   return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-        <p style={{ fontWeight: 700, fontSize: 10.5, color: "#0f172a" }}>{title}</p>
-        <p style={{ fontSize: 8.5, color: "#64748b", flexShrink: 0 }}>{period}</p>
+    <div style={{ marginBottom: 13 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div>
+          <p style={{ fontSize: 10.5, fontWeight: 800, color: "#0f172a", lineHeight: 1.2 }}>{title}</p>
+          <p style={{ fontSize: 9.5, fontWeight: 700, color: "#3b82f6", marginTop: 1 }}>{company}</p>
+        </div>
+        <div style={{ textAlign: "right", flexShrink: 0 }}>
+          <p style={{ fontSize: 8.5, color: "#64748b", fontWeight: 600 }}>{period}</p>
+          <p style={{ fontSize: 8, color: "#94a3b8" }}>{location}</p>
+        </div>
       </div>
-      <p style={{ color: "#3b82f6", fontSize: 9.5, fontWeight: 600, marginBottom: 4 }}>{company}</p>
-      <ul style={{ paddingLeft: 0, margin: 0, listStyle: "none" }}>
+      <ul style={{ marginTop: 5, paddingLeft: 0, listStyle: "none" }}>
         {bullets.map((b) => (
-          <li
-            key={b}
-            style={{ fontSize: 9, color: "#475569", lineHeight: 1.55, marginBottom: 2, paddingLeft: 10, position: "relative" }}
-          >
-            <span style={{ position: "absolute", left: 0, color: "#3b82f6", fontWeight: 700 }}>›</span>
+          <li key={b} style={{ fontSize: 8.5, color: "#475569", lineHeight: 1.65, marginBottom: 2, paddingLeft: 11, position: "relative" }}>
+            <span style={{ position: "absolute", left: 0, top: "0.1em", color: "#3b82f6", fontWeight: 900, fontSize: 10 }}>·</span>
             {b}
           </li>
         ))}
