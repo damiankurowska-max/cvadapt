@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
 import CountdownBanner from "./components/CountdownBanner";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { CinematicHero } from "@/components/ui/cinematic-landing-hero";
 import { SimpleHeader } from "@/components/ui/simple-header";
+import { CVScroll3D } from "@/components/ui/cv-scroll-3d";
 
 function getDynamicStats() {
   return { users: 4200, dailyCVs: 87 };
@@ -135,90 +135,9 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Mockup Score ATS — 3D scroll */}
-        <div className="mt-10 -mx-5">
-          <ContainerScroll>
-            {/* Browser chrome */}
-            <div className="bg-gray-50 px-4 py-2.5 flex items-center gap-1.5 border-b border-gray-100">
-              <span className="w-3 h-3 rounded-full bg-red-400 inline-block" />
-              <span className="w-3 h-3 rounded-full bg-yellow-400 inline-block" />
-              <span className="w-3 h-3 rounded-full bg-green-400 inline-block" />
-              <span className="ml-4 flex-1 text-xs text-gray-400 bg-white border border-gray-200 rounded-md px-3 py-1 text-center max-w-xs mx-auto">
-                cvadapt.eu — Score ATS
-              </span>
-            </div>
-
-            {/* Product UI */}
-            <div className="p-6">
-              {/* Header score */}
-              <div className="flex items-center gap-5 mb-6 pb-6 border-b border-gray-100">
-                <div className="relative w-20 h-20 shrink-0">
-                  <svg viewBox="0 0 100 100" width="80" height="80">
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f0f7ff" strokeWidth="10" />
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="#22c55e" strokeWidth="10"
-                      strokeDasharray={`${(91 / 100) * 251} 251`} strokeLinecap="round" transform="rotate(-90 50 50)"
-                      style={{ filter: "drop-shadow(0 0 6px rgba(34,197,94,0.4))" }} />
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center flex-col">
-                    <span className="text-xl font-extrabold text-green-600 leading-none tabular-nums">91</span>
-                    <span className="text-[9px] text-gray-400 font-medium">/100</span>
-                  </div>
-                </div>
-                <div>
-                  <p className="font-extrabold text-gray-900 text-base">Score ATS : Excellent</p>
-                  <p className="text-sm text-gray-400 mt-0.5">Optimisé pour cette offre</p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-block bg-green-100 text-green-700 text-xs font-bold px-2.5 py-1 rounded-full">
-                      +57 points ↑
-                    </span>
-                    <span className="inline-block bg-blue-50 text-blue-600 text-xs font-semibold px-2.5 py-1 rounded-full border border-blue-100">
-                      ATS validé
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bars */}
-              {[
-                { label: "Mots-clés détectés", pct: 94, color: "#22c55e", bg: "#f0fdf4" },
-                { label: "Structure du CV",     pct: 88, color: "#3b82f6", bg: "#eff6ff" },
-                { label: "Lisibilité ATS",      pct: 91, color: "#8b5cf6", bg: "#f5f3ff" },
-              ].map(({ label, pct, color, bg }) => (
-                <div key={label} className="mb-4">
-                  <div className="flex justify-between text-sm mb-1.5">
-                    <span className="text-gray-600 font-medium">{label}</span>
-                    <span className="font-bold tabular-nums" style={{ color }}>{pct}%</span>
-                  </div>
-                  <div className="rounded-full h-2" style={{ background: bg }}>
-                    <div
-                      style={{ width: `${pct}%`, background: color, boxShadow: `0 0 8px ${color}55` }}
-                      className="h-2 rounded-full"
-                    />
-                  </div>
-                </div>
-              ))}
-
-              {/* CTA row */}
-              <div className="mt-6 flex gap-3">
-                <div
-                  className="flex-1 text-white text-sm font-bold text-center py-3 rounded-xl select-none"
-                  style={{
-                    background: "linear-gradient(135deg,#3b82f6,#1d4ed8)",
-                    boxShadow: "0 4px 14px rgba(29,78,216,0.3)",
-                    pointerEvents: "none",
-                  }}
-                >
-                  ✓ CV PDF généré — Télécharger
-                </div>
-                <div
-                  className="px-4 text-sm font-semibold text-blue-600 py-3 rounded-xl border border-blue-100 bg-blue-50 select-none text-center"
-                  style={{ pointerEvents: "none" }}
-                >
-                  LM incluse
-                </div>
-              </div>
-            </div>
-          </ContainerScroll>
+        {/* CV 3D scroll — feuille A4 qui tourne */}
+        <div className="mt-4 -mx-5">
+          <CVScroll3D />
         </div>
       </section>
 
