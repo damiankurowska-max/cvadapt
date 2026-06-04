@@ -10,10 +10,30 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// All GSAP class selectors prefixed with "ch-" to avoid conflicts with other
-// elements on the page. CSS rules updated accordingly.
 const INJECTED_STYLES = `
-  /* No visibility:hidden here — GSAP manages opacity/visibility inline only */
+  /* ── Intro animations — CSS only, runs before GSAP touches anything ── */
+  @keyframes ch-fade-up {
+    from { opacity: 0; transform: translateY(60px) scale(0.85); filter: blur(20px); }
+    to   { opacity: 1; transform: translateY(0px) scale(1);   filter: blur(0px);  }
+  }
+  @keyframes ch-reveal-right {
+    from { clip-path: inset(0 100% 0 0); }
+    to   { clip-path: inset(0 0%   0 0); }
+  }
+
+  .ch-text-track {
+    opacity: 0; /* initial state — animation fills to opacity:1 */
+    animation: ch-fade-up 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  }
+  .ch-text-days {
+    clip-path: inset(0 100% 0 0); /* initial state */
+    animation: ch-reveal-right 1.4s cubic-bezier(0.76, 0, 0.24, 1) 0.9s forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ch-text-track { animation: none; opacity: 1; }
+    .ch-text-days  { animation: none; clip-path: none; }
+  }
 
   .ch-film-grain {
     position: absolute; inset: 0; width: 100%; height: 100%;
@@ -219,33 +239,8 @@ export function CinematicHero({
     return () => { window.removeEventListener("mousemove", onMouseMove); cancelAnimationFrame(rafRef.current); };
   }, []);
 
-  // ── INTRO animation (runs once on mount, independent of scroll) ──────────
-  // Separated from the scroll effect so ScrollTrigger scrub at position 0
-  // cannot override the FROM states before the intro animation plays.
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const ctx = gsap.context(() => {
-      // Set initial states
-      gsap.set(".ch-text-track", { opacity: 0, y: 60, scale: 0.85, filter: "blur(20px)", rotationX: -20, visibility: "hidden" });
-      gsap.set(".ch-text-days",  { clipPath: "inset(0 100% 0 0)", visibility: "visible" });
-
-      // Intro reveal animation
-      const tl = gsap.timeline({ delay: 0.3 });
-      tl.to(".ch-text-track", {
-        opacity: 1, y: 0, scale: 1, filter: "blur(0px)", rotationX: 0, visibility: "visible",
-        duration: 1.8, ease: "expo.out",
-      }).to(".ch-text-days", {
-        clipPath: "inset(0 0% 0 0)",
-        duration: 1.4, ease: "power4.inOut",
-      }, "-=1.0");
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []); // runs once
-
   // ── SCROLL timeline (scrubbed, pinned) ───────────────────────────────────
-  // Uses fromTo() everywhere so initial states are deterministic and
-  // independent of the intro animation's progress.
+  // Intro is handled by CSS animation — GSAP only controls scroll behaviour.
   useEffect(() => {
     if (!containerRef.current) return;
     const isMobile = window.innerWidth < 768;
@@ -332,14 +327,14 @@ export function CinematicHero({
 
       {/* Grain + grid */}
       <div className="ch-film-grain" aria-hidden="true" />
-      <div className="ch-bg-grid ch-bg-grid absolute inset-0 z-0 pointer-events-none opacity-50" aria-hidden="true" />
+      <div className="ch-bg-grid absolute inset-0 z-0 pointer-events-none opacity-50" aria-hidden="true" />
 
       {/* Page-color exit overlay */}
       <div className="ch-page-fade absolute inset-0 pointer-events-none" style={{ zIndex: 60, opacity: 0, background: pageBg }} aria-hidden="true" />
 
       {/* ── LAYER 1: Taglines ── */}
       <div className="ch-hero-text absolute z-10 flex flex-col items-center justify-center text-center w-screen px-4 will-change-transform">
-        <h1 className="ch-text-track ch-text-3d text-5xl md:text-7xl lg:text-[6rem] font-bold tracking-tight mb-2" style={{ opacity: 0 }}>
+        <h1 className="ch-text-track ch-text-3d text-5xl md:text-7xl lg:text-[6rem] font-bold tracking-tight mb-2">
           {tagline1}
         </h1>
         <h1 className="ch-text-days ch-text-silver text-5xl md:text-7xl lg:text-[6rem] font-extrabold tracking-tighter">
