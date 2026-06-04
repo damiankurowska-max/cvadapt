@@ -15,6 +15,94 @@ const TEMPLATES = [
   { id: "minimaliste", name: "Minimaliste", desc: "Épuré & vert",     accent: "#16a34a", bg: "#f0fdf4", sidebar: false },
 ];
 
+/* ── Input style objects (used via onFocus/onBlur) ─────────────── */
+const inputStyle = {
+  width: "100%", border: "1.5px solid #e5e7eb", borderRadius: 10,
+  padding: "12px 14px", outline: "none", fontSize: 14, color: "#0f172a",
+  background: "#fafafa", fontFamily: "inherit", boxSizing: "border-box",
+  transition: "border-color 0.15s, box-shadow 0.15s",
+};
+const inputFocusStyle = {
+  borderColor: "#2563eb", background: "#fff", boxShadow: "0 0 0 3px rgba(37,99,235,0.1)",
+};
+
+/* ── FieldGroup: label + hint + children ───────────────────────── */
+function FieldGroup({ label, hint, children }) {
+  return (
+    <div>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 7 }}>
+        <p style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>{label}</p>
+        {hint && <p style={{ fontSize: 11, color: "#9ca3af" }}>{hint}</p>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+/* ── TemplateMiniPreview: realistic CV thumbnail ───────────────── */
+function TemplateMiniPreview({ t, compact }) {
+  if (!t) return null;
+  const h = compact ? "100%" : 130;
+
+  if (t.id === "creatif") {
+    return (
+      <div style={{ display: "flex", height: h, background: "#fff" }}>
+        <div style={{ width: "36%", background: t.accent, padding: "7px 5px", display: "flex", flexDirection: "column", gap: 3, flexShrink: 0 }}>
+          <div style={{ width: 18, height: 18, borderRadius: "50%", background: "rgba(255,255,255,0.28)", margin: "0 auto 4px" }} />
+          {[55, 75, 60, 45, 65, 50].map((w, i) => (
+            <div key={i} style={{ height: 2.5, width: w + "%", background: "rgba(255,255,255,0.35)", borderRadius: 2 }} />
+          ))}
+        </div>
+        <div style={{ flex: 1, padding: "7px 7px" }}>
+          <div style={{ height: 5, width: "70%", background: "#111827", borderRadius: 2, marginBottom: 3 }} />
+          <div style={{ height: 3, width: "50%", background: t.accent, borderRadius: 2, marginBottom: 7 }} />
+          {[90, 80, 70, 85, 60, 75, 55, 80].map((w, i) => (
+            <div key={i} style={{ height: 2.5, width: w + "%", background: i % 3 === 0 ? "#d1d5db" : "#e9ecef", borderRadius: 2, marginBottom: 2.5 }} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+  if (t.id === "classique") {
+    return (
+      <div style={{ background: "#fff", padding: "9px 9px", height: h }}>
+        <div style={{ height: 5.5, width: "58%", background: "#111827", borderRadius: 2, marginBottom: 3 }} />
+        <div style={{ height: 3, width: "38%", background: "#6b7280", borderRadius: 2, marginBottom: 5 }} />
+        <div style={{ height: 1, background: "#111827", marginBottom: 5 }} />
+        {[95, 85, 75, 60, 90, 70, 55, 80].map((w, i) => (
+          <div key={i} style={{ height: 2.5, width: w + "%", background: i % 4 === 0 ? "#374151" : "#d1d5db", borderRadius: 2, marginBottom: 2.5 }} />
+        ))}
+      </div>
+    );
+  }
+  if (t.id === "moderne") {
+    return (
+      <div style={{ background: "#fff", height: h, overflow: "hidden" }}>
+        <div style={{ height: compact ? 20 : 28, background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", padding: "5px 8px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div style={{ height: compact ? 4 : 5, width: "55%", background: "rgba(255,255,255,0.9)", borderRadius: 2, marginBottom: 2 }} />
+          <div style={{ height: compact ? 2.5 : 3, width: "35%", background: "rgba(255,255,255,0.5)", borderRadius: 2 }} />
+        </div>
+        <div style={{ padding: "6px 8px" }}>
+          {[90, 80, 70, 85, 60, 75, 55, 65].map((w, i) => (
+            <div key={i} style={{ height: 2.5, width: w + "%", background: i % 4 === 0 ? "#bfdbfe" : "#e9ecef", borderRadius: 2, marginBottom: 2.5 }} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+  // minimaliste
+  return (
+    <div style={{ background: "#fff", padding: "9px 9px", height: h }}>
+      <div style={{ height: 5, width: "48%", background: "#111827", borderRadius: 2, marginBottom: 2 }} />
+      <div style={{ height: 2.5, width: "28%", background: t.accent, borderRadius: 2, marginBottom: 7 }} />
+      <div style={{ height: 1, background: t.accent + "40", marginBottom: 6 }} />
+      {[90, 80, 65, 85, 55, 75, 60, 80].map((w, i) => (
+        <div key={i} style={{ height: 2.5, width: w + "%", background: i % 4 === 0 ? t.accent + "55" : "#e9ecef", borderRadius: 2, marginBottom: 2.5 }} />
+      ))}
+    </div>
+  );
+}
+
 export default function Generate() {
   const { user } = useUser();
   const [form, setForm] = useState({ nom: "", offre: "", experience: "", competences: "", formation: "" });
@@ -266,7 +354,7 @@ export default function Generate() {
   const offrePreview = form.offre.split("\n").slice(0, 4).join("\n").substring(0, 200);
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen" style={{ background: "#f7f9fc" }}>
       {/* Modal upgrade limite 3 CV */}
       {showUpgradeModal && <UpgradeModal onClose={() => setShowUpgradeModal(false)} />}
 
@@ -362,88 +450,119 @@ export default function Generate() {
         </div>
       )}
 
-      <div className="max-w-lg mx-auto px-4 py-8">
+      <div className="max-w-xl mx-auto px-4 py-10">
         {!cv ? (
           <>
             {/* Banners upsell — toujours visibles en haut */}
             {!isPro && cvCount >= CV_LIMIT && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-5 flex items-center justify-between">
-                <p className="text-amber-800 text-sm font-medium">Tu as utilisé tes 3 CV gratuits.</p>
-                <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
+              <div style={{ background: "#fffbeb", border: "1px solid #fcd34d", borderRadius: 12, padding: "14px 18px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                <p style={{ color: "#92400e", fontSize: 14, fontWeight: 500 }}>Tu as utilisé tes 3 CV gratuits.</p>
+                <Link href="/tarifs" style={{ background: "#2563eb", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>
                   Voir les abonnements →
                 </Link>
               </div>
             )}
             {isPro && plan === "essentiel" && cvMonthCount >= 15 && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-5 flex items-center justify-between">
-                <p className="text-amber-800 text-sm font-medium">Tu as atteint les 15 CV de ce mois (plan Étudiant).</p>
-                <Link href="/tarifs" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
+              <div style={{ background: "#fffbeb", border: "1px solid #fcd34d", borderRadius: 12, padding: "14px 18px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                <p style={{ color: "#92400e", fontSize: 14, fontWeight: 500 }}>Tu as atteint les 15 CV de ce mois (plan Étudiant).</p>
+                <Link href="/tarifs" style={{ background: "#2563eb", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>
                   Passer au plan Pro →
                 </Link>
               </div>
             )}
 
-            {/* Barre de progression */}
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Étape {wizardStep} sur 3</span>
-                <span className="text-xs text-gray-400">{wizardStep === 1 ? "L'offre" : wizardStep === 2 ? "Ton profil" : "Finaliser"}</span>
-              </div>
-              <div className="bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                <div
-                  className="bg-blue-600 h-1.5 rounded-full transition-all duration-300"
-                  style={{ width: `${(wizardStep / 3) * 100}%` }}
-                />
-              </div>
+            {/* Indicateur d'étapes */}
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", marginBottom: 32, gap: 0 }}>
+              {[
+                { n: 1, label: "L'offre" },
+                { n: 2, label: "Ton profil" },
+                { n: 3, label: "Génération" },
+              ].map((s, idx) => (
+                <div key={s.n} style={{ display: "flex", alignItems: "flex-start" }}>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <div style={{
+                      width: 36, height: 36, borderRadius: "50%",
+                      background: wizardStep >= s.n ? "#2563eb" : "#f3f4f6",
+                      border: "2px solid " + (wizardStep >= s.n ? "#2563eb" : "#e5e7eb"),
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      color: wizardStep >= s.n ? "#fff" : "#9ca3af",
+                      fontSize: wizardStep > s.n ? 16 : 13, fontWeight: 700,
+                      transition: "all 0.25s",
+                      flexShrink: 0,
+                    }}>
+                      {wizardStep > s.n ? "✓" : s.n}
+                    </div>
+                    <p style={{ fontSize: 11, color: wizardStep >= s.n ? "#2563eb" : "#9ca3af", marginTop: 5, fontWeight: 600, whiteSpace: "nowrap" }}>{s.label}</p>
+                  </div>
+                  {idx < 2 && (
+                    <div style={{ height: 2, width: 56, background: wizardStep > idx + 1 ? "#2563eb" : "#e5e7eb", marginTop: 17, flexShrink: 0, transition: "background 0.3s", margin: "17px 6px 0" }} />
+                  )}
+                </div>
+              ))}
             </div>
 
             {/* Step 1 — L'offre */}
             {wizardStep === 1 && (
-              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                <h1 className="text-xl font-bold text-gray-900 mb-1">Quelle offre cibles-tu ?</h1>
-                <p className="text-sm text-gray-500 mb-5">Choisis un template et colle l'offre d'emploi.</p>
+              <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 1px 12px rgba(0,0,0,0.06)", padding: "28px 28px 24px" }}>
+                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>Quelle offre cibles-tu ?</h1>
+                <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>Sélectionne un design de CV, puis colle l'offre d'emploi.</p>
 
                 {/* Sélecteur de template */}
-                <div className="mb-5">
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">Choisis un template</label>
-                  <div className="grid grid-cols-4 gap-2">
-                    {TEMPLATES.map((t) => (
-                      <button key={t.id} type="button" onClick={() => setTemplate(t.id)}
-                        className={`rounded-xl border-2 text-center transition-all cursor-pointer overflow-hidden ${
-                          template === t.id ? "border-blue-500 shadow-md" : "border-gray-200 hover:border-gray-300"
-                        }`}>
-                        <div style={{ background: t.bg, padding: "8px 6px", display: "flex", gap: 4, height: 72 }}>
-                          {t.sidebar && (
-                            <div style={{ width: 18, background: t.accent, borderRadius: 3, flexShrink: 0 }} />
-                          )}
-                          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 3 }}>
-                            <div style={{ height: 8, background: t.accent, borderRadius: 2, width: "70%" }} />
-                            <div style={{ height: 4, background: t.accent + "60", borderRadius: 2, width: "50%" }} />
-                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, marginTop: 2 }} />
-                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "90%" }} />
-                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "75%" }} />
-                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, marginTop: 2 }} />
-                            <div style={{ height: 2, background: "#e5e7eb", borderRadius: 1, width: "80%" }} />
+                <div style={{ marginBottom: 24 }}>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 12 }}>Design du CV</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    {TEMPLATES.map((t) => {
+                      const sel = template === t.id;
+                      return (
+                        <button key={t.id} type="button" onClick={() => setTemplate(t.id)}
+                          style={{
+                            position: "relative", borderRadius: 12, overflow: "hidden", cursor: "pointer",
+                            border: sel ? `2px solid ${t.accent}` : "2px solid #e5e7eb",
+                            boxShadow: sel ? `0 0 0 3px ${t.accent}22` : "none",
+                            background: "#fff", padding: 0, textAlign: "left",
+                            transition: "border-color 0.15s, box-shadow 0.15s",
+                          }}>
+                          {/* CV miniature */}
+                          <TemplateMiniPreview t={t} />
+                          {/* Nom */}
+                          <div style={{ padding: "8px 10px 9px", background: sel ? t.accent + "0f" : "#fff", borderTop: "1px solid " + (sel ? t.accent + "33" : "#f3f4f6") }}>
+                            <p style={{ fontSize: 12, fontWeight: 700, color: sel ? t.accent : "#374151" }}>{t.name}</p>
+                            <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 1 }}>{t.desc}</p>
                           </div>
-                        </div>
-                        <div className={`px-1 py-1.5 ${template === t.id ? "bg-blue-50" : "bg-white"}`}>
-                          <p className={`text-xs font-bold leading-tight ${template === t.id ? "text-blue-600" : "text-gray-700"}`}>{t.name}</p>
-                        </div>
-                      </button>
-                    ))}
+                          {/* Checkmark overlay */}
+                          {sel && (
+                            <div style={{ position: "absolute", top: 7, right: 7, width: 20, height: 20, borderRadius: "50%", background: t.accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                              <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
                 {/* Textarea offre */}
-                <div className="mb-5">
-                  <label className="block text-sm font-semibold text-gray-700 mb-1">Colle l'offre d'emploi ici</label>
+                <div style={{ marginBottom: 20 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <p style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>Offre d'emploi</p>
+                    <p style={{ fontSize: 11, color: form.offre.length > 0 ? "#2563eb" : "#9ca3af" }}>{form.offre.length} car.</p>
+                  </div>
                   <textarea
                     name="offre"
                     value={form.offre}
                     onChange={handleChange}
-                    rows={8}
-                    placeholder="Copie-colle l'offre d'emploi depuis LinkedIn, Indeed, etc."
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white resize-none"
+                    rows={9}
+                    placeholder="Colle ici le texte complet de l'offre (LinkedIn, Indeed, APEC…). Plus tu en mets, meilleur sera ton CV."
+                    style={{
+                      width: "100%", border: "1.5px solid " + (form.offre.length > 0 ? "#bfdbfe" : "#e5e7eb"),
+                      borderRadius: 10, padding: "12px 14px", outline: "none",
+                      fontSize: 14, color: "#0f172a", background: "#fafafa",
+                      resize: "none", lineHeight: 1.6, fontFamily: "inherit",
+                      transition: "border-color 0.15s",
+                      boxSizing: "border-box",
+                    }}
+                    onFocus={e => { e.target.style.borderColor = "#2563eb"; e.target.style.background = "#fff"; e.target.style.boxShadow = "0 0 0 3px rgba(37,99,235,0.1)"; }}
+                    onBlur={e => { e.target.style.borderColor = form.offre.length > 0 ? "#bfdbfe" : "#e5e7eb"; e.target.style.background = "#fafafa"; e.target.style.boxShadow = "none"; }}
                   />
                 </div>
 
@@ -451,81 +570,85 @@ export default function Generate() {
                   type="button"
                   onClick={() => setWizardStep(2)}
                   disabled={!isStep1Valid}
-                  className="bg-blue-600 text-white w-full py-3.5 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  style={{
+                    width: "100%", padding: "14px", borderRadius: 12, border: "none", cursor: isStep1Valid ? "pointer" : "not-allowed",
+                    background: isStep1Valid ? "linear-gradient(135deg, #2563eb, #1d4ed8)" : "#e5e7eb",
+                    color: isStep1Valid ? "#fff" : "#9ca3af",
+                    fontSize: 15, fontWeight: 700, letterSpacing: "-0.01em",
+                    boxShadow: isStep1Valid ? "0 4px 20px rgba(29,78,216,0.35)" : "none",
+                    transition: "all 0.2s",
+                    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  }}
                 >
-                  Continuer →
+                  Continuer
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
               </div>
             )}
 
             {/* Step 2 — Ton profil */}
             {wizardStep === 2 && (
-              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                <h1 className="text-xl font-bold text-gray-900 mb-1">Parle-nous de toi</h1>
-                <p className="text-sm text-gray-500 mb-5">Ces infos serviront à personnaliser ton CV.</p>
+              <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 1px 12px rgba(0,0,0,0.06)", padding: "28px 28px 24px" }}>
+                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>Ton profil</h1>
+                <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>Ces informations seront intégrées et adaptées à l'offre.</p>
 
-                <div className="space-y-4 mb-5">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Ton nom complet</label>
+                <div style={{ display: "flex", flexDirection: "column", gap: 18, marginBottom: 24 }}>
+                  <FieldGroup label="Nom complet" hint="Affiché en en-tête du CV">
                     <input
-                      type="text"
-                      name="nom"
-                      value={form.nom}
-                      onChange={handleChange}
+                      type="text" name="nom" value={form.nom} onChange={handleChange}
                       placeholder="Ex : Jean Dupont"
-                      className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
+                      style={inputStyle}
+                      onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
+                      onBlur={e => Object.assign(e.target.style, inputStyle)}
                     />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Ton expérience professionnelle</label>
+                  </FieldGroup>
+                  <FieldGroup label="Expérience professionnelle" hint="Postes occupés, entreprises, durées">
                     <textarea
-                      name="experience"
-                      value={form.experience}
-                      onChange={handleChange}
-                      rows={4}
-                      placeholder="Ex : 2 ans chez Carrefour comme vendeur, 1 an chez McDonald's..."
-                      className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white resize-none"
+                      name="experience" value={form.experience} onChange={handleChange}
+                      rows={4} placeholder="Ex : 2 ans chez Carrefour comme responsable rayon, 1 an chez McDonald's en équipier…"
+                      style={{ ...inputStyle, resize: "none", lineHeight: 1.6 }}
+                      onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
+                      onBlur={e => Object.assign(e.target.style, inputStyle)}
                     />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Tes compétences</label>
+                  </FieldGroup>
+                  <FieldGroup label="Compétences" hint="Séparées par des virgules">
                     <input
-                      type="text"
-                      name="competences"
-                      value={form.competences}
-                      onChange={handleChange}
-                      placeholder="Ex : Excel, gestion d'équipe, service client, permis B..."
-                      className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
+                      type="text" name="competences" value={form.competences} onChange={handleChange}
+                      placeholder="Ex : Excel, gestion d'équipe, service client, permis B…"
+                      style={inputStyle}
+                      onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
+                      onBlur={e => Object.assign(e.target.style, inputStyle)}
                     />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Ta formation</label>
+                  </FieldGroup>
+                  <FieldGroup label="Formation" hint="Diplômes et établissements">
                     <input
-                      type="text"
-                      name="formation"
-                      value={form.formation}
-                      onChange={handleChange}
-                      placeholder="Ex : Bac Pro Commerce, BTS Marketing..."
-                      className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
+                      type="text" name="formation" value={form.formation} onChange={handleChange}
+                      placeholder="Ex : BTS MUC – Lycée Jean Moulin, Lyon"
+                      style={inputStyle}
+                      onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
+                      onBlur={e => Object.assign(e.target.style, inputStyle)}
                     />
-                  </div>
+                  </FieldGroup>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setWizardStep(1)}
-                    className="text-gray-500 text-sm hover:text-gray-700 transition-colors py-3.5 px-2"
-                  >
-                    ← Retour
+                <div style={{ display: "flex", gap: 10 }}>
+                  <button type="button" onClick={() => setWizardStep(1)}
+                    style={{ padding: "13px 18px", borderRadius: 10, border: "1.5px solid #e5e7eb", background: "#fff", color: "#6b7280", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 7H3M7 3L3 7l4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    Retour
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => setWizardStep(3)}
-                    disabled={!isStep2Valid}
-                    className="flex-1 bg-blue-600 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                  >
-                    Continuer →
+                  <button type="button" onClick={() => setWizardStep(3)} disabled={!isStep2Valid}
+                    style={{
+                      flex: 1, padding: "13px", borderRadius: 10, border: "none", cursor: isStep2Valid ? "pointer" : "not-allowed",
+                      background: isStep2Valid ? "linear-gradient(135deg, #2563eb, #1d4ed8)" : "#e5e7eb",
+                      color: isStep2Valid ? "#fff" : "#9ca3af",
+                      fontSize: 15, fontWeight: 700,
+                      boxShadow: isStep2Valid ? "0 4px 20px rgba(29,78,216,0.35)" : "none",
+                      transition: "all 0.2s",
+                      display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                    }}>
+                    Continuer
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </button>
                 </div>
               </div>
@@ -534,79 +657,100 @@ export default function Generate() {
             {/* Step 3 — Finaliser */}
             {wizardStep === 3 && (
               <form onSubmit={handleSubmit}>
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                  <h1 className="text-xl font-bold text-gray-900 mb-1">Presque prêt !</h1>
-                  <p className="text-sm text-gray-500 mb-5">Vérifie le récapitulatif et génère ton CV.</p>
+                <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 1px 12px rgba(0,0,0,0.06)", padding: "28px 28px 24px" }}>
+                  <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>Presque prêt !</h1>
+                  <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>Vérifie le récapitulatif, puis génère ton CV.</p>
 
                   {/* Récapitulatif */}
-                  <div className="bg-gray-50 rounded-xl border border-gray-100 p-4 mb-5 space-y-3">
+                  <div style={{ background: "#f8fafc", border: "1.5px solid #e2e8f0", borderRadius: 12, padding: "18px 18px", marginBottom: 20, display: "flex", flexDirection: "column", gap: 14 }}>
                     {/* Template choisi */}
-                    <div className="flex items-center gap-3">
-                      <div
-                        className="w-8 h-10 rounded flex-shrink-0 overflow-hidden border border-gray-200"
-                        style={{ background: selectedTemplate?.bg }}
-                      >
-                        <div style={{ padding: "3px 2px", display: "flex", gap: 2, height: "100%" }}>
-                          {selectedTemplate?.sidebar && (
-                            <div style={{ width: 5, background: selectedTemplate?.accent, borderRadius: 1 }} />
-                          )}
-                          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 1, paddingTop: 1 }}>
-                            <div style={{ height: 3, background: selectedTemplate?.accent, borderRadius: 1, width: "70%" }} />
-                            <div style={{ height: 1.5, background: selectedTemplate?.accent + "60", borderRadius: 1, width: "50%" }} />
-                            <div style={{ height: 1, background: "#e5e7eb", borderRadius: 1, marginTop: 1 }} />
-                            <div style={{ height: 1, background: "#e5e7eb", borderRadius: 1, width: "90%" }} />
-                          </div>
-                        </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <div style={{ width: 44, height: 56, borderRadius: 7, flexShrink: 0, overflow: "hidden", border: "2px solid " + (selectedTemplate?.accent || "#e5e7eb") }}>
+                        <TemplateMiniPreview t={selectedTemplate} compact />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-400 font-medium uppercase tracking-wide">Template</p>
-                        <p className="text-sm font-semibold text-gray-800">{selectedTemplate?.name} — {selectedTemplate?.desc}</p>
+                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 2 }}>Design sélectionné</p>
+                        <p style={{ fontSize: 14, fontWeight: 700, color: "#0f172a" }}>{selectedTemplate?.name}</p>
+                        <p style={{ fontSize: 12, color: "#6b7280" }}>{selectedTemplate?.desc}</p>
                       </div>
                     </div>
 
                     {/* Aperçu offre */}
                     {offrePreview && (
-                      <div>
-                        <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Offre</p>
-                        <p className="text-xs text-gray-400 leading-relaxed line-clamp-4 whitespace-pre-line">{offrePreview}{form.offre.length > 200 ? "…" : ""}</p>
+                      <div style={{ borderTop: "1px solid #e5e7eb", paddingTop: 14 }}>
+                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 6 }}>Offre cible</p>
+                        <p style={{ fontSize: 12, color: "#4b5563", lineHeight: 1.6, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" }}>{offrePreview}{form.offre.length > 200 ? "…" : ""}</p>
+                      </div>
+                    )}
+
+                    {/* Nom */}
+                    {form.nom && (
+                      <div style={{ borderTop: "1px solid #e5e7eb", paddingTop: 14 }}>
+                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 4 }}>Candidat</p>
+                        <p style={{ fontSize: 13, color: "#0f172a", fontWeight: 600 }}>{form.nom}</p>
                       </div>
                     )}
                   </div>
 
                   {/* Checkbox lettre de motivation */}
-                  <label className="flex items-center gap-3 bg-purple-50 border border-purple-100 rounded-xl px-4 py-4 cursor-pointer hover:bg-purple-100 transition-colors mb-5">
+                  <label style={{
+                    display: "flex", alignItems: "center", gap: 14,
+                    background: "#faf5ff", border: "1.5px solid #e9d5ff",
+                    borderRadius: 12, padding: "14px 16px", cursor: "pointer",
+                    marginBottom: 20, transition: "background 0.15s",
+                  }}>
                     <input
                       type="checkbox"
                       checked={withLM}
                       onChange={(e) => setWithLM(e.target.checked)}
-                      className="w-4 h-4 accent-purple-600"
+                      style={{ width: 16, height: 16, accentColor: "#7c3aed", flexShrink: 0 }}
                     />
                     <div>
-                      <p className="text-sm font-semibold text-purple-800">✉️ Générer aussi une lettre de motivation</p>
-                      <p className="text-xs text-purple-500 mt-0.5">Adaptée à l'offre, prête à envoyer</p>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: "#5b21b6" }}>Générer aussi une lettre de motivation</p>
+                      <p style={{ fontSize: 12, color: "#7c3aed", marginTop: 2 }}>Adaptée à l'offre, personnalisée, prête à envoyer</p>
                     </div>
                   </label>
 
                   {error && (
-                    <p className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3 mb-4">{error}</p>
+                    <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, padding: "12px 14px", marginBottom: 16 }}>
+                      <p style={{ fontSize: 13, color: "#dc2626" }}>{error}</p>
+                    </div>
                   )}
 
-                  <div className="flex items-center gap-3">
+                  <div style={{ display: "flex", gap: 10 }}>
                     <button
                       type="button"
                       onClick={() => setWizardStep(2)}
-                      className="text-gray-500 text-sm hover:text-gray-700 transition-colors py-3.5 px-2"
+                      style={{ padding: "13px 18px", borderRadius: 10, border: "1.5px solid #e5e7eb", background: "#fff", color: "#6b7280", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}
                     >
-                      ← Retour
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 7H3M7 3L3 7l4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      Retour
                     </button>
                     <button
                       type="submit"
                       disabled={isGenerateDisabled}
-                      className="flex-1 bg-blue-600 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
+                      style={{
+                        flex: 1, padding: "14px 20px", borderRadius: 10, border: "none",
+                        cursor: isGenerateDisabled ? "not-allowed" : "pointer",
+                        background: isGenerateDisabled ? "#e5e7eb" : "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                        color: isGenerateDisabled ? "#9ca3af" : "#fff",
+                        fontSize: 15, fontWeight: 700,
+                        boxShadow: isGenerateDisabled ? "none" : "0 4px 20px rgba(29,78,216,0.4)",
+                        transition: "all 0.2s",
+                        display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                      }}
                     >
-                      {loading
-                        ? (withLM ? "Génération CV + lettre... ⏳" : "Génération en cours... ⏳")
-                        : (withLM ? "Générer CV + LM →" : "Générer mon CV →")}
+                      {loading ? (
+                        <>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ animation: "spin 1s linear infinite" }}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="31.4" strokeDashoffset="10"/></svg>
+                          {withLM ? "Génération CV + lettre…" : "Génération en cours…"}
+                        </>
+                      ) : (
+                        <>
+                          {withLM ? "Générer CV + lettre de motivation" : "Générer mon CV"}
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
