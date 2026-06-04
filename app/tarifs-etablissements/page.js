@@ -197,23 +197,103 @@ export default function TarifsEtablissements() {
         </p>
       </section>
 
-      {/* How it works */}
-      <section style={{ background: "#fff", borderTop: "1px solid #e8f0fe", borderBottom: "1px solid #e8f0fe", padding: "56px 24px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <h2 style={{ fontSize: 24, fontWeight: 800, color: "#0f172a", marginBottom: 8, textAlign: "center" }}>
-            De la signature à l'activation en 24h
-          </h2>
-          <p style={{ fontSize: 14, color: "#64748b", textAlign: "center", marginBottom: 48 }}>Pas de tunnel d'onboarding complexe. Juste un lien et un dashboard.</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 32 }}>
-            {STEPS.map(s => (
-              <div key={s.n} style={{ textAlign: "center" }}>
-                <div style={{ width: 44, height: 44, borderRadius: 12, background: "#eff6ff", color: "#1d4ed8", fontWeight: 800, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 14px" }}>
-                  {s.n}
+      {/* How it works — redesigned */}
+      <section style={{
+        background: "linear-gradient(160deg, #0c1a3a 0%, #1e3a8a 55%, #1d4ed8 100%)",
+        padding: "80px 24px",
+        position: "relative",
+        overflow: "hidden",
+      }}>
+        {/* Ambient glow */}
+        <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 70% 60% at 50% 70%, rgba(59,130,246,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
+
+        <style>{`
+          .step-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 28px 22px 24px;
+            text-align: center;
+            transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+            cursor: default;
+            position: relative;
+          }
+          .step-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.10);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.18);
+          }
+          .step-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            color: #1e3a8a;
+            font-weight: 800;
+            font-size: 15px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+          }
+          .step-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+          }
+        `}</style>
+
+        <div style={{ maxWidth: 1020, margin: "0 auto", position: "relative" }}>
+          {/* Header */}
+          <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.9)", fontSize: 11, fontWeight: 800, padding: "5px 14px", borderRadius: 980, letterSpacing: "0.12em", marginBottom: 18, textTransform: "uppercase" }}>
+              ⚡ Mise en place express
+            </div>
+            <h2 style={{ fontSize: "clamp(22px,4vw,34px)", fontWeight: 800, color: "#fff", marginBottom: 10, letterSpacing: "-0.02em" }}>
+              De la signature à l'activation en 24h
+            </h2>
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.55)", maxWidth: 480, margin: "0 auto" }}>
+              Pas de tunnel d'onboarding complexe. Juste un lien et un dashboard.
+            </p>
+          </div>
+
+          {/* Steps grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 16, marginBottom: 52 }}>
+            {[
+              { n: "01", icon: "✉️", t: "Devis en 24h", d: "Envoyez un email — on répond avec un devis PDF personnalisé.", color: "#60a5fa" },
+              { n: "02", icon: "⚡", t: "Activation immédiate", d: "Après signature, votre lien d'invitation est actif le jour même.", color: "#a78bfa" },
+              { n: "03", icon: "🔗", t: "Partagez le lien", d: "ENT, WhatsApp, email — vos étudiants rejoignent en 30 secondes.", color: "#34d399" },
+              { n: "04", icon: "📊", t: "Suivez les stats", d: "CV générés, score ATS moyen, taux d'activation — en temps réel.", color: "#fbbf24" },
+            ].map((s, i) => (
+              <div key={s.n} className="step-card">
+                {/* Step number */}
+                <div style={{ fontSize: 10, fontWeight: 800, color: s.color, letterSpacing: "0.15em", marginBottom: 14, opacity: 0.7 }}>
+                  ÉTAPE {s.n}
                 </div>
-                <div style={{ fontWeight: 700, fontSize: 15, color: "#0f172a", marginBottom: 6 }}>{s.t}</div>
-                <div style={{ fontSize: 13, color: "#64748b", lineHeight: 1.55 }}>{s.d}</div>
+                {/* Icon */}
+                <div style={{ fontSize: 32, marginBottom: 14, lineHeight: 1 }}>{s.icon}</div>
+                {/* Title */}
+                <div style={{ fontWeight: 800, fontSize: 15, color: "#fff", marginBottom: 8, letterSpacing: "-0.01em" }}>{s.t}</div>
+                {/* Description */}
+                <div style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>{s.d}</div>
+                {/* Accent bottom line */}
+                <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "40%", height: 2, background: s.color, borderRadius: "2px 2px 0 0", opacity: 0.5 }} />
               </div>
             ))}
+          </div>
+
+          {/* CTA */}
+          <div style={{ textAlign: "center" }}>
+            <a
+              className="step-cta"
+              href="mailto:contact@cvadapt.eu?subject=Demande devis CVAdapt Établissement&body=Bonjour,%0A%0AJe souhaite un devis pour CVAdapt pour notre établissement.%0A%0AÉtablissement :%0AType (BTS / lycée / IUT / université) :%0ANombre d'étudiants :%0AContact :%0A%0AMerci"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Recevoir un devis gratuit →
+            </a>
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginTop: 14 }}>
+              Réponse garantie sous 24h · Aucun engagement avant signature
+            </p>
           </div>
         </div>
       </section>
