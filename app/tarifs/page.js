@@ -94,8 +94,8 @@ export default function Tarifs() {
   ];
 
   return (
-    <main className="min-h-screen bg-white" style={{ colorScheme: "light" }}>
-      <style>{`html,body{background:#fff!important}`}</style>
+    <main className="min-h-screen" style={{ background: "#f0f6ff", colorScheme: "light" }}>
+      <style>{`html,body{background:#f0f6ff!important}`}</style>
 
       {/* Header */}
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">

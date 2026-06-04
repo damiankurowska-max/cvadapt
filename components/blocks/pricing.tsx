@@ -68,7 +68,7 @@ export function Pricing({
   const billing = isMonthly ? "monthly" : "yearly";
 
   return (
-    <div className="container py-20">
+    <div className="container py-20 px-4 mx-auto max-w-5xl">
       <div className="text-center space-y-4 mb-12">
         <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
           {title}
@@ -156,10 +156,10 @@ export function Pricing({
               delay: index * 0.1 + 0.15,
             }}
             className={cn(
-              "rounded-2xl border p-6 bg-background text-center flex flex-col relative",
+              "rounded-2xl border p-6 text-center flex flex-col relative",
               plan.isPopular
-                ? "border-blue-600 border-2 shadow-xl shadow-blue-600/10"
-                : "border-border",
+                ? "border-blue-600 border-2 shadow-2xl shadow-blue-600/20 bg-white"
+                : "border-gray-200 shadow-md bg-white",
               !plan.isPopular && "mt-5"
             )}
           >
