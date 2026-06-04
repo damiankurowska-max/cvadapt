@@ -5,7 +5,7 @@ import Logo from "./components/Logo";
 import CountdownBanner from "./components/CountdownBanner";
 import { CinematicHero } from "@/components/ui/cinematic-landing-hero";
 import { SimpleHeader } from "@/components/ui/simple-header";
-import { CVScroll3D } from "@/components/ui/cv-scroll-3d";
+import { CVCarousel3D } from "@/components/ui/cv-carousel-3d";
 
 function getDynamicStats() {
   return { users: 4200, dailyCVs: 87 };
@@ -135,11 +135,11 @@ export default function Home() {
           </p>
         </div>
 
-        {/* CV 3D scroll — feuille A4 qui tourne */}
-        <div className="mt-4 -mx-5">
-          <CVScroll3D />
-        </div>
+        {/* pas de carousel ici — il est en section séparée ci-dessous */}
       </section>
+
+      {/* ─── CAROUSEL 3D ─────────────────────────────────────────── */}
+      <CVCarousel3D />
 
       {/* ─── LOGOS ───────────────────────────────────────────────── */}
       <section className="py-8 px-5 border-y" style={{ background: "#ffffff", borderColor: "#e0ecff" }}>
