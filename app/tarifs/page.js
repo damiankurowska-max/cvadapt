@@ -2,7 +2,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "../components/Logo";
-import { Pricing } from "@/components/blocks/pricing";
+import dynamic from "next/dynamic";
+
+const Pricing = dynamic(
+  () => import("@/components/blocks/pricing").then((m) => ({ default: m.Pricing })),
+  { ssr: false, loading: () => <div style={{ minHeight: 400 }} /> }
+);
 
 export default function Tarifs() {
   const [loading, setLoading] = useState("");
