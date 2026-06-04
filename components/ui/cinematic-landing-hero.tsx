@@ -44,28 +44,36 @@ const INJECTED_STYLES = `
   .ch-bg-grid {
     background-size: 60px 60px;
     background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--color-foreground) 5%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--color-foreground) 5%, transparent) 1px, transparent 1px);
+      linear-gradient(to right, rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
     mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
     -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
   }
 
   .ch-text-3d {
-    color: var(--color-foreground);
+    color: #0f172a;
     text-shadow:
-      0 10px 30px color-mix(in srgb, var(--color-foreground) 20%, transparent),
-      0 2px 4px color-mix(in srgb, var(--color-foreground) 10%, transparent);
+      0 10px 30px rgba(15, 23, 42, 0.18),
+      0 2px 4px rgba(15, 23, 42, 0.10);
   }
 
+  /* tagline on light bg — dark ink */
   .ch-text-silver {
-    background: linear-gradient(180deg, var(--color-foreground) 0%, color-mix(in srgb, var(--color-foreground) 40%, transparent) 100%);
+    background: linear-gradient(180deg, #0f172a 0%, rgba(15, 23, 42, 0.55) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     transform: translateZ(0);
     filter:
-      drop-shadow(0px 10px 20px color-mix(in srgb, var(--color-foreground) 15%, transparent))
-      drop-shadow(0px 2px 4px color-mix(in srgb, var(--color-foreground) 10%, transparent));
+      drop-shadow(0px 10px 20px rgba(15, 23, 42, 0.12))
+      drop-shadow(0px 2px 4px rgba(15, 23, 42, 0.08));
+  }
+  /* CTA heading inside the dark card — white */
+  .ch-cta .ch-text-silver {
+    background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.55) 100%);
+    filter:
+      drop-shadow(0px 10px 20px rgba(255, 255, 255, 0.15))
+      drop-shadow(0px 2px 4px rgba(255, 255, 255, 0.10));
   }
 
   .ch-text-card-silver {
