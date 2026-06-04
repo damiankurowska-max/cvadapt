@@ -1,8 +1,6 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -80,22 +78,57 @@ export function Pricing({
         </p>
       </div>
 
-      {/* Toggle mensuel / annuel */}
-      <div className="flex justify-center items-center gap-3 mb-10">
-        <span className={cn("text-sm font-medium transition-colors", isMonthly ? "text-foreground" : "text-muted-foreground")}>
-          Mensuel
-        </span>
-        <Label className="cursor-pointer">
-          <Switch
-            ref={switchRef as React.RefObject<HTMLButtonElement>}
-            checked={!isMonthly}
-            onCheckedChange={handleToggle}
+      {/* Toggle mensuel / annuel — segmented control pill */}
+      <div className="flex justify-center mb-10">
+        <div
+          className="relative flex p-1 rounded-full"
+          style={{
+            background: "#f0f7ff",
+            border: "1.5px solid #bfdbfe",
+            gap: 0,
+          }}
+        >
+          {/* Sliding indicator */}
+          <motion.div
+            layout
+            className="absolute inset-y-1 rounded-full"
+            style={{
+              width: "calc(50% - 4px)",
+              background: "linear-gradient(135deg,#3b82f6,#1d4ed8)",
+              boxShadow: "0 2px 10px rgba(29,78,216,0.3)",
+              left: isMonthly ? 4 : "calc(50%)",
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
           />
-        </Label>
-        <span className={cn("text-sm font-semibold transition-colors", !isMonthly ? "text-foreground" : "text-muted-foreground")}>
-          Annuel{" "}
-          <span className="text-blue-600 font-bold">(−20%)</span>
-        </span>
+
+          <button
+            type="button"
+            ref={switchRef as React.RefObject<HTMLButtonElement>}
+            onClick={() => { if (!isMonthly) handleToggle(false); }}
+            className="relative z-10 px-6 py-2 text-sm font-bold rounded-full transition-colors"
+            style={{ color: isMonthly ? "#fff" : "#6b7280", minWidth: 110 }}
+          >
+            Mensuel
+          </button>
+
+          <button
+            type="button"
+            onClick={() => { if (isMonthly) handleToggle(true); }}
+            className="relative z-10 px-6 py-2 text-sm font-bold rounded-full transition-colors flex items-center gap-2"
+            style={{ color: !isMonthly ? "#fff" : "#6b7280", minWidth: 110 }}
+          >
+            Annuel
+            <span
+              className="text-xs font-extrabold px-1.5 py-0.5 rounded-full"
+              style={{
+                background: !isMonthly ? "rgba(255,255,255,0.25)" : "rgba(29,78,216,0.12)",
+                color: !isMonthly ? "#fff" : "#1d4ed8",
+              }}
+            >
+              −20%
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Cards */}
