@@ -5,6 +5,7 @@ import Logo from "./components/Logo";
 import CountdownBanner from "./components/CountdownBanner";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { CinematicHero } from "@/components/ui/cinematic-landing-hero";
+import { SimpleHeader } from "@/components/ui/simple-header";
 
 function getDynamicStats() {
   return { users: 4200, dailyCVs: 87 };
@@ -86,22 +87,7 @@ export default function Home() {
       <CountdownBanner />
 
       {/* ─── HEADER ──────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 border-b" style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", borderColor: "#e0ecff" }}>
-        <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Logo size={28} />
-            <span className="text-lg font-extrabold" style={{ color: "#1d4ed8" }}>CVAdapt</span>
-          </div>
-          <nav className="flex items-center gap-2 sm:gap-5">
-            <a href="/tarifs" className="hidden sm:inline text-sm font-semibold" style={{ color: "#6b7280" }}>Tarifs</a>
-            <a href="/blog" className="hidden sm:inline text-sm font-semibold" style={{ color: "#6b7280" }}>Blog</a>
-            <a href="/generate" className="text-white px-5 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 hover:shadow-lg"
-              style={{ background: "#1d4ed8", borderRadius: "999px", boxShadow: "0 4px 14px rgba(29,78,216,0.3)" }}>
-              Commencer gratuitement
-            </a>
-          </nav>
-        </div>
-      </header>
+      <SimpleHeader />
 
       {/* ─── HERO ────────────────────────────────────────────────── */}
       <section className="max-w-5xl mx-auto px-5 pt-16 pb-20 text-center">
