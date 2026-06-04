@@ -38,19 +38,53 @@ export default function CountdownBanner() {
   if (!timeLeft) return null;
 
   return (
-    <div className="w-full bg-gray-950 text-white py-2 px-4">
+    <div
+      className="w-full py-2 px-4"
+      style={{
+        background: "linear-gradient(90deg, #eff6ff 0%, #dbeafe 50%, #eff6ff 100%)",
+        borderBottom: "1px solid rgba(29, 78, 216, 0.12)",
+      }}
+    >
       <div className="max-w-5xl mx-auto flex items-center justify-center gap-3 flex-wrap text-xs">
-        <span className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse inline-block" />
-          <span className="font-semibold text-white">−50% étudiant</span>
+        {/* Badge promo */}
+        <span
+          className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold"
+          style={{
+            background: "rgba(29,78,216,0.10)",
+            color: "#1d4ed8",
+            border: "1px solid rgba(29,78,216,0.18)",
+          }}
+        >
+          <span
+            className="w-1.5 h-1.5 rounded-full animate-pulse inline-block"
+            style={{ background: "#22c55e" }}
+          />
+          −50% étudiant
         </span>
-        <span className="text-gray-500 hidden sm:inline">·</span>
-        <span className="text-gray-400">Expire dans</span>
-        <span className="font-mono text-white bg-white/10 px-2 py-0.5 rounded tabular-nums tracking-wider">
+
+        <span style={{ color: "#93c5fd" }} className="hidden sm:inline">·</span>
+
+        <span style={{ color: "#6b7280" }}>Expire dans</span>
+
+        {/* Compteur */}
+        <span
+          className="font-mono font-bold tabular-nums tracking-wider px-2.5 py-0.5 rounded-lg"
+          style={{
+            background: "rgba(29,78,216,0.08)",
+            border: "1px solid rgba(29,78,216,0.15)",
+            color: "#1d4ed8",
+          }}
+        >
           {timeLeft.h}:{timeLeft.m}:{timeLeft.s}
         </span>
-        <span className="text-gray-500 hidden sm:inline">·</span>
-        <a href="/tarifs" className="text-blue-400 font-semibold hover:text-blue-300 transition-colors">
+
+        <span style={{ color: "#93c5fd" }} className="hidden sm:inline">·</span>
+
+        <a
+          href="/tarifs"
+          className="font-semibold transition-colors hover:underline"
+          style={{ color: "#1d4ed8" }}
+        >
           En profiter →
         </a>
       </div>
