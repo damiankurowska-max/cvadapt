@@ -2,9 +2,17 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "./components/Logo";
-import CountdownBanner from "./components/CountdownBanner";
-import { CinematicHero } from "@/components/ui/cinematic-landing-hero";
-import { SimpleHeader } from "@/components/ui/simple-header";
+import dynamic from "next/dynamic";
+
+const CountdownBanner = dynamic(() => import("./components/CountdownBanner"), { ssr: false });
+const CinematicHero = dynamic(
+  () => import("@/components/ui/cinematic-landing-hero").then((m) => ({ default: m.CinematicHero })),
+  { ssr: false, loading: () => <div style={{ minHeight: "100vh", background: "#f0f7ff" }} /> }
+);
+const SimpleHeader = dynamic(
+  () => import("@/components/ui/simple-header").then((m) => ({ default: m.SimpleHeader })),
+  { ssr: false }
+);
 
 function getDynamicStats() {
   return { users: 4200, dailyCVs: 87 };
