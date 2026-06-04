@@ -1,6 +1,12 @@
 "use client";
 import React, { useRef } from "react";
-import { useScroll, useTransform, motion, MotionValue } from "motion/react";
+import {
+  useScroll,
+  useTransform,
+  useSpring,
+  motion,
+  MotionValue,
+} from "motion/react";
 
 export const ContainerScroll = ({
   titleComponent,
@@ -10,33 +16,65 @@ export const ContainerScroll = ({
   children: React.ReactNode;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: containerRef });
-  const [isMobile, setIsMobile] = React.useState(false);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
 
+  const [isMobile, setIsMobile] = React.useState(false);
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
-  const scaleDimensions = () => (isMobile ? [0.7, 0.9] : [1.05, 1]);
+  // ── Raw scroll values ────────────────────────────────────────────────────
+  const rotateXRaw  = useTransform(scrollYProgress, [0, 0.55], isMobile ? [35, 0] : [52, 0]);
+  const rotateYRaw  = useTransform(scrollYProgress, [0, 0.55], [-10, 0]);
+  const translateYRaw = useTransform(scrollYProgress, [0, 0.55], [isMobile ? 60 : 120, 0]);
+  const scaleRaw    = useTransform(scrollYProgress, [0, 0.55], [isMobile ? 0.78 : 0.72, 1]);
+  const opacityRaw  = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  // Shadow tracks the tilt angle
+  const shadowYRaw   = useTransform(scrollYProgress, [0, 0.55], [6, 50]);
+  const shadowBlurRaw = useTransform(scrollYProgress, [0, 0.55], [10, 80]);
+  const shadowSpreadRaw = useTransform(scrollYProgress, [0, 0.55], [-6, -20]);
+
+  // ── Springy smoothing ────────────────────────────────────────────────────
+  const spring = { stiffness: 80, damping: 20, mass: 0.8 };
+  const rotateX  = useSpring(rotateXRaw,  spring);
+  const rotateY  = useSpring(rotateYRaw,  spring);
+  const translateY = useSpring(translateYRaw, spring);
+  const scale    = useSpring(scaleRaw,    spring);
 
   return (
     <div
-      className="flex items-center justify-center relative"
-      style={{ height: isMobile ? "50rem" : "60rem" }}
       ref={containerRef}
+      className="relative flex items-center justify-center"
+      style={{ height: isMobile ? "52rem" : "68rem" }}
     >
-      <div className="w-full relative" style={{ perspective: "1000px" }}>
+      {/* Deep-perspective wrapper */}
+      <div className="sticky top-1/4 w-full flex flex-col items-center" style={{ perspective: "2400px" }}>
         {titleComponent && (
-          <Header translate={translate} titleComponent={titleComponent} />
+          <motion.div
+            style={{ opacity: opacityRaw, y: translateY }}
+            className="max-w-2xl mx-auto text-center mb-10"
+          >
+            {titleComponent}
+          </motion.div>
         )}
-        <Card rotate={rotate} translate={translate} scale={scale}>
+
+        <Card
+          rotateX={rotateX}
+          rotateY={rotateY}
+          scale={scale}
+          translateY={translateY}
+          opacity={opacityRaw}
+          shadowY={shadowYRaw}
+          shadowBlur={shadowBlurRaw}
+          shadowSpread={shadowSpreadRaw}
+        >
           {children}
         </Card>
       </div>
@@ -44,40 +82,57 @@ export const ContainerScroll = ({
   );
 };
 
-const Header = ({
-  translate,
-  titleComponent,
-}: {
-  translate: MotionValue<number>;
-  titleComponent: React.ReactNode;
-}) => (
-  <motion.div
-    style={{ translateY: translate }}
-    className="max-w-5xl mx-auto text-center mb-8"
-  >
-    {titleComponent}
-  </motion.div>
-);
-
 const Card = ({
-  rotate,
+  rotateX,
+  rotateY,
   scale,
+  translateY,
+  opacity,
+  shadowY,
+  shadowBlur,
+  shadowSpread,
   children,
 }: {
-  rotate: MotionValue<number>;
+  rotateX: MotionValue<number>;
+  rotateY: MotionValue<number>;
   scale: MotionValue<number>;
-  translate: MotionValue<number>;
+  translateY: MotionValue<number>;
+  opacity: MotionValue<number>;
+  shadowY: MotionValue<number>;
+  shadowBlur: MotionValue<number>;
+  shadowSpread: MotionValue<number>;
   children: React.ReactNode;
-}) => (
-  <motion.div
-    style={{
-      rotateX: rotate,
-      scale,
-      boxShadow:
-        "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
-    }}
-    className="max-w-sm mx-auto border border-gray-100 bg-white rounded-2xl shadow-2xl overflow-hidden"
-  >
-    {children}
-  </motion.div>
-);
+}) => {
+  // Compose dynamic box-shadow from motion values
+  const boxShadow = useTransform(
+    [shadowY, shadowBlur, shadowSpread],
+    ([y, blur, spread]: number[]) =>
+      `0 ${y}px ${blur}px ${spread}px rgba(29,78,216,0.10), 0 ${Math.round(y * 0.35)}px ${Math.round(blur * 0.4)}px ${spread}px rgba(0,0,0,0.08)`,
+  );
+
+  return (
+    <motion.div
+      style={{
+        rotateX,
+        rotateY,
+        scale,
+        y: translateY,
+        opacity,
+        boxShadow,
+        transformStyle: "preserve-3d",
+        transformOrigin: "center bottom",
+      }}
+      className="w-full max-w-lg mx-auto rounded-2xl overflow-hidden border border-gray-100 bg-white"
+    >
+      {/* Reflective top-edge highlight — gives depth to the 3D tilt */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px pointer-events-none"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.9) 70%, transparent)",
+        }}
+      />
+      {children}
+    </motion.div>
+  );
+};
