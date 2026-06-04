@@ -4,6 +4,7 @@ import Link from "next/link";
 import Logo from "./components/Logo";
 import CountdownBanner from "./components/CountdownBanner";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import { CinematicHero } from "@/components/ui/cinematic-landing-hero";
 
 function getDynamicStats() {
   return { users: 4200, dailyCVs: 87 };
@@ -74,6 +75,10 @@ export default function Home() {
   }
 
   return (
+    <>
+      {/* ─── CINEMATIC HERO (scroll-pinned, plein écran) ─────────── */}
+      <CinematicHero />
+
     <main className="min-h-screen" style={{ background: "#f0f7ff", fontFamily: "var(--font-outfit, 'Outfit', system-ui, sans-serif)" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
@@ -501,5 +506,6 @@ export default function Home() {
         </div>
       </footer>
     </main>
+    </>
   );
 }
