@@ -181,6 +181,8 @@ export interface CinematicHeroProps extends React.HTMLAttributes<HTMLDivElement>
   badge2Sub?: string;
   appLabel?: string;
   appSub?: string;
+  /** Background color of the page section below — used for the exit transition overlay. Default: "#f0f7ff" */
+  pageBg?: string;
 }
 
 export function CinematicHero({
@@ -210,6 +212,8 @@ export function CinematicHero({
   badge2Sub = "En 30 secondes",
   appLabel = "Aujourd'hui",
   appSub = "Analyse offre",
+  /** Couleur de la page qui suit — utilisée pour le fond du conteneur et l'overlay de transition */
+  pageBg = "#f0f7ff",
   className,
   ...props
 }: CinematicHeroProps) {
@@ -299,7 +303,9 @@ export function CinematicHero({
           ease: "expo.inOut", duration: 1.8,
         }, "pullback")
         .to(".cta-wrapper", { scale: 1, filter: "blur(0px)", ease: "expo.inOut", duration: 1.8 }, "pullback")
-        .to(".main-card", { y: -window.innerHeight - 300, ease: "power3.in", duration: 1.5 });
+        // Sortie carte + fondu vers la couleur de la page suivante
+        .to(".main-card", { y: -window.innerHeight - 300, ease: "power3.in", duration: 1.5 }, "exit")
+        .to(".page-fade-overlay", { opacity: 1, ease: "power2.inOut", duration: 1.2 }, "exit+=0.4");
 
     }, containerRef);
 
@@ -310,15 +316,22 @@ export function CinematicHero({
     <div
       ref={containerRef}
       className={cn(
-        "relative w-screen h-screen overflow-hidden flex items-center justify-center bg-background text-foreground font-sans antialiased",
+        "relative w-screen h-screen overflow-hidden flex items-center justify-center text-foreground font-sans antialiased",
         className
       )}
-      style={{ perspective: "1500px" }}
+      style={{ perspective: "1500px", background: pageBg }}
       {...props}
     >
       <style dangerouslySetInnerHTML={{ __html: INJECTED_STYLES }} />
       <div className="film-grain" aria-hidden="true" />
       <div className="bg-grid-theme absolute inset-0 z-0 pointer-events-none opacity-50" aria-hidden="true" />
+
+      {/* Overlay de transition — se fond vers la couleur de la page pendant la sortie de la carte */}
+      <div
+        className="page-fade-overlay absolute inset-0 pointer-events-none"
+        style={{ zIndex: 60, opacity: 0, background: pageBg }}
+        aria-hidden="true"
+      />
 
       {/* LAYER 1 — Tagline hero text */}
       <div className="hero-text-wrapper absolute z-10 flex flex-col items-center justify-center text-center w-screen px-4 will-change-transform">
