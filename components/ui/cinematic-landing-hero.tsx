@@ -1,7 +1,7 @@
 // components/ui/cinematic-landing-hero.tsx
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
@@ -249,7 +249,7 @@ export function CinematicHero({
 
   // ── SCROLL timeline (scrubbed, pinned) ───────────────────────────────────
   // Intro is handled by CSS animation — GSAP only controls scroll behaviour.
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!containerRef.current) return;
     const isMobile = window.innerWidth < 768;
     const vh = window.innerHeight;
