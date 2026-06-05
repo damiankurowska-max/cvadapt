@@ -432,7 +432,7 @@ export default function Generate() {
                 {history.map((entry) => (
                   <div key={entry.id} className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-3 border border-gray-100 hover:border-blue-200 transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className={`w-2 h-2 rounded-full ${TEMPLATES.find(t => t.id === entry.template)?.color || "bg-blue-600"}`}></div>
+                      <div className="w-2 h-2 rounded-full" style={{ background: TEMPLATES.find(t => t.id === entry.template)?.accent || "#2563eb" }}></div>
                       <div>
                         <p className="font-semibold text-gray-900 text-sm">{entry.nom}</p>
                         <p className="text-gray-400 text-xs">{entry.date} · {entry.apercu}</p>

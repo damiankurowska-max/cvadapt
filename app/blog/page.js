@@ -30,6 +30,7 @@ function getCategoryStyle(cat) {
 }
 
 export default function Blog() {
+  if (!articles || articles.length === 0) return null;
   const featured = articles[0];
   const rest = articles.slice(1);
 

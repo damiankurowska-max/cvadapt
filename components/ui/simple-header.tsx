@@ -8,8 +8,9 @@ import Logo from '@/app/components/Logo';
 import { useAuth } from '@clerk/nextjs';
 import dynamic from 'next/dynamic';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const UserButton = dynamic(
-  () => import('@clerk/nextjs').then((m) => ({ default: m.UserButton })),
+  () => import('@clerk/nextjs').then((m) => ({ default: m.UserButton as any })),
   { ssr: false }
 );
 
@@ -96,6 +97,7 @@ export function SimpleHeader() {
               <Link href="/generate" style={BTN_PRIMARY} className="hover:-translate-y-0.5 hover:shadow-xl">
                 Générer un CV →
               </Link>
+              {/* @ts-expect-error Clerk dynamic import type mismatch */}
               <UserButton afterSignOutUrl="/" />
             </>
           ) : (
