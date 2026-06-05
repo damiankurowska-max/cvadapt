@@ -325,11 +325,55 @@ export default function Generate() {
   }
 
   function injectPhoto(html) {
-    if (!photo) return html.replace(/<span id="cv-photo-slot"[^>]*><\/span>/g, "");
-    return html.replace(
-      /<span id="cv-photo-slot"([^>]*)><\/span>/,
-      `<img src="${photo}" style="width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;" alt="" />`
-    );
+    if (!html) return html;
+    // Strip leftover slots (empty spans Claude sometimes includes)
+    html = html.replace(/<span id="cv-photo-slot"[^>]*><\/span>/g, photo
+      ? `<img src="${photo}" style="width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;" alt="">`
+      : "");
+
+    if (!photo) return html;
+
+    // Fallback DOM injection — works even when Claude didn't include the slot
+    // (runs in the browser only)
+    if (typeof window === "undefined") return html;
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString("<div>" + html + "</div>", "text/html");
+      const root = doc.body.querySelector("div");
+      if (!root) return html;
+
+      // Already injected above via slot replacement
+      if (root.querySelector("img[alt='']")) return root.innerHTML;
+
+      const img = doc.createElement("img");
+      img.src = photo;
+      img.alt = "";
+
+      // Atelier / creatif — dark sidebar (#0f172a)
+      const sidebar = [...root.querySelectorAll("div")].find(d =>
+        (d.getAttribute("style") || "").includes("0f172a"));
+      if (sidebar) {
+        img.setAttribute("style", "width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 22px;border:2px solid #1e293b;");
+        sidebar.insertBefore(img, sidebar.firstChild);
+        return root.innerHTML;
+      }
+
+      // Sobre / moderne — light left column (#f8fafc)
+      const leftCol = [...root.querySelectorAll("div")].find(d =>
+        (d.getAttribute("style") || "").includes("f8fafc"));
+      if (leftCol) {
+        img.setAttribute("style", "width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 18px;");
+        leftCol.insertBefore(img, leftCol.firstChild);
+        return root.innerHTML;
+      }
+
+      // Coupure / Trait — single column, float photo right in header
+      img.setAttribute("style", "width:82px;height:98px;object-fit:cover;float:right;margin:4px 0 16px 24px;");
+      root.insertBefore(img, root.firstChild);
+      return root.innerHTML;
+    } catch {
+      return html;
+    }
   }
 
   function handlePrint(content, title) {
