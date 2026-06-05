@@ -331,7 +331,9 @@ export function CinematicHero({
     };
   }, [metricValue]);
 
+  // Outer wrapper is what React removes on unmount — GSAP only wraps the inner containerRef
   return (
+    <div style={{ width: "100%", overflow: "hidden" }}>
     <div
       ref={containerRef}
       className={cn("relative w-screen h-screen overflow-hidden flex items-center justify-center text-foreground font-sans antialiased", className)}
@@ -473,6 +475,7 @@ export function CinematicHero({
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
