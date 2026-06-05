@@ -105,7 +105,7 @@ function TemplateMiniPreview({ t, compact }) {
 
 export default function Generate() {
   const { user } = useUser();
-  const [form, setForm] = useState({ nom: "", offre: "", experience: "", competences: "", formation: "" });
+  const [form, setForm] = useState({ nom: "", email: "", telephone: "", offre: "", experience: "", competences: "", formation: "" });
   const [template, setTemplate] = useState("moderne");
   const [withLM, setWithLM] = useState(false);
   const [cv, setCv] = useState("");
@@ -602,6 +602,26 @@ export default function Generate() {
                       onBlur={e => Object.assign(e.target.style, inputStyle)}
                     />
                   </FieldGroup>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+                    <FieldGroup label="Email" hint="Coordonnées CV">
+                      <input
+                        type="email" name="email" value={form.email} onChange={handleChange}
+                        placeholder="jean@email.com"
+                        style={inputStyle}
+                        onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
+                        onBlur={e => Object.assign(e.target.style, inputStyle)}
+                      />
+                    </FieldGroup>
+                    <FieldGroup label="Téléphone" hint="Optionnel">
+                      <input
+                        type="tel" name="telephone" value={form.telephone} onChange={handleChange}
+                        placeholder="06 12 34 56 78"
+                        style={inputStyle}
+                        onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
+                        onBlur={e => Object.assign(e.target.style, inputStyle)}
+                      />
+                    </FieldGroup>
+                  </div>
                   <FieldGroup label="Expérience professionnelle" hint="Postes occupés, entreprises, durées">
                     <textarea
                       name="experience" value={form.experience} onChange={handleChange}

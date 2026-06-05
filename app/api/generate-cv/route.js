@@ -18,111 +18,274 @@ const PLAN_LIMITS = {
 
 const TEMPLATE_STYLES = {
   moderne: `
-TEMPLATE SOBRE — instructions CSS précises :
-Conteneur global : width:794px; min-height:1123px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.5; color:#1e293b; background:#fff.
-EN-TÊTE : background:#1e293b; padding:36px 40px 30px; display:flex; align-items:flex-end; justify-content:space-between.
-  - Bloc nom/titre (gauche, flex:1) :
-    · Nom : font-size:26px; font-weight:600; color:#f8fafc; letter-spacing:-0.3px; display:block; margin-bottom:6px.
-    · Titre poste : font-size:13px; color:#94a3b8; font-weight:400; letter-spacing:0.2px.
-  - Coordonnées (droite, text-align:right) : font-size:11px; color:#94a3b8; line-height:2.
-LAYOUT CORPS : display:grid; grid-template-columns:210px 1fr; min-height:calc(1123px - 102px).
-COLONNE GAUCHE : background:#f8fafc; padding:28px 20px; border-right:1px solid #e2e8f0.
-COLONNE DROITE : padding:28px 32px; background:#fff.
-TITRES DE SECTION : font-size:9px; font-weight:700; color:#64748b; letter-spacing:1.8px; text-transform:uppercase; margin-bottom:12px; margin-top:24px. Pas de border-bottom colorée. Pas de couleur vive.
-  - Premier titre gauche et droite : margin-top:0.
-COMPÉTENCES (gauche) : chaque compétence = display:block; font-size:12px; color:#334155; padding:5px 0; border-bottom:1px solid #e2e8f0; line-height:1.4.
-FORMATION (gauche) : diplôme en font-weight:600; font-size:12px; color:#1e293b — établissement en color:#64748b; font-size:11px; display:block; margin-top:1px — année en color:#94a3b8; font-size:10.5px.
-PROFIL (droite) : font-size:13px; line-height:1.75; color:#334155. Pas de background coloré, pas de border-left colorée.
-EXPÉRIENCES (droite) : chaque poste = margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid #f1f5f9.
-  - Ligne titre + dates : display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2px.
-  - Titre poste : font-weight:600; font-size:13px; color:#0f172a.
-  - Dates : color:#94a3b8; font-size:11px; font-style:italic.
-  - Entreprise : color:#475569; font-size:12px; font-weight:500; margin-bottom:6px; display:block.
-  - Bullets : list-style:none; padding:0; margin:0.
-    Chaque li : padding:2px 0 2px 14px; position:relative; color:#475569; font-size:12.5px; line-height:1.5.
-    Chaque li::before : content:"·"; position:absolute; left:0; color:#94a3b8; font-size:16px; top:-1px.`,
+TEMPLATE SOBRE — rendu premium, qualité impression A4.
+
+STRUCTURE HTML EXACTE à produire :
+<div style="width:794px;min-height:1123px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#1e293b;background:#ffffff;box-sizing:border-box;">
+
+  <!-- EN-TÊTE -->
+  <div style="background:#1e293b;padding:40px 44px 34px;display:flex;align-items:flex-end;justify-content:space-between;gap:32px;">
+    <div style="flex:1;">
+      <span style="display:block;font-size:28px;font-weight:600;color:#f8fafc;letter-spacing:-0.4px;line-height:1.2;margin-bottom:8px;">[NOM COMPLET]</span>
+      <span style="display:block;font-size:13px;color:#94a3b8;font-weight:400;letter-spacing:0.3px;">[TITRE DU POSTE]</span>
+    </div>
+    <div style="text-align:right;font-size:11px;color:#94a3b8;line-height:2.1;flex-shrink:0;">
+      [email si fourni — sinon omettre la ligne]<br>
+      [téléphone si fourni — sinon omettre la ligne]<br>
+      Paris, France
+    </div>
+  </div>
+
+  <!-- CORPS : 2 colonnes -->
+  <div style="display:grid;grid-template-columns:210px 1fr;min-height:983px;">
+
+    <!-- COLONNE GAUCHE -->
+    <div style="background:#f8fafc;padding:30px 22px;border-right:1px solid #e2e8f0;box-sizing:border-box;">
+
+      <!-- Section COMPÉTENCES -->
+      <span style="display:block;font-size:9px;font-weight:700;color:#64748b;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;">Compétences</span>
+      [chaque compétence : <span style="display:block;font-size:12px;color:#334155;padding:6px 0;border-bottom:1px solid #e2e8f0;line-height:1.4;">[compétence]</span>]
+
+      <!-- Section FORMATION -->
+      <span style="display:block;font-size:9px;font-weight:700;color:#64748b;letter-spacing:1.8px;text-transform:uppercase;margin-top:28px;margin-bottom:14px;">Formation</span>
+      [pour chaque diplôme :
+        <div style="margin-bottom:14px;">
+          <span style="display:block;font-size:12px;font-weight:600;color:#1e293b;line-height:1.4;">[Diplôme]</span>
+          <span style="display:block;font-size:11px;color:#64748b;margin-top:2px;">[Établissement]</span>
+          <span style="display:block;font-size:10.5px;color:#94a3b8;margin-top:2px;">[Année]</span>
+        </div>
+      ]
+
+    </div>
+
+    <!-- COLONNE DROITE -->
+    <div style="padding:30px 36px;background:#ffffff;box-sizing:border-box;">
+
+      <!-- Section PROFIL -->
+      <span style="display:block;font-size:9px;font-weight:700;color:#64748b;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;">Profil</span>
+      <p style="font-size:13px;line-height:1.8;color:#334155;margin:0 0 24px;">[3 phrases percutantes, mots-clés de l'offre intégrés]</p>
+
+      <!-- Section EXPÉRIENCES -->
+      <span style="display:block;font-size:9px;font-weight:700;color:#64748b;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:16px;">Expériences</span>
+      [pour chaque expérience :
+        <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #f1f5f9;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
+            <span style="font-size:13px;font-weight:600;color:#0f172a;">[Titre du poste]</span>
+            <span style="font-size:11px;color:#94a3b8;font-style:italic;">[Dates]</span>
+          </div>
+          <span style="display:block;font-size:12px;color:#475569;font-weight:500;margin-bottom:8px;">[Entreprise]</span>
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="position:relative;padding:3px 0 3px 16px;font-size:12.5px;color:#475569;line-height:1.55;"><span style="position:absolute;left:0;color:#94a3b8;font-size:15px;top:1px;">·</span>[résultat chiffré]</li>
+          </ul>
+        </div>
+      ]
+
+    </div>
+  </div>
+</div>
+
+RÈGLES ABSOLUES : aucune couleur vive dans le corps. Pas de border-left colorée. Pas de background coloré sur le profil. Les titres de section restent exclusivement en #64748b uppercase tiny. Le nom seul en grand dans l'en-tête sombre.`,
 
   classique: `
-TEMPLATE COUPURE — instructions CSS précises :
-Conteneur global : width:794px; min-height:1123px; font-family:Georgia,'Times New Roman',serif; font-size:13px; line-height:1.65; color:#1c1c1c; background:#fff; padding:52px 56px 40px.
-EN-TÊTE : margin-bottom:20px; padding-bottom:16px.
-  - Nom : font-size:32px; font-weight:700; color:#1c1c1c; letter-spacing:-0.5px; display:block; margin-bottom:4px.
-  - Titre poste : font-size:14px; color:#92400e; font-style:italic; font-weight:400; margin-bottom:14px; display:block.
-  - Trait de séparation : display:block; border-top:2px solid #1c1c1c; margin-bottom:10px.
-  - Coordonnées (sous le trait) : font-size:11px; color:#6b7280; font-family:'Helvetica Neue',Arial,sans-serif; display:flex; gap:24px; flex-wrap:wrap; padding-top:4px.
-LAYOUT : une seule colonne.
-TITRES DE SECTION : font-family:'Helvetica Neue',Arial,sans-serif; font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#92400e; margin:24px 0 4px 0; display:block.
-  Immédiatement après le titre, ajouter une ligne : <hr style="border:none;border-top:1px solid #e5e7eb;margin:4px 0 10px 0">
-PROFIL : font-size:13.5px; line-height:1.8; color:#374151; margin-bottom:4px.
-EXPÉRIENCES : chaque poste = margin-bottom:16px.
-  - Ligne titre + dates : display:flex; justify-content:space-between; align-items:baseline.
-  - Titre poste : font-weight:700; font-size:13.5px; color:#1c1c1c; font-family:Georgia,serif.
-  - Dates : font-size:11px; color:#6b7280; font-family:'Helvetica Neue',Arial,sans-serif; font-style:italic.
-  - Entreprise : color:#92400e; font-size:12px; font-family:'Helvetica Neue',Arial,sans-serif; font-weight:600; margin-bottom:5px; display:block.
-  - Bullets : list-style:none; padding:0; margin:0.
-    Chaque li : padding:2px 0 2px 16px; position:relative; color:#4b5563; font-size:12.5px; line-height:1.55.
-    Chaque li::before : content:"—"; position:absolute; left:0; color:#9ca3af; font-size:11px; top:3px.
-COMPÉTENCES : display:flex; flex-wrap:wrap; gap:6px — chaque item = font-family:'Helvetica Neue',Arial,sans-serif; font-size:11.5px; padding:3px 10px; background:#fef3c7; color:#92400e; border-radius:2px.
-FORMATION : diplôme en font-weight:700; font-size:13px; color:#1c1c1c — établissement en font-style:italic; color:#6b7280; font-size:12px; display:block — année en color:#9ca3af; font-size:11px.`,
+TEMPLATE COUPURE — rendu éditorial magazine, qualité impression A4.
+
+STRUCTURE HTML EXACTE à produire :
+<div style="width:794px;min-height:1123px;font-family:Georgia,'Times New Roman',serif;font-size:13px;line-height:1.65;color:#1c1c1c;background:#ffffff;padding:56px 60px 48px;box-sizing:border-box;">
+
+  <!-- EN-TÊTE -->
+  <div style="margin-bottom:24px;">
+    <span style="display:block;font-size:34px;font-weight:700;color:#1c1c1c;letter-spacing:-0.6px;line-height:1.15;margin-bottom:6px;">[NOM COMPLET]</span>
+    <span style="display:block;font-size:14px;color:#92400e;font-style:italic;font-weight:400;margin-bottom:16px;">[Titre du poste ciblé]</span>
+    <div style="border-top:2px solid #1c1c1c;margin-bottom:10px;"></div>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;font-size:11px;color:#6b7280;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding-top:6px;">
+      [si email : <span>[email]</span>]
+      [si téléphone : <span>[téléphone]</span>]
+      <span>Paris, France</span>
+    </div>
+  </div>
+
+  <!-- PROFIL -->
+  <span style="display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:2.2px;color:#92400e;margin:0 0 6px;">Profil</span>
+  <div style="border-top:1px solid #e5e7eb;margin-bottom:12px;"></div>
+  <p style="font-size:13.5px;line-height:1.85;color:#374151;margin:0 0 24px;">[3 phrases, mots-clés de l'offre]</p>
+
+  <!-- EXPÉRIENCES -->
+  <span style="display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:2.2px;color:#92400e;margin:0 0 6px;">Expériences professionnelles</span>
+  <div style="border-top:1px solid #e5e7eb;margin-bottom:16px;"></div>
+  [pour chaque expérience :
+    <div style="margin-bottom:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
+        <span style="font-weight:700;font-size:13.5px;color:#1c1c1c;font-family:Georgia,serif;">[Titre du poste]</span>
+        <span style="font-size:11px;color:#6b7280;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-style:italic;">[Dates]</span>
+      </div>
+      <span style="display:block;font-size:12px;color:#92400e;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:600;margin-bottom:7px;">[Entreprise]</span>
+      <ul style="list-style:none;padding:0;margin:0;">
+        <li style="position:relative;padding:2px 0 2px 18px;font-size:12.5px;color:#4b5563;line-height:1.6;"><span style="position:absolute;left:0;color:#9ca3af;font-size:11px;top:4px;">—</span>[résultat chiffré]</li>
+      </ul>
+    </div>
+  ]
+
+  <!-- COMPÉTENCES -->
+  <span style="display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:2.2px;color:#92400e;margin:24px 0 6px;">Compétences</span>
+  <div style="border-top:1px solid #e5e7eb;margin-bottom:14px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;">
+    [chaque compétence : <span style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11.5px;padding:4px 12px;background:#fef3c7;color:#92400e;border-radius:2px;">[compétence]</span>]
+  </div>
+
+  <!-- FORMATION -->
+  <span style="display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:2.2px;color:#92400e;margin:24px 0 6px;">Formation</span>
+  <div style="border-top:1px solid #e5e7eb;margin-bottom:14px;"></div>
+  [pour chaque diplôme :
+    <div style="margin-bottom:12px;">
+      <span style="font-weight:700;font-size:13px;color:#1c1c1c;">[Diplôme]</span>
+      <span style="display:block;font-style:italic;color:#6b7280;font-size:12px;">[Établissement]</span>
+      <span style="color:#9ca3af;font-size:11px;">[Année]</span>
+    </div>
+  ]
+
+</div>`,
 
   creatif: `
-TEMPLATE ATELIER — instructions CSS précises :
-Conteneur global : width:794px; min-height:1123px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.5; color:#1e293b; background:#fff; display:flex.
-SIDEBAR (gauche 220px) : background:#0f172a; padding:40px 22px 36px; min-height:1123px; flex-shrink:0; display:flex; flex-direction:column.
-  - Nom : font-size:18px; font-weight:700; color:#f8fafc; line-height:1.3; margin-bottom:4px; letter-spacing:-0.2px.
-  - Titre : font-size:11px; color:#f59e0b; font-weight:500; letter-spacing:0.3px; margin-bottom:32px; display:block.
-  - Titres sections sidebar : font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#64748b; margin:24px 0 10px; padding-bottom:6px; border-bottom:1px solid #1e293b; display:block.
-  - Compétences : chaque item = display:block; font-size:12px; color:#cbd5e1; padding:4px 0; border-bottom:1px solid #1e293b; line-height:1.4.
-  - Formation : diplôme en font-weight:600; font-size:12px; color:#f8fafc; display:block; margin-bottom:2px — établissement en font-size:11px; color:#94a3b8; display:block — année en font-size:10.5px; color:#64748b; display:block; margin-bottom:10px.
-  - Coordonnées (en bas sidebar, margin-top:auto) : padding-top:24px; border-top:1px solid #1e293b; font-size:11px; color:#64748b; line-height:1.9.
-CORPS PRINCIPAL (droite, flex:1) : padding:40px 36px; background:#fff.
-TITRES SECTIONS CORPS : font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#64748b; margin:24px 0 12px; padding-bottom:7px; border-bottom:1px solid #f1f5f9; display:block.
-  - Premier titre : margin-top:0.
-PROFIL : font-size:13px; line-height:1.75; color:#475569; padding:14px 16px; background:#fafafa; margin-bottom:4px.
-EXPÉRIENCES : chaque poste = margin-bottom:18px.
-  - Ligne titre + dates : display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2px.
-  - Titre poste : font-weight:700; font-size:13px; color:#0f172a.
-  - Dates : font-size:11px; color:#94a3b8; font-style:italic.
-  - Entreprise : font-size:12px; color:#f59e0b; font-weight:600; margin-bottom:6px; display:block.
-  - Bullets : list-style:none; padding:0; margin:0.
-    Chaque li : padding:2px 0 2px 14px; position:relative; color:#475569; font-size:12.5px; line-height:1.5.
-    Chaque li::before : content:"›"; position:absolute; left:0; color:#94a3b8; font-size:13px; top:1px.`,
+TEMPLATE ATELIER — sidebar sombre premium, qualité impression A4.
+
+STRUCTURE HTML EXACTE à produire :
+<div style="width:794px;min-height:1123px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#1e293b;background:#ffffff;display:flex;box-sizing:border-box;">
+
+  <!-- SIDEBAR GAUCHE -->
+  <div style="width:224px;min-height:1123px;background:#0f172a;padding:44px 24px 40px;flex-shrink:0;display:flex;flex-direction:column;box-sizing:border-box;">
+
+    <!-- Identité -->
+    <span style="display:block;font-size:19px;font-weight:700;color:#f8fafc;line-height:1.3;margin-bottom:5px;letter-spacing:-0.3px;">[NOM COMPLET]</span>
+    <span style="display:block;font-size:11px;color:#f59e0b;font-weight:500;letter-spacing:0.4px;margin-bottom:36px;">[Titre du poste]</span>
+
+    <!-- Compétences -->
+    <span style="display:block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#475569;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid #1e293b;">Compétences</span>
+    [chaque compétence : <span style="display:block;font-size:12px;color:#cbd5e1;padding:5px 0;border-bottom:1px solid #1e293b;line-height:1.45;">[compétence]</span>]
+
+    <!-- Formation -->
+    <span style="display:block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#475569;margin-top:28px;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid #1e293b;">Formation</span>
+    [pour chaque diplôme :
+      <div style="margin-bottom:14px;">
+        <span style="display:block;font-size:12px;font-weight:600;color:#f8fafc;line-height:1.4;">[Diplôme]</span>
+        <span style="display:block;font-size:11px;color:#94a3b8;margin-top:2px;">[Établissement]</span>
+        <span style="display:block;font-size:10.5px;color:#475569;margin-top:2px;">[Année]</span>
+      </div>
+    ]
+
+    <!-- Coordonnées en bas -->
+    <div style="margin-top:auto;padding-top:28px;border-top:1px solid #1e293b;">
+      <span style="display:block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#475569;margin-bottom:10px;">Contact</span>
+      [si email : <span style="display:block;font-size:11px;color:#64748b;line-height:2;">[email]</span>]
+      [si téléphone : <span style="display:block;font-size:11px;color:#64748b;line-height:2;">[téléphone]</span>]
+      <span style="display:block;font-size:11px;color:#64748b;line-height:2;">Paris, France</span>
+    </div>
+  </div>
+
+  <!-- CORPS PRINCIPAL -->
+  <div style="flex:1;padding:44px 40px;background:#ffffff;box-sizing:border-box;">
+
+    <!-- Profil -->
+    <span style="display:block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#64748b;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f1f5f9;">Profil</span>
+    <p style="font-size:13px;line-height:1.8;color:#475569;background:#fafafa;padding:14px 18px;margin:0 0 28px;box-sizing:border-box;">[3 phrases, mots-clés de l'offre]</p>
+
+    <!-- Expériences -->
+    <span style="display:block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#64748b;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #f1f5f9;">Expériences</span>
+    [pour chaque expérience :
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
+          <span style="font-weight:700;font-size:13px;color:#0f172a;">[Titre du poste]</span>
+          <span style="font-size:11px;color:#94a3b8;font-style:italic;">[Dates]</span>
+        </div>
+        <span style="display:block;font-size:12px;color:#f59e0b;font-weight:600;margin-bottom:8px;">[Entreprise]</span>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="position:relative;padding:3px 0 3px 16px;font-size:12.5px;color:#475569;line-height:1.55;"><span style="position:absolute;left:0;color:#94a3b8;font-size:13px;top:2px;">›</span>[résultat chiffré]</li>
+        </ul>
+      </div>
+    ]
+
+  </div>
+</div>`,
 
   minimaliste: `
-TEMPLATE TRAIT — instructions CSS précises :
-Conteneur global : width:794px; min-height:1123px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.8; color:#111827; background:#fff; padding:56px 64px.
-EN-TÊTE : margin-bottom:32px.
-  - Nom : font-size:36px; font-weight:300; color:#111827; letter-spacing:-0.5px; display:block; margin-bottom:4px.
-  - Titre poste : font-size:14px; color:#0f766e; font-weight:500; letter-spacing:0.1px; margin-bottom:14px; display:block.
-  - Trait de séparation : display:block; border-top:1.5px solid #111827; margin-bottom:12px.
-  - Coordonnées : font-size:11px; color:#6b7280; display:flex; gap:20px; flex-wrap:wrap.
-LAYOUT : une seule colonne.
-TITRES DE SECTION : font-size:10px; font-weight:700; color:#0f766e; text-transform:uppercase; letter-spacing:2px; display:flex; align-items:center; gap:12px; margin:28px 0 12px 0.
-  Après le texte du titre, ajouter exactement : <span style="flex:1;height:1px;background:#e5e7eb;display:inline-block;vertical-align:middle"></span>
-PROFIL : font-size:13.5px; line-height:1.9; color:#374151; margin-bottom:0.
-EXPÉRIENCES : chaque poste = margin-bottom:22px.
-  - Ligne titre + dates : display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1px.
-  - Titre poste : font-weight:600; font-size:13.5px; color:#111827.
-  - Dates : font-size:11.5px; color:#9ca3af; font-style:italic.
-  - Entreprise : font-size:12px; color:#0f766e; font-weight:500; margin-bottom:6px; display:block.
-  - Bullets : list-style:none; padding:0; margin:0.
-    Chaque li : padding:2px 0; color:#4b5563; font-size:12.5px; line-height:1.6. Commencer chaque bullet par "– " (tiret demi-cadratin + espace) en color:#9ca3af.
-COMPÉTENCES : display:flex; flex-wrap:wrap; gap:8px — chaque item : font-size:12px; padding:4px 14px; border:1px solid #ccfbf1; color:#0f766e; border-radius:16px; background:#f0fdfa.
-FORMATION : diplôme en font-weight:600; font-size:13px; color:#111827; display:block — établissement en color:#6b7280; font-size:12px; font-style:italic; display:block — année en color:#9ca3af; font-size:11px.`,
+TEMPLATE TRAIT — ultra-minimaliste, typographie fine, qualité impression A4.
+
+STRUCTURE HTML EXACTE à produire :
+<div style="width:794px;min-height:1123px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.8;color:#111827;background:#ffffff;padding:60px 68px 52px;box-sizing:border-box;">
+
+  <!-- EN-TÊTE -->
+  <div style="margin-bottom:36px;">
+    <span style="display:block;font-size:38px;font-weight:300;color:#111827;letter-spacing:-0.6px;line-height:1.15;margin-bottom:6px;">[NOM COMPLET]</span>
+    <span style="display:block;font-size:14px;color:#0f766e;font-weight:500;letter-spacing:0.1px;margin-bottom:16px;">[Titre du poste ciblé]</span>
+    <div style="border-top:1.5px solid #111827;margin-bottom:14px;"></div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;font-size:11px;color:#6b7280;">
+      [si email : <span>[email]</span>]
+      [si téléphone : <span>[téléphone]</span>]
+      <span>Paris, France</span>
+    </div>
+  </div>
+
+  <!-- PROFIL -->
+  <div style="display:flex;align-items:center;gap:14px;margin:0 0 14px;">
+    <span style="font-size:10px;font-weight:700;color:#0f766e;text-transform:uppercase;letter-spacing:2.2px;white-space:nowrap;">Profil</span>
+    <span style="flex:1;height:1px;background:#e5e7eb;display:inline-block;"></span>
+  </div>
+  <p style="font-size:13.5px;line-height:1.9;color:#374151;margin:0 0 28px;">[3 phrases, mots-clés de l'offre]</p>
+
+  <!-- EXPÉRIENCES -->
+  <div style="display:flex;align-items:center;gap:14px;margin:0 0 18px;">
+    <span style="font-size:10px;font-weight:700;color:#0f766e;text-transform:uppercase;letter-spacing:2.2px;white-space:nowrap;">Expériences</span>
+    <span style="flex:1;height:1px;background:#e5e7eb;display:inline-block;"></span>
+  </div>
+  [pour chaque expérience :
+    <div style="margin-bottom:24px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">
+        <span style="font-weight:600;font-size:13.5px;color:#111827;">[Titre du poste]</span>
+        <span style="font-size:11.5px;color:#9ca3af;font-style:italic;">[Dates]</span>
+      </div>
+      <span style="display:block;font-size:12px;color:#0f766e;font-weight:500;margin-bottom:8px;">[Entreprise]</span>
+      <ul style="list-style:none;padding:0;margin:0;">
+        <li style="padding:2px 0;font-size:12.5px;color:#4b5563;line-height:1.65;"><span style="color:#9ca3af;margin-right:6px;">–</span>[résultat chiffré]</li>
+      </ul>
+    </div>
+  ]
+
+  <!-- COMPÉTENCES -->
+  <div style="display:flex;align-items:center;gap:14px;margin:4px 0 16px;">
+    <span style="font-size:10px;font-weight:700;color:#0f766e;text-transform:uppercase;letter-spacing:2.2px;white-space:nowrap;">Compétences</span>
+    <span style="flex:1;height:1px;background:#e5e7eb;display:inline-block;"></span>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px;">
+    [chaque compétence : <span style="font-size:12px;padding:5px 16px;border:1px solid #ccfbf1;color:#0f766e;border-radius:20px;background:#f0fdfa;">[compétence]</span>]
+  </div>
+
+  <!-- FORMATION -->
+  <div style="display:flex;align-items:center;gap:14px;margin:0 0 16px;">
+    <span style="font-size:10px;font-weight:700;color:#0f766e;text-transform:uppercase;letter-spacing:2.2px;white-space:nowrap;">Formation</span>
+    <span style="flex:1;height:1px;background:#e5e7eb;display:inline-block;"></span>
+  </div>
+  [pour chaque diplôme :
+    <div style="margin-bottom:14px;">
+      <span style="display:block;font-weight:600;font-size:13px;color:#111827;">[Diplôme]</span>
+      <span style="display:block;color:#6b7280;font-size:12px;font-style:italic;">[Établissement]</span>
+      <span style="color:#9ca3af;font-size:11px;">[Année]</span>
+    </div>
+  ]
+
+</div>`,
 };
 
 // System prompt stable → cache API Anthropic
-const SYSTEM_PROMPT = `Expert RH et designer CV français. Tu génères des CV HTML avec CSS inline de haute qualité visuelle.
+const SYSTEM_PROMPT = `Tu es un expert RH et designer CV de haut niveau. Tu génères des CV HTML en CSS inline, prêts à imprimer, d'une qualité professionnelle irréprochable.
 
-RÈGLES STRICTES :
-- Réponds UNIQUEMENT avec du HTML inline CSS. Zéro markdown, zéro texte hors HTML.
-- Commence par <div et termine par </div>. Pas de balise <html>, <head>, <body>.
-- Respecte EXACTEMENT les instructions CSS du template fourni (couleurs, tailles, espacements).
-- Intègre tous les mots-clés pertinents de l'offre dans le profil et les compétences.
-- Chaque expérience : 2-3 bullets avec résultats chiffrés quand possible (%, €, délais).
-- N'invente PAS d'informations : si une donnée est absente, omets la section plutôt que d'inventer.
-- Optimisé A4 impression : width:794px exact, évite les coupures de page au milieu d'une section.
-- Qualité pro : espacement cohérent, hiérarchie visuelle claire, lisible à l'impression.`;
+RÈGLES ABSOLUES :
+1. Réponds UNIQUEMENT avec du HTML pur en CSS inline. Zéro markdown, zéro texte avant ou après le HTML.
+2. Commence EXACTEMENT par <div et termine EXACTEMENT par </div>. Jamais de <html>, <head>, <body>.
+3. Suis la STRUCTURE HTML fournie dans le template à la lettre : réutilise les styles CSS exacts, remplace uniquement les placeholders [entre crochets] par le contenu réel.
+4. Pour les coordonnées : inclus uniquement les informations fournies (email, téléphone). Omets les lignes vides. Ajoute "Paris, France" si aucune ville n'est précisée.
+5. Pour le contenu : intègre les mots-clés exacts de l'offre dans le profil et les compétences. Chaque bullet d'expérience = action concrète + résultat chiffré si possible (%, €, délai, volume).
+6. N'invente JAMAIS d'informations absentes. Si l'expérience est vide, génère quand même une section avec ce qui est disponible.
+7. width:794px exact sur le conteneur racine. Pas de débordements. Espacement précis.
+8. Rendu A4 impression : sections compactes, pas de sauts de page intempestifs.`;
 
 export async function POST(request) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -191,12 +354,14 @@ export async function POST(request) {
     return Response.json({ error: "Requête invalide" }, { status: 400 });
   }
 
-  const offre      = sanitizeInput(body.offre,      8000);
-  const nom        = sanitizeInput(body.nom,         200);
-  const experience = sanitizeInput(body.experience,  3000);
-  const competences= sanitizeInput(body.competences, 2000);
-  const formation  = sanitizeInput(body.formation,   1000);
-  const template   = ["moderne","classique","creatif","minimaliste"].includes(body.template)
+  const offre       = sanitizeInput(body.offre,      8000);
+  const nom         = sanitizeInput(body.nom,         200);
+  const emailCv     = sanitizeInput(body.email,       200);
+  const telephoneCv = sanitizeInput(body.telephone,   100);
+  const experience  = sanitizeInput(body.experience,  3000);
+  const competences = sanitizeInput(body.competences, 2000);
+  const formation   = sanitizeInput(body.formation,   1000);
+  const template    = ["moderne","classique","creatif","minimaliste"].includes(body.template)
     ? body.template : "moderne";
 
   if (!offre || !nom) {
@@ -209,7 +374,7 @@ export async function POST(request) {
   try {
     const message = await client.messages.create({
       model: "claude-sonnet-4-5",
-      max_tokens: 3500,
+      max_tokens: 4000,
       system: SYSTEM_PROMPT,
       messages: [{
         role: "user",
@@ -220,18 +385,20 @@ ${offre}
 
 CANDIDAT :
 Nom: ${nom}
+${emailCv ? `Email: ${emailCv}` : ""}
+${telephoneCv ? `Téléphone: ${telephoneCv}` : ""}
 Expérience: ${experience || "Aucune expérience professionnelle"}
 Compétences: ${competences || "À déduire du profil et de l'offre"}
 Formation: ${formation || "Non précisée"}
 
 STRUCTURE DU CV :
-1. En-tête : nom + titre extrait de l'offre
-2. Profil (3 phrases) : mots-clés offre + valeur ajoutée candidate
-3. Expériences : titre | entreprise | dates | 2-3 bullets chiffrés
-4. Compétences : liste filtrée sur l'offre
+1. En-tête : nom + titre extrait de l'offre + coordonnées (${emailCv || "email si fourni"}${telephoneCv ? ` · ${telephoneCv}` : ""} · Paris, France)
+2. Profil (3 phrases percutantes) : mots-clés de l'offre + valeur ajoutée concrète
+3. Expériences : titre poste | entreprise | dates | 2–3 bullets avec résultats chiffrés
+4. Compétences : liste filtrée et pertinente pour l'offre
 5. Formation : diplôme | établissement | année
 
-Génère le CV maintenant.`,
+QUALITÉ REQUISE : rendu professionnel impression-ready, espacement précis, hiérarchie visuelle impeccable. Pas de contenu générique. Génère le CV maintenant.`,
       }],
     });
 
