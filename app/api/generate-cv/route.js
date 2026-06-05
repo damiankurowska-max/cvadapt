@@ -18,71 +18,97 @@ const PLAN_LIMITS = {
 
 const TEMPLATE_STYLES = {
   moderne: `
-TEMPLATE MODERNE — instructions CSS précises :
-Conteneur global : width:794px; min-height:1123px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.5; color:#1a1a1a; background:#fff.
-EN-TÊTE : background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 100%); padding:32px 36px 28px; position:relative.
-  - Nom : font-size:28px; font-weight:700; color:#fff; letter-spacing:-0.5px; margin-bottom:4px.
-  - Titre poste : font-size:14px; color:rgba(255,255,255,0.88); font-weight:400; letter-spacing:0.3px.
-LAYOUT CORPS : display:grid; grid-template-columns:220px 1fr; min-height:calc(1123px - 120px).
-COLONNE GAUCHE : background:#f0f5ff; padding:24px 20px; border-right:1px solid #e0e7ff.
-COLONNE DROITE : padding:24px 28px; background:#fff.
-TITRES DE SECTION : font-size:10px; font-weight:700; color:#2563eb; letter-spacing:1.5px; text-transform:uppercase; padding-bottom:6px; border-bottom:2px solid #2563eb; margin-bottom:12px; margin-top:20px.
+TEMPLATE SOBRE — instructions CSS précises :
+Conteneur global : width:794px; min-height:1123px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.5; color:#1e293b; background:#fff.
+EN-TÊTE : background:#1e293b; padding:36px 40px 30px; display:flex; align-items:flex-end; justify-content:space-between.
+  - Bloc nom/titre (gauche, flex:1) :
+    · Nom : font-size:26px; font-weight:600; color:#f8fafc; letter-spacing:-0.3px; display:block; margin-bottom:6px.
+    · Titre poste : font-size:13px; color:#94a3b8; font-weight:400; letter-spacing:0.2px.
+  - Coordonnées (droite, text-align:right) : font-size:11px; color:#94a3b8; line-height:2.
+LAYOUT CORPS : display:grid; grid-template-columns:210px 1fr; min-height:calc(1123px - 102px).
+COLONNE GAUCHE : background:#f8fafc; padding:28px 20px; border-right:1px solid #e2e8f0.
+COLONNE DROITE : padding:28px 32px; background:#fff.
+TITRES DE SECTION : font-size:9px; font-weight:700; color:#64748b; letter-spacing:1.8px; text-transform:uppercase; margin-bottom:12px; margin-top:24px. Pas de border-bottom colorée. Pas de couleur vive.
   - Premier titre gauche et droite : margin-top:0.
-COMPÉTENCES (gauche) : chaque compétence = display:block; font-size:12px; color:#374151; padding:4px 0; border-bottom:1px solid #e5e7eb.
-FORMATION (gauche) : diplôme en font-weight:600; font-size:12px; établissement en color:#6b7280; font-size:11px; année en color:#9ca3af; font-size:11px.
-PROFIL (droite) : font-size:13px; line-height:1.7; color:#374151; background:#eff6ff; border-left:3px solid #2563eb; padding:12px 14px; border-radius:0 4px 4px 0.
-EXPÉRIENCES (droite) : chaque poste = margin-bottom:16px.
-  - Titre poste : font-weight:700; font-size:13px; color:#111827.
-  - Entreprise : color:#2563eb; font-size:12px; font-weight:600 — séparateur " | " — Dates : color:#6b7280; font-size:11px; font-style:italic.
-  - Bullets : list-style:none; padding:0; margin:6px 0 0 0.
-    Chaque li : padding:3px 0 3px 16px; position:relative; color:#374151; font-size:12.5px; line-height:1.5.
-    Chaque li::before : content:"▸"; position:absolute; left:0; color:#2563eb; font-size:10px; top:4px.`,
+COMPÉTENCES (gauche) : chaque compétence = display:block; font-size:12px; color:#334155; padding:5px 0; border-bottom:1px solid #e2e8f0; line-height:1.4.
+FORMATION (gauche) : diplôme en font-weight:600; font-size:12px; color:#1e293b — établissement en color:#64748b; font-size:11px; display:block; margin-top:1px — année en color:#94a3b8; font-size:10.5px.
+PROFIL (droite) : font-size:13px; line-height:1.75; color:#334155. Pas de background coloré, pas de border-left colorée.
+EXPÉRIENCES (droite) : chaque poste = margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid #f1f5f9.
+  - Ligne titre + dates : display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2px.
+  - Titre poste : font-weight:600; font-size:13px; color:#0f172a.
+  - Dates : color:#94a3b8; font-size:11px; font-style:italic.
+  - Entreprise : color:#475569; font-size:12px; font-weight:500; margin-bottom:6px; display:block.
+  - Bullets : list-style:none; padding:0; margin:0.
+    Chaque li : padding:2px 0 2px 14px; position:relative; color:#475569; font-size:12.5px; line-height:1.5.
+    Chaque li::before : content:"·"; position:absolute; left:0; color:#94a3b8; font-size:16px; top:-1px.`,
 
   classique: `
-TEMPLATE CLASSIQUE — instructions CSS précises :
-Conteneur global : width:794px; min-height:1123px; font-family:Georgia,'Times New Roman',serif; font-size:13px; line-height:1.6; color:#1a1a1a; background:#fff; padding:48px 52px.
-EN-TÊTE : text-align:center; border-bottom:2px solid #1a1a1a; padding-bottom:20px; margin-bottom:24px.
-  - Nom : font-size:30px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px.
-  - Titre poste : font-size:14px; color:#555; font-style:italic.
+TEMPLATE COUPURE — instructions CSS précises :
+Conteneur global : width:794px; min-height:1123px; font-family:Georgia,'Times New Roman',serif; font-size:13px; line-height:1.65; color:#1c1c1c; background:#fff; padding:52px 56px 40px.
+EN-TÊTE : margin-bottom:20px; padding-bottom:16px.
+  - Nom : font-size:32px; font-weight:700; color:#1c1c1c; letter-spacing:-0.5px; display:block; margin-bottom:4px.
+  - Titre poste : font-size:14px; color:#92400e; font-style:italic; font-weight:400; margin-bottom:14px; display:block.
+  - Trait de séparation : display:block; border-top:2px solid #1c1c1c; margin-bottom:10px.
+  - Coordonnées (sous le trait) : font-size:11px; color:#6b7280; font-family:'Helvetica Neue',Arial,sans-serif; display:flex; gap:24px; flex-wrap:wrap; padding-top:4px.
 LAYOUT : une seule colonne.
-TITRES DE SECTION : font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#1a1a1a; border-bottom:1px solid #888; padding-bottom:4px; margin:20px 0 10px 0.
-PROFIL : font-size:13px; line-height:1.8; color:#2d2d2d; margin-bottom:4px.
-EXPÉRIENCES : chaque poste = margin-bottom:14px.
-  - Titre poste : font-weight:700; font-size:13px.
-  - Entreprise + dates : color:#555; font-size:12px; font-style:italic; margin-bottom:4px.
-  - Bullets : li style="margin:2px 0; padding-left:18px; list-style:disc inside; color:#333; font-size:12.5px".
-COMPÉTENCES : display:flex; flex-wrap:wrap; gap:6px — chaque item = background:#f3f4f6; padding:3px 10px; border:1px solid #ccc; font-size:12px.
-FORMATION : diplôme gras, établissement + année en italique couleur #555.`,
+TITRES DE SECTION : font-family:'Helvetica Neue',Arial,sans-serif; font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#92400e; margin:24px 0 4px 0; display:block.
+  Immédiatement après le titre, ajouter une ligne : <hr style="border:none;border-top:1px solid #e5e7eb;margin:4px 0 10px 0">
+PROFIL : font-size:13.5px; line-height:1.8; color:#374151; margin-bottom:4px.
+EXPÉRIENCES : chaque poste = margin-bottom:16px.
+  - Ligne titre + dates : display:flex; justify-content:space-between; align-items:baseline.
+  - Titre poste : font-weight:700; font-size:13.5px; color:#1c1c1c; font-family:Georgia,serif.
+  - Dates : font-size:11px; color:#6b7280; font-family:'Helvetica Neue',Arial,sans-serif; font-style:italic.
+  - Entreprise : color:#92400e; font-size:12px; font-family:'Helvetica Neue',Arial,sans-serif; font-weight:600; margin-bottom:5px; display:block.
+  - Bullets : list-style:none; padding:0; margin:0.
+    Chaque li : padding:2px 0 2px 16px; position:relative; color:#4b5563; font-size:12.5px; line-height:1.55.
+    Chaque li::before : content:"—"; position:absolute; left:0; color:#9ca3af; font-size:11px; top:3px.
+COMPÉTENCES : display:flex; flex-wrap:wrap; gap:6px — chaque item = font-family:'Helvetica Neue',Arial,sans-serif; font-size:11.5px; padding:3px 10px; background:#fef3c7; color:#92400e; border-radius:2px.
+FORMATION : diplôme en font-weight:700; font-size:13px; color:#1c1c1c — établissement en font-style:italic; color:#6b7280; font-size:12px; display:block — année en color:#9ca3af; font-size:11px.`,
 
   creatif: `
-TEMPLATE CRÉATIF — instructions CSS précises :
-Conteneur global : width:794px; min-height:1123px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.5; color:#1a1a1a; background:#fff; display:flex.
-SIDEBAR (gauche 230px) : background:linear-gradient(180deg,#5b21b6 0%,#7c3aed 100%); padding:36px 20px; min-height:1123px; color:#fff; flex-shrink:0.
-  - Nom : font-size:20px; font-weight:700; color:#fff; line-height:1.3; margin-bottom:4px.
-  - Titre : font-size:12px; color:rgba(255,255,255,0.78); margin-bottom:28px.
-  - Titres sections sidebar : font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.6); border-bottom:1px solid rgba(255,255,255,0.25); padding-bottom:6px; margin:20px 0 10px.
-  - Compétences : chaque item = font-size:12px; color:rgba(255,255,255,0.9); padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.12).
-  - Formation : diplôme en font-weight:600; font-size:12px; color:#fff — établissement+année en font-size:11px; color:rgba(255,255,255,0.7).
-CORPS PRINCIPAL (droite flex:1) : padding:36px 32px; background:#fff.
-  - Titres sections : font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#7c3aed; border-bottom:2px solid #ede9fe; padding-bottom:5px; margin:20px 0 12px.
-  - Profil : font-size:13px; line-height:1.7; color:#374151; margin-bottom:4px.
-  - Expériences : titre poste gras 13px; entreprise en color:#7c3aed font-weight:600 12px; dates en color:#9ca3af italic 11px; bullets ▸ couleur #7c3aed.`,
+TEMPLATE ATELIER — instructions CSS précises :
+Conteneur global : width:794px; min-height:1123px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.5; color:#1e293b; background:#fff; display:flex.
+SIDEBAR (gauche 220px) : background:#0f172a; padding:40px 22px 36px; min-height:1123px; flex-shrink:0; display:flex; flex-direction:column.
+  - Nom : font-size:18px; font-weight:700; color:#f8fafc; line-height:1.3; margin-bottom:4px; letter-spacing:-0.2px.
+  - Titre : font-size:11px; color:#f59e0b; font-weight:500; letter-spacing:0.3px; margin-bottom:32px; display:block.
+  - Titres sections sidebar : font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#64748b; margin:24px 0 10px; padding-bottom:6px; border-bottom:1px solid #1e293b; display:block.
+  - Compétences : chaque item = display:block; font-size:12px; color:#cbd5e1; padding:4px 0; border-bottom:1px solid #1e293b; line-height:1.4.
+  - Formation : diplôme en font-weight:600; font-size:12px; color:#f8fafc; display:block; margin-bottom:2px — établissement en font-size:11px; color:#94a3b8; display:block — année en font-size:10.5px; color:#64748b; display:block; margin-bottom:10px.
+  - Coordonnées (en bas sidebar, margin-top:auto) : padding-top:24px; border-top:1px solid #1e293b; font-size:11px; color:#64748b; line-height:1.9.
+CORPS PRINCIPAL (droite, flex:1) : padding:40px 36px; background:#fff.
+TITRES SECTIONS CORPS : font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#64748b; margin:24px 0 12px; padding-bottom:7px; border-bottom:1px solid #f1f5f9; display:block.
+  - Premier titre : margin-top:0.
+PROFIL : font-size:13px; line-height:1.75; color:#475569; padding:14px 16px; background:#fafafa; margin-bottom:4px.
+EXPÉRIENCES : chaque poste = margin-bottom:18px.
+  - Ligne titre + dates : display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2px.
+  - Titre poste : font-weight:700; font-size:13px; color:#0f172a.
+  - Dates : font-size:11px; color:#94a3b8; font-style:italic.
+  - Entreprise : font-size:12px; color:#f59e0b; font-weight:600; margin-bottom:6px; display:block.
+  - Bullets : list-style:none; padding:0; margin:0.
+    Chaque li : padding:2px 0 2px 14px; position:relative; color:#475569; font-size:12.5px; line-height:1.5.
+    Chaque li::before : content:"›"; position:absolute; left:0; color:#94a3b8; font-size:13px; top:1px.`,
 
   minimaliste: `
-TEMPLATE MINIMALISTE — instructions CSS précises :
-Conteneur global : width:794px; min-height:1123px; font-family:-apple-system,'Inter',Arial,sans-serif; font-size:13px; line-height:1.8; color:#111; background:#fff; padding:52px 60px.
+TEMPLATE TRAIT — instructions CSS précises :
+Conteneur global : width:794px; min-height:1123px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.8; color:#111827; background:#fff; padding:56px 64px.
 EN-TÊTE : margin-bottom:32px.
-  - Nom : font-size:34px; font-weight:800; color:#111; letter-spacing:-1px; margin-bottom:4px.
-  - Titre poste : font-size:15px; color:#059669; font-weight:500; letter-spacing:0.2px.
+  - Nom : font-size:36px; font-weight:300; color:#111827; letter-spacing:-0.5px; display:block; margin-bottom:4px.
+  - Titre poste : font-size:14px; color:#0f766e; font-weight:500; letter-spacing:0.1px; margin-bottom:14px; display:block.
+  - Trait de séparation : display:block; border-top:1.5px solid #111827; margin-bottom:12px.
+  - Coordonnées : font-size:11px; color:#6b7280; display:flex; gap:20px; flex-wrap:wrap.
 LAYOUT : une seule colonne.
-TITRES DE SECTION : font-size:11px; font-weight:700; color:#059669; text-transform:uppercase; letter-spacing:2px; margin:28px 0 10px; display:flex; align-items:center; gap:10px — ajouter un <span style="flex:1;height:1px;background:#d1fae5"></span> après le texte.
-PROFIL : font-size:13.5px; line-height:1.9; color:#374151.
-EXPÉRIENCES : chaque poste = border-left:3px solid #059669; padding-left:16px; margin-bottom:20px.
-  - Titre poste : font-weight:700; font-size:14px; color:#111.
-  - Entreprise : color:#059669; font-size:12px; font-weight:500 — dates : color:#6b7280; font-size:11.5px; font-style:italic.
-  - Bullets : li style="color:#4b5563; font-size:12.5px; padding:2px 0; list-style:none" — ajouter "– " avant chaque bullet.
-COMPÉTENCES : display:flex; flex-wrap:wrap; gap:8px — chaque item = font-size:12px; padding:4px 12px; border:1.5px solid #059669; color:#059669; border-radius:20px.
-FORMATION : diplôme en font-weight:700; font-size:13px; établissement en color:#6b7280; année en color:#9ca3af.`,
+TITRES DE SECTION : font-size:10px; font-weight:700; color:#0f766e; text-transform:uppercase; letter-spacing:2px; display:flex; align-items:center; gap:12px; margin:28px 0 12px 0.
+  Après le texte du titre, ajouter exactement : <span style="flex:1;height:1px;background:#e5e7eb;display:inline-block;vertical-align:middle"></span>
+PROFIL : font-size:13.5px; line-height:1.9; color:#374151; margin-bottom:0.
+EXPÉRIENCES : chaque poste = margin-bottom:22px.
+  - Ligne titre + dates : display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1px.
+  - Titre poste : font-weight:600; font-size:13.5px; color:#111827.
+  - Dates : font-size:11.5px; color:#9ca3af; font-style:italic.
+  - Entreprise : font-size:12px; color:#0f766e; font-weight:500; margin-bottom:6px; display:block.
+  - Bullets : list-style:none; padding:0; margin:0.
+    Chaque li : padding:2px 0; color:#4b5563; font-size:12.5px; line-height:1.6. Commencer chaque bullet par "– " (tiret demi-cadratin + espace) en color:#9ca3af.
+COMPÉTENCES : display:flex; flex-wrap:wrap; gap:8px — chaque item : font-size:12px; padding:4px 14px; border:1px solid #ccfbf1; color:#0f766e; border-radius:16px; background:#f0fdfa.
+FORMATION : diplôme en font-weight:600; font-size:13px; color:#111827; display:block — établissement en color:#6b7280; font-size:12px; font-style:italic; display:block — année en color:#9ca3af; font-size:11px.`,
 };
 
 // System prompt stable → cache API Anthropic

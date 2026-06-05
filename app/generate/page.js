@@ -9,10 +9,10 @@ import PostGenerationUpsell from "../components/PostGenerationUpsell";
 import ReferralPopup from "../components/ReferralPopup";
 
 const TEMPLATES = [
-  { id: "moderne",     name: "Moderne",     desc: "Gradient bleu",    accent: "#2563eb", bg: "#eff6ff", sidebar: false },
-  { id: "classique",   name: "Classique",   desc: "Noir & blanc",     accent: "#111827", bg: "#f9fafb", sidebar: false },
-  { id: "creatif",     name: "Créatif",     desc: "Sidebar violette", accent: "#7c3aed", bg: "#faf5ff", sidebar: true  },
-  { id: "minimaliste", name: "Minimaliste", desc: "Épuré & vert",     accent: "#16a34a", bg: "#f0fdf4", sidebar: false },
+  { id: "moderne",     name: "Sobre",      desc: "Ardoise & épuré",  accent: "#1e293b", bg: "#f8fafc", sidebar: false },
+  { id: "classique",   name: "Coupure",    desc: "Éditorial & ambre", accent: "#92400e", bg: "#fef3c7", sidebar: false },
+  { id: "creatif",     name: "Atelier",    desc: "Sidebar sombre & or", accent: "#0f172a", bg: "#fafafa", sidebar: true  },
+  { id: "minimaliste", name: "Trait",      desc: "Minimaliste & teal", accent: "#0f766e", bg: "#f0fdfa", sidebar: false },
 ];
 
 /* ── Input style objects (used via onFocus/onBlur) ─────────────── */
