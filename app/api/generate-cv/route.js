@@ -42,6 +42,8 @@ STRUCTURE HTML EXACTE à produire :
     <!-- COLONNE GAUCHE -->
     <div style="background:#f8fafc;padding:30px 22px;border-right:1px solid #e2e8f0;box-sizing:border-box;">
 
+      <span id="cv-photo-slot" style="display:block;text-align:center;margin-bottom:20px;"></span>
+
       <!-- Section COMPÉTENCES -->
       <span style="display:block;font-size:9px;font-weight:700;color:#64748b;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;">Compétences</span>
       [chaque compétence : <span style="display:block;font-size:12px;color:#334155;padding:6px 0;border-bottom:1px solid #e2e8f0;line-height:1.4;">[compétence]</span>]
@@ -94,6 +96,7 @@ STRUCTURE HTML EXACTE à produire :
 
   <!-- EN-TÊTE -->
   <div style="margin-bottom:24px;">
+    <span id="cv-photo-slot" style="float:right;margin:4px 0 12px 24px;"></span>
     <span style="display:block;font-size:34px;font-weight:700;color:#1c1c1c;letter-spacing:-0.6px;line-height:1.15;margin-bottom:6px;">[NOM COMPLET]</span>
     <span style="display:block;font-size:14px;color:#92400e;font-style:italic;font-weight:400;margin-bottom:16px;">[Titre du poste ciblé]</span>
     <div style="border-top:2px solid #1c1c1c;margin-bottom:10px;"></div>
@@ -153,6 +156,8 @@ STRUCTURE HTML EXACTE à produire :
 
   <!-- SIDEBAR GAUCHE -->
   <div style="width:224px;min-height:1123px;background:#0f172a;padding:44px 24px 40px;flex-shrink:0;display:flex;flex-direction:column;box-sizing:border-box;">
+
+    <span id="cv-photo-slot" style="display:block;text-align:center;margin-bottom:22px;"></span>
 
     <!-- Identité -->
     <span style="display:block;font-size:19px;font-weight:700;color:#f8fafc;line-height:1.3;margin-bottom:5px;letter-spacing:-0.3px;">[NOM COMPLET]</span>
@@ -214,6 +219,7 @@ STRUCTURE HTML EXACTE à produire :
 
   <!-- EN-TÊTE -->
   <div style="margin-bottom:36px;">
+    <span id="cv-photo-slot" style="float:right;margin:4px 0 16px 28px;"></span>
     <span style="display:block;font-size:38px;font-weight:300;color:#111827;letter-spacing:-0.6px;line-height:1.15;margin-bottom:6px;">[NOM COMPLET]</span>
     <span style="display:block;font-size:14px;color:#0f766e;font-weight:500;letter-spacing:0.1px;margin-bottom:16px;">[Titre du poste ciblé]</span>
     <div style="border-top:1.5px solid #111827;margin-bottom:14px;"></div>
@@ -280,7 +286,7 @@ const SYSTEM_PROMPT = `Tu es un expert RH et designer CV de haut niveau. Tu gén
 RÈGLES ABSOLUES :
 1. Réponds UNIQUEMENT avec du HTML pur en CSS inline. Zéro markdown, zéro texte avant ou après le HTML.
 2. Commence EXACTEMENT par <div et termine EXACTEMENT par </div>. Jamais de <html>, <head>, <body>.
-3. Suis la STRUCTURE HTML fournie dans le template à la lettre : réutilise les styles CSS exacts, remplace uniquement les placeholders [entre crochets] par le contenu réel.
+3. Suis la STRUCTURE HTML fournie dans le template à la lettre : réutilise les styles CSS exacts, remplace uniquement les placeholders [entre crochets] par le contenu réel. Les balises `<span id="cv-photo-slot" ...></span>` sont des emplacements réservés côté client — inclus-les EXACTEMENT telles quelles dans le HTML généré, ne les supprime pas.
 4. Pour les coordonnées : inclus uniquement les informations fournies (email, téléphone). Omets les lignes vides. Ajoute "Paris, France" si aucune ville n'est précisée.
 5. Pour le contenu : intègre les mots-clés exacts de l'offre dans le profil et les compétences. Chaque bullet d'expérience = action concrète + résultat chiffré si possible (%, €, délai, volume).
 6. N'invente JAMAIS d'informations absentes. Si l'expérience est vide, génère quand même une section avec ce qui est disponible.

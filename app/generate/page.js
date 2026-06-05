@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
 import DOMPurify from "isomorphic-dompurify";
@@ -106,6 +106,8 @@ function TemplateMiniPreview({ t, compact }) {
 export default function Generate() {
   const { user } = useUser();
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", offre: "", experience: "", competences: "", formation: "" });
+  const [photo, setPhoto] = useState(null);
+  const photoInputRef = useRef(null);
   const [template, setTemplate] = useState("moderne");
   const [withLM, setWithLM] = useState(false);
   const [cv, setCv] = useState("");
@@ -165,6 +167,17 @@ export default function Generate() {
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function handlePhotoChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 3 * 1024 * 1024) { alert("La photo doit faire moins de 3 Mo."); return; }
+    const reader = new FileReader();
+    reader.onload = (ev) => setPhoto(ev.target.result);
+    reader.readAsDataURL(file);
+    // Reset input so same file can be re-selected
+    e.target.value = "";
   }
 
   async function handleSubmit(e) {
@@ -311,6 +324,14 @@ export default function Generate() {
     setLoading(false);
   }
 
+  function injectPhoto(html) {
+    if (!photo) return html.replace(/<span id="cv-photo-slot"[^>]*><\/span>/g, "");
+    return html.replace(
+      /<span id="cv-photo-slot"([^>]*)><\/span>/,
+      `<img src="${photo}" style="width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;" alt="" />`
+    );
+  }
+
   function handlePrint(content, title) {
     const win = window.open("", "_blank");
     if (!win) {
@@ -324,6 +345,7 @@ export default function Generate() {
           <a href="https://cvadapt.eu/tarifs" style="color:#2563eb;text-decoration:none;">Supprimer cette mention → Plan Étudiant 4,99€/mois</a>
         </span>
       </div>` : '';
+    const printContent = title.startsWith("CV") ? injectPhoto(content) : content;
     win.document.write(`<!DOCTYPE html><html><head><title>${title}</title><style>
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html, body { background: white; }
@@ -334,7 +356,7 @@ export default function Generate() {
         body > div { box-shadow: none !important; margin: 0 !important; }
         @page { margin: 0; size: A4; }
       }
-    </style></head><body>${content}${watermark}</body></html>`);
+    </style></head><body>${printContent}${watermark}</body></html>`);
     win.document.close();
     setTimeout(() => win.print(), 500);
   }
@@ -593,6 +615,49 @@ export default function Generate() {
                 <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>Ces informations seront intégrées et adaptées à l'offre.</p>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 18, marginBottom: 24 }}>
+                  {/* Photo upload */}
+                  <div>
+                    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 7 }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>Photo</p>
+                      <p style={{ fontSize: 11, color: "#9ca3af" }}>Optionnel · courant en France</p>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                      <div
+                        onClick={() => photoInputRef.current?.click()}
+                        style={{
+                          width: 68, height: 68, borderRadius: "50%", cursor: "pointer", flexShrink: 0,
+                          border: photo ? "2px solid #2563eb" : "2px dashed #d1d5db",
+                          background: photo ? "transparent" : "#f9fafb",
+                          overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center",
+                          transition: "border-color 0.15s",
+                        }}
+                      >
+                        {photo ? (
+                          <img src={photo} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
+                        ) : (
+                          <svg width="22" height="22" fill="none" stroke="#9ca3af" strokeWidth="1.5" viewBox="0 0 24 24">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 0 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" strokeLinecap="round" strokeLinejoin="round"/>
+                            <circle cx="12" cy="13" r="4" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        )}
+                      </div>
+                      <div>
+                        <button type="button" onClick={() => photoInputRef.current?.click()}
+                          style={{ fontSize: 13, color: "#2563eb", fontWeight: 600, background: "none", border: "none", cursor: "pointer", padding: 0, display: "block" }}>
+                          {photo ? "Changer la photo" : "Ajouter une photo"}
+                        </button>
+                        <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 3 }}>JPG, PNG · max 3 Mo</p>
+                        {photo && (
+                          <button type="button" onClick={() => setPhoto(null)}
+                            style={{ fontSize: 11, color: "#ef4444", background: "none", border: "none", cursor: "pointer", padding: 0, marginTop: 3 }}>
+                            Supprimer
+                          </button>
+                        )}
+                      </div>
+                      <input ref={photoInputRef} type="file" accept="image/jpeg,image/png,image/webp" style={{ display: "none" }} onChange={handlePhotoChange} />
+                    </div>
+                  </div>
+
                   <FieldGroup label="Nom complet" hint="Affiché en en-tête du CV">
                     <input
                       type="text" name="nom" value={form.nom} onChange={handleChange}
@@ -1034,7 +1099,12 @@ export default function Generate() {
                     <p className="font-medium">Génération de la lettre en cours...</p>
                   </div>
                 ) : (
-                  <div className="p-10" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(activeTab === "cv" ? cv : lm) }} />
+                  <div className="p-10" dangerouslySetInnerHTML={{ __html: (() => {
+                    const raw = activeTab === "cv" ? cv : lm;
+                    const sanitized = DOMPurify.sanitize(raw);
+                    if (activeTab !== "cv") return sanitized;
+                    return injectPhoto(sanitized);
+                  })() }} />
                 )
               )}
             </div>
