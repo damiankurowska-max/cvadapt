@@ -321,7 +321,14 @@ export function CinematicHero({
 
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      try {
+        ScrollTrigger.getAll().forEach(st => st.kill(false));
+        ctx.revert();
+      } catch {
+        // Pin-spacer DOM conflict with React navigation — safe to ignore
+      }
+    };
   }, [metricValue]);
 
   return (
