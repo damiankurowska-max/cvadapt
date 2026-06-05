@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Sheet, SheetContent, SheetFooter } from '@/components/ui/sheet';
 import { MenuToggle } from '@/components/ui/menu-toggle';
 import Logo from '@/app/components/Logo';
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 const NAV_LINKS = [
   { label: 'Fonctionnalités', href: '#features' },
@@ -82,21 +83,24 @@ export function SimpleHeader() {
         </div>
 
         {/* Desktop CTAs */}
-        <div className="hidden items-center gap-2 lg:flex shrink-0">
-          <Link
-            href="/sign-in"
-            style={BTN_GLASS}
-            className="hover:bg-blue-50/80 hover:-translate-y-px"
-          >
-            Connexion
+        <div className="hidden items-center gap-3 lg:flex shrink-0">
+          <SignedOut>
+            <Link href="/sign-in" style={BTN_GLASS} className="hover:bg-blue-50/80 hover:-translate-y-px">
+              Connexion
+            </Link>
+          </SignedOut>
+          <SignedIn>
+            <Link href="/generate" style={BTN_GLASS} className="hover:bg-blue-50/80 hover:-translate-y-px">
+              Mon espace
+            </Link>
+          </SignedIn>
+          <Link href="/generate" style={BTN_PRIMARY} className="hover:-translate-y-0.5 hover:shadow-xl">
+            <SignedOut>Commencer — Gratuit</SignedOut>
+            <SignedIn>Générer un CV →</SignedIn>
           </Link>
-          <Link
-            href="/generate"
-            style={BTN_PRIMARY}
-            className="hover:-translate-y-0.5 hover:shadow-xl"
-          >
-            Commencer — Gratuit
-          </Link>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
         </div>
 
         {/* Mobile burger */}
@@ -161,21 +165,34 @@ export function SimpleHeader() {
                 borderTop: '1px solid rgba(29,78,216,0.08)',
               }}
             >
-              <Link
-                href="/sign-in"
-                className="flex items-center justify-center w-full py-3 text-sm font-semibold rounded-full transition-colors"
-                style={BTN_GLASS}
-                onClick={() => setOpen(false)}
-              >
-                Connexion
-              </Link>
+              <SignedOut>
+                <Link
+                  href="/sign-in"
+                  className="flex items-center justify-center w-full py-3 text-sm font-semibold rounded-full transition-colors"
+                  style={BTN_GLASS}
+                  onClick={() => setOpen(false)}
+                >
+                  Connexion
+                </Link>
+              </SignedOut>
+              <SignedIn>
+                <Link
+                  href="/generate"
+                  className="flex items-center justify-center w-full py-3 text-sm font-semibold rounded-full transition-colors"
+                  style={BTN_GLASS}
+                  onClick={() => setOpen(false)}
+                >
+                  Mon espace
+                </Link>
+              </SignedIn>
               <Link
                 href="/generate"
                 className="flex items-center justify-center w-full py-3 text-sm font-bold rounded-full transition-all hover:-translate-y-0.5"
                 style={BTN_PRIMARY}
                 onClick={() => setOpen(false)}
               >
-                Commencer — Gratuit
+                <SignedOut>Commencer — Gratuit</SignedOut>
+                <SignedIn>Générer un CV →</SignedIn>
               </Link>
             </SheetFooter>
           </SheetContent>
