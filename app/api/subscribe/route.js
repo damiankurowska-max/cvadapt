@@ -22,6 +22,24 @@ export async function POST(request) {
   }
 
   try {
+    // Ajouter à Brevo liste #4 (cvadapt-free-users) pour la séquence email J+2/J+5/J+7/J+14
+    if (process.env.BREVO_API_KEY) {
+      await fetch("https://api.brevo.com/v3/contacts", {
+        method: "POST",
+        headers: {
+          "accept": "application/json",
+          "content-type": "application/json",
+          "api-key": process.env.BREVO_API_KEY,
+        },
+        body: JSON.stringify({
+          email,
+          attributes: { SOURCE: "newsletter-homepage" },
+          listIds: [4],
+          updateEnabled: true,
+        }),
+      }).catch((err) => console.error("Brevo subscribe error:", err.message));
+    }
+
     // Email de bienvenue à l'utilisateur
     await resend.emails.send({
       from: "CVAdapt <contact@cvadapt.eu>",

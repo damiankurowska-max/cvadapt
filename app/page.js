@@ -7,7 +7,19 @@ import dynamic from "next/dynamic";
 const CountdownBanner = dynamic(() => import("./components/CountdownBanner"), { ssr: false });
 const CinematicHero = dynamic(
   () => import("@/components/ui/cinematic-landing-hero").then((m) => ({ default: m.CinematicHero })),
-  { ssr: false, loading: () => <div style={{ minHeight: "100vh", background: "#f0f7ff" }} /> }
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ minHeight: "100vh", background: "#f0f7ff", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "0 1rem" }}>
+        <h1 style={{ fontSize: "clamp(48px, 7vw, 96px)", fontWeight: 700, color: "#0f172a", letterSpacing: "-2px", marginBottom: "8px", lineHeight: 1.1 }}>
+          Adapte ton CV,
+        </h1>
+        <h1 style={{ fontSize: "clamp(48px, 7vw, 96px)", fontWeight: 800, color: "#1d4ed8", letterSpacing: "-3px", lineHeight: 1.1 }}>
+          décroche l&apos;entretien.
+        </h1>
+      </div>
+    ),
+  }
 );
 const SimpleHeader = dynamic(
   () => import("@/components/ui/simple-header").then((m) => ({ default: m.SimpleHeader })),
@@ -64,11 +76,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
   const [email, setEmail] = useState("");
   const [emailStatus, setEmailStatus] = useState("idle");
-  const [stats, setStats] = useState({ users: 12847, dailyCVs: 247 });
-
-  useEffect(() => {
-    setStats(getDynamicStats());
-  }, []);
+  const [stats] = useState(getDynamicStats);
 
   async function handleNewsletter(e) {
     e.preventDefault();

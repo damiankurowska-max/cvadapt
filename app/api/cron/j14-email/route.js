@@ -4,6 +4,7 @@
  * Objectif : dernière chance de conversion avec promo
  */
 import { Resend } from "resend";
+import { j14Email } from "@/lib/email-templates";
 
 // resend initialized per-request
 const CRON_SECRET = process.env.CRON_SECRET;
@@ -48,36 +49,7 @@ export async function GET(request) {
           "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
           "X-Entity-Ref-ID": `cron-j14-${contact.email}-${new Date().toISOString().split("T")[0]}`,
         },
-        html: `
-          <div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;color:#111;line-height:1.6">
-            <p>Bonjour ${firstName},</p>
-
-            <p>Ça fait 2 semaines que tu as créé ton profil sur CVAdapt.</p>
-
-            <p>Je voulais juste te faire signe : si tu cherches encore un poste,
-            les fonctionnalités premium font vraiment la différence — score ATS complet,
-            mots-clés manquants identifiés, lettre de motivation incluse.</p>
-
-            <div style="background:#f0f7ff;border-radius:12px;padding:20px;margin:24px 0;border-left:4px solid #1d4ed8">
-              <p style="margin:0;font-weight:700;color:#1d4ed8;font-size:16px">-20% sur le premier mois</p>
-              <p style="margin:8px 0 0;color:#374151">Code : <code style="background:#dbeafe;padding:3px 8px;border-radius:4px;font-weight:700">CV20</code></p>
-            </div>
-
-            <p style="margin:28px 0">
-              <a href="https://cvadapt.eu/tarifs?promo=CV20"
-                style="background:#1d4ed8;color:white;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">
-                Voir les offres →
-              </a>
-            </p>
-
-            <p style="color:#888;font-size:12px">Offre valable 72h.</p>
-
-            <p style="color:#888;font-size:13px">
-              Tu reçois cet email car tu as créé un compte sur cvadapt.eu.<br/>
-              <a href="mailto:contact@cvadapt.eu?subject=unsubscribe" style="color:#888">Se désabonner</a>
-            </p>
-          </div>
-        `,
+        html: j14Email({ prenom: firstName }),
       });
       sent++;
     }

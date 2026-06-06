@@ -9,6 +9,14 @@ export function LanguageProvider({ children }) {
   useEffect(() => {
     const saved = localStorage.getItem("cvadapt_lang");
     if (saved === "en" || saved === "fr") setLangState(saved);
+
+    function onStorage(e) {
+      if (e.key === "cvadapt_lang" && (e.newValue === "en" || e.newValue === "fr")) {
+        setLangState(e.newValue);
+      }
+    }
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   function setLang(l) {

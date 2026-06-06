@@ -4,6 +4,7 @@
  * Objectif : montrer les résultats concrets → pousser à upgrader
  */
 import { Resend } from "resend";
+import { j7Email } from "@/lib/email-templates";
 
 // resend initialized per-request
 const CRON_SECRET = process.env.CRON_SECRET;
@@ -48,35 +49,7 @@ export async function GET(request) {
           "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
           "X-Entity-Ref-ID": `cron-j7-${contact.email}-${new Date().toISOString().split("T")[0]}`,
         },
-        html: `
-          <div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;color:#111;line-height:1.6">
-            <p>Bonjour ${firstName},</p>
-
-            <p>Il y a 7 jours, tu as créé ton profil sur CVAdapt.</p>
-
-            <p>Voici ce qu'on observe chez nos utilisateurs cette semaine :</p>
-
-            <table style="width:100%;border-collapse:collapse;margin:20px 0">
-              <tr><td style="padding:12px;border-bottom:1px solid #f0f0f0">✅ <strong>85%</strong> des CV passent les filtres ATS dès le premier essai</td></tr>
-              <tr><td style="padding:12px;border-bottom:1px solid #f0f0f0">📬 <strong>3× plus de réponses</strong> en moyenne vs un CV non optimisé</td></tr>
-              <tr><td style="padding:12px;">⏱️ Les recruteurs passent <strong>6 secondes</strong> sur un CV — les mots-clés font tout</td></tr>
-            </table>
-
-            <p>Si tu n'as pas encore postulé avec ton CV optimisé, c'est le bon moment.</p>
-
-            <p style="margin:28px 0">
-              <a href="https://cvadapt.eu/generate"
-                style="background:#1d4ed8;color:white;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">
-                Voir mon CV →
-              </a>
-            </p>
-
-            <p style="color:#888;font-size:13px">
-              Tu reçois cet email car tu as créé un compte sur cvadapt.eu.<br/>
-              <a href="mailto:contact@cvadapt.eu?subject=unsubscribe" style="color:#888">Se désabonner</a>
-            </p>
-          </div>
-        `,
+        html: j7Email({ prenom: firstName }),
       });
       sent++;
     }

@@ -57,6 +57,51 @@ const BTN_PRIMARY: React.CSSProperties = {
   border: 'none',
 };
 
+function LangToggle({ compact = false }: { compact?: boolean }) {
+  const [lang, setLangState] = React.useState<'fr' | 'en'>('fr');
+
+  React.useEffect(() => {
+    const saved = localStorage.getItem('cvadapt_lang');
+    if (saved === 'en' || saved === 'fr') setLangState(saved);
+  }, []);
+
+  function setLang(l: 'fr' | 'en') {
+    setLangState(l);
+    localStorage.setItem('cvadapt_lang', l);
+    window.dispatchEvent(new StorageEvent('storage', { key: 'cvadapt_lang', newValue: l }));
+  }
+
+  return (
+    <div
+      className="flex items-center gap-0.5 rounded-full p-0.5"
+      style={{ background: 'rgba(29,78,216,0.06)', border: '1px solid rgba(29,78,216,0.14)' }}
+    >
+      {(['fr', 'en'] as const).map((l) => (
+        <button
+          key={l}
+          type="button"
+          onClick={() => setLang(l)}
+          className="rounded-full transition-all"
+          style={{
+            padding: compact ? '4px 10px' : '5px 12px',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            letterSpacing: '0.04em',
+            color: lang === l ? '#ffffff' : '#4b5563',
+            background: lang === l ? '#1d4ed8' : 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            lineHeight: 1,
+          }}
+          aria-label={l === 'fr' ? 'Français' : 'English'}
+        >
+          {l === 'fr' ? '🇫🇷 FR' : '🇺🇸 EN'}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function SimpleHeader() {
   const [open, setOpen] = React.useState(false);
   const { isSignedIn } = useAuth();
@@ -89,6 +134,7 @@ export function SimpleHeader() {
 
         {/* Desktop CTAs */}
         <div className="hidden items-center gap-3 lg:flex shrink-0">
+          <LangToggle />
           {isSignedIn ? (
             <>
               <Link href="/generate" style={BTN_GLASS} className="hover:bg-blue-50/80 hover:-translate-y-px">
@@ -149,6 +195,10 @@ export function SimpleHeader() {
             >
               <Logo size={24} />
               <span className="text-base font-extrabold" style={{ color: '#1d4ed8' }}>CVAdapt</span>
+            </div>
+
+            <div className="flex justify-center py-3" style={{ borderBottom: '1px solid rgba(29,78,216,0.08)' }}>
+              <LangToggle compact />
             </div>
 
             <div className="grid gap-y-1 overflow-y-auto px-4 pt-5 pb-4">

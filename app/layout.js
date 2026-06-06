@@ -139,6 +139,8 @@ export default function RootLayout({ children }) {
       <html lang="fr" className={outfit.variable}>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="preconnect" href="https://www.clarity.ms" />
+          <link rel="dns-prefetch" href="https://www.clarity.ms" />
           <script
             suppressHydrationWarning
             dangerouslySetInnerHTML={{

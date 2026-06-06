@@ -25,6 +25,13 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // Pages publiques cachables par Cloudflare (pas les routes auth/dashboard/api)
+        source: "/(|tarifs|blog|score-ats-gratuit|lettre-de-motivation|mentions-legales|cgu|gallery|cv-:slug*|analyse)",
+        headers: [
+          { key: "Cache-Control", value: "public, s-maxage=300, stale-while-revalidate=86400" },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
