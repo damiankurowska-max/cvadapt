@@ -78,19 +78,21 @@ function LangToggle({ compact = false }: { compact?: boolean }) {
       onClick={() => setLang(next)}
       className="rounded-full transition-all hover:-translate-y-px"
       style={{
+        display: 'flex', alignItems: 'center', gap: '4px',
         padding: compact ? '4px 10px' : '5px 14px',
-        fontSize: '0.75rem',
+        fontSize: '0.72rem',
         fontWeight: 700,
         letterSpacing: '0.04em',
-        color: '#1d4ed8',
-        background: 'rgba(29,78,216,0.07)',
+        background: 'rgba(29,78,216,0.06)',
         border: '1px solid rgba(29,78,216,0.18)',
         cursor: 'pointer',
         lineHeight: 1,
       }}
-      aria-label={next === 'fr' ? 'Passer en français' : 'Switch to English'}
+      aria-label="Changer de langue"
     >
-      {next === 'fr' ? '🇫🇷 FR' : '🇺🇸 EN'}
+      <span style={{ color: lang === 'fr' ? '#1d4ed8' : '#9ca3af' }}>🇫🇷 FR</span>
+      <span style={{ color: '#d1d5db', fontWeight: 400 }}>|</span>
+      <span style={{ color: lang === 'en' ? '#1d4ed8' : '#9ca3af' }}>EN 🇺🇸</span>
     </button>
   );
 }
