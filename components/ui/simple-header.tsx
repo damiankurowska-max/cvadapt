@@ -71,28 +71,23 @@ function LangToggle({ compact = false }: { compact?: boolean }) {
     window.dispatchEvent(new StorageEvent('storage', { key: 'cvadapt_lang', newValue: l }));
   }
 
-  const next = lang === 'fr' ? 'en' : 'fr';
   return (
     <button
       type="button"
-      onClick={() => setLang(next)}
-      className="rounded-full transition-all hover:-translate-y-px"
+      onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
       style={{
-        display: 'flex', alignItems: 'center', gap: '4px',
-        padding: compact ? '4px 10px' : '5px 14px',
-        fontSize: '0.72rem',
-        fontWeight: 700,
-        letterSpacing: '0.04em',
-        background: 'rgba(29,78,216,0.06)',
-        border: '1px solid rgba(29,78,216,0.18)',
-        cursor: 'pointer',
-        lineHeight: 1,
+        ...BTN_GLASS,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '5px',
+        padding: compact ? '5px 12px' : '8px 16px',
+        fontSize: '0.8rem',
       }}
       aria-label="Changer de langue"
     >
-      <span style={{ color: lang === 'fr' ? '#1d4ed8' : '#9ca3af' }}>🇫🇷 FR</span>
-      <span style={{ color: '#d1d5db', fontWeight: 400 }}>|</span>
-      <span style={{ color: lang === 'en' ? '#1d4ed8' : '#9ca3af' }}>EN 🇺🇸</span>
+      <span style={{ opacity: lang === 'fr' ? 1 : 0.45 }}>🇫🇷 FR</span>
+      <span style={{ opacity: 0.35, fontWeight: 400, fontSize: '0.65rem' }}>|</span>
+      <span style={{ opacity: lang === 'en' ? 1 : 0.45 }}>EN 🇺🇸</span>
     </button>
   );
 }
