@@ -4,7 +4,7 @@
  * Objectif : dernière chance de conversion avec promo
  */
 import { Resend } from "resend";
-import { j14Email } from "@/lib/email-templates";
+import { j14Email, j14EmailEN } from "@/lib/email-templates";
 
 // resend initialized per-request
 const CRON_SECRET = process.env.CRON_SECRET;
@@ -40,16 +40,19 @@ export async function GET(request) {
     let sent = 0;
     for (const contact of targets) {
       const firstName = contact.attributes?.FIRSTNAME || contact.email.split("@")[0];
+      const isEN = contact.attributes?.LANGUAGE === "en";
       await resend.emails.send({
         from: "Damian de CVAdapt <contact@cvadapt.eu>",
         to: contact.email,
-        subject: "Ça fait 2 semaines — une offre pour toi",
+        subject: isEN
+          ? `It's been 2 weeks — a gift for ${firstName || "you"}`
+          : "Ça fait 2 semaines — une offre pour toi",
         headers: {
           "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
           "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
           "X-Entity-Ref-ID": `cron-j14-${contact.email}-${new Date().toISOString().split("T")[0]}`,
         },
-        html: j14Email({ prenom: firstName }),
+        html: isEN ? j14EmailEN({ prenom: firstName }) : j14Email({ prenom: firstName }),
       });
       sent++;
     }

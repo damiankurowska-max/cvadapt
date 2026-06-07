@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { welcomeNewsletterEmail, ownerNotificationEmail } from "@/lib/email-templates";
+import { welcomeNewsletterEmail, welcomeNewsletterEmailEN, ownerNotificationEmail } from "@/lib/email-templates";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 // resend initialized per-request
@@ -13,7 +13,9 @@ export async function POST(request) {
     return Response.json({ error: "Trop de tentatives. Réessaie dans 1 heure." }, { status: 429 });
   }
 
-  const { email } = await request.json();
+  const body = await request.json();
+  const { email } = body;
+  const lang = body.lang === "en" ? "en" : "fr";
 
   // Validation email stricte
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,20 +35,20 @@ export async function POST(request) {
         },
         body: JSON.stringify({
           email,
-          attributes: { SOURCE: "newsletter-homepage" },
+          attributes: { SOURCE: "newsletter-homepage", LANGUAGE: lang },
           listIds: [4],
           updateEnabled: true,
         }),
       }).catch((err) => console.error("Brevo subscribe error:", err.message));
     }
 
-    // Email de bienvenue à l'utilisateur
+    // Email de bienvenue à l'utilisateur (FR ou EN)
     await resend.emails.send({
       from: "CVAdapt <contact@cvadapt.eu>",
       to: email,
       replyTo: "contact@cvadapt.eu",
-      subject: "Bienvenue dans la liste CVAdapt 👋",
-      html: welcomeNewsletterEmail(),
+      subject: lang === "en" ? "Welcome to CVAdapt 👋" : "Bienvenue dans la liste CVAdapt 👋",
+      html: lang === "en" ? welcomeNewsletterEmailEN() : welcomeNewsletterEmail(),
       headers: {
         "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
         "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",

@@ -84,7 +84,7 @@ export default function Home() {
     const res = await fetch("/api/subscribe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, lang: typeof localStorage !== "undefined" && localStorage.getItem("cvadapt_lang") === "en" ? "en" : "fr" }),
     });
     setEmailStatus(res.ok ? "success" : "error");
     if (res.ok) setEmail("");

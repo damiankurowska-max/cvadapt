@@ -4,7 +4,7 @@
  * Filtre : contacts Brevo list #4 créés il y a 4.5 à 5.5 jours
  */
 import { Resend } from "resend";
-import { j5Email } from "@/lib/email-templates";
+import { j5Email, j5EmailEN } from "@/lib/email-templates";
 
 // resend initialized per-request
 const CRON_SECRET = process.env.CRON_SECRET;
@@ -48,13 +48,16 @@ export async function GET(request) {
     for (const contact of targets) {
       const email = contact.email;
       const prenom = contact.attributes?.PRENOM || contact.attributes?.FIRSTNAME || "";
+      const isEN = contact.attributes?.LANGUAGE === "en";
       try {
         await resend.emails.send({
           from: "CVAdapt <contact@cvadapt.eu>",
           to: email,
           replyTo: "contact@cvadapt.eu",
-          subject: `Comment Emma a décroché son stage en 2 semaines${prenom ? `, ${prenom}` : ""}`,
-          html: j5Email({ prenom }),
+          subject: isEN
+            ? `How Alex landed his job in 2 weeks${prenom ? `, ${prenom}` : ""}`
+            : `Comment Emma a décroché son stage en 2 semaines${prenom ? `, ${prenom}` : ""}`,
+          html: isEN ? j5EmailEN({ prenom }) : j5Email({ prenom }),
           headers: {
             "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",

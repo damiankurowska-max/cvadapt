@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
 import DOMPurify from "isomorphic-dompurify";
@@ -7,6 +8,7 @@ import Logo from "../components/Logo";
 import UpgradeModal from "../components/UpgradeModal";
 import PostGenerationUpsell from "../components/PostGenerationUpsell";
 import ReferralPopup from "../components/ReferralPopup";
+import { t as tr } from "@/lib/i18n";
 
 const TEMPLATES = [
   { id: "moderne",     name: "Sobre",      desc: "Ardoise & épuré",  accent: "#1e293b", bg: "#f8fafc", sidebar: false },
@@ -40,14 +42,14 @@ function FieldGroup({ label, hint, children }) {
 }
 
 /* ── TemplateMiniPreview: realistic CV thumbnail ───────────────── */
-function TemplateMiniPreview({ t, compact }) {
-  if (!t) return null;
+function TemplateMiniPreview({ tmpl, compact }) {
+  if (!tmpl) return null;
   const h = compact ? "100%" : 130;
 
-  if (t.id === "creatif") {
+  if (tmpl.id === "creatif") {
     return (
       <div style={{ display: "flex", height: h, background: "#fff" }}>
-        <div style={{ width: "36%", background: t.accent, padding: "7px 5px", display: "flex", flexDirection: "column", gap: 3, flexShrink: 0 }}>
+        <div style={{ width: "36%", background: tmpl.accent, padding: "7px 5px", display: "flex", flexDirection: "column", gap: 3, flexShrink: 0 }}>
           <div style={{ width: 18, height: 18, borderRadius: "50%", background: "rgba(255,255,255,0.28)", margin: "0 auto 4px" }} />
           {[55, 75, 60, 45, 65, 50].map((w, i) => (
             <div key={i} style={{ height: 2.5, width: w + "%", background: "rgba(255,255,255,0.35)", borderRadius: 2 }} />
@@ -55,7 +57,7 @@ function TemplateMiniPreview({ t, compact }) {
         </div>
         <div style={{ flex: 1, padding: "7px 7px" }}>
           <div style={{ height: 5, width: "70%", background: "#111827", borderRadius: 2, marginBottom: 3 }} />
-          <div style={{ height: 3, width: "50%", background: t.accent, borderRadius: 2, marginBottom: 7 }} />
+          <div style={{ height: 3, width: "50%", background: tmpl.accent, borderRadius: 2, marginBottom: 7 }} />
           {[90, 80, 70, 85, 60, 75, 55, 80].map((w, i) => (
             <div key={i} style={{ height: 2.5, width: w + "%", background: i % 3 === 0 ? "#d1d5db" : "#e9ecef", borderRadius: 2, marginBottom: 2.5 }} />
           ))}
@@ -63,7 +65,7 @@ function TemplateMiniPreview({ t, compact }) {
       </div>
     );
   }
-  if (t.id === "classique") {
+  if (tmpl.id === "classique") {
     return (
       <div style={{ background: "#fff", padding: "9px 9px", height: h }}>
         <div style={{ height: 5.5, width: "58%", background: "#111827", borderRadius: 2, marginBottom: 3 }} />
@@ -75,7 +77,7 @@ function TemplateMiniPreview({ t, compact }) {
       </div>
     );
   }
-  if (t.id === "moderne") {
+  if (tmpl.id === "moderne") {
     return (
       <div style={{ background: "#fff", height: h, overflow: "hidden" }}>
         <div style={{ height: compact ? 20 : 28, background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", padding: "5px 8px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
@@ -94,17 +96,19 @@ function TemplateMiniPreview({ t, compact }) {
   return (
     <div style={{ background: "#fff", padding: "9px 9px", height: h }}>
       <div style={{ height: 5, width: "48%", background: "#111827", borderRadius: 2, marginBottom: 2 }} />
-      <div style={{ height: 2.5, width: "28%", background: t.accent, borderRadius: 2, marginBottom: 7 }} />
-      <div style={{ height: 1, background: t.accent + "40", marginBottom: 6 }} />
+      <div style={{ height: 2.5, width: "28%", background: tmpl.accent, borderRadius: 2, marginBottom: 7 }} />
+      <div style={{ height: 1, background: tmpl.accent + "40", marginBottom: 6 }} />
       {[90, 80, 65, 85, 55, 75, 60, 80].map((w, i) => (
-        <div key={i} style={{ height: 2.5, width: w + "%", background: i % 4 === 0 ? t.accent + "55" : "#e9ecef", borderRadius: 2, marginBottom: 2.5 }} />
+        <div key={i} style={{ height: 2.5, width: w + "%", background: i % 4 === 0 ? tmpl.accent + "55" : "#e9ecef", borderRadius: 2, marginBottom: 2.5 }} />
       ))}
     </div>
   );
 }
 
 export default function Generate() {
-  const { user } = useUser();
+  const { user, isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
+  const [lang, setLang] = useState("fr");
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", offre: "", experience: "", competences: "", formation: "" });
   const [photo, setPhoto] = useState(null);
   const photoInputRef = useRef(null);
@@ -130,6 +134,21 @@ export default function Generate() {
 
   const isPro = user?.unsafeMetadata?.isPro || false;
   const plan = user?.unsafeMetadata?.plan || "free";
+
+  // Sync language from localStorage + listen for toggle changes
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("cvadapt_lang");
+      if (saved === "en" || saved === "fr") setLang(saved);
+    } catch {}
+    function onStorage(e) {
+      if (e.key === "cvadapt_lang" && (e.newValue === "en" || e.newValue === "fr")) {
+        setLang(e.newValue);
+      }
+    }
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -172,26 +191,30 @@ export default function Generate() {
   function handlePhotoChange(e) {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 3 * 1024 * 1024) { alert("La photo doit faire moins de 3 Mo."); return; }
+    if (file.size > 3 * 1024 * 1024) { alert(lang === "en" ? "Photo must be under 3 MB." : "La photo doit faire moins de 3 Mo."); return; }
     const reader = new FileReader();
     reader.onload = (ev) => setPhoto(ev.target.result);
     reader.readAsDataURL(file);
-    // Reset input so same file can be re-selected
     e.target.value = "";
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
+    if (isLoaded && !isSignedIn) {
+      router.push("/sign-up?redirect_url=/generate");
+      return;
+    }
+
     if (!isPro) {
       if (cvCount >= CV_LIMIT) {
-        setError("Tu as atteint la limite de 3 CV gratuits. Passe à un abonnement pour continuer.");
+        setError(tr(lang, "limit3"));
         try { window.clarity?.("event", "limit_hit_free"); } catch {}
         return;
       }
     } else if (plan === "essentiel") {
       if (cvMonthCount >= 15) {
-        setError("Tu as atteint la limite de 15 CV ce mois-ci. Passe au plan Pro pour des CV illimités.");
+        setError(tr(lang, "limit15"));
         try { window.clarity?.("event", "limit_hit_essentiel"); } catch {}
         return;
       }
@@ -207,12 +230,12 @@ export default function Generate() {
       const cvRes = await fetch("/api/generate-cv", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, template }),
+        body: JSON.stringify({ ...form, template, lang }),
       });
       const cvData = await cvRes.json();
 
       if (!cvRes.ok) {
-        setError(cvData.error || "Erreur lors de la génération du CV");
+        setError(cvData.error || tr(lang, "errorGeneric"));
         setLoading(false);
         return;
       }
@@ -226,12 +249,12 @@ export default function Generate() {
       fetch("/api/analyze-ats", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, lang }),
       }).then(r => r.json()).then(data => {
         setAtsData(data.error ? { error: true, message: data.error } : data);
         setLoadingATS(false);
       }).catch(() => {
-        setAtsData({ error: true, message: "Analyse ATS indisponible" });
+        setAtsData({ error: true, message: tr(lang, "atsNotAvailable") });
         setLoadingATS(false);
       });
 
@@ -240,7 +263,6 @@ export default function Generate() {
         setCvCount(newCount);
         if (user) await user.update({ unsafeMetadata: { ...user.unsafeMetadata, cvCount: newCount } });
 
-        // 1er CV généré → modal upsell "Pack candidature"
         try {
           if (newCount === 1 && !localStorage.getItem("cvadapt_upsell_shown")) {
             setShowPostGenUpsell(true);
@@ -249,7 +271,6 @@ export default function Generate() {
           }
         } catch {}
 
-        // 2ème CV généré → popup parrainage (gagne 2 CV en partageant)
         try {
           if (newCount === 2 && !localStorage.getItem("cvadapt_referral_shown")) {
             setTimeout(() => setShowReferralPopup(true), 1500);
@@ -258,7 +279,6 @@ export default function Generate() {
           }
         } catch {}
 
-        // Dernier CV gratuit utilisé → email de relance + modal
         if (newCount >= CV_LIMIT) {
           setShowUpgradeModal(true);
           try { window.clarity?.("event", "upgrade_modal_shown_limit"); } catch {}
@@ -293,7 +313,7 @@ export default function Generate() {
         const lmRes = await fetch("/api/generate-lm", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify({ ...form, lang }),
         });
         const lmData = await lmRes.json();
         if (lmRes.ok) {
@@ -306,7 +326,7 @@ export default function Generate() {
       const currentAts = atsData?.score ?? null;
       const newEntry = {
         id: Date.now(),
-        date: new Date().toLocaleDateString("fr-FR"),
+        date: new Date().toLocaleDateString(lang === "en" ? "en-US" : "fr-FR"),
         nom: form.nom,
         apercu: form.offre.substring(0, 60) + "...",
         template,
@@ -319,22 +339,19 @@ export default function Generate() {
       try { localStorage.setItem("cvadapt_history", JSON.stringify(newHistory)); } catch {}
 
     } catch {
-      setError("Une erreur est survenue, réessaie.");
+      setError(tr(lang, "errorGeneric"));
     }
     setLoading(false);
   }
 
   function injectPhoto(html) {
     if (!html) return html;
-    // Strip leftover slots (empty spans Claude sometimes includes)
     html = html.replace(/<span id="cv-photo-slot"[^>]*><\/span>/g, photo
       ? `<img src="${photo}" style="width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;" alt="">`
       : "");
 
     if (!photo) return html;
 
-    // Fallback DOM injection — works even when Claude didn't include the slot
-    // (runs in the browser only)
     if (typeof window === "undefined") return html;
     try {
       const parser = new DOMParser();
@@ -342,14 +359,12 @@ export default function Generate() {
       const root = doc.body.querySelector("div");
       if (!root) return html;
 
-      // Already injected above via slot replacement
       if (root.querySelector("img[alt='']")) return root.innerHTML;
 
       const img = doc.createElement("img");
       img.src = photo;
       img.alt = "";
 
-      // Atelier / creatif — dark sidebar (#0f172a)
       const sidebar = [...root.querySelectorAll("div")].find(d =>
         (d.getAttribute("style") || "").includes("0f172a"));
       if (sidebar) {
@@ -358,7 +373,6 @@ export default function Generate() {
         return root.innerHTML;
       }
 
-      // Sobre / moderne — light left column (#f8fafc)
       const leftCol = [...root.querySelectorAll("div")].find(d =>
         (d.getAttribute("style") || "").includes("f8fafc"));
       if (leftCol) {
@@ -367,7 +381,6 @@ export default function Generate() {
         return root.innerHTML;
       }
 
-      // Coupure / Trait — single column, float photo right in header
       img.setAttribute("style", "width:82px;height:98px;object-fit:cover;float:right;margin:4px 0 16px 24px;");
       root.insertBefore(img, root.firstChild);
       return root.innerHTML;
@@ -379,17 +392,19 @@ export default function Generate() {
   function handlePrint(content, title) {
     const win = window.open("", "_blank");
     if (!win) {
-      alert("Impossible d'ouvrir le PDF. Autorise les pop-ups pour ce site dans ton navigateur.");
+      alert(lang === "en"
+        ? "Pop-ups are blocked. Please allow pop-ups for this site."
+        : "Impossible d'ouvrir le PDF. Autorise les pop-ups pour ce site dans ton navigateur.");
       return;
     }
     const watermark = !isPro ? `
       <div style="margin-top:24px;padding:10px 0 6px;text-align:center;border-top:1px solid #e5e7eb;">
         <span style="font-size:9px;color:#9ca3af;font-family:Arial,sans-serif;letter-spacing:0.2px;">
-          Généré avec <strong style="color:#2563eb;">CVAdapt.eu</strong> —
-          <a href="https://cvadapt.eu/tarifs" style="color:#2563eb;text-decoration:none;">Supprimer cette mention → Plan Étudiant 4,99€/mois</a>
+          ${lang === "en" ? "Generated with" : "Généré avec"} <strong style="color:#2563eb;">CVAdapt.eu</strong> —
+          <a href="https://cvadapt.eu/tarifs" style="color:#2563eb;text-decoration:none;">${lang === "en" ? "Remove this · Student plan €4.99/mo" : "Supprimer cette mention → Plan Étudiant 4,99€/mois"}</a>
         </span>
       </div>` : '';
-    const printContent = title.startsWith("CV") ? injectPhoto(content) : content;
+    const printContent = title.startsWith("CV") || title.startsWith("Resume") ? injectPhoto(content) : content;
     win.document.write(`<!DOCTYPE html><html><head><title>${title}</title><style>
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html, body { background: white; }
@@ -416,7 +431,7 @@ export default function Generate() {
   const isStep2Valid = form.nom.trim().length > 0 && form.experience.trim().length > 0 && form.competences.trim().length > 0 && form.formation.trim().length > 0;
   const isGenerateDisabled = loading || (!isPro && cvCount >= CV_LIMIT) || (isPro && plan === "essentiel" && cvMonthCount >= 15);
 
-  const selectedTemplate = TEMPLATES.find(t => t.id === template);
+  const selectedTemplate = TEMPLATES.find(tmpl => tmpl.id === template);
   const offrePreview = form.offre.split("\n").slice(0, 4).join("\n").substring(0, 200);
 
   return (
@@ -446,10 +461,42 @@ export default function Generate() {
         </Link>
 
         <div className="flex items-center gap-2">
+          {/* Toggle FR / EN */}
+          <div className="flex items-center gap-0.5 rounded-full p-0.5" style={{ background: "rgba(29,78,216,0.06)", border: "1px solid rgba(29,78,216,0.14)" }}>
+            {(["fr", "en"]).map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => {
+                  setLang(l);
+                  try {
+                    localStorage.setItem("cvadapt_lang", l);
+                    window.dispatchEvent(new StorageEvent("storage", { key: "cvadapt_lang", newValue: l }));
+                  } catch {}
+                }}
+                className="rounded-full transition-all"
+                style={{
+                  padding: "4px 9px",
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.04em",
+                  color: lang === l ? "#ffffff" : "#4b5563",
+                  background: lang === l ? "#1d4ed8" : "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  lineHeight: 1,
+                }}
+                aria-label={l === "fr" ? "Français" : "English"}
+              >
+                {l === "fr" ? "🇫🇷 FR" : "🇺🇸 EN"}
+              </button>
+            ))}
+          </div>
+
           <button
             onClick={() => setShowHistory(!showHistory)}
             className="relative flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
-            title="Historique"
+            title={tr(lang, "history")}
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M12 8v4l3 3M3.05 11A9 9 0 1 0 4 6.3" strokeLinecap="round"/>
@@ -463,17 +510,17 @@ export default function Generate() {
           {isPro ? (
             <div className="flex items-center gap-1 bg-green-100 px-2.5 py-1 rounded-lg">
               <span className="text-xs font-bold text-green-700">PRO</span>
-              {plan === "essentiel" && <span className="text-xs text-green-600 hidden sm:inline">· {15 - cvMonthCount} restants</span>}
+              {plan === "essentiel" && <span className="text-xs text-green-600 hidden sm:inline">· {15 - cvMonthCount} {tr(lang, "remaining")}</span>}
             </div>
           ) : (
             <div className="flex items-center gap-1.5">
               <div className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold ${cvCount >= CV_LIMIT ? "bg-red-50 text-red-500" : "bg-gray-100 text-gray-600"}`}>
                 <span>{CV_LIMIT - cvCount}/{CV_LIMIT}</span>
-                <span className="hidden sm:inline text-gray-400 font-normal">gratuits</span>
+                <span className="hidden sm:inline text-gray-400 font-normal">{tr(lang, "free")}</span>
               </div>
               {cvCount >= CV_LIMIT && (
                 <Link href="/tarifs" className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-700 whitespace-nowrap">
-                  Passer Pro
+                  {tr(lang, "upgradePro")}
                 </Link>
               )}
             </div>
@@ -488,17 +535,17 @@ export default function Generate() {
         <div className="bg-white border-b border-gray-200 shadow-sm">
           <div className="max-w-4xl mx-auto px-6 py-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Tes CV générés</h3>
+              <h3 className="font-semibold text-gray-900">{tr(lang, "historyTitle")}</h3>
               <button onClick={() => setShowHistory(false)} className="text-gray-400 hover:text-gray-600 text-lg">✕</button>
             </div>
             {history.length === 0 ? (
-              <p className="text-gray-500 text-sm py-4 text-center">Aucun CV dans l'historique pour l'instant.</p>
+              <p className="text-gray-500 text-sm py-4 text-center">{tr(lang, "historyEmpty")}</p>
             ) : (
               <div className="space-y-2">
                 {history.map((entry) => (
                   <div key={entry.id} className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-3 border border-gray-100 hover:border-blue-200 transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full" style={{ background: TEMPLATES.find(t => t.id === entry.template)?.accent || "#2563eb" }}></div>
+                      <div className="w-2 h-2 rounded-full" style={{ background: TEMPLATES.find(tmpl => tmpl.id === entry.template)?.accent || "#2563eb" }}></div>
                       <div>
                         <p className="font-semibold text-gray-900 text-sm">{entry.nom}</p>
                         <p className="text-gray-400 text-xs">{entry.date} · {entry.apercu}</p>
@@ -506,7 +553,7 @@ export default function Generate() {
                     </div>
                     <button onClick={() => loadFromHistory(entry)}
                       className="text-blue-600 text-sm font-semibold hover:text-blue-700">
-                      Revoir →
+                      {tr(lang, "historyReview")}
                     </button>
                   </div>
                 ))}
@@ -522,17 +569,17 @@ export default function Generate() {
             {/* Banners upsell — toujours visibles en haut */}
             {!isPro && cvCount >= CV_LIMIT && (
               <div style={{ background: "#fffbeb", border: "1px solid #fcd34d", borderRadius: 12, padding: "14px 18px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                <p style={{ color: "#92400e", fontSize: 14, fontWeight: 500 }}>Tu as utilisé tes 3 CV gratuits.</p>
+                <p style={{ color: "#92400e", fontSize: 14, fontWeight: 500 }}>{tr(lang, "limit3")}</p>
                 <Link href="/tarifs" style={{ background: "#2563eb", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>
-                  Voir les abonnements →
+                  {tr(lang, "viewPlans")}
                 </Link>
               </div>
             )}
             {isPro && plan === "essentiel" && cvMonthCount >= 15 && (
               <div style={{ background: "#fffbeb", border: "1px solid #fcd34d", borderRadius: 12, padding: "14px 18px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                <p style={{ color: "#92400e", fontSize: 14, fontWeight: 500 }}>Tu as atteint les 15 CV de ce mois (plan Étudiant).</p>
+                <p style={{ color: "#92400e", fontSize: 14, fontWeight: 500 }}>{tr(lang, "limit15")}</p>
                 <Link href="/tarifs" style={{ background: "#2563eb", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>
-                  Passer au plan Pro →
+                  {tr(lang, "upgradeToPro")}
                 </Link>
               </div>
             )}
@@ -540,9 +587,9 @@ export default function Generate() {
             {/* Indicateur d'étapes */}
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", marginBottom: 32, gap: 0 }}>
               {[
-                { n: 1, label: "L'offre" },
-                { n: 2, label: "Ton profil" },
-                { n: 3, label: "Génération" },
+                { n: 1, label: tr(lang, "step1") },
+                { n: 2, label: tr(lang, "step2") },
+                { n: 3, label: tr(lang, "step3") },
               ].map((s, idx) => (
                 <div key={s.n} style={{ display: "flex", alignItems: "flex-start" }}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -570,34 +617,34 @@ export default function Generate() {
             {/* Step 1 — L'offre */}
             {wizardStep === 1 && (
               <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 1px 12px rgba(0,0,0,0.06)", padding: "28px 28px 24px" }}>
-                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>Quelle offre cibles-tu ?</h1>
-                <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>Sélectionne un design de CV, puis colle l'offre d'emploi.</p>
+                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step1Title")}</h1>
+                <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>{tr(lang, "step1Subtitle")}</p>
 
                 {/* Sélecteur de template */}
                 <div style={{ marginBottom: 24 }}>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 12 }}>Design du CV</p>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 12 }}>{tr(lang, "cvDesign")}</p>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                    {TEMPLATES.map((t) => {
-                      const sel = template === t.id;
+                    {TEMPLATES.map((tmpl) => {
+                      const sel = template === tmpl.id;
                       return (
-                        <button key={t.id} type="button" onClick={() => setTemplate(t.id)}
+                        <button key={tmpl.id} type="button" onClick={() => setTemplate(tmpl.id)}
                           style={{
                             position: "relative", borderRadius: 12, overflow: "hidden", cursor: "pointer",
-                            border: sel ? `2px solid ${t.accent}` : "2px solid #e5e7eb",
-                            boxShadow: sel ? `0 0 0 3px ${t.accent}22` : "none",
+                            border: sel ? `2px solid ${tmpl.accent}` : "2px solid #e5e7eb",
+                            boxShadow: sel ? `0 0 0 3px ${tmpl.accent}22` : "none",
                             background: "#fff", padding: 0, textAlign: "left",
                             transition: "border-color 0.15s, box-shadow 0.15s",
                           }}>
                           {/* CV miniature */}
-                          <TemplateMiniPreview t={t} />
+                          <TemplateMiniPreview tmpl={tmpl} />
                           {/* Nom */}
-                          <div style={{ padding: "8px 10px 9px", background: sel ? t.accent + "0f" : "#fff", borderTop: "1px solid " + (sel ? t.accent + "33" : "#f3f4f6") }}>
-                            <p style={{ fontSize: 12, fontWeight: 700, color: sel ? t.accent : "#374151" }}>{t.name}</p>
-                            <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 1 }}>{t.desc}</p>
+                          <div style={{ padding: "8px 10px 9px", background: sel ? tmpl.accent + "0f" : "#fff", borderTop: "1px solid " + (sel ? tmpl.accent + "33" : "#f3f4f6") }}>
+                            <p style={{ fontSize: 12, fontWeight: 700, color: sel ? tmpl.accent : "#374151" }}>{tmpl.name}</p>
+                            <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 1 }}>{tmpl.desc}</p>
                           </div>
                           {/* Checkmark overlay */}
                           {sel && (
-                            <div style={{ position: "absolute", top: 7, right: 7, width: 20, height: 20, borderRadius: "50%", background: t.accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <div style={{ position: "absolute", top: 7, right: 7, width: 20, height: 20, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
                               <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </div>
                           )}
@@ -610,15 +657,15 @@ export default function Generate() {
                 {/* Textarea offre */}
                 <div style={{ marginBottom: 20 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <p style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>Offre d'emploi</p>
-                    <p style={{ fontSize: 11, color: form.offre.length > 0 ? "#2563eb" : "#9ca3af" }}>{form.offre.length} car.</p>
+                    <p style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>{tr(lang, "jobOffer")}</p>
+                    <p style={{ fontSize: 11, color: form.offre.length > 0 ? "#2563eb" : "#9ca3af" }}>{form.offre.length} {lang === "en" ? "chars" : "car."}</p>
                   </div>
                   <textarea
                     name="offre"
                     value={form.offre}
                     onChange={handleChange}
                     rows={9}
-                    placeholder="Colle ici le texte complet de l'offre (LinkedIn, Indeed, APEC…). Plus tu en mets, meilleur sera ton CV."
+                    placeholder={tr(lang, "jobOfferPlaceholder")}
                     style={{
                       width: "100%", border: "1.5px solid " + (form.offre.length > 0 ? "#bfdbfe" : "#e5e7eb"),
                       borderRadius: 10, padding: "12px 14px", outline: "none",
@@ -646,24 +693,24 @@ export default function Generate() {
                     display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                   }}
                 >
-                  Continuer
+                  {tr(lang, "continueBtn")}
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
               </div>
             )}
 
-            {/* Step 2 — Ton profil */}
+            {/* Step 2 — Profil */}
             {wizardStep === 2 && (
               <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 1px 12px rgba(0,0,0,0.06)", padding: "28px 28px 24px" }}>
-                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>Ton profil</h1>
-                <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>Ces informations seront intégrées et adaptées à l'offre.</p>
+                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step2Title")}</h1>
+                <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>{tr(lang, "step2Subtitle")}</p>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 18, marginBottom: 24 }}>
                   {/* Photo upload */}
                   <div>
                     <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 7 }}>
-                      <p style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>Photo</p>
-                      <p style={{ fontSize: 11, color: "#9ca3af" }}>Optionnel · courant en France</p>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>{tr(lang, "photo")}</p>
+                      <p style={{ fontSize: 11, color: "#9ca3af" }}>{tr(lang, "photoHint")}</p>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                       <div
@@ -688,13 +735,13 @@ export default function Generate() {
                       <div>
                         <button type="button" onClick={() => photoInputRef.current?.click()}
                           style={{ fontSize: 13, color: "#2563eb", fontWeight: 600, background: "none", border: "none", cursor: "pointer", padding: 0, display: "block" }}>
-                          {photo ? "Changer la photo" : "Ajouter une photo"}
+                          {photo ? tr(lang, "changePhoto") : tr(lang, "addPhoto")}
                         </button>
                         <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 3 }}>JPG, PNG · max 3 Mo</p>
                         {photo && (
                           <button type="button" onClick={() => setPhoto(null)}
                             style={{ fontSize: 11, color: "#ef4444", background: "none", border: "none", cursor: "pointer", padding: 0, marginTop: 3 }}>
-                            Supprimer
+                            {tr(lang, "deletePhoto")}
                           </button>
                         )}
                       </div>
@@ -702,57 +749,57 @@ export default function Generate() {
                     </div>
                   </div>
 
-                  <FieldGroup label="Nom complet" hint="Affiché en en-tête du CV">
+                  <FieldGroup label={tr(lang, "fullName")} hint={lang === "en" ? "Displayed in resume header" : "Affiché en en-tête du CV"}>
                     <input
                       type="text" name="nom" value={form.nom} onChange={handleChange}
-                      placeholder="Ex : Jean Dupont"
+                      placeholder={tr(lang, "fullNamePlaceholder")}
                       style={inputStyle}
                       onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
                       onBlur={e => Object.assign(e.target.style, inputStyle)}
                     />
                   </FieldGroup>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-                    <FieldGroup label="Email" hint="Coordonnées CV">
+                    <FieldGroup label={tr(lang, "email")} hint={tr(lang, "emailHint")}>
                       <input
                         type="email" name="email" value={form.email} onChange={handleChange}
-                        placeholder="jean@email.com"
+                        placeholder={tr(lang, "emailPlaceholder")}
                         style={inputStyle}
                         onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
                         onBlur={e => Object.assign(e.target.style, inputStyle)}
                       />
                     </FieldGroup>
-                    <FieldGroup label="Téléphone" hint="Optionnel">
+                    <FieldGroup label={tr(lang, "phone")} hint={tr(lang, "phoneHint")}>
                       <input
                         type="tel" name="telephone" value={form.telephone} onChange={handleChange}
-                        placeholder="06 12 34 56 78"
+                        placeholder={tr(lang, "phonePlaceholder")}
                         style={inputStyle}
                         onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
                         onBlur={e => Object.assign(e.target.style, inputStyle)}
                       />
                     </FieldGroup>
                   </div>
-                  <FieldGroup label="Expérience professionnelle" hint="Postes occupés, entreprises, durées">
+                  <FieldGroup label={tr(lang, "experience")} hint={tr(lang, "experienceHint")}>
                     <textarea
                       name="experience" value={form.experience} onChange={handleChange}
-                      rows={4} placeholder="Ex : 2 ans chez Carrefour comme responsable rayon, 1 an chez McDonald's en équipier…"
+                      rows={4} placeholder={tr(lang, "experiencePlaceholder")}
                       style={{ ...inputStyle, resize: "none", lineHeight: 1.6 }}
                       onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
                       onBlur={e => Object.assign(e.target.style, inputStyle)}
                     />
                   </FieldGroup>
-                  <FieldGroup label="Compétences" hint="Séparées par des virgules">
+                  <FieldGroup label={tr(lang, "skills")} hint={tr(lang, "skillsHint")}>
                     <input
                       type="text" name="competences" value={form.competences} onChange={handleChange}
-                      placeholder="Ex : Excel, gestion d'équipe, service client, permis B…"
+                      placeholder={tr(lang, "skillsPlaceholder")}
                       style={inputStyle}
                       onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
                       onBlur={e => Object.assign(e.target.style, inputStyle)}
                     />
                   </FieldGroup>
-                  <FieldGroup label="Formation" hint="Diplômes et établissements">
+                  <FieldGroup label={tr(lang, "education")} hint={tr(lang, "educationHint")}>
                     <input
                       type="text" name="formation" value={form.formation} onChange={handleChange}
-                      placeholder="Ex : BTS MUC – Lycée Jean Moulin, Lyon"
+                      placeholder={tr(lang, "educationPlaceholder")}
                       style={inputStyle}
                       onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
                       onBlur={e => Object.assign(e.target.style, inputStyle)}
@@ -764,7 +811,7 @@ export default function Generate() {
                   <button type="button" onClick={() => setWizardStep(1)}
                     style={{ padding: "13px 18px", borderRadius: 10, border: "1.5px solid #e5e7eb", background: "#fff", color: "#6b7280", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 7H3M7 3L3 7l4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    Retour
+                    {tr(lang, "back")}
                   </button>
                   <button type="button" onClick={() => setWizardStep(3)} disabled={!isStep2Valid}
                     style={{
@@ -776,7 +823,7 @@ export default function Generate() {
                       transition: "all 0.2s",
                       display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                     }}>
-                    Continuer
+                    {tr(lang, "continueBtn")}
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </button>
                 </div>
@@ -787,18 +834,18 @@ export default function Generate() {
             {wizardStep === 3 && (
               <form onSubmit={handleSubmit}>
                 <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 1px 12px rgba(0,0,0,0.06)", padding: "28px 28px 24px" }}>
-                  <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>Presque prêt !</h1>
-                  <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>Vérifie le récapitulatif, puis génère ton CV.</p>
+                  <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step3Title")}</h1>
+                  <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>{tr(lang, "step3Subtitle")}</p>
 
                   {/* Récapitulatif */}
                   <div style={{ background: "#f8fafc", border: "1.5px solid #e2e8f0", borderRadius: 12, padding: "18px 18px", marginBottom: 20, display: "flex", flexDirection: "column", gap: 14 }}>
                     {/* Template choisi */}
                     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                       <div style={{ width: 44, height: 56, borderRadius: 7, flexShrink: 0, overflow: "hidden", border: "2px solid " + (selectedTemplate?.accent || "#e5e7eb") }}>
-                        <TemplateMiniPreview t={selectedTemplate} compact />
+                        <TemplateMiniPreview tmpl={selectedTemplate} compact />
                       </div>
                       <div>
-                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 2 }}>Design sélectionné</p>
+                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 2 }}>{tr(lang, "selectedDesign")}</p>
                         <p style={{ fontSize: 14, fontWeight: 700, color: "#0f172a" }}>{selectedTemplate?.name}</p>
                         <p style={{ fontSize: 12, color: "#6b7280" }}>{selectedTemplate?.desc}</p>
                       </div>
@@ -807,7 +854,7 @@ export default function Generate() {
                     {/* Aperçu offre */}
                     {offrePreview && (
                       <div style={{ borderTop: "1px solid #e5e7eb", paddingTop: 14 }}>
-                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 6 }}>Offre cible</p>
+                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 6 }}>{tr(lang, "targetOffer")}</p>
                         <p style={{ fontSize: 12, color: "#4b5563", lineHeight: 1.6, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" }}>{offrePreview}{form.offre.length > 200 ? "…" : ""}</p>
                       </div>
                     )}
@@ -815,7 +862,7 @@ export default function Generate() {
                     {/* Nom */}
                     {form.nom && (
                       <div style={{ borderTop: "1px solid #e5e7eb", paddingTop: 14 }}>
-                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 4 }}>Candidat</p>
+                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 4 }}>{tr(lang, "candidate")}</p>
                         <p style={{ fontSize: 13, color: "#0f172a", fontWeight: 600 }}>{form.nom}</p>
                       </div>
                     )}
@@ -835,8 +882,8 @@ export default function Generate() {
                       style={{ width: 16, height: 16, accentColor: "#7c3aed", flexShrink: 0 }}
                     />
                     <div>
-                      <p style={{ fontSize: 14, fontWeight: 700, color: "#5b21b6" }}>Générer aussi une lettre de motivation</p>
-                      <p style={{ fontSize: 12, color: "#7c3aed", marginTop: 2 }}>Adaptée à l'offre, personnalisée, prête à envoyer</p>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: "#5b21b6" }}>{tr(lang, "coverLetterLabel")}</p>
+                      <p style={{ fontSize: 12, color: "#7c3aed", marginTop: 2 }}>{tr(lang, "coverLetterSubtitle")}</p>
                     </div>
                   </label>
 
@@ -853,7 +900,7 @@ export default function Generate() {
                       style={{ padding: "13px 18px", borderRadius: 10, border: "1.5px solid #e5e7eb", background: "#fff", color: "#6b7280", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}
                     >
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 7H3M7 3L3 7l4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      Retour
+                      {tr(lang, "back")}
                     </button>
                     <button
                       type="submit"
@@ -872,11 +919,11 @@ export default function Generate() {
                       {loading ? (
                         <>
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ animation: "spin 1s linear infinite" }}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="31.4" strokeDashoffset="10"/></svg>
-                          {withLM ? "Génération CV + lettre…" : "Génération en cours…"}
+                          {withLM ? tr(lang, "generateWithLMBtn") : tr(lang, "generatingBtn")}
                         </>
                       ) : (
                         <>
-                          {withLM ? "Générer CV + lettre de motivation" : "Générer mon CV"}
+                          {withLM ? tr(lang, "generateBtnWithLM") : tr(lang, "generateBtn")}
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         </>
                       )}
@@ -894,23 +941,25 @@ export default function Generate() {
                 <span className="text-2xl">✅</span>
                 <div>
                   <p className="text-green-800 font-semibold">
-                    {lm || loadingLM ? "CV + Lettre de motivation générés !" : "Ton CV est prêt !"}
+                    {lm || loadingLM ? tr(lang, "cvAndLMReady") : tr(lang, "cvReady")}
                   </p>
-                  <p className="text-green-600 text-sm">Adapté à l'offre · Optimisé pour les recruteurs</p>
+                  <p className="text-green-600 text-sm">{tr(lang, "adaptedToOffer")}</p>
                 </div>
               </div>
               <div className="flex gap-3">
                 <button onClick={() => { setCv(""); setLm(""); setAtsData(null); setWizardStep(1); }}
                   className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 text-sm font-medium">
-                  ← Nouveau
+                  {tr(lang, "newCV")}
                 </button>
                 <button
                   onClick={() => handlePrint(
                     activeTab === "cv" ? cv : lm,
-                    activeTab === "cv" ? `CV - ${form.nom}` : `Lettre de motivation - ${form.nom}`
+                    activeTab === "cv"
+                      ? `${lang === "en" ? "Resume" : "CV"} - ${form.nom}`
+                      : `${lang === "en" ? "Cover letter" : "Lettre de motivation"} - ${form.nom}`
                   )}
                   className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 font-semibold text-sm">
-                  📄 Télécharger PDF
+                  📄 {tr(lang, "downloadPDF")}
                 </button>
               </div>
             </div>
@@ -924,8 +973,8 @@ export default function Generate() {
                   <div className="flex items-center gap-3 min-w-0">
                     <span className="text-xl shrink-0">✉️</span>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-purple-900">Ajoute une lettre de motivation</p>
-                      <p className="text-xs text-purple-500 truncate">Adaptée à cette offre · Prête en 20 secondes</p>
+                      <p className="text-sm font-semibold text-purple-900">{tr(lang, "addCoverLetterTitle")}</p>
+                      <p className="text-xs text-purple-500 truncate">{tr(lang, "addCoverLetterSubtitle")}</p>
                     </div>
                   </div>
                   <button
@@ -937,23 +986,23 @@ export default function Generate() {
                         const lmRes = await fetch("/api/generate-lm", {
                           method: "POST",
                           headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify(form),
+                          body: JSON.stringify({ ...form, lang }),
                         });
                         const lmData = await lmRes.json();
                         if (lmRes.ok) {
                           setLm(lmData.lm);
                         } else {
-                          setError(lmData.error || "Erreur lors de la génération de la lettre de motivation.");
+                          setError(lmData.error || tr(lang, "errorGeneric"));
                           setActiveTab("cv");
                         }
                       } catch {
-                        setError("Connexion impossible, réessaie.");
+                        setError(tr(lang, "errorGeneric"));
                         setActiveTab("cv");
                       }
                       setLoadingLM(false);
                     }}
                     className="bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors whitespace-nowrap shrink-0">
-                    Générer →
+                    {tr(lang, "generateLM")} →
                   </button>
                 </div>
               )}
@@ -964,13 +1013,17 @@ export default function Generate() {
                   <div className="flex items-center gap-3 min-w-0">
                     <span className="text-xl shrink-0">⚠️</span>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-amber-900">Plus qu'un CV gratuit restant</p>
-                      <p className="text-xs text-amber-600">Passe à Étudiant pour des CV illimités à 4,99€/mois</p>
+                      <p className="text-sm font-semibold text-amber-900">
+                        {lang === "en" ? "Only 1 free resume left" : "Plus qu'un CV gratuit restant"}
+                      </p>
+                      <p className="text-xs text-amber-600">
+                        {lang === "en" ? "Upgrade to Student for unlimited resumes at €4.99/mo" : "Passe à Étudiant pour des CV illimités à 4,99€/mois"}
+                      </p>
                     </div>
                   </div>
                   <a href="/tarifs"
                     className="bg-amber-500 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors whitespace-nowrap shrink-0">
-                    Voir l'offre →
+                    {lang === "en" ? "See plans →" : "Voir l'offre →"}
                   </a>
                 </div>
               )}
@@ -981,13 +1034,15 @@ export default function Generate() {
                   <div className="flex items-center gap-3 min-w-0">
                     <span className="text-xl shrink-0">🚀</span>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-blue-900">Tu as utilisé tes 3 CV gratuits</p>
-                      <p className="text-xs text-blue-600">Continue avec le plan Étudiant à 4,99€/mois</p>
+                      <p className="text-sm font-semibold text-blue-900">{tr(lang, "limit3")}</p>
+                      <p className="text-xs text-blue-600">
+                        {lang === "en" ? "Continue with the Student plan at €4.99/mo" : "Continue avec le plan Étudiant à 4,99€/mois"}
+                      </p>
                     </div>
                   </div>
                   <a href="/tarifs"
                     className="bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap shrink-0">
-                    Passer Pro →
+                    {tr(lang, "upgradePro")} →
                   </a>
                 </div>
               )}
@@ -997,21 +1052,31 @@ export default function Generate() {
                 <div className="flex items-center gap-3 min-w-0">
                   <span className="text-xl shrink-0">🎁</span>
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold text-gray-800">Un ami cherche un emploi ?</p>
-                    <p className="text-xs text-gray-400">Partage CVAdapt — c'est gratuit pour commencer</p>
+                    <p className="text-sm font-semibold text-gray-800">
+                      {lang === "en" ? "Know someone job hunting?" : "Un ami cherche un emploi ?"}
+                    </p>
+                    <p className="text-xs text-gray-400">
+                      {lang === "en" ? "Share CVAdapt — free to start" : "Partage CVAdapt — c'est gratuit pour commencer"}
+                    </p>
                   </div>
                 </div>
                 <button
                   onClick={() => {
                     if (navigator.share) {
-                      navigator.share({ title: "CVAdapt", text: "Génère un CV optimisé ATS en 30 secondes — gratuit !", url: "https://cvadapt.eu" });
+                      navigator.share({
+                        title: "CVAdapt",
+                        text: lang === "en"
+                          ? "Generate an ATS-optimized resume in 30 seconds — free!"
+                          : "Génère un CV optimisé ATS en 30 secondes — gratuit !",
+                        url: "https://cvadapt.eu",
+                      });
                     } else {
                       navigator.clipboard.writeText("https://cvadapt.eu");
-                      alert("Lien copié !");
+                      alert(lang === "en" ? "Link copied!" : "Lien copié !");
                     }
                   }}
                   className="border border-gray-200 text-gray-600 text-xs font-bold px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0">
-                  Partager
+                  {lang === "en" ? "Share" : "Partager"}
                 </button>
               </div>
 
@@ -1021,17 +1086,17 @@ export default function Generate() {
             <div className="flex gap-1 mb-4 bg-gray-100 p-1 rounded-xl w-fit">
               <button onClick={() => setActiveTab("cv")}
                 className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${activeTab === "cv" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
-                📄 CV
+                {tr(lang, "tabCV")}
               </button>
               {(lm || loadingLM) && (
                 <button onClick={() => setActiveTab("lm")}
                   className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${activeTab === "lm" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
-                  ✉️ Lettre de motivation {loadingLM && "⏳"}
+                  {loadingLM ? tr(lang, "tabLMLoading") : tr(lang, "tabLM")}
                 </button>
               )}
               <button onClick={() => setActiveTab("ats")}
                 className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${activeTab === "ats" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
-                🎯 Score ATS {loadingATS && "⏳"} {atsData && !loadingATS && <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${atsData.score >= 75 ? "bg-green-100 text-green-700" : atsData.score >= 50 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}`}>{atsData.score}/100</span>}
+                {tr(lang, "tabATS")} {loadingATS && "⏳"} {atsData && !loadingATS && <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${atsData.score >= 75 ? "bg-green-100 text-green-700" : atsData.score >= 50 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}`}>{atsData.score}/100</span>}
               </button>
             </div>
 
@@ -1042,15 +1107,15 @@ export default function Generate() {
                 <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                 <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 <span className="ml-3 text-sm text-gray-500 font-medium">
-                  {activeTab === "cv" ? "Aperçu du CV" : activeTab === "lm" ? "Aperçu de la lettre de motivation" : "Analyse de compatibilité ATS"}
+                  {activeTab === "cv" ? tr(lang, "previewCV") : activeTab === "lm" ? tr(lang, "previewLM") : tr(lang, "previewATS")}
                 </span>
               </div>
               {activeTab === "ats" ? (
                 loadingATS ? (
                   <div className="p-16 text-center text-gray-400">
                     <div className="text-4xl mb-4 animate-spin">⚙️</div>
-                    <p className="font-medium">Analyse ATS en cours...</p>
-                    <p className="text-sm mt-2">Comparaison avec l'offre d'emploi</p>
+                    <p className="font-medium">{tr(lang, "atsAnalyzing")}</p>
+                    <p className="text-sm mt-2">{tr(lang, "atsComparison")}</p>
                   </div>
                 ) : atsData ? (
                   <div className="p-8">
@@ -1076,8 +1141,8 @@ export default function Generate() {
                         <div className={`inline-block px-3 py-1 rounded-full text-sm font-bold mb-2 ${atsData.score >= 75 ? "bg-green-100 text-green-700" : atsData.score >= 50 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}`}>
                           {atsData.niveau}
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-1">Score de compatibilité ATS</h3>
-                        <p className="text-gray-500 text-sm">Basé sur les mots-clés, l'expérience et les compétences</p>
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">{tr(lang, "atsCompatibility")}</h3>
+                        <p className="text-gray-500 text-sm">{tr(lang, "atsBasedOn")}</p>
                       </div>
                     </div>
 
@@ -1085,7 +1150,7 @@ export default function Generate() {
                       <div className="bg-green-50 border border-green-100 rounded-2xl p-5">
                         <h4 className="font-bold text-green-800 mb-3 flex items-center gap-2">
                           <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
-                          Mots-clés présents ({atsData.keywords_found?.length})
+                          {tr(lang, "atsKeywordsFound")} ({atsData.keywords_found?.length})
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {atsData.keywords_found?.map((kw, i) => (
@@ -1097,7 +1162,7 @@ export default function Generate() {
                       <div className="bg-red-50 border border-red-100 rounded-2xl p-5">
                         <h4 className="font-bold text-red-800 mb-3 flex items-center gap-2">
                           <span className="w-6 h-6 bg-red-400 rounded-full flex items-center justify-center text-white text-xs">✗</span>
-                          Mots-clés manquants ({atsData.keywords_missing?.length})
+                          {tr(lang, "atsMissing")} ({atsData.keywords_missing?.length})
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {atsData.keywords_missing?.map((kw, i) => (
@@ -1108,7 +1173,7 @@ export default function Generate() {
                     </div>
 
                     <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5 mb-6">
-                      <h4 className="font-bold text-blue-800 mb-3">💪 Points forts de ton profil</h4>
+                      <h4 className="font-bold text-blue-800 mb-3">💪 {tr(lang, "atsStrengths")}</h4>
                       <ul className="space-y-2">
                         {atsData.strengths?.map((s, i) => (
                           <li key={i} className="flex items-start gap-2 text-sm text-blue-700">
@@ -1120,7 +1185,7 @@ export default function Generate() {
                     </div>
 
                     <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5">
-                      <h4 className="font-bold text-amber-800 mb-3">🎯 Recommandations pour améliorer ton score</h4>
+                      <h4 className="font-bold text-amber-800 mb-3">🎯 {tr(lang, "atsRecommendations")}</h4>
                       <ul className="space-y-2">
                         {atsData.recommendations?.map((r, i) => (
                           <li key={i} className="flex items-start gap-2 text-sm text-amber-700">
@@ -1133,14 +1198,14 @@ export default function Generate() {
                   </div>
                 ) : (
                   <div className="p-16 text-center text-gray-400">
-                    <p>Analyse ATS non disponible</p>
+                    <p>{tr(lang, "atsNotAvailable")}</p>
                   </div>
                 )
               ) : (
                 activeTab === "lm" && loadingLM ? (
                   <div className="p-16 text-center text-gray-400">
                     <div className="text-4xl mb-4">✉️</div>
-                    <p className="font-medium">Génération de la lettre en cours...</p>
+                    <p className="font-medium">{tr(lang, "generatingLM")}</p>
                   </div>
                 ) : (
                   <div className="p-10" dangerouslySetInnerHTML={{ __html: (() => {

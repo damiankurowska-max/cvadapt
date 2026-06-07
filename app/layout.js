@@ -47,6 +47,11 @@ export const metadata = {
   },
   alternates: {
     canonical: "https://cvadapt.eu",
+    languages: {
+      "fr": "https://cvadapt.eu",
+      "en": "https://cvadapt.eu",
+      "x-default": "https://cvadapt.eu",
+    },
   },
 };
 

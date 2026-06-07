@@ -4,7 +4,7 @@
  * Filtre : contacts Brevo list #4 créés il y a 1.5 à 2.5 jours
  */
 import { Resend } from "resend";
-import { j2Email } from "@/lib/email-templates";
+import { j2Email, j2EmailEN } from "@/lib/email-templates";
 
 // resend initialized per-request
 const CRON_SECRET = process.env.CRON_SECRET;
@@ -48,13 +48,16 @@ export async function GET(request) {
     for (const contact of targets) {
       const email = contact.email;
       const prenom = contact.attributes?.PRENOM || contact.attributes?.FIRSTNAME || "";
+      const isEN = contact.attributes?.LANGUAGE === "en";
       try {
         await resend.emails.send({
           from: "CVAdapt <contact@cvadapt.eu>",
           to: email,
           replyTo: "contact@cvadapt.eu",
-          subject: `${prenom ? prenom + ", ton" : "Ton"} CV est peut-être invisible pour les recruteurs`,
-          html: j2Email({ prenom }),
+          subject: isEN
+            ? `${prenom ? `${prenom}, your` : "Your"} resume might be invisible to recruiters`
+            : `${prenom ? prenom + ", ton" : "Ton"} CV est peut-être invisible pour les recruteurs`,
+          html: isEN ? j2EmailEN({ prenom }) : j2Email({ prenom }),
           headers: {
             "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",

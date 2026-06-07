@@ -4,7 +4,7 @@
  * Objectif : montrer les résultats concrets → pousser à upgrader
  */
 import { Resend } from "resend";
-import { j7Email } from "@/lib/email-templates";
+import { j7Email, j7EmailEN } from "@/lib/email-templates";
 
 // resend initialized per-request
 const CRON_SECRET = process.env.CRON_SECRET;
@@ -40,16 +40,19 @@ export async function GET(request) {
     let sent = 0;
     for (const contact of targets) {
       const firstName = contact.attributes?.FIRSTNAME || contact.email.split("@")[0];
+      const isEN = contact.attributes?.LANGUAGE === "en";
       await resend.emails.send({
         from: "Damian de CVAdapt <contact@cvadapt.eu>",
         to: contact.email,
-        subject: "Ce que les recruteurs voient sur ton CV (résultats réels)",
+        subject: isEN
+          ? "What recruiters actually see on your resume (real data)"
+          : "Ce que les recruteurs voient sur ton CV (résultats réels)",
         headers: {
           "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
           "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
           "X-Entity-Ref-ID": `cron-j7-${contact.email}-${new Date().toISOString().split("T")[0]}`,
         },
-        html: j7Email({ prenom: firstName }),
+        html: isEN ? j7EmailEN({ prenom: firstName }) : j7Email({ prenom: firstName }),
       });
       sent++;
     }

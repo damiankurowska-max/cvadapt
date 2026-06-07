@@ -280,8 +280,8 @@ STRUCTURE HTML EXACTE à produire :
 </div>`,
 };
 
-// System prompt stable → cache API Anthropic
-const SYSTEM_PROMPT = `Tu es un expert RH et designer CV de haut niveau. Tu génères des CV HTML en CSS inline, prêts à imprimer, d'une qualité professionnelle irréprochable.
+// System prompts (stable → cache API Anthropic)
+const SYSTEM_PROMPT_FR = `Tu es un expert RH et designer CV de haut niveau. Tu génères des CV HTML en CSS inline, prêts à imprimer, d'une qualité professionnelle irréprochable.
 
 RÈGLES ABSOLUES :
 1. Réponds UNIQUEMENT avec du HTML pur en CSS inline. Zéro markdown, zéro texte avant ou après le HTML.
@@ -292,6 +292,19 @@ RÈGLES ABSOLUES :
 6. N'invente JAMAIS d'informations absentes. Si l'expérience est vide, génère quand même une section avec ce qui est disponible.
 7. width:794px exact sur le conteneur racine. Pas de débordements. Espacement précis.
 8. Rendu A4 impression : sections compactes, pas de sauts de page intempestifs.`;
+
+const SYSTEM_PROMPT_EN = `You are a senior HR expert and resume designer. You generate print-ready HTML resumes with inline CSS of impeccable professional quality.
+
+ABSOLUTE RULES:
+1. Reply ONLY with pure HTML using inline CSS. Zero markdown, zero text before or after the HTML.
+2. Start EXACTLY with <div and end EXACTLY with </div>. Never use <html>, <head>, <body>.
+3. Follow the HTML STRUCTURE provided in the template exactly: reuse the precise CSS styles, only replace the [bracketed placeholders] with real content. The <span id="cv-photo-slot" ...></span> tags are client-side reserved slots — include them EXACTLY as-is in the generated HTML, do not remove them.
+4. For contact info: include only the information provided (email, phone). Omit empty lines. If no city is specified, omit it.
+5. For content: integrate exact keywords from the job posting in the profile and skills. Each experience bullet = concrete action + measurable result where possible (%, $, timeframe, volume).
+6. NEVER invent missing information. If experience is empty, still generate a section with what is available.
+7. width:794px exact on the root container. No overflow. Precise spacing.
+8. Print-ready A4 layout: compact sections, no unwanted page breaks.
+9. All section headers MUST be in English: Profile, Work Experience, Skills, Education, Contact.`;
 
 export async function POST(request) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -369,42 +382,89 @@ export async function POST(request) {
   const formation   = sanitizeInput(body.formation,   1000);
   const template    = ["moderne","classique","creatif","minimaliste"].includes(body.template)
     ? body.template : "moderne";
+  const lang        = body.lang === "en" ? "en" : "fr";
 
   if (!offre || !nom) {
-    return Response.json({ error: "L'offre et le nom sont requis." }, { status: 400 });
+    return Response.json({
+      error: lang === "en"
+        ? "Job posting and name are required."
+        : "L'offre et le nom sont requis.",
+    }, { status: 400 });
   }
 
   // ── 5. GÉNÉRATION CV ─────────────────────────────────────────────────
   const styleDesc = TEMPLATE_STYLES[template];
+  const systemPrompt = lang === "en" ? SYSTEM_PROMPT_EN : SYSTEM_PROMPT_FR;
+
+  // Language-specific labels for the user message
+  const labels = lang === "en" ? {
+    template: "TEMPLATE",
+    jobPosting: "JOB POSTING",
+    candidate: "CANDIDATE",
+    name: "Name",
+    phone: "Phone",
+    experience: "Experience",
+    skills: "Skills",
+    education: "Education",
+    noExp: "No work experience",
+    inferSkills: "To be inferred from profile and job posting",
+    noEdu: "Not specified",
+    structure: "RESUME STRUCTURE",
+    s1: "Header: name + job title from posting + contact info",
+    s2: "Profile (3 impactful sentences): job keywords + concrete value",
+    s3: "Work Experience: job title | company | dates | 2–3 bullets with measurable results",
+    s4: "Skills: filtered list relevant to the job posting",
+    s5: "Education: degree | institution | year",
+    quality: "REQUIRED QUALITY: professional print-ready output, precise spacing, impeccable visual hierarchy. No generic content. Generate the resume now.",
+  } : {
+    template: "TEMPLATE",
+    jobPosting: "OFFRE",
+    candidate: "CANDIDAT",
+    name: "Nom",
+    phone: "Téléphone",
+    experience: "Expérience",
+    skills: "Compétences",
+    education: "Formation",
+    noExp: "Aucune expérience professionnelle",
+    inferSkills: "À déduire du profil et de l'offre",
+    noEdu: "Non précisée",
+    structure: "STRUCTURE DU CV",
+    s1: `En-tête : nom + titre extrait de l'offre + coordonnées (${emailCv || "email si fourni"}${telephoneCv ? ` · ${telephoneCv}` : ""} · Paris, France)`,
+    s2: "Profil (3 phrases percutantes) : mots-clés de l'offre + valeur ajoutée concrète",
+    s3: "Expériences : titre poste | entreprise | dates | 2–3 bullets avec résultats chiffrés",
+    s4: "Compétences : liste filtrée et pertinente pour l'offre",
+    s5: "Formation : diplôme | établissement | année",
+    quality: "QUALITÉ REQUISE : rendu professionnel impression-ready, espacement précis, hiérarchie visuelle impeccable. Pas de contenu générique. Génère le CV maintenant.",
+  };
 
   try {
     const message = await client.messages.create({
       model: "claude-sonnet-4-5",
       max_tokens: 4000,
-      system: SYSTEM_PROMPT,
+      system: systemPrompt,
       messages: [{
         role: "user",
-        content: `TEMPLATE : ${styleDesc}
+        content: `${labels.template} : ${styleDesc}
 
-OFFRE :
+${labels.jobPosting} :
 ${offre}
 
-CANDIDAT :
-Nom: ${nom}
+${labels.candidate} :
+${labels.name}: ${nom}
 ${emailCv ? `Email: ${emailCv}` : ""}
-${telephoneCv ? `Téléphone: ${telephoneCv}` : ""}
-Expérience: ${experience || "Aucune expérience professionnelle"}
-Compétences: ${competences || "À déduire du profil et de l'offre"}
-Formation: ${formation || "Non précisée"}
+${telephoneCv ? `${labels.phone}: ${telephoneCv}` : ""}
+${labels.experience}: ${experience || labels.noExp}
+${labels.skills}: ${competences || labels.inferSkills}
+${labels.education}: ${formation || labels.noEdu}
 
-STRUCTURE DU CV :
-1. En-tête : nom + titre extrait de l'offre + coordonnées (${emailCv || "email si fourni"}${telephoneCv ? ` · ${telephoneCv}` : ""} · Paris, France)
-2. Profil (3 phrases percutantes) : mots-clés de l'offre + valeur ajoutée concrète
-3. Expériences : titre poste | entreprise | dates | 2–3 bullets avec résultats chiffrés
-4. Compétences : liste filtrée et pertinente pour l'offre
-5. Formation : diplôme | établissement | année
+${labels.structure} :
+1. ${labels.s1}
+2. ${labels.s2}
+3. ${labels.s3}
+4. ${labels.s4}
+5. ${labels.s5}
 
-QUALITÉ REQUISE : rendu professionnel impression-ready, espacement précis, hiérarchie visuelle impeccable. Pas de contenu générique. Génère le CV maintenant.`,
+${labels.quality}`,
       }],
     });
 
@@ -452,7 +512,7 @@ QUALITÉ REQUISE : rendu professionnel impression-ready, espacement précis, hi�
         },
         body: JSON.stringify({
           email,
-          attributes: { FIRSTNAME: prenom || "" },
+          attributes: { FIRSTNAME: prenom || "", LANGUAGE: lang },
           listIds: [4],
           updateEnabled: true,
         }),
@@ -473,6 +533,10 @@ QUALITÉ REQUISE : rendu professionnel impression-ready, espacement précis, hi�
 
   } catch (error) {
     console.error("generate-cv error:", error);
-    return Response.json({ error: "Erreur lors de la génération. Réessaie dans quelques secondes." }, { status: 500 });
+    return Response.json({
+      error: lang === "en"
+        ? "Generation failed. Please try again in a few seconds."
+        : "Erreur lors de la génération. Réessaie dans quelques secondes.",
+    }, { status: 500 });
   }
 }
