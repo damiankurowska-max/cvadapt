@@ -71,34 +71,27 @@ function LangToggle({ compact = false }: { compact?: boolean }) {
     window.dispatchEvent(new StorageEvent('storage', { key: 'cvadapt_lang', newValue: l }));
   }
 
+  const next = lang === 'fr' ? 'en' : 'fr';
   return (
-    <div
-      className="flex items-center gap-0.5 rounded-full p-0.5"
-      style={{ background: 'rgba(29,78,216,0.06)', border: '1px solid rgba(29,78,216,0.14)' }}
+    <button
+      type="button"
+      onClick={() => setLang(next)}
+      className="rounded-full transition-all hover:-translate-y-px"
+      style={{
+        padding: compact ? '4px 10px' : '5px 14px',
+        fontSize: '0.75rem',
+        fontWeight: 700,
+        letterSpacing: '0.04em',
+        color: '#1d4ed8',
+        background: 'rgba(29,78,216,0.07)',
+        border: '1px solid rgba(29,78,216,0.18)',
+        cursor: 'pointer',
+        lineHeight: 1,
+      }}
+      aria-label={next === 'fr' ? 'Passer en français' : 'Switch to English'}
     >
-      {(['fr', 'en'] as const).map((l) => (
-        <button
-          key={l}
-          type="button"
-          onClick={() => setLang(l)}
-          className="rounded-full transition-all"
-          style={{
-            padding: compact ? '4px 10px' : '5px 12px',
-            fontSize: '0.75rem',
-            fontWeight: 700,
-            letterSpacing: '0.04em',
-            color: lang === l ? '#ffffff' : '#4b5563',
-            background: lang === l ? '#1d4ed8' : 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            lineHeight: 1,
-          }}
-          aria-label={l === 'fr' ? 'Français' : 'English'}
-        >
-          {l === 'fr' ? '🇫🇷 FR' : '🇺🇸 EN'}
-        </button>
-      ))}
-    </div>
+      {next === 'fr' ? '🇫🇷 FR' : '🇺🇸 EN'}
+    </button>
   );
 }
 

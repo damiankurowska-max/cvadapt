@@ -462,36 +462,31 @@ export default function Generate() {
 
         <div className="flex items-center gap-2">
           {/* Toggle FR / EN */}
-          <div className="flex items-center gap-0.5 rounded-full p-0.5" style={{ background: "rgba(29,78,216,0.06)", border: "1px solid rgba(29,78,216,0.14)" }}>
-            {(["fr", "en"]).map((l) => (
-              <button
-                key={l}
-                type="button"
-                onClick={() => {
-                  setLang(l);
-                  try {
-                    localStorage.setItem("cvadapt_lang", l);
-                    window.dispatchEvent(new StorageEvent("storage", { key: "cvadapt_lang", newValue: l }));
-                  } catch {}
-                }}
-                className="rounded-full transition-all"
-                style={{
-                  padding: "4px 9px",
-                  fontSize: "0.7rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.04em",
-                  color: lang === l ? "#ffffff" : "#4b5563",
-                  background: lang === l ? "#1d4ed8" : "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                  lineHeight: 1,
-                }}
-                aria-label={l === "fr" ? "Français" : "English"}
-              >
-                {l === "fr" ? "🇫🇷 FR" : "🇺🇸 EN"}
-              </button>
-            ))}
-          </div>
+          <button
+            type="button"
+            onClick={() => {
+              const next = lang === "fr" ? "en" : "fr";
+              setLang(next);
+              try {
+                localStorage.setItem("cvadapt_lang", next);
+                window.dispatchEvent(new StorageEvent("storage", { key: "cvadapt_lang", newValue: next }));
+              } catch {}
+            }}
+            className="rounded-full transition-all hover:-translate-y-px"
+            style={{
+              padding: "4px 12px",
+              fontSize: "0.7rem",
+              fontWeight: 700,
+              letterSpacing: "0.04em",
+              color: "#1d4ed8",
+              background: "rgba(29,78,216,0.07)",
+              border: "1px solid rgba(29,78,216,0.18)",
+              cursor: "pointer",
+              lineHeight: 1,
+            }}
+          >
+            {lang === "fr" ? "🇺🇸 EN" : "🇫🇷 FR"}
+          </button>
 
           <button
             onClick={() => setShowHistory(!showHistory)}
