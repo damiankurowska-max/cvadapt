@@ -51,15 +51,11 @@ const BTN_PRIMARY: React.CSSProperties = {
   border: 'none',
 };
 
-function LangToggle({ compact = false, currentLang }: { compact?: boolean; currentLang?: string }) {
+function LangToggle({ size = 'md', currentLang }: { size?: 'sm' | 'md'; currentLang?: string }) {
   const [lang, setLangState] = React.useState<'fr' | 'en'>('fr');
 
-  // Sync with external lang prop (from parent page) or localStorage
   React.useEffect(() => {
-    if (currentLang === 'en' || currentLang === 'fr') {
-      setLangState(currentLang);
-      return;
-    }
+    if (currentLang === 'en' || currentLang === 'fr') { setLangState(currentLang); return; }
     const saved = localStorage.getItem('cvadapt_lang');
     if (saved === 'en' || saved === 'fr') setLangState(saved);
   }, [currentLang]);
@@ -70,26 +66,32 @@ function LangToggle({ compact = false, currentLang }: { compact?: boolean; curre
     window.dispatchEvent(new StorageEvent('storage', { key: 'cvadapt_lang', newValue: l }));
   }
 
+  const isMd = size === 'md';
+
   return (
     <button
       type="button"
       onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
-      aria-label="Changer de langue"
+      aria-label={lang === 'fr' ? 'Switch to English' : 'Passer en français'}
       style={{
-        display: 'flex', alignItems: 'center', gap: '3px',
-        padding: compact ? '3px 7px' : '4px 9px',
-        fontSize: '0.68rem',
+        display: 'flex', alignItems: 'center', gap: '5px',
+        /* taille responsive : md = plein header, sm = desktop CTA bar */
+        padding: isMd ? '7px 12px' : '4px 9px',
+        fontSize: isMd ? '0.78rem' : '0.68rem',
         fontWeight: 700,
-        background: 'rgba(29,78,216,0.05)',
-        border: '1px solid rgba(29,78,216,0.15)',
+        background: 'rgba(29,78,216,0.06)',
+        border: '1.5px solid rgba(29,78,216,0.20)',
         borderRadius: '9999px',
         cursor: 'pointer',
         lineHeight: 1,
+        WebkitTapHighlightColor: 'transparent',
+        minHeight: isMd ? '36px' : 'auto',
+        minWidth: isMd ? '68px' : 'auto',
       }}
     >
-      <span style={{ opacity: lang === 'fr' ? 1 : 0.35 }}>🇫🇷</span>
-      <span style={{ color: '#d1d5db', fontSize: '0.55rem' }}>|</span>
-      <span style={{ opacity: lang === 'en' ? 1 : 0.35 }}>🇺🇸</span>
+      <span style={{ fontSize: isMd ? '1rem' : '0.85rem', opacity: lang === 'fr' ? 1 : 0.35 }}>🇫🇷</span>
+      <span style={{ color: '#d1d5db', fontSize: isMd ? '0.65rem' : '0.55rem' }}>|</span>
+      <span style={{ fontSize: isMd ? '1rem' : '0.85rem', opacity: lang === 'en' ? 1 : 0.35 }}>🇺🇸</span>
     </button>
   );
 }
@@ -140,7 +142,7 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
 
         {/* Desktop CTAs */}
         <div className="hidden items-center gap-3 lg:flex shrink-0">
-          <LangToggle currentLang={lang} />
+          <LangToggle size="sm" currentLang={lang} />
           {isSignedIn ? (
             <>
               <Link href="/generate" style={BTN_GLASS} className="hover:bg-blue-50/80 hover:-translate-y-px">
