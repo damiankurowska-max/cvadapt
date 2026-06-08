@@ -135,20 +135,18 @@ export default function Generate() {
   const isPro = user?.unsafeMetadata?.isPro || false;
   const plan = user?.unsafeMetadata?.plan || "free";
 
-  // Sync language from localStorage + listen for toggle changes
+  // Init language from localStorage
   useEffect(() => {
     try {
       const saved = localStorage.getItem("cvadapt_lang");
       if (saved === "en" || saved === "fr") setLang(saved);
     } catch {}
-    function onStorage(e) {
-      if (e.key === "cvadapt_lang" && (e.newValue === "en" || e.newValue === "fr")) {
-        setLang(e.newValue);
-      }
-    }
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
   }, []);
+
+  // Save language to localStorage whenever it changes
+  useEffect(() => {
+    try { localStorage.setItem("cvadapt_lang", lang); } catch {}
+  }, [lang]);
 
   useEffect(() => {
     if (user) {
@@ -464,30 +462,24 @@ export default function Generate() {
           {/* Toggle FR / EN */}
           <button
             type="button"
-            onClick={() => {
-              const next = lang === "fr" ? "en" : "fr";
-              setLang(next);
-              try {
-                localStorage.setItem("cvadapt_lang", next);
-                window.dispatchEvent(new StorageEvent("storage", { key: "cvadapt_lang", newValue: next }));
-              } catch {}
-            }}
-            className="rounded-full transition-all hover:-translate-y-px"
+            onClick={() => setLang(l => l === "fr" ? "en" : "fr")}
+            title={lang === "fr" ? "Switch to English" : "Passer en français"}
             style={{
-              display: "flex", alignItems: "center", gap: "4px",
-              padding: "4px 10px",
-              fontSize: "0.68rem",
+              display: "flex", alignItems: "center", gap: "3px",
+              padding: "3px 8px",
+              fontSize: "0.65rem",
               fontWeight: 700,
-              letterSpacing: "0.04em",
               background: "rgba(29,78,216,0.06)",
-              border: "1px solid rgba(29,78,216,0.18)",
+              border: "1px solid rgba(29,78,216,0.15)",
+              borderRadius: "999px",
               cursor: "pointer",
               lineHeight: 1,
+              flexShrink: 0,
             }}
           >
-            <span style={{ color: lang === "fr" ? "#1d4ed8" : "#9ca3af" }}>🇫🇷 FR</span>
-            <span style={{ color: "#d1d5db", fontWeight: 400 }}>|</span>
-            <span style={{ color: lang === "en" ? "#1d4ed8" : "#9ca3af" }}>EN 🇺🇸</span>
+            <span style={{ opacity: lang === "fr" ? 1 : 0.35 }}>🇫🇷</span>
+            <span style={{ color: "#d1d5db", fontSize: "0.6rem" }}>|</span>
+            <span style={{ opacity: lang === "en" ? 1 : 0.35 }}>🇺🇸</span>
           </button>
 
           <button

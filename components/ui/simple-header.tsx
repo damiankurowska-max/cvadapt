@@ -77,25 +77,20 @@ function LangToggle({ compact = false }: { compact?: boolean }) {
       onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
       aria-label="Changer de langue"
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '5px',
-        padding: compact ? '5px 12px' : '8px 16px',
-        fontSize: '0.78rem',
+        display: 'flex', alignItems: 'center', gap: '3px',
+        padding: compact ? '3px 7px' : '4px 9px',
+        fontSize: '0.68rem',
         fontWeight: 700,
-        letterSpacing: '0.04em',
-        background: 'rgba(29,78,216,0.06)',
-        border: '1px solid rgba(29,78,216,0.18)',
+        background: 'rgba(29,78,216,0.05)',
+        border: '1px solid rgba(29,78,216,0.15)',
         borderRadius: '9999px',
         cursor: 'pointer',
         lineHeight: 1,
-        color: '#1d4ed8',
-        transition: 'all 0.2s ease',
       }}
     >
-      <span style={{ opacity: lang === 'fr' ? 1 : 0.4, fontSize: 'inherit' }}>🇫🇷 FR</span>
-      <span style={{ opacity: 0.3, fontWeight: 400 }}>|</span>
-      <span style={{ opacity: lang === 'en' ? 1 : 0.4, fontSize: 'inherit' }}>EN 🇺🇸</span>
+      <span style={{ opacity: lang === 'fr' ? 1 : 0.35 }}>🇫🇷</span>
+      <span style={{ color: '#d1d5db', fontSize: '0.55rem' }}>|</span>
+      <span style={{ opacity: lang === 'en' ? 1 : 0.35 }}>🇺🇸</span>
     </button>
   );
 }
