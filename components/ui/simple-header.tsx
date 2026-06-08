@@ -164,12 +164,15 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
           )}
         </div>
 
-        {/* Mobile burger */}
+        {/* Mobile: lang toggle + burger — visible uniquement sur mobile */}
+        <div className="flex lg:hidden items-center gap-2 shrink-0">
+          <LangToggle currentLang={lang} />
+
         <Sheet open={open} onOpenChange={setOpen}>
           <button
             type="button"
             aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
-            className="flex lg:hidden items-center justify-center w-10 h-10 rounded-full transition-colors"
+            className="flex items-center justify-center w-10 h-10 rounded-full transition-colors"
             style={{
               background: 'rgba(29,78,216,0.06)',
               border: '1px solid rgba(29,78,216,0.18)',
@@ -224,11 +227,6 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
             >
               <Logo size={24} />
               <span className="text-base font-extrabold" style={{ color: '#1d4ed8' }}>CVAdapt</span>
-            </div>
-
-            {/* Language toggle */}
-            <div className="flex justify-center py-3 shrink-0" style={{ borderBottom: '1px solid rgba(29,78,216,0.08)' }}>
-              <LangToggle compact currentLang={lang} />
             </div>
 
             {/* Nav links — fills remaining space, scrollable if needed */}
@@ -295,6 +293,7 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
             </SheetFooter>
           </SheetContent>
         </Sheet>
+        </div>{/* end mobile wrapper */}
       </nav>
     </header>
   );
