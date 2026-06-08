@@ -75,19 +75,27 @@ function LangToggle({ compact = false }: { compact?: boolean }) {
     <button
       type="button"
       onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
+      aria-label="Changer de langue"
       style={{
-        ...BTN_GLASS,
         display: 'flex',
         alignItems: 'center',
         gap: '5px',
         padding: compact ? '5px 12px' : '8px 16px',
-        fontSize: '0.8rem',
+        fontSize: '0.78rem',
+        fontWeight: 700,
+        letterSpacing: '0.04em',
+        background: 'rgba(29,78,216,0.06)',
+        border: '1px solid rgba(29,78,216,0.18)',
+        borderRadius: '9999px',
+        cursor: 'pointer',
+        lineHeight: 1,
+        color: '#1d4ed8',
+        transition: 'all 0.2s ease',
       }}
-      aria-label="Changer de langue"
     >
-      <span style={{ opacity: lang === 'fr' ? 1 : 0.45 }}>🇫🇷 FR</span>
-      <span style={{ opacity: 0.35, fontWeight: 400, fontSize: '0.65rem' }}>|</span>
-      <span style={{ opacity: lang === 'en' ? 1 : 0.45 }}>EN 🇺🇸</span>
+      <span style={{ opacity: lang === 'fr' ? 1 : 0.4, fontSize: 'inherit' }}>🇫🇷 FR</span>
+      <span style={{ opacity: 0.3, fontWeight: 400 }}>|</span>
+      <span style={{ opacity: lang === 'en' ? 1 : 0.4, fontSize: 'inherit' }}>EN 🇺🇸</span>
     </button>
   );
 }
