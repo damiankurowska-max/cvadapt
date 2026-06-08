@@ -7,18 +7,13 @@ import { MenuToggle } from '@/components/ui/menu-toggle';
 import Logo from '@/app/components/Logo';
 import { useAuth } from '@clerk/nextjs';
 import dynamic from 'next/dynamic';
+import { t } from '@/lib/i18n';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const UserButton = dynamic(
   () => import('@clerk/nextjs').then((m) => ({ default: m.UserButton as any })),
   { ssr: false }
 );
-
-const NAV_LINKS = [
-  { label: 'Fonctionnalités', href: '#features' },
-  { label: 'Tarifs', href: '/tarifs' },
-  { label: 'Blog', href: '/blog' },
-];
 
 const HEADER_STYLE: React.CSSProperties = {
   background: 'rgba(255, 255, 255, 0.80)',
@@ -57,13 +52,18 @@ const BTN_PRIMARY: React.CSSProperties = {
   border: 'none',
 };
 
-function LangToggle({ compact = false }: { compact?: boolean }) {
+function LangToggle({ compact = false, currentLang }: { compact?: boolean; currentLang?: string }) {
   const [lang, setLangState] = React.useState<'fr' | 'en'>('fr');
 
+  // Sync with external lang prop (from parent page) or localStorage
   React.useEffect(() => {
+    if (currentLang === 'en' || currentLang === 'fr') {
+      setLangState(currentLang);
+      return;
+    }
     const saved = localStorage.getItem('cvadapt_lang');
     if (saved === 'en' || saved === 'fr') setLangState(saved);
-  }, []);
+  }, [currentLang]);
 
   function setLang(l: 'fr' | 'en') {
     setLangState(l);
@@ -95,9 +95,23 @@ function LangToggle({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function SimpleHeader() {
+export function SimpleHeader({ lang: langProp }: { lang?: string }) {
   const [open, setOpen] = React.useState(false);
   const { isSignedIn } = useAuth();
+
+  // Resolve language: use prop if provided, otherwise read from localStorage
+  const [lang, setLang] = React.useState<'fr' | 'en'>('fr');
+  React.useEffect(() => {
+    if (langProp === 'en' || langProp === 'fr') { setLang(langProp); return; }
+    const saved = localStorage.getItem('cvadapt_lang');
+    if (saved === 'en' || saved === 'fr') setLang(saved);
+  }, [langProp]);
+
+  const navLinks = [
+    { label: t(lang, 'navFeatures'), href: '#features' },
+    { label: t(lang, 'navPricing'), href: '/tarifs' },
+    { label: 'Blog', href: '/blog' },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full" style={HEADER_STYLE}>
@@ -113,9 +127,9 @@ export function SimpleHeader() {
 
         {/* Desktop nav — centré */}
         <div className="hidden items-center gap-6 lg:flex absolute left-1/2 -translate-x-1/2">
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <Link
-              key={link.label}
+              key={link.href}
               href={link.href}
               className="text-sm font-semibold transition-colors hover:text-blue-600"
               style={{ color: '#4b5563' }}
@@ -127,14 +141,14 @@ export function SimpleHeader() {
 
         {/* Desktop CTAs */}
         <div className="hidden items-center gap-3 lg:flex shrink-0">
-          <LangToggle />
+          <LangToggle currentLang={lang} />
           {isSignedIn ? (
             <>
               <Link href="/generate" style={BTN_GLASS} className="hover:bg-blue-50/80 hover:-translate-y-px">
-                Mon espace
+                {t(lang, 'navMySpace')}
               </Link>
               <Link href="/generate" style={BTN_PRIMARY} className="hover:-translate-y-0.5 hover:shadow-xl">
-                Générer un CV →
+                {t(lang, 'navGenerateCTA')}
               </Link>
               {/* @ts-expect-error Clerk dynamic import type mismatch */}
               <UserButton afterSignOutUrl="/" />
@@ -142,10 +156,10 @@ export function SimpleHeader() {
           ) : (
             <>
               <Link href="/sign-in" style={BTN_GLASS} className="hover:bg-blue-50/80 hover:-translate-y-px">
-                Connexion
+                {lang === 'en' ? 'Log in' : 'Connexion'}
               </Link>
               <Link href="/generate" style={BTN_PRIMARY} className="hover:-translate-y-0.5 hover:shadow-xl">
-                Commencer — Gratuit
+                {t(lang, 'navStartFree')}
               </Link>
             </>
           )}
@@ -191,13 +205,13 @@ export function SimpleHeader() {
             </div>
 
             <div className="flex justify-center py-3" style={{ borderBottom: '1px solid rgba(29,78,216,0.08)' }}>
-              <LangToggle compact />
+              <LangToggle compact currentLang={lang} />
             </div>
 
             <div className="grid gap-y-1 overflow-y-auto px-4 pt-5 pb-4">
-              {NAV_LINKS.map((link) => (
+              {navLinks.map((link) => (
                 <Link
-                  key={link.label}
+                  key={link.href}
                   href={link.href}
                   className="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-colors hover:bg-blue-50"
                   style={{ color: '#374151' }}
@@ -222,7 +236,7 @@ export function SimpleHeader() {
                     style={BTN_GLASS}
                     onClick={() => setOpen(false)}
                   >
-                    Mon espace
+                    {t(lang, 'navMySpace')}
                   </Link>
                   <Link
                     href="/generate"
@@ -230,7 +244,7 @@ export function SimpleHeader() {
                     style={BTN_PRIMARY}
                     onClick={() => setOpen(false)}
                   >
-                    Générer un CV →
+                    {t(lang, 'navGenerateCTA')}
                   </Link>
                 </>
               ) : (
@@ -241,7 +255,7 @@ export function SimpleHeader() {
                     style={BTN_GLASS}
                     onClick={() => setOpen(false)}
                   >
-                    Connexion
+                    {lang === 'en' ? 'Log in' : 'Connexion'}
                   </Link>
                   <Link
                     href="/generate"
@@ -249,7 +263,7 @@ export function SimpleHeader() {
                     style={BTN_PRIMARY}
                     onClick={() => setOpen(false)}
                   >
-                    Commencer — Gratuit
+                    {t(lang, 'navStartFree')}
                   </Link>
                 </>
               )}
