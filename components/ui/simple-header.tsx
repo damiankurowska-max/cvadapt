@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { Sheet, SheetContent, SheetFooter } from '@/components/ui/sheet';
-import { MenuToggle } from '@/components/ui/menu-toggle';
 import Logo from '@/app/components/Logo';
 import { useAuth } from '@clerk/nextjs';
 import dynamic from 'next/dynamic';
@@ -169,21 +168,42 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
         <Sheet open={open} onOpenChange={setOpen}>
           <button
             type="button"
-            aria-label="Ouvrir le menu"
+            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
             className="flex lg:hidden items-center justify-center w-10 h-10 rounded-full transition-colors"
             style={{
               background: 'rgba(29,78,216,0.06)',
               border: '1px solid rgba(29,78,216,0.18)',
+              WebkitTapHighlightColor: 'transparent',
             }}
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen(prev => !prev)}
           >
-            <MenuToggle
-              strokeWidth={2.5}
-              open={open}
-              onOpenChange={setOpen}
-              className="size-5"
-              stroke="#1d4ed8"
-            />
+            {/* Animated hamburger → X — no label/input trick, plain SVG only */}
+            <svg
+              width="20" height="20" viewBox="0 0 20 20"
+              fill="none" stroke="#1d4ed8" strokeWidth="2" strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <line x1="3" y1="5" x2="17" y2="5"
+                style={{
+                  transformOrigin: '10px 5px',
+                  transform: open ? 'translateY(5px) rotate(45deg)' : 'none',
+                  transition: 'transform 0.25s ease',
+                }}
+              />
+              <line x1="3" y1="10" x2="17" y2="10"
+                style={{
+                  opacity: open ? 0 : 1,
+                  transition: 'opacity 0.15s ease',
+                }}
+              />
+              <line x1="3" y1="15" x2="17" y2="15"
+                style={{
+                  transformOrigin: '10px 15px',
+                  transform: open ? 'translateY(-5px) rotate(-45deg)' : 'none',
+                  transition: 'transform 0.25s ease',
+                }}
+              />
+            </svg>
           </button>
 
           <SheetContent
