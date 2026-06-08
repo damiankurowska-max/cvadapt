@@ -46,6 +46,9 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [emailStatus, setEmailStatus] = useState("idle");
   const [stats] = useState(getDynamicStats);
+  // CinematicHero: desktop only — pinned GSAP scroll is unusable on mobile
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => { setIsDesktop(window.innerWidth >= 768); }, []);
 
   // Sync language with SimpleHeader toggle via localStorage + StorageEvent
   useEffect(() => {
@@ -94,16 +97,16 @@ export default function Home() {
 
   return (
     <>
-      <CinematicHero />
+      {isDesktop && <CinematicHero />}
 
-    <main className="min-h-screen" style={{ background: "#f0f7ff", fontFamily: "var(--font-outfit, 'Outfit', system-ui, sans-serif)" }}>
+    <main className="min-h-screen" style={{ background: "#f0f7ff", fontFamily: "var(--font-outfit, 'Outfit', system-ui, sans-serif)", overflowX: "hidden" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <CountdownBanner />
       <SimpleHeader lang={lang} />
 
       {/* ─── HERO ────────────────────────────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-5 pt-16 pb-20 text-center">
+      <section className="max-w-5xl mx-auto px-4 sm:px-5 pt-10 sm:pt-16 pb-12 sm:pb-20 text-center">
         <div className="inline-flex items-center gap-2 text-sm font-bold px-5 py-2 rounded-full mb-6"
           style={{ background: "#dbeafe", color: "#1d4ed8" }}>
           <span>🎓</span>
@@ -123,7 +126,7 @@ export default function Home() {
           <strong style={{ color: "#1e3a8a" }}>{t(lang, "homeSubBold")}</strong>{t(lang, "homeSubRest")}
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-3">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-3 px-2 sm:px-0">
           <a href="/generate"
             className="inline-flex items-center justify-center gap-2 text-white px-8 py-4 text-base font-bold transition-all hover:-translate-y-0.5"
             style={{ background: "#1d4ed8", borderRadius: "999px", boxShadow: "0 6px 24px rgba(29,78,216,0.35)", fontSize: "17px" }}
@@ -131,9 +134,11 @@ export default function Home() {
             {t(lang, "homePrimaryCTA")}
           </a>
         </div>
-        <p className="text-sm mb-5" style={{ color: "#93c5fd" }}>
-          ✓ {t(lang, "homePerkNoCB")} &nbsp;·&nbsp; ✓ {t(lang, "homePerk30s")} &nbsp;·&nbsp; ✓ {t(lang, "homePerk3")}
-        </p>
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-5 text-sm" style={{ color: "#93c5fd" }}>
+          <span>✓ {t(lang, "homePerkNoCB")}</span>
+          <span>✓ {t(lang, "homePerk30s")}</span>
+          <span>✓ {t(lang, "homePerk3")}</span>
+        </div>
 
         <div className="flex items-center justify-center gap-4 flex-wrap">
           <div className="flex -space-x-2">
@@ -151,7 +156,7 @@ export default function Home() {
       </section>
 
       {/* ─── LOGOS ───────────────────────────────────────────────── */}
-      <section className="py-8 px-5 border-y" style={{ background: "#ffffff", borderColor: "#e0ecff" }}>
+      <section className="py-6 sm:py-8 px-4 sm:px-5 border-y" style={{ background: "#ffffff", borderColor: "#e0ecff" }}>
         <p className="text-center text-xs font-medium text-gray-400 uppercase tracking-widest mb-5">
           {t(lang, "homeCompaniesLabel")}
         </p>
@@ -163,7 +168,7 @@ export default function Home() {
       </section>
 
       {/* ─── COMMENT ÇA MARCHE ───────────────────────────────────── */}
-      <section id="comment-ca-marche" className="py-20 px-5" style={{ background: "#f0f7ff" }}>
+      <section id="comment-ca-marche" className="py-12 sm:py-20 px-4 sm:px-5" style={{ background: "#f0f7ff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#3b82f6", letterSpacing: "2px" }}>
@@ -197,7 +202,7 @@ export default function Home() {
       </section>
 
       {/* ─── AVANT / APRÈS ───────────────────────────────────────── */}
-      <section id="features" className="py-20 px-5" style={{ background: "#ffffff" }}>
+      <section id="features" className="py-12 sm:py-20 px-4 sm:px-5" style={{ background: "#ffffff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">{t(lang, "homeResultsLabel")}</p>
@@ -269,7 +274,7 @@ export default function Home() {
       </section>
 
       {/* ─── TÉMOIGNAGES ─────────────────────────────────────────── */}
-      <section className="py-20 px-5" style={{ background: "#f0f7ff" }}>
+      <section className="py-12 sm:py-20 px-4 sm:px-5" style={{ background: "#f0f7ff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex justify-center gap-0.5 mb-3">
@@ -308,7 +313,7 @@ export default function Home() {
       </section>
 
       {/* ─── TARIFS ──────────────────────────────────────────────── */}
-      <section className="py-20 px-5" style={{ background: "#ffffff" }}>
+      <section className="py-12 sm:py-20 px-4 sm:px-5" style={{ background: "#ffffff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">{t(lang, "homePricingLabel")}</p>
@@ -384,7 +389,7 @@ export default function Home() {
       </section>
 
       {/* ─── FAQ ─────────────────────────────────────────────────── */}
-      <section className="py-20 px-5" style={{ background: "#f0f7ff" }}>
+      <section className="py-12 sm:py-20 px-4 sm:px-5" style={{ background: "#f0f7ff" }}>
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-10">{t(lang, "homeFAQTitle")}</h2>
           <div className="divide-y divide-gray-100 border border-gray-100 rounded-2xl overflow-hidden bg-gray-50">
@@ -407,7 +412,7 @@ export default function Home() {
       </section>
 
       {/* ─── CTA FINAL ───────────────────────────────────────────── */}
-      <section className="py-20 px-5" style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #3b82f6 100%)" }}>
+      <section className="py-12 sm:py-20 px-4 sm:px-5" style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #3b82f6 100%)" }}>
         <div className="max-w-xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
             {t(lang, "homeFinalTitle1")}<br />{t(lang, "homeFinalTitle2")}
@@ -426,12 +431,12 @@ export default function Home() {
             {emailStatus === "success" ? (
               <p className="text-green-300 text-sm font-semibold">{t(lang, "homeNewsletterSuccess")}</p>
             ) : (
-              <form onSubmit={handleNewsletter} className="flex gap-2 max-w-sm mx-auto">
+              <form onSubmit={handleNewsletter} className="flex flex-col sm:flex-row gap-2 w-full max-w-sm mx-auto">
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                   placeholder={t(lang, "homeNewsletterPlaceholder")} required
-                  className="flex-1 px-4 py-2.5 rounded-xl text-gray-900 bg-white text-sm outline-none focus:ring-2 focus:ring-white/50 min-w-0" />
+                  className="w-full px-4 py-3 sm:py-2.5 rounded-xl text-gray-900 bg-white text-sm outline-none focus:ring-2 focus:ring-white/50" />
                 <button type="submit" disabled={emailStatus === "loading"}
-                  className="bg-yellow-400 text-yellow-900 font-bold px-5 py-2.5 rounded-xl hover:bg-yellow-300 transition-colors text-sm whitespace-nowrap disabled:opacity-50">
+                  className="w-full sm:w-auto bg-yellow-400 text-yellow-900 font-bold px-5 py-3 sm:py-2.5 rounded-xl hover:bg-yellow-300 transition-colors text-sm whitespace-nowrap disabled:opacity-50">
                   {emailStatus === "loading" ? "..." : t(lang, "homeNewsletterBtn")}
                 </button>
               </form>

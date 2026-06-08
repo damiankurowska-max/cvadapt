@@ -747,7 +747,7 @@ export default function Generate() {
                       onBlur={e => Object.assign(e.target.style, inputStyle)}
                     />
                   </FieldGroup>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <FieldGroup label={tr(lang, "email")} hint={tr(lang, "emailHint")}>
                       <input
                         type="email" name="email" value={form.email} onChange={handleChange}
@@ -1072,7 +1072,7 @@ export default function Generate() {
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 mb-4 bg-gray-100 p-1 rounded-xl w-fit">
+            <div className="flex gap-1 mb-4 bg-gray-100 p-1 rounded-xl w-fit max-w-full overflow-x-auto">
               <button onClick={() => setActiveTab("cv")}
                 className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${activeTab === "cv" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
                 {tr(lang, "tabCV")}
@@ -1107,9 +1107,9 @@ export default function Generate() {
                     <p className="text-sm mt-2">{tr(lang, "atsComparison")}</p>
                   </div>
                 ) : atsData ? (
-                  <div className="p-8">
+                  <div className="p-4 sm:p-8">
                     {/* Score principal */}
-                    <div className="flex items-center gap-8 mb-8 p-6 bg-gray-50 rounded-2xl">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-8 mb-8 p-4 sm:p-6 bg-gray-50 rounded-2xl text-center sm:text-left">
                       <div className="flex-shrink-0 relative w-28 h-28">
                         <svg viewBox="0 0 100 100" className="w-28 h-28 -rotate-90">
                           <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="10"/>
@@ -1197,12 +1197,14 @@ export default function Generate() {
                     <p className="font-medium">{tr(lang, "generatingLM")}</p>
                   </div>
                 ) : (
-                  <div className="p-10" dangerouslySetInnerHTML={{ __html: (() => {
-                    const raw = activeTab === "cv" ? cv : lm;
-                    const sanitized = DOMPurify.sanitize(raw);
-                    if (activeTab !== "cv") return sanitized;
-                    return injectPhoto(sanitized);
-                  })() }} />
+                  <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+                    <div className="p-5 sm:p-10" dangerouslySetInnerHTML={{ __html: (() => {
+                      const raw = activeTab === "cv" ? cv : lm;
+                      const sanitized = DOMPurify.sanitize(raw);
+                      if (activeTab !== "cv") return sanitized;
+                      return injectPhoto(sanitized);
+                    })() }} />
+                  </div>
                 )
               )}
             </div>

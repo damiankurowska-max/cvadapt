@@ -189,6 +189,7 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
           <SheetContent
             showClose={false}
             side="left"
+            className="gap-0 p-0"
             style={{
               background: 'rgba(255,255,255,0.97)',
               backdropFilter: 'blur(24px)',
@@ -196,19 +197,22 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
               borderRight: '1px solid rgba(29,78,216,0.10)',
             }}
           >
+            {/* Logo */}
             <div
-              className="flex items-center gap-2 px-5 py-5"
+              className="flex items-center gap-2 px-5 py-4 shrink-0"
               style={{ borderBottom: '1px solid rgba(29,78,216,0.08)' }}
             >
               <Logo size={24} />
               <span className="text-base font-extrabold" style={{ color: '#1d4ed8' }}>CVAdapt</span>
             </div>
 
-            <div className="flex justify-center py-3" style={{ borderBottom: '1px solid rgba(29,78,216,0.08)' }}>
+            {/* Language toggle */}
+            <div className="flex justify-center py-3 shrink-0" style={{ borderBottom: '1px solid rgba(29,78,216,0.08)' }}>
               <LangToggle compact currentLang={lang} />
             </div>
 
-            <div className="grid gap-y-1 overflow-y-auto px-4 pt-5 pb-4">
+            {/* Nav links — fills remaining space, scrollable if needed */}
+            <div className="flex-1 grid gap-y-1 overflow-y-auto px-4 pt-4 pb-4 content-start">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -223,6 +227,7 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
             </div>
 
             <SheetFooter
+              className="shrink-0 p-4 gap-2 border-t mt-0"
               style={{
                 background: 'rgba(240,247,255,0.6)',
                 borderTop: '1px solid rgba(29,78,216,0.08)',
