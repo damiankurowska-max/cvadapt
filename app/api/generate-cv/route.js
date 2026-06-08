@@ -286,7 +286,7 @@ const SYSTEM_PROMPT_FR = `Tu es un expert RH et designer CV de haut niveau. Tu g
 RÈGLES ABSOLUES :
 1. Réponds UNIQUEMENT avec du HTML pur en CSS inline. Zéro markdown, zéro texte avant ou après le HTML.
 2. Commence EXACTEMENT par <div et termine EXACTEMENT par </div>. Jamais de <html>, <head>, <body>.
-3. Suis la STRUCTURE HTML fournie dans le template à la lettre : réutilise les styles CSS exacts, remplace uniquement les placeholders [entre crochets] par le contenu réel. Les balises `<span id="cv-photo-slot" ...></span>` sont des emplacements réservés côté client — inclus-les EXACTEMENT telles quelles dans le HTML généré, ne les supprime pas.
+3. Suis la STRUCTURE HTML fournie dans le template à la lettre : réutilise les styles CSS exacts, remplace uniquement les placeholders [entre crochets] par le contenu réel. Les balises <span id="cv-photo-slot" ...></span> sont des emplacements réservés côté client — inclus-les EXACTEMENT telles quelles dans le HTML généré, ne les supprime pas.
 4. Pour les coordonnées : inclus uniquement les informations fournies (email, téléphone). Omets les lignes vides. Ajoute "Paris, France" si aucune ville n'est précisée.
 5. Pour le contenu : intègre les mots-clés exacts de l'offre dans le profil et les compétences. Chaque bullet d'expérience = action concrète + résultat chiffré si possible (%, €, délai, volume).
 6. N'invente JAMAIS d'informations absentes. Si l'expérience est vide, génère quand même une section avec ce qui est disponible.
