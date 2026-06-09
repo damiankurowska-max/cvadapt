@@ -109,6 +109,7 @@ export default function Generate() {
   const { user, isSignedIn, isLoaded } = useUser();
   const router = useRouter();
   const [lang, setLang] = useState("fr");
+  const [detectedLang, setDetectedLang] = useState(null); // auto-detected from job posting
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", offre: "", experience: "", competences: "", formation: "" });
   const [photo, setPhoto] = useState(null);
   const photoInputRef = useRef(null);
@@ -182,8 +183,21 @@ export default function Generate() {
     } catch {}
   }, []);
 
+  function detectLang(text) {
+    if (!text || text.length < 60) return null;
+    const lower = text.toLowerCase();
+    const en = ["the ", " and ", " of ", " in ", " to ", " for ", " you ", " we ", " are ", " is ", "requirements", "experience", "skills", "team", "position", "role", "candidate", "salary", "apply", "workplace"].filter(w => lower.includes(w)).length;
+    const fr = [" le ", " la ", " les ", " et ", " de ", " du ", " un ", " une ", " des ", " pour ", " dans ", " nous ", " vous ", " est ", "expérience", "compétences", "poste", "entreprise", "équipe", "candidat", "rémunération", "rejoindre"].filter(w => lower.includes(w)).length;
+    if (en === 0 && fr === 0) return null;
+    return en > fr ? "en" : "fr";
+  }
+
   function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const updated = { ...form, [e.target.name]: e.target.value };
+    setForm(updated);
+    if (e.target.name === "offre") {
+      setDetectedLang(detectLang(e.target.value));
+    }
   }
 
   function handlePhotoChange(e) {
@@ -228,7 +242,7 @@ export default function Generate() {
       const cvRes = await fetch("/api/generate-cv", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, template, lang }),
+        body: JSON.stringify({ ...form, template, lang: detectedLang || lang }),
       });
       const cvData = await cvRes.json();
 
@@ -646,7 +660,18 @@ export default function Generate() {
                 {/* Textarea offre */}
                 <div style={{ marginBottom: 20 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <p style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>{tr(lang, "jobOffer")}</p>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "#374151", margin: 0 }}>{tr(lang, "jobOffer")}</p>
+                      {detectedLang && (
+                        <span style={{
+                          fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 999,
+                          background: detectedLang === "en" ? "#dbeafe" : "#dcfce7",
+                          color: detectedLang === "en" ? "#1d4ed8" : "#15803d",
+                        }}>
+                          {detectedLang === "en" ? "🇺🇸 English detected → CV in English" : "🇫🇷 Français détecté → CV en français"}
+                        </span>
+                      )}
+                    </div>
                     <p style={{ fontSize: 11, color: form.offre.length > 0 ? "#2563eb" : "#9ca3af" }}>{form.offre.length} {lang === "en" ? "chars" : "car."}</p>
                   </div>
                   <textarea
