@@ -2,57 +2,43 @@ import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
 
 /**
- * Webhook Resend — email reçu sur contact@cvadapt.eu
+ * Webhook email entrant — appelé par le Cloudflare Email Worker
  *
- * Resend envoie un événement `email.received` signé via Svix.
- * Le corps de l'email N'EST PAS dans le payload — on le récupère via l'API.
+ * Le Worker Cloudflare (cvadapt-email-worker) reçoit les emails de
+ * contact@cvadapt.eu et appelle cette route avec :
+ *   Authorization: Bearer {INBOUND_EMAIL_SECRET}
+ *   Body: { from, to, subject, text }
  *
  * Config Vercel nécessaire :
- *   RESEND_WEBHOOK_SIGNING_SECRET  — depuis Resend → Webhooks → ton endpoint
- *   RESEND_API_KEY                  — déjà présent
- *   ANTHROPIC_API_KEY               — déjà présent
- *   OWNER_EMAIL                     — ton iCloud (damiankurowska@icloud.com)
+ *   INBOUND_EMAIL_SECRET   — même valeur que dans le Worker Cloudflare
+ *   RESEND_API_KEY          — déjà présent
+ *   ANTHROPIC_API_KEY       — déjà présent
+ *   OWNER_EMAIL             — ton iCloud (damiankurowska@icloud.com)
  */
 export async function POST(request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
-    // ── 1. Vérification de la signature Svix (Resend) ─────────────────
-    const signingSecret = process.env.RESEND_WEBHOOK_SIGNING_SECRET;
-    if (!signingSecret) {
-      console.error("[inbound-email] RESEND_WEBHOOK_SIGNING_SECRET non configuré");
+    // ── 1. Vérification du token Bearer ───────────────────────────────
+    const secret = process.env.INBOUND_EMAIL_SECRET;
+    if (!secret) {
+      console.error("[inbound-email] INBOUND_EMAIL_SECRET non configuré");
       return Response.json({ error: "Non configuré" }, { status: 500 });
     }
-
-    const rawBody = await request.text();
-
-    let event;
-    try {
-      event = resend.webhooks.verify({
-        payload: rawBody,
-        webhookSecret: signingSecret,
-        headers: {
-          id: request.headers.get("svix-id") ?? "",
-          timestamp: request.headers.get("svix-timestamp") ?? "",
-          signature: request.headers.get("svix-signature") ?? "",
-        },
-      });
-    } catch (err) {
-      console.error("[inbound-email] Signature invalide:", err.message);
-      return Response.json({ error: "Signature invalide" }, { status: 401 });
+    const authHeader = request.headers.get("authorization");
+    if (authHeader !== `Bearer ${secret}`) {
+      console.error("[inbound-email] Token invalide");
+      return Response.json({ error: "Non autorisé" }, { status: 401 });
     }
 
-    // ── 2. Traiter uniquement les emails reçus ────────────────────────
-    if (event.type !== "email.received") {
-      return Response.json({ skipped: true, type: event.type });
-    }
+    // ── 2. Lecture du payload ──────────────────────────────────────────
+    const payload = await request.json();
+    const from = payload.from || "";
+    const subject = payload.subject || "";
+    const text = payload.text || payload.html || "";
 
-    const emailId = event.data?.email_id;
-    const from = event.data?.from || "";
-    const subject = event.data?.subject || "";
-
-    if (!emailId || !from) {
-      return Response.json({ skipped: true, reason: "no emailId or from" });
+    if (!from) {
+      return Response.json({ skipped: true, reason: "no from" });
     }
 
     // Ignore les bounces et réponses automatiques
@@ -69,24 +55,21 @@ export async function POST(request) {
       return Response.json({ skipped: true, reason: "auto-message" });
     }
 
-    // ── 3. Récupère le corps de l'email ───────────────────────────────
-    const { data: emailData, error: fetchError } = await resend.emails.receiving.get(emailId);
-    if (fetchError) {
-      console.error("[inbound-email] Erreur récupération email:", fetchError);
-      return Response.json({ error: fetchError.message }, { status: 500 });
-    }
-
-    const text = emailData?.text || emailData?.html || "";
-
-    // ── 4. Forward l'email à Damian (iCloud) ──────────────────────────
+    // ── 3. Forward l'email à Damian (iCloud) ──────────────────────────
     const ownerEmail = process.env.OWNER_EMAIL || "damiankurowska@icloud.com";
-    await resend.emails.receiving.forward({
-      emailId,
-      to: [ownerEmail],
+    await resend.emails.send({
       from: "CVAdapt Inbound <contact@cvadapt.eu>",
+      to: ownerEmail,
+      subject: `[Reçu] ${subject || "(sans objet)"}`,
+      text: `De : ${from}\n\n${text}`,
+      html: `<p style="color:#6b7280;font-size:13px">De : <strong>${from}</strong></p>
+             <hr style="border:none;border-top:1px solid #e5e7eb;margin:12px 0"/>
+             <div style="font-family:sans-serif;font-size:15px;white-space:pre-wrap">${
+               text.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+             }</div>`,
     }).catch(err => console.warn("[inbound-email] Forward échoué (non bloquant):", err.message));
 
-    // ── 5. Génère une réponse contextuelle avec Claude ────────────────
+    // ── 4. Génère une réponse contextuelle avec Claude ────────────────
     const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
     const completion = await anthropic.messages.create({
@@ -119,7 +102,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
 
     const replyBody = completion.content[0].text;
 
-    // ── 6. Envoie la réponse au BDE ───────────────────────────────────
+    // ── 5. Envoie la réponse au BDE ───────────────────────────────────
     await resend.emails.send({
       from: "Damian — CVAdapt <contact@cvadapt.eu>",
       to: from,
@@ -130,7 +113,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
       </div>`,
     });
 
-    // ── 7. Notifie Damian de la réponse envoyée ───────────────────────
+    // ── 6. Notifie Damian de la réponse envoyée ───────────────────────
     await resend.emails.send({
       from: "CVAdapt Bot <contact@cvadapt.eu>",
       to: ownerEmail,
@@ -141,7 +124,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
         <p><strong>Sujet :</strong> ${subject}</p>
         <hr style="border:none;border-top:1px solid #e5e7eb;margin:16px 0"/>
         <p><strong>Leur message :</strong></p>
-        <div style="background:#f9fafb;border-left:3px solid #e5e7eb;padding:12px 16px;border-radius:4px;margin-bottom:16px;white-space:pre-wrap">
+        <div style="background:#f9fafb;border-left:3px solid #e5e7eb;padding:12px 16px;border-radius:4px;margin-bottom:16px;white-space:pre-wrap;font-size:13px">
           ${text.substring(0, 800).replace(/</g, "&lt;").replace(/>/g, "&gt;")}
         </div>
         <p><strong>Ma réponse envoyée :</strong></p>
@@ -151,7 +134,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
       </div>`,
     });
 
-    console.log(`[inbound-email] Réponse envoyée à ${from} (${subject})`);
+    console.log(`[inbound-email] Réponse envoyée à ${from} — "${subject}"`);
     return Response.json({ success: true });
 
   } catch (err) {
