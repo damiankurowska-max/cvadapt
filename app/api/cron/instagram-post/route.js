@@ -54,8 +54,10 @@ Caption uniquement, sans introduction.`,
 
     const caption = message.content[0].text;
 
-    // 2. Construire l'URL de l'image (stat card générée dynamiquement)
-    const imageUrl = `${BASE_URL}/api/og-image?stat=${encodeURIComponent(theme.stat)}&statLabel=${encodeURIComponent(theme.statLabel)}&tip=${encodeURIComponent(theme.tip)}`;
+    // 2. Construire l'URL de l'image (stat card générée dynamiquement, convertie en JPEG via wsrv.nl)
+    // Instagram Graph API exige du JPEG — wsrv.nl proxie l'image et la convertit
+    const ogUrl = `${BASE_URL}/api/og-image?stat=${encodeURIComponent(theme.stat)}&statLabel=${encodeURIComponent(theme.statLabel)}&tip=${encodeURIComponent(theme.tip)}`;
+    const imageUrl = `https://images.weserv.nl/?url=${encodeURIComponent(ogUrl)}&output=jpg&w=1080&h=1080`;
 
     // 3. Envoyer à Make.com → Instagram
     const makeRes = await fetch(makeWebhookUrl, {
