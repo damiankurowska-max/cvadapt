@@ -288,10 +288,10 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
             <a href="/generate" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 28px", background: C.blue, color: "#fff", borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.35)", transition: "transform 0.2s ease" }}>
-              Générer mon CV — Gratuit 🚀
+              Démarrer mon accompagnement — Gratuit 🚀
             </a>
             <a href="#steps" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 22px", background: C.bg, color: C.navy, borderRadius: 12, fontSize: 15, fontWeight: 600, textDecoration: "none", border: `2px solid ${C.border}` }}>
-              Voir comment ça marche
+              À quel point c'est essentiel ?
             </a>
           </div>
 
@@ -354,11 +354,11 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
               COMMENT ÇA MARCHE
             </div>
             <h2 style={{ fontSize: "clamp(30px,4vw,50px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 12 }}>
-              Trois étapes.<br />
-              <span style={{ color: C.slateLight }}>Zéro prise de tête.</span>
+              Ton accompagnement.<br />
+              <span style={{ color: C.slateLight }}>Trois étapes. Zéro prise de tête.</span>
             </h2>
             <p style={{ fontSize: 16, color: C.slate, maxWidth: 440, margin: "0 auto" }}>
-              Pas besoin de savoir ce que c'est un ATS. CVAdapt s'en charge.
+              Pas besoin de savoir ce qu'est un ATS. C'est essentiel — et CVAdapt s'en charge entièrement.
             </p>
           </div>
 
@@ -515,69 +515,72 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
             <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 14px", background: C.blueLight, borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.blue, marginBottom: 16 }}>
               TARIFS
             </div>
-            <h2 style={{ fontSize: "clamp(28px,4vw,46px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 10 }}>Simple et transparent.</h2>
-            <p style={{ fontSize: 15, color: C.slateLight }}>Commence gratuitement. Passe au plan supérieur quand tu veux.</p>
+            <h2 style={{ fontSize: "clamp(28px,4vw,46px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 10 }}>Ton investissement.</h2>
+            <p style={{ fontSize: 15, color: C.slateLight }}>Commence avec l'accès essentiel. Passe à l'accompagnement complet quand tu veux.</p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, alignItems: "center" }}>
-            {/* FREE */}
+            {/* ESSENTIEL */}
             <div className="price-card" style={{ padding: 30, background: C.bg, border: `1px solid ${C.border}`, borderRadius: 22 }}>
-              <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: C.slateLight, marginBottom: 16 }}>GRATUIT</p>
-              <div style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: C.slateLight, marginBottom: 16 }}>ESSENTIEL</p>
+              <div style={{ marginBottom: 6 }}>
                 <span style={{ fontSize: 44, fontWeight: 900, letterSpacing: "-2px", color: C.navy }}>0€</span>
                 <span style={{ fontSize: 13, color: C.slateLight }}> / toujours</span>
               </div>
+              <p style={{ fontSize: 12, color: C.slateLight, marginBottom: 20 }}>Accès limité · Sans carte bancaire</p>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: 10 }}>
-                {[["3 CV gratuits", true], ["Score ATS", true], ["Analyse offre", true], ["Lettre de motivation", false], ["CV illimités", false]].map(([f, ok], i) => (
+                {[["3 CV en accès exclusif", true], ["Score ATS inclus", true], ["Analyse de l'offre", true], ["Lettre de motivation", false], ["Accompagnement illimité", false]].map(([f, ok], i) => (
                   <li key={i} style={{ display: "flex", gap: 10, fontSize: 14, color: ok ? C.navy : C.slateLight }}>
                     <span style={{ color: ok ? C.green : C.border, fontWeight: 700 }}>{ok ? "✓" : "✗"}</span>{f}
                   </li>
                 ))}
               </ul>
               <a href="/generate" style={{ display: "block", textAlign: "center", padding: "12px", background: "#F8FAFC", border: `1px solid ${C.border}`, color: C.navy, borderRadius: 12, fontSize: 14, fontWeight: 600, textDecoration: "none" }}>
-                Commencer
+                Démarrer gratuitement
               </a>
             </div>
 
-            {/* ÉTUDIANT */}
+            {/* ACCOMPAGNEMENT ÉTUDIANT */}
             <div className="price-card" style={{ padding: 30, background: C.blue, borderRadius: 22, position: "relative", marginTop: -12, marginBottom: -12, boxShadow: "0 20px 48px rgba(37,99,235,0.3)" }}>
               <div style={{ position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)", background: C.amber, color: "#fff", fontSize: 11, fontWeight: 700, padding: "5px 14px", borderRadius: 999, whiteSpace: "nowrap" }}>
-                LE PLUS POPULAIRE
+                LE PLUS CHOISI
               </div>
-              <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>ÉTUDIANT</p>
-              <div style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>ACCOMPAGNEMENT ÉTUDIANT</p>
+              <div style={{ marginBottom: 6 }}>
                 <span style={{ fontSize: 44, fontWeight: 900, letterSpacing: "-2px", color: "#fff" }}>4,99€</span>
                 <span style={{ fontSize: 13, color: "rgba(255,255,255,0.65)" }}> / mois</span>
               </div>
+              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", marginBottom: 20 }}>Investissement mensuel · Annulable à tout moment</p>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: 10 }}>
-                {["15 CV / mois", "Score ATS", "Lettre de motivation", "Analyse ATS détaillée", "Support prioritaire"].map((f, i) => (
+                {["15 CV / mois", "Score ATS inclus", "Lettre de motivation", "Analyse ATS détaillée", "Accès prioritaire"].map((f, i) => (
                   <li key={i} style={{ display: "flex", gap: 10, fontSize: 14, color: "rgba(255,255,255,0.9)" }}>
                     <span style={{ color: "#93C5FD", fontWeight: 700 }}>✓</span>{f}
                   </li>
                 ))}
               </ul>
               <a href="/tarifs" style={{ display: "block", textAlign: "center", padding: "12px", background: "#fff", color: C.blue, borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: "none" }}>
-                Choisir Étudiant
+                Démarrer l'accompagnement
               </a>
-              <p style={{ textAlign: "center", fontSize: 11, color: "rgba(255,255,255,0.45)", marginTop: 10 }}>Satisfait ou remboursé 7 jours</p>
+              <p style={{ textAlign: "center", fontSize: 11, color: "rgba(255,255,255,0.45)", marginTop: 10 }}>Satisfait ou remboursé · 7 jours</p>
             </div>
 
-            {/* PRO */}
+            {/* ACCOMPAGNEMENT PRO */}
             <div className="price-card" style={{ padding: 30, background: C.bg, border: `1px solid ${C.border}`, borderRadius: 22 }}>
-              <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: C.slateLight, marginBottom: 16 }}>PRO</p>
-              <div style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: C.slateLight, marginBottom: 16 }}>ACCOMPAGNEMENT PRO</p>
+              <div style={{ marginBottom: 6 }}>
                 <span style={{ fontSize: 44, fontWeight: 900, letterSpacing: "-2px", color: C.navy }}>9,99€</span>
                 <span style={{ fontSize: 13, color: C.slateLight }}> / mois</span>
               </div>
+              <p style={{ fontSize: 12, color: C.slateLight, marginBottom: 20 }}>Investissement mensuel · Annulable à tout moment</p>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: 10 }}>
-                {["CV illimités", "Score ATS", "Lettre de motivation", "Analyse ATS détaillée", "Support prioritaire"].map((f, i) => (
+                {["Accompagnement illimité", "Score ATS inclus", "Lettre de motivation", "Analyse ATS détaillée", "Accès prioritaire"].map((f, i) => (
                   <li key={i} style={{ display: "flex", gap: 10, fontSize: 14, color: C.navy }}>
                     <span style={{ color: C.blue, fontWeight: 700 }}>✓</span>{f}
                   </li>
                 ))}
               </ul>
               <a href="/tarifs" style={{ display: "block", textAlign: "center", padding: "12px", border: `2px solid ${C.navy}`, color: C.navy, borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: "none" }}>
-                Choisir Pro
+                Démarrer l'accompagnement
               </a>
             </div>
           </div>
@@ -632,7 +635,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
 
           {/* CTA + social proof */}
           <a href="/generate" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "17px 40px", background: C.blue, color: "#fff", borderRadius: 14, fontSize: 17, fontWeight: 800, textDecoration: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.35), 0 1px 4px rgba(37,99,235,0.2)", letterSpacing: "-0.2px", marginBottom: 16 }}>
-            Générer mon CV — Gratuit 🚀
+            Démarrer mon accompagnement — Gratuit 🚀
           </a>
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: 56, flexWrap: "wrap" }}>
