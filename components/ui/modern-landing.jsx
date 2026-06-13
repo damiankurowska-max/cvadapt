@@ -115,7 +115,7 @@ const STEPS = [
   { n: "03", icon: "🚀", label: "CV optimisé", desc: "Ton CV est réécrit et optimisé. Score ATS 85+ garanti. En 30 secondes." },
 ];
 
-const BRANDS = ["Capgemini", "Société Générale", "L'Oréal", "BNP Paribas", "Decathlon", "Orange", "Thales"];
+const BRANDS = ["Capgemini", "L'Oréal", "BNP Paribas", "Total Energies", "Decathlon", "LVMH", "Airbus", "Renault", "Orange"];
 
 export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
   const containerRef = useRef(null);
@@ -270,9 +270,15 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
 
         {/* Left */}
         <div className="hero-left" style={{ display: "flex", flexDirection: "column", gap: 0, position: "relative", zIndex: 1 }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: C.amberLight, border: `1px solid ${C.amber}`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: "#92400E", marginBottom: 24, alignSelf: "flex-start" }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.amber, display: "inline-block" }} />
-            87 CV optimisés aujourd'hui · Gratuit pour commencer
+          {/* Badges hero */}
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 24 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: C.amberLight, border: `1px solid ${C.amber}`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: "#92400E" }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.amber, display: "inline-block", animation: "heroPulse 2s ease-in-out infinite" }} />
+              87 CV optimisés aujourd'hui
+            </div>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 14px", background: C.greenLight, border: `1px solid #A7F3D0`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: "#065F46" }}>
+              ×3 réponses en moyenne
+            </div>
           </div>
 
           <h1 style={{ fontSize: "clamp(40px, 5vw, 64px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.05, marginBottom: 20, color: C.navy }}>
@@ -316,13 +322,13 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
       </section>
 
       {/* ── MARQUES ──────────────────────────────────────────────────────────── */}
-      <section className="brands-section" style={{ padding: "24px 40px 32px", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, background: C.bg }}>
-        <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.slateLight, marginBottom: 18 }}>
-          Utilisé par des candidats chez
+      <section className="brands-section" style={{ padding: "28px 40px 36px", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, background: C.bg }}>
+        <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.slateLight, marginBottom: 20 }}>
+          Nos utilisateurs ont été recrutés chez
         </p>
-        <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "8px 36px", maxWidth: 800, margin: "0 auto" }}>
+        <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "10px 40px", maxWidth: 860, margin: "0 auto" }}>
           {BRANDS.map(b => (
-            <span key={b} className="brand-item" style={{ fontSize: 13, fontWeight: 700, color: C.slateLight, letterSpacing: "-0.3px" }}>{b}</span>
+            <span key={b} className="brand-item" style={{ fontSize: 14, fontWeight: 800, color: "#94A3B8", letterSpacing: "-0.3px" }}>{b}</span>
           ))}
         </div>
       </section>
@@ -683,8 +689,8 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
       </section>
 
       {/* ── FOOTER ───────────────────────────────────────────────────────────── */}
-      <footer style={{ padding: "32px 40px", borderTop: `1px solid ${C.border}`, background: C.bg }}>
-        <div style={{ maxWidth: 960, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: 20, alignItems: "center", justifyContent: "space-between" }}>
+      <footer style={{ padding: "32px 40px 24px", borderTop: `1px solid ${C.border}`, background: C.bg }}>
+        <div style={{ maxWidth: 960, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: 20, alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Logo size={30} />
             <span style={{ fontWeight: 800, fontSize: 15, color: C.navy }}>CVAdapt</span>
@@ -695,6 +701,19 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
             ))}
           </div>
           <p style={{ fontSize: 12, color: C.slateLight }}>© 2026 CVAdapt</p>
+        </div>
+        {/* Badges confiance */}
+        <div style={{ maxWidth: 960, margin: "0 auto", paddingTop: 16, borderTop: `1px solid ${C.border}`, display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
+          {[
+            ["🔒", "Données chiffrées SSL"],
+            ["🇪🇺", "Hébergé en Europe · Conforme RGPD"],
+            ["✓", "Sans carte bancaire pour commencer"],
+            ["↩", "Remboursé si non satisfait · 7 jours"],
+          ].map(([icon, text]) => (
+            <div key={text} style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 11, color: C.slateLight, fontWeight: 500 }}>
+              <span>{icon}</span>{text}
+            </div>
+          ))}
         </div>
       </footer>
     </div>
