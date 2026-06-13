@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Logo from "@/app/components/Logo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -252,7 +253,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
       {/* ── HEADER ─────────────────────────────────────────────────────────── */}
       <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", height: 64, background: "rgba(255,255,255,0.92)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${C.border}` }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 34, height: 34, background: "linear-gradient(135deg, #2563EB, #7C3AED)", borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, fontWeight: 900, color: "#fff" }}>C</div>
+          <Logo size={34} />
           <span style={{ fontWeight: 800, fontSize: 17, letterSpacing: "-0.4px", color: C.navy }}>CVAdapt</span>
         </div>
         <nav style={{ display: "flex", gap: 32, alignItems: "center" }}>
@@ -263,10 +264,12 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
       </header>
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
-      <section style={{ minHeight: "100vh", display: "grid", gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: 48, maxWidth: 1200, margin: "0 auto", padding: "100px 40px 80px" }}>
+      <section style={{ minHeight: "100vh", display: "grid", gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: 48, maxWidth: 1200, margin: "0 auto", padding: "100px 40px 80px", position: "relative" }}>
+        {/* Fond à points */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, #CBD5E1 1px, transparent 1px)", backgroundSize: "28px 28px", opacity: 0.35, pointerEvents: "none", zIndex: 0 }} />
 
         {/* Left */}
-        <div className="hero-left" style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+        <div className="hero-left" style={{ display: "flex", flexDirection: "column", gap: 0, position: "relative", zIndex: 1 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: C.amberLight, border: `1px solid ${C.amber}`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: "#92400E", marginBottom: 24, alignSelf: "flex-start" }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.amber, display: "inline-block" }} />
             87 CV optimisés aujourd'hui · Gratuit pour commencer
@@ -606,9 +609,10 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
 
       {/* ── CTA FINAL ────────────────────────────────────────────────────────── */}
       <section style={{ padding: "96px 40px", background: C.navy, position: "relative", overflow: "hidden" }}>
-        {/* Formes décoratives */}
-        <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, borderRadius: "50%", background: "rgba(37,99,235,0.15)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: -80, left: -60, width: 300, height: 300, borderRadius: "50%", background: "rgba(245,158,11,0.08)", pointerEvents: "none" }} />
+        {/* Grille de fond */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)", backgroundSize: "48px 48px", pointerEvents: "none" }} />
+        {/* Glow central */}
+        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 400, background: "radial-gradient(ellipse, rgba(37,99,235,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
 
         <div className="final-cta" style={{ maxWidth: 600, margin: "0 auto", textAlign: "center", position: "relative" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 14px", background: "rgba(245,158,11,0.15)", border: "1px solid rgba(245,158,11,0.3)", borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.amber, marginBottom: 24 }}>
@@ -649,7 +653,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
       <footer style={{ padding: "32px 40px", borderTop: `1px solid ${C.border}`, background: C.bg }}>
         <div style={{ maxWidth: 960, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: 20, alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 30, height: 30, background: "linear-gradient(135deg, #2563EB, #7C3AED)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 900, color: "#fff" }}>C</div>
+            <Logo size={30} />
             <span style={{ fontWeight: 800, fontSize: 15, color: C.navy }}>CVAdapt</span>
           </div>
           <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
