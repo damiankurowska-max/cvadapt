@@ -5,8 +5,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Logo from "@/app/components/Logo";
 
-gsap.registerPlugin(ScrollTrigger);
-
 // ── Palette ──────────────────────────────────────────────────────────────
 const C = {
   bg: "#FFFFFF",
@@ -123,6 +121,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
   const [openFaq, setOpenFaq] = useState(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
 
       // ── HERO ────────────────────────────────────────────────────────────
@@ -282,14 +281,14 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
           </div>
 
           <h1 style={{ fontSize: "clamp(40px, 5vw, 64px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.05, marginBottom: 20, color: C.navy }}>
-            Ton CV passe<br />
-            <span style={{ color: C.blue }}>les filtres ATS.</span><br />
+            Optimise ton CV<br />
+            <span style={{ color: C.blue }}>pour chaque offre.</span><br />
             <span style={{ color: C.slateLight, fontWeight: 700, fontSize: "0.8em" }}>En 30 secondes.</span>
           </h1>
 
           <p style={{ fontSize: 18, color: C.slate, lineHeight: 1.7, marginBottom: 36, maxWidth: 480 }}>
             <strong style={{ color: C.navy }}>75% des CV sont filtrés avant qu'un humain les lise.</strong>{" "}
-            CVAdapt analyse l'offre et génère un CV qui passe — automatiquement.
+            CVAdapt analyse l'offre, intègre les mots-clés ATS et optimise ton CV automatiquement.
           </p>
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>

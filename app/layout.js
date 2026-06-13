@@ -13,9 +13,9 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: "CVAdapt — Génère un CV ATS en 30 sec · Gratuit pour les Étudiants",
-  description: "75% des CV sont rejetés avant d'être lus. CVAdapt adapte ton CV à chaque offre en 30 secondes : score ATS, mots-clés, lettre de motivation incluse. Essaie gratuitement.",
-  keywords: "CV adapté offre emploi, générateur CV ATS, CV étudiant alternance, optimiser CV IA, score ATS gratuit, CV en 30 secondes",
+  title: "Optimiser son CV avec l'IA — Score ATS en 30 sec | CVAdapt",
+  description: "Optimise ton CV pour chaque offre d'emploi en 30 secondes. CVAdapt analyse les mots-clés ATS, réécrit ton CV et booste ton taux de réponse ×3. Gratuit sans CB.",
+  keywords: "optimiser son CV, optimisation CV ATS, CV adapté offre emploi, générateur CV IA, score ATS gratuit, CV étudiant alternance, améliorer CV en ligne",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
@@ -28,8 +28,8 @@ export const metadata = {
     shortcut: "/favicon.ico",
   },
   openGraph: {
-    title: "CVAdapt — Génère un CV ATS en 30 sec · Gratuit pour les Étudiants",
-    description: "75% des CV sont rejetés avant d'être lus. Adapte ton CV à chaque offre en 30 secondes : score ATS, mots-clés, lettre de motivation incluse.",
+    title: "Optimiser son CV avec l'IA — Score ATS en 30 sec | CVAdapt",
+    description: "Optimise ton CV pour chaque offre d'emploi en 30 secondes. Score ATS, mots-clés ciblés, lettre de motivation incluse. Gratuit sans CB.",
     url: "https://cvadapt.eu",
     siteName: "CVAdapt",
     locale: "fr_FR",
@@ -38,8 +38,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CVAdapt — Génère un CV ATS en 30 sec · Gratuit pour les Étudiants",
-    description: "75% des CV sont rejetés avant d'être lus. Adapte ton CV à chaque offre en 30 secondes : score ATS, mots-clés, lettre de motivation incluse.",
+    title: "Optimiser son CV avec l'IA — Score ATS en 30 sec | CVAdapt",
+    description: "Optimise ton CV pour chaque offre d'emploi en 30 secondes. Score ATS, mots-clés ciblés, lettre de motivation incluse. Gratuit sans CB.",
   },
   robots: {
     index: true,

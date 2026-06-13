@@ -1,19 +1,4 @@
-"use client";
-import { useState } from "react";
-import dynamic from "next/dynamic";
-
-const ModernLanding = dynamic(
-  () => import("@/components/ui/modern-landing").then((m) => ({ default: m.ModernLanding })),
-  {
-    ssr: false,
-    loading: () => (
-      <div style={{ minHeight: "100vh", background: "#080C14", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ width: 48, height: 48, border: "3px solid rgba(59,130,246,0.2)", borderTopColor: "#3B82F6", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
-        <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
-      </div>
-    ),
-  }
-);
+import { LandingWrapper } from "@/app/components/LandingWrapper";
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -28,30 +13,10 @@ const faqSchema = {
 };
 
 export default function Home() {
-  const [email, setEmail] = useState("");
-  const [emailStatus, setEmailStatus] = useState("idle");
-
-  async function handleNewsletter(e) {
-    e.preventDefault();
-    setEmailStatus("loading");
-    const res = await fetch("/api/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, lang: "fr" }),
-    });
-    setEmailStatus(res.ok ? "success" : "error");
-    if (res.ok) setEmail("");
-  }
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <ModernLanding
-        onNewsletter={handleNewsletter}
-        emailStatus={emailStatus}
-        email={email}
-        setEmail={setEmail}
-      />
+      <LandingWrapper />
     </>
   );
 }
