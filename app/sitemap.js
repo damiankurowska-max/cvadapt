@@ -48,6 +48,18 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
+      url: "https://cvadapt.eu/score-ats-gratuit",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: "https://cvadapt.eu/cv-stage",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: "https://cvadapt.eu/cv-alternance",
       lastModified: new Date(),
       changeFrequency: "monthly",

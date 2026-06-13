@@ -1,5 +1,33 @@
 import { LandingWrapper } from "@/app/components/LandingWrapper";
 
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Comment optimiser son CV avec l'IA en 30 secondes",
+  description: "Optimise ton CV pour les filtres ATS de chaque offre d'emploi en 3 étapes simples avec CVAdapt.",
+  totalTime: "PT30S",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Colle l'offre d'emploi",
+      text: "Copie-colle l'offre d'emploi dans CVAdapt. L'IA identifie les mots-clés ATS exacts attendus par le recruteur.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "L'IA analyse et optimise",
+      text: "CVAdapt compare ton CV à l'offre, intègre les mots-clés manquants et réécrit les sections clés pour maximiser ton score ATS.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Télécharge ton CV optimisé",
+      text: "Ton CV optimisé est prêt en 30 secondes. Score ATS 85+ garanti. Télécharge-le et postule immédiatement.",
+    },
+  ],
+};
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -15,6 +43,7 @@ const faqSchema = {
 export default function Home() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <LandingWrapper />
     </>

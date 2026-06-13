@@ -1291,6 +1291,117 @@ ${[
     `,
   },
   {
+    slug: "comment-optimiser-son-cv",
+    titre: "Comment optimiser son CV en 2025 : le guide complet",
+    description: "75% des CV sont rejetés avant qu'un humain les lise. Ce guide te montre comment optimiser ton CV étape par étape pour passer les filtres ATS et décrocher 3× plus d'entretiens.",
+    date: "2026-06-13",
+    categorie: "Conseils CV",
+    tempsLecture: "6 min",
+    illustration: "🎯",
+    couleur: "from-blue-600 to-indigo-600",
+    contenu: `
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">📊 Le chiffre que tu dois connaître</p>
+  <p style="color:#1d4ed8;margin:0;font-size:15px"><strong>75% des CV</strong> sont éliminés automatiquement avant qu'un recruteur humain les voie. Optimiser son CV n'est plus optionnel — c'est la condition de base.</p>
+</div>
+
+<h2>Pourquoi optimiser son CV est indispensable en 2025</h2>
+<p>Les grandes entreprises utilisent des logiciels ATS (Applicant Tracking System) qui filtrent automatiquement les candidatures. Un CV non optimisé peut avoir le meilleur profil du monde — il sera quand même rejeté si les bons mots-clés ne sont pas présents.</p>
+<p>Résultat : des candidats très qualifiés ne sont jamais rappelés, non pas parce qu'ils ne correspondent pas au poste, mais parce que leur CV n'est pas rédigé dans le bon vocabulaire.</p>
+
+<h2>Les 5 étapes pour optimiser son CV efficacement</h2>
+
+<div style="display:grid;gap:12px;margin:20px 0">
+  ${[
+    ["1", "#2563eb", "Analyser l'offre d'emploi mot par mot", "Identifie les termes exacts utilisés dans l'offre : compétences techniques, outils, certifications. Ces mots doivent apparaître tels quels dans ton CV."],
+    ["2", "#7c3aed", "Intégrer les mots-clés ATS dans ton CV", "Place les mots-clés dans les sections Compétences, Expérience et Profil. Ne paraphrase pas — les ATS cherchent les termes exacts."],
+    ["3", "#0891b2", "Adopter une structure lisible par les ATS", "Une seule colonne, pas de tableaux, pas d'images. Police classique (Arial, Calibri). Sections intitulées exactement : Expériences, Compétences, Formation."],
+    ["4", "#059669", "Quantifier tes résultats", "Transforme chaque expérience en résultat chiffré : +40% de CA, 200 clients/mois, 5 projets livrés. Les chiffres passent mieux les filtres et convainquent les recruteurs."],
+    ["5", "#d97706", "Adapter ton CV à chaque offre", "Un CV générique ne fonctionne pas. Chaque candidature nécessite une version adaptée aux mots-clés spécifiques de l'offre."],
+  ].map(([n, color, title, desc]) => `
+  <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:16px">
+    <div style="display:flex;align-items:flex-start;gap:12px">
+      <div style="width:32px;height:32px;background:${color};color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;margin-top:2px">${n}</div>
+      <div>
+        <p style="font-weight:700;color:#111827;margin:0 0 6px 0">${title}</p>
+        <p style="color:#6b7280;font-size:14px;margin:0;line-height:1.6">${desc}</p>
+      </div>
+    </div>
+  </div>`).join("")}
+</div>
+
+<h2>Optimiser son CV pour les ATS : les règles essentielles</h2>
+
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:14px">
+  <thead>
+    <tr style="background:#f3f4f6">
+      <th style="padding:12px 16px;text-align:left;color:#ef4444;border:1px solid #e5e7eb">❌ À éviter</th>
+      <th style="padding:12px 16px;text-align:left;color:#16a34a;border:1px solid #e5e7eb">✅ À faire</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${[
+      ["Mise en page en colonnes multiples", "Structure à une seule colonne"],
+      ["Texte dans des tableaux ou zones de texte", "Texte dans le corps principal du document"],
+      ["Photos, logos, graphiques", "Texte pur uniquement"],
+      ["\"Maîtrise des logiciels bureautiques\"", "\"Excel, PowerPoint, Word\" (termes exacts)"],
+      ["Un seul CV pour toutes les candidatures", "Un CV adapté à chaque offre"],
+      ["Titre générique \"CV\" ou \"Curriculum Vitae\"", "Titre = intitulé exact du poste visé"],
+    ].map(([bad, good]) => `
+    <tr>
+      <td style="padding:12px 16px;border:1px solid #e5e7eb;color:#374151">${bad}</td>
+      <td style="padding:12px 16px;border:1px solid #e5e7eb;color:#374151;font-weight:500">${good}</td>
+    </tr>`).join("")}
+  </tbody>
+</table>
+
+<h2>Les mots-clés à intégrer dans son CV selon le secteur</h2>
+
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["💻 Tech / Développement", "React, Python, SQL, Agile, Scrum, CI/CD, Git, API REST, TypeScript"],
+    ["📊 Finance / Comptabilité", "IFRS, consolidation, reporting, contrôle de gestion, Excel, SAP, clôture comptable"],
+    ["📣 Marketing / Communication", "SEO, Google Ads, Meta Ads, Content Marketing, CRM, KPI, conversion rate"],
+    ["🤝 Commerce / Ventes", "prospection B2B, CRM Salesforce, pipeline, closing, CA, fidélisation client"],
+    ["🧑‍💼 RH / Management", "recrutement, GPEC, onboarding, KPI RH, ADP, Workday, droit du travail"],
+  ].map(([sector, kw]) => `
+  <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px">
+    <p style="font-weight:700;color:#111827;margin:0 0 6px 0">${sector}</p>
+    <p style="color:#6b7280;font-size:13px;margin:0">${kw}</p>
+  </div>`).join("")}
+</div>
+
+<h2>Comment vérifier l'optimisation de son CV</h2>
+<p>Pour savoir si ton CV est correctement optimisé, tu peux :</p>
+<ul style="color:#374151;font-size:15px;line-height:2">
+  <li>Coller ton CV et l'offre dans un outil d'analyse ATS pour voir ton score de correspondance</li>
+  <li>Vérifier que les 5-10 mots-clés principaux de l'offre apparaissent dans ton CV</li>
+  <li>Tester la lisibilité en copiant-collant ton CV dans Notepad — si le texte est illisible, l'ATS ne le lira pas non plus</li>
+  <li>Demander à un pair de pointer le poste visé en lisant ton CV en 7 secondes</li>
+</ul>
+
+<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
+  <p style="font-weight:700;color:#15803d;margin:0 0 8px 0">⚡ La méthode la plus rapide</p>
+  <p style="color:#166534;margin:0;font-size:14px">CVAdapt analyse automatiquement l'offre et réécrit ton CV avec les bons mots-clés ATS en 30 secondes. Score ATS garanti 85+. Essai gratuit sans CB.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0">
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:16px;text-align:center">
+    <div style="font-size:28px;font-weight:900;color:#ef4444;margin-bottom:4px">34</div>
+    <div style="font-size:12px;color:#dc2626;font-weight:600">Score ATS moyen<br/>sans optimisation</div>
+  </div>
+  <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px;text-align:center">
+    <div style="font-size:28px;font-weight:900;color:#16a34a;margin-bottom:4px">91</div>
+    <div style="font-size:12px;color:#15803d;font-weight:600">Score ATS avec<br/>CVAdapt</div>
+  </div>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/analyse" style="display:inline-block;background:#2563eb;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">🎯 Optimiser mon CV gratuitement →</a>
+</div>
+    `,
+  },
+  {
     slug: "cv-candidature-spontanee",
     titre: "CV candidature spontanée 2025 : comment rédiger un CV qui obtient des réponses",
     description: "Une candidature spontanée bien rédigée obtient 3× plus de réponses qu'une réponse à une offre. Ce guide te montre exactement comment structurer ton CV et ton message pour décrocher un entretien.",

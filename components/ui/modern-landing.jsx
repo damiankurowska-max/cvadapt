@@ -615,6 +615,45 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
         </div>
       </section>
 
+      {/* ── GUIDES & RESSOURCES ─────────────────────────────────────────────── */}
+      <section style={{ padding: "80px 40px", background: C.bg }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: C.blue, marginBottom: 12 }}>Nos guides</div>
+            <h2 style={{ fontSize: "clamp(26px, 3.5vw, 38px)", fontWeight: 900, color: C.navy, letterSpacing: "-0.5px", marginBottom: 12 }}>
+              Tout ce qu'il faut savoir pour décrocher un entretien
+            </h2>
+            <p style={{ fontSize: 16, color: C.slate, maxWidth: 520, margin: "0 auto" }}>Guides rédigés par des recruteurs. Lus par +12 000 étudiants.</p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 20 }}>
+            {[
+              { href: "/blog/comment-optimiser-son-cv", icon: "🎯", cat: "Guide essentiel", title: "Comment optimiser son CV en 2025", desc: "Le guide complet pour passer les filtres ATS et ×3 tes réponses." },
+              { href: "/blog/cv-ats-passer-les-filtres-automatiques", icon: "🤖", cat: "ATS & Mots-clés", title: "CV ATS : passer les filtres automatiques", desc: "5 règles vérifiées sur +1 000 candidatures réelles." },
+              { href: "/blog/comment-faire-un-cv-en-2025", icon: "📄", cat: "Bases du CV", title: "Faire un CV qui attire les recruteurs", desc: "Structure, formulations, et les erreurs à ne pas commettre." },
+              { href: "/blog/cv-alternance-2025", icon: "🎓", cat: "Alternance", title: "CV alternance 2025 : le modèle qui fonctionne", desc: "Comment présenter ton profil étudiant pour convaincre en alternance." },
+              { href: "/blog/lettre-motivation-efficace-2025", icon: "✉️", cat: "Lettre de motivation", title: "Lettre de motivation percutante en 2025", desc: "La structure en 3 paragraphes que lisent vraiment les recruteurs." },
+              { href: "/blog/erreurs-cv-qui-font-rejeter", icon: "❌", cat: "Erreurs à éviter", title: "Les erreurs CV qui font rejeter en 10 secondes", desc: "Les fautes les plus fréquentes — et comment les corriger rapidement." },
+            ].map(({ href, icon, cat, title, desc }) => (
+              <a key={href} href={href} style={{ display: "block", background: C.bg, border: `1px solid ${C.border}`, borderRadius: 16, padding: "20px 22px", textDecoration: "none", transition: "box-shadow 0.2s, border-color 0.2s" }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow = C.shadow; e.currentTarget.style.borderColor = "#BFDBFE"; }}
+                onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = C.border; }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                  <span style={{ fontSize: 20 }}>{icon}</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: C.blue, textTransform: "uppercase", letterSpacing: "0.08em" }}>{cat}</span>
+                </div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: C.navy, marginBottom: 8, lineHeight: 1.4 }}>{title}</div>
+                <div style={{ fontSize: 13, color: C.slate, lineHeight: 1.6 }}>{desc}</div>
+              </a>
+            ))}
+          </div>
+
+          <div style={{ textAlign: "center", marginTop: 36 }}>
+            <a href="/blog" style={{ fontSize: 14, fontWeight: 600, color: C.blue, textDecoration: "none" }}>Voir tous les guides →</a>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA FINAL ────────────────────────────────────────────────────────── */}
       <section style={{ padding: "100px 40px", background: C.blueLight, position: "relative", overflow: "hidden" }}>
         {/* Glow décoratif très subtil */}
