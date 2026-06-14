@@ -271,12 +271,12 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
         <div className="hero-left" style={{ display: "flex", flexDirection: "column", gap: 0, position: "relative", zIndex: 1 }}>
           {/* Badges hero */}
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 24 }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: C.amberLight, border: `1px solid ${C.amber}`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: "#92400E" }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.amber, display: "inline-block", animation: "heroPulse 2s ease-in-out infinite" }} />
-              87 CV optimisés aujourd'hui
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: C.blueLight, border: `1px solid #BFDBFE`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.blue }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.blue, display: "inline-block", animation: "heroPulse 2s ease-in-out infinite" }} />
+              Outil IA adapté au marché français
             </div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 14px", background: C.greenLight, border: `1px solid #A7F3D0`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: "#065F46" }}>
-              ×3 réponses en moyenne
+              3 CV gratuits · Sans CB
             </div>
           </div>
 
@@ -293,10 +293,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
             <a href="/generate" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 28px", background: C.blue, color: "#fff", borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.35)", transition: "transform 0.2s ease" }}>
-              Démarrer mon accompagnement — Gratuit 🚀
-            </a>
-            <a href="#steps" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 22px", background: C.bg, color: C.navy, borderRadius: 12, fontSize: 15, fontWeight: 600, textDecoration: "none", border: `2px solid ${C.border}` }}>
-              À quel point c'est essentiel ?
+              Générer mon CV gratuit →
             </a>
           </div>
 
@@ -309,9 +306,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
               ))}
             </div>
             <span style={{ fontSize: 14, color: C.slate }}>
-              <strong style={{ color: C.navy }}>4 200+ étudiants</strong> · ⭐ 4,9/5
-            </span>
-            <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB</span>
+              <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB</span>
             <span style={{ fontSize: 12, color: C.slateLight }}>✓ 3 CV gratuits</span>
           </div>
         </div>
@@ -359,7 +354,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
               COMMENT ÇA MARCHE
             </div>
             <h2 style={{ fontSize: "clamp(30px,4vw,50px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 12 }}>
-              Ton accompagnement.<br />
+              Comment ça marche.<br />
               <span style={{ color: C.slateLight }}>Trois étapes. Zéro prise de tête.</span>
             </h2>
             <p style={{ fontSize: 16, color: C.slate, maxWidth: 440, margin: "0 auto" }}>
@@ -664,7 +659,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
           {/* Badge */}
           <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "6px 16px", background: C.bg, border: `1px solid ${C.border}`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.blue, marginBottom: 28, boxShadow: C.shadow }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.green, display: "inline-block" }} />
-            4 200+ candidats ont déjà optimisé leur CV
+            Outil CV IA — marché français
           </div>
 
           {/* Titre */}
@@ -679,7 +674,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
 
           {/* CTA + social proof */}
           <a href="/generate" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "17px 40px", background: C.blue, color: "#fff", borderRadius: 14, fontSize: 17, fontWeight: 800, textDecoration: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.35), 0 1px 4px rgba(37,99,235,0.2)", letterSpacing: "-0.2px", marginBottom: 16 }}>
-            Démarrer mon accompagnement — Gratuit 🚀
+            Générer mon CV gratuit →
           </a>
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: 56, flexWrap: "wrap" }}>
@@ -693,7 +688,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
             <div style={{ display: "flex", gap: 1 }}>
               {[...Array(5)].map((_,i) => <span key={i} style={{ color: C.amber, fontSize: 12 }}>★</span>)}
             </div>
-            <span style={{ fontSize: 13, color: C.slateLight }}>4,9/5 · Sans CB · 3 CV gratuits</span>
+            <span style={{ fontSize: 13, color: C.slateLight }}>Sans CB · 3 CV gratuits</span>
           </div>
 
           {/* Newsletter — card dans le thème */}
@@ -702,7 +697,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
               Conseils CV chaque semaine
             </p>
             <p style={{ fontSize: 13, color: C.slateLight, marginBottom: 20 }}>
-              Rejoins 4 200 candidats déjà abonnés. Sans spam.
+              Des conseils CV chaque semaine. Sans spam.
             </p>
             {emailStatus === "success" ? (
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, color: C.green, fontWeight: 700, fontSize: 15 }}>
