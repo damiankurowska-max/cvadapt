@@ -1209,6 +1209,39 @@ export default function Generate() {
                         ))}
                       </ul>
                     </div>
+
+                    {/* Bannière retry — score < 60 */}
+                    {atsData.score < 60 && atsData.keywords_missing?.length > 0 && (
+                      <div style={{ marginTop: 20, background: "linear-gradient(135deg,#eff6ff,#eef2ff)", border: "2px solid #bfdbfe", borderRadius: 16, padding: "20px 20px 18px" }}>
+                        <div style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 14 }}>
+                          <span style={{ fontSize: 22, flexShrink: 0 }}>💡</span>
+                          <div>
+                            <p style={{ fontWeight: 800, color: "#1e3a8a", fontSize: 15, marginBottom: 4 }}>
+                              {lang === "en" ? "Your score can easily reach 85+" : "Ton score peut monter à 85+ facilement"}
+                            </p>
+                            <p style={{ color: "#3b82f6", fontSize: 13 }}>
+                              {lang === "en"
+                                ? "Add these missing keywords to your profile and regenerate your CV:"
+                                : "Ajoute ces mots-clés manquants à ton profil et regénère ton CV :"}
+                            </p>
+                          </div>
+                        </div>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+                          {atsData.keywords_missing?.slice(0, 5).map((kw, i) => (
+                            <span key={i} style={{ background: "#fff", border: "2px solid #93c5fd", color: "#1d4ed8", fontSize: 12, fontWeight: 700, padding: "5px 12px", borderRadius: 999 }}>
+                              + {kw}
+                            </span>
+                          ))}
+                        </div>
+                        <button
+                          onClick={() => { setCv(""); setLm(""); setAtsData(null); setWizardStep(2); }}
+                          style={{ width: "100%", background: "linear-gradient(135deg,#2563eb,#1d4ed8)", color: "#fff", fontWeight: 700, fontSize: 14, padding: "13px", borderRadius: 10, border: "none", cursor: "pointer", boxShadow: "0 4px 16px rgba(29,78,216,0.35)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+                        >
+                          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M12 2v3.5H8.5M3 13v-3.5H6.5M12 5.5A6 6 0 0 0 3 9.5M3 9.5a6 6 0 0 0 9 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          {lang === "en" ? "Update my profile → Regenerate" : "Améliorer mon profil → Regénérer"}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div className="p-16 text-center text-gray-400">
