@@ -477,7 +477,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
             <h2 style={{ fontSize: "clamp(28px,4vw,46px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 10 }}>
               Ils ont décroché leur poste.
             </h2>
-            <p style={{ fontSize: 15, color: C.slateLight }}>4 200 candidats · Note moyenne 4,9/5</p>
+            <p style={{ fontSize: 15, color: C.slateLight }}>Premiers résultats de nos testeurs</p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
@@ -558,7 +558,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
                 ))}
               </ul>
               <a href="/tarifs" style={{ display: "block", textAlign: "center", padding: "12px", background: "#fff", color: C.blue, borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: "none" }}>
-                Démarrer l'accompagnement
+                Commencer pour 4,99€/mois →
               </a>
               <p style={{ textAlign: "center", fontSize: 11, color: "rgba(255,255,255,0.45)", marginTop: 10 }}>Satisfait ou remboursé · 7 jours</p>
             </div>
@@ -579,7 +579,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
                 ))}
               </ul>
               <a href="/tarifs" style={{ display: "block", textAlign: "center", padding: "12px", border: `2px solid ${C.navy}`, color: C.navy, borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: "none" }}>
-                Démarrer l'accompagnement
+                Commencer pour 9,99€/mois →
               </a>
             </div>
           </div>
