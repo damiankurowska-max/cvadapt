@@ -305,8 +305,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
                 </div>
               ))}
             </div>
-            <span style={{ fontSize: 14, color: C.slate }}>
-              <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB</span>
+            <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB</span>
             <span style={{ fontSize: 12, color: C.slateLight }}>✓ 3 CV gratuits</span>
           </div>
         </div>
