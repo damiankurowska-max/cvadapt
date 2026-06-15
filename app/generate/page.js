@@ -447,23 +447,20 @@ export default function Generate() {
   const offrePreview = form.offre.split("\n").slice(0, 4).join("\n").substring(0, 200);
 
   return (
-    <main className="min-h-screen" style={{ background: "#f7f9fc" }}>
-      {/* Modal upgrade limite 3 CV */}
+    <main className="min-h-screen" style={{ background: "linear-gradient(145deg,#eef2ff 0%,#fafbff 55%,#f5f0ff 100%)" }}>
+      <style>{`
+        @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes spin { to{transform:rotate(360deg)} }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.55} }
+        .step-card { animation: fadeUp 0.38s cubic-bezier(.22,.8,.4,1) both; }
+        .gen-field { width:100%;border:2px solid #e8eaf6;border-radius:14px;padding:13px 16px;outline:none;font-size:15px;color:#1e1b4b;background:#fafbff;font-family:inherit;box-sizing:border-box;transition:border-color 0.18s,box-shadow 0.18s; }
+        .gen-field:focus { border-color:#6366f1;background:#fff;box-shadow:0 0 0 4px rgba(99,102,241,0.10); }
+        .gen-field::placeholder { color:#a5b4fc; }
+      `}</style>
+
       {showUpgradeModal && <UpgradeModal onClose={() => setShowUpgradeModal(false)} />}
-
-      {/* Modal upsell post-génération (1er CV) */}
-      <PostGenerationUpsell
-        show={showPostGenUpsell}
-        isPro={isPro}
-        onClose={() => setShowPostGenUpsell(false)}
-      />
-
-      {/* Popup parrainage (2ème CV) */}
-      <ReferralPopup
-        show={showReferralPopup}
-        onClose={() => setShowReferralPopup(false)}
-        userId={user?.id}
-      />
+      <PostGenerationUpsell show={showPostGenUpsell} isPro={isPro} onClose={() => setShowPostGenUpsell(false)} />
+      <ReferralPopup show={showReferralPopup} onClose={() => setShowReferralPopup(false)} userId={user?.id} />
 
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between gap-2">
@@ -566,296 +563,256 @@ export default function Generate() {
         </div>
       )}
 
-      <div className="max-w-xl mx-auto px-4 py-10">
+      <div style={{ maxWidth: 580, margin: "0 auto", padding: "32px 16px 80px" }}>
         {!cv ? (
           <>
-            {/* Banners upsell — toujours visibles en haut */}
+            {/* Banners limite */}
             {!isPro && cvCount >= CV_LIMIT && (
-              <div style={{ background: "#fffbeb", border: "1px solid #fcd34d", borderRadius: 12, padding: "14px 18px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                <p style={{ color: "#92400e", fontSize: 14, fontWeight: 500 }}>{tr(lang, "limit3")}</p>
-                <Link href="/tarifs" style={{ background: "#2563eb", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>
-                  {tr(lang, "viewPlans")}
-                </Link>
+              <div style={{ background: "#fff7ed", border: "1.5px solid #fed7aa", borderRadius: 14, padding: "14px 18px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                <p style={{ color: "#9a3412", fontSize: 14, fontWeight: 600 }}>{tr(lang, "limit3")}</p>
+                <Link href="/tarifs" style={{ background: "linear-gradient(135deg,#f97316,#ea580c)", color: "#fff", padding: "8px 16px", borderRadius: 10, fontSize: 13, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>{tr(lang, "viewPlans")}</Link>
               </div>
             )}
             {isPro && plan === "essentiel" && cvMonthCount >= 15 && (
-              <div style={{ background: "#fffbeb", border: "1px solid #fcd34d", borderRadius: 12, padding: "14px 18px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                <p style={{ color: "#92400e", fontSize: 14, fontWeight: 500 }}>{tr(lang, "limit15")}</p>
-                <Link href="/tarifs" style={{ background: "#2563eb", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>
-                  {tr(lang, "upgradeToPro")}
-                </Link>
+              <div style={{ background: "#fff7ed", border: "1.5px solid #fed7aa", borderRadius: 14, padding: "14px 18px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                <p style={{ color: "#9a3412", fontSize: 14, fontWeight: 600 }}>{tr(lang, "limit15")}</p>
+                <Link href="/tarifs" style={{ background: "linear-gradient(135deg,#f97316,#ea580c)", color: "#fff", padding: "8px 16px", borderRadius: 10, fontSize: 13, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>{tr(lang, "upgradeToPro")}</Link>
               </div>
             )}
 
-            {/* Barre de progression */}
-            <div style={{ marginBottom: 32 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+            {/* ── PROGRESS CALI ── */}
+            <div style={{ marginBottom: 36 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
                 {[
                   { n: 1, label: tr(lang, "step1") },
                   { n: 2, label: tr(lang, "step2") },
                   { n: 3, label: tr(lang, "step3") },
-                ].map((s) => (
-                  <div key={s.n} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <div style={{
-                      width: 24, height: 24, borderRadius: "50%", flexShrink: 0,
-                      background: wizardStep > s.n ? "#2563eb" : wizardStep === s.n ? "#2563eb" : "#e5e7eb",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: wizardStep > s.n ? 12 : 11, fontWeight: 800,
-                      color: wizardStep >= s.n ? "#fff" : "#9ca3af",
-                      transition: "background 0.3s",
-                    }}>
-                      {wizardStep > s.n ? "✓" : s.n}
+                ].map((s, i) => {
+                  const done = wizardStep > s.n;
+                  const active = wizardStep === s.n;
+                  return (
+                    <div key={s.n} style={{ display: "flex", alignItems: "center", flex: i < 2 ? 1 : "none" }}>
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+                        <div style={{
+                          width: 36, height: 36, borderRadius: "50%", flexShrink: 0,
+                          background: done ? "linear-gradient(135deg,#6366f1,#4f46e5)" : active ? "linear-gradient(135deg,#818cf8,#6366f1)" : "rgba(99,102,241,0.08)",
+                          border: active ? "none" : done ? "none" : "2px solid rgba(99,102,241,0.2)",
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          fontSize: done ? 14 : 13, fontWeight: 800,
+                          color: done || active ? "#fff" : "#a5b4fc",
+                          boxShadow: active ? "0 0 0 6px rgba(99,102,241,0.15), 0 4px 16px rgba(99,102,241,0.3)" : "none",
+                          transition: "all 0.3s",
+                        }}>
+                          {done ? "✓" : s.n}
+                        </div>
+                        <span style={{ fontSize: 11, fontWeight: active ? 700 : 500, color: active ? "#4f46e5" : done ? "#6366f1" : "#94a3b8", whiteSpace: "nowrap" }}>{s.label}</span>
+                      </div>
+                      {i < 2 && (
+                        <div style={{ flex: 1, height: 2, background: "rgba(99,102,241,0.12)", borderRadius: 2, margin: "0 8px", marginBottom: 18, overflow: "hidden" }}>
+                          <div style={{ height: "100%", width: done ? "100%" : "0%", background: "linear-gradient(90deg,#6366f1,#818cf8)", transition: "width 0.4s ease", borderRadius: 2 }} />
+                        </div>
+                      )}
                     </div>
-                    <span style={{ fontSize: 12, fontWeight: wizardStep >= s.n ? 700 : 500, color: wizardStep >= s.n ? "#0f172a" : "#9ca3af" }}>{s.label}</span>
-                  </div>
-                ))}
-              </div>
-              <div style={{ height: 3, background: "#e5e7eb", borderRadius: 4, overflow: "hidden" }}>
-                <div style={{
-                  height: "100%",
-                  width: wizardStep === 1 ? "0%" : wizardStep === 2 ? "50%" : "100%",
-                  background: "linear-gradient(90deg, #2563eb, #60a5fa)",
-                  borderRadius: 4, transition: "width 0.4s ease",
-                }} />
+                  );
+                })}
               </div>
             </div>
 
-            {/* Step 1 — L'offre */}
+            {/* ── STEP 1 ── */}
             {wizardStep === 1 && (
-              <div>
-                {/* ATS insight card */}
-                <div style={{ background: "linear-gradient(135deg, #eff6ff, #eef2ff)", border: "1px solid #bfdbfe", borderRadius: 14, padding: "16px 18px", marginBottom: 18, display: "flex", alignItems: "center", gap: 14 }}>
-                  <div style={{ width: 44, height: 44, background: "linear-gradient(135deg, #2563eb, #1d4ed8)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 20 }}>
-                    🔍
+              <div className="step-card">
+                {/* Headline impact */}
+                <div style={{ textAlign: "center", marginBottom: 28 }}>
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.15)", borderRadius: 999, padding: "5px 14px", fontSize: 12, fontWeight: 700, color: "#6366f1", marginBottom: 14 }}>
+                    ⚡ {lang === "en" ? "30s to a perfect CV" : "30 secondes pour un CV parfait"}
                   </div>
+                  <h1 style={{ fontSize: "clamp(24px,5vw,32px)", fontWeight: 900, color: "#1e1b4b", letterSpacing: "-0.03em", marginBottom: 8, lineHeight: 1.15 }}>
+                    {tr(lang, "step1Title")}
+                  </h1>
+                  <p style={{ fontSize: 15, color: "#64748b", lineHeight: 1.6, maxWidth: 400, margin: "0 auto" }}>{tr(lang, "step1Subtitle")}</p>
+                </div>
+
+                {/* ATS card */}
+                <div style={{ background: "linear-gradient(135deg,#eef2ff,#f0fdf4)", border: "1.5px solid rgba(99,102,241,0.18)", borderRadius: 18, padding: "18px 20px", marginBottom: 20, display: "flex", alignItems: "center", gap: 16 }}>
+                  <div style={{ width: 48, height: 48, background: "linear-gradient(135deg,#6366f1,#4f46e5)", borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 22, boxShadow: "0 4px 16px rgba(99,102,241,0.3)" }}>🔍</div>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 800, color: "#1e40af", marginBottom: 2 }}>
+                    <p style={{ fontSize: 14, fontWeight: 800, color: "#312e81", marginBottom: 3 }}>
                       {lang === "en" ? "75% of CVs filtered before being read" : "75% des CV filtrés avant d'être lus"}
                     </p>
-                    <p style={{ fontSize: 13, color: "#3b82f6", lineHeight: 1.5 }}>
-                      {lang === "en" ? "CVAdapt detects the exact keywords this ATS filter is looking for." : "CVAdapt détecte les mots-clés exacts que le filtre ATS recherche dans cette offre."}
+                    <p style={{ fontSize: 13, color: "#6366f1", lineHeight: 1.5 }}>
+                      {lang === "en" ? "CVAdapt detects the exact keywords the ATS is looking for." : "CVAdapt détecte les mots-clés exacts que le filtre ATS recherche."}
                     </p>
                   </div>
                 </div>
 
-                <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 2px 16px rgba(0,0,0,0.05)", padding: "28px 28px 24px" }}>
-                  <h1 style={{ fontSize: 21, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step1Title")}</h1>
-                  <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 20 }}>{tr(lang, "step1Subtitle")}</p>
-
+                {/* Card textarea */}
+                <div style={{ background: "#fff", borderRadius: 20, border: "1.5px solid rgba(99,102,241,0.12)", boxShadow: "0 8px 40px rgba(99,102,241,0.08)", padding: "24px" }}>
                   {detectedLang && (
                     <div style={{ marginBottom: 12 }}>
-                      <span style={{ fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 999, background: detectedLang === "en" ? "#dbeafe" : "#dcfce7", color: detectedLang === "en" ? "#1d4ed8" : "#15803d" }}>
+                      <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 999, background: detectedLang === "en" ? "#dbeafe" : "#dcfce7", color: detectedLang === "en" ? "#1d4ed8" : "#15803d" }}>
                         {detectedLang === "en" ? "🇺🇸 English detected → CV in English" : "🇫🇷 Français détecté → CV en français"}
                       </span>
                     </div>
                   )}
-
                   <textarea
-                    name="offre"
-                    value={form.offre}
-                    onChange={handleChange}
-                    rows={11}
+                    name="offre" value={form.offre} onChange={handleChange}
+                    rows={10}
                     placeholder={tr(lang, "jobOfferPlaceholder")}
-                    style={{
-                      width: "100%", border: "1.5px solid " + (form.offre.length > 0 ? "#bfdbfe" : "#e5e7eb"),
-                      borderRadius: 12, padding: "14px 16px", outline: "none",
-                      fontSize: 14, color: "#0f172a", background: "#fafafa",
-                      resize: "none", lineHeight: 1.6, fontFamily: "inherit",
-                      boxSizing: "border-box", transition: "border-color 0.15s, box-shadow 0.15s",
-                    }}
-                    onFocus={e => { e.target.style.borderColor = "#2563eb"; e.target.style.background = "#fff"; e.target.style.boxShadow = "0 0 0 3px rgba(37,99,235,0.1)"; }}
-                    onBlur={e => { e.target.style.borderColor = form.offre.length > 0 ? "#bfdbfe" : "#e5e7eb"; e.target.style.background = "#fafafa"; e.target.style.boxShadow = "none"; }}
+                    className="gen-field"
+                    style={{ resize: "none", lineHeight: 1.65, display: "block" }}
                   />
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, marginBottom: 24 }}>
-                    <p style={{ fontSize: 11, color: "#9ca3af" }}>
-                      {lang === "en" ? "More complete = better CV" : "Plus l'annonce est complète, meilleur sera le résultat"}
-                    </p>
-                    <p style={{ fontSize: 11, color: form.offre.length > 0 ? "#2563eb" : "#9ca3af" }}>{form.offre.length} {lang === "en" ? "chars" : "car."}</p>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 10, marginBottom: 20 }}>
+                    <p style={{ fontSize: 12, color: "#94a3b8" }}>{lang === "en" ? "More complete = better result" : "Plus l'annonce est complète, meilleur le résultat"}</p>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: form.offre.length > 100 ? "#6366f1" : "#cbd5e1", background: form.offre.length > 100 ? "rgba(99,102,241,0.08)" : "transparent", padding: "2px 8px", borderRadius: 999 }}>
+                      {form.offre.length} {lang === "en" ? "chars" : "car."}
+                    </span>
                   </div>
-
-                  <button
-                    type="button"
-                    onClick={() => setWizardStep(2)}
-                    disabled={!isStep1Valid}
+                  <button type="button" onClick={() => setWizardStep(2)} disabled={!isStep1Valid}
                     style={{
-                      width: "100%", padding: "15px", borderRadius: 12, border: "none",
+                      width: "100%", padding: "16px", borderRadius: 14, border: "none",
                       cursor: isStep1Valid ? "pointer" : "not-allowed",
-                      background: isStep1Valid ? "linear-gradient(135deg, #2563eb, #1d4ed8)" : "#e5e7eb",
-                      color: isStep1Valid ? "#fff" : "#9ca3af",
-                      fontSize: 15, fontWeight: 800, letterSpacing: "-0.01em",
-                      boxShadow: isStep1Valid ? "0 4px 24px rgba(29,78,216,0.38)" : "none",
-                      transition: "all 0.2s",
-                      display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                    }}
-                  >
+                      background: isStep1Valid ? "linear-gradient(135deg,#6366f1,#4f46e5)" : "#e2e8f0",
+                      color: isStep1Valid ? "#fff" : "#94a3b8",
+                      fontSize: 16, fontWeight: 800, letterSpacing: "-0.02em",
+                      boxShadow: isStep1Valid ? "0 6px 28px rgba(99,102,241,0.38)" : "none",
+                      transition: "all 0.25s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
+                    }}>
                     {tr(lang, "continueBtn")}
-                    <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </button>
                 </div>
               </div>
             )}
 
-            {/* Step 2 — Profil */}
+            {/* ── STEP 2 ── */}
             {wizardStep === 2 && (
-              <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 2px 16px rgba(0,0,0,0.05)", padding: "28px 28px 24px" }}>
-                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step2Title")}</h1>
-                <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>{tr(lang, "step2Subtitle")}</p>
+              <div className="step-card" style={{ background: "#fff", borderRadius: 20, border: "1.5px solid rgba(99,102,241,0.12)", boxShadow: "0 8px 40px rgba(99,102,241,0.08)", padding: "28px 24px" }}>
+                <h1 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "#1e1b4b", marginBottom: 6, letterSpacing: "-0.03em" }}>{tr(lang, "step2Title")}</h1>
+                <p style={{ fontSize: 14, color: "#64748b", marginBottom: 24, lineHeight: 1.6 }}>{tr(lang, "step2Subtitle")}</p>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 18, marginBottom: 24 }}>
-                  {/* Photo upload */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  {/* Photo */}
+                  <div style={{ display: "flex", alignItems: "center", gap: 16, background: "rgba(99,102,241,0.04)", border: "1.5px dashed rgba(99,102,241,0.2)", borderRadius: 14, padding: "14px 16px" }}>
+                    <div onClick={() => photoInputRef.current?.click()}
+                      style={{ width: 64, height: 64, borderRadius: "50%", cursor: "pointer", flexShrink: 0, border: photo ? "2.5px solid #6366f1" : "2px dashed #c7d2fe", background: photo ? "transparent" : "#f0f0ff", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>
+                      {photo
+                        ? <img src={photo} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
+                        : <svg width="22" height="22" fill="none" stroke="#a5b4fc" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 0 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="13" r="4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      }
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "#4f46e5", marginBottom: 2 }}>{tr(lang, "photo")} <span style={{ fontWeight: 400, color: "#94a3b8", fontSize: 11 }}>· {tr(lang, "photoHint")}</span></p>
+                      <button type="button" onClick={() => photoInputRef.current?.click()}
+                        style={{ fontSize: 13, color: "#6366f1", fontWeight: 600, background: "none", border: "none", cursor: "pointer", padding: 0, textDecoration: "underline" }}>
+                        {photo ? tr(lang, "changePhoto") : tr(lang, "addPhoto")}
+                      </button>
+                      {photo && <button type="button" onClick={() => setPhoto(null)} style={{ fontSize: 11, color: "#ef4444", background: "none", border: "none", cursor: "pointer", padding: "0 0 0 8px" }}>{tr(lang, "deletePhoto")}</button>}
+                      <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 2 }}>JPG, PNG · max 3 Mo</p>
+                    </div>
+                    <input ref={photoInputRef} type="file" accept="image/jpeg,image/png,image/webp" style={{ display: "none" }} onChange={handlePhotoChange} />
+                  </div>
+
+                  {/* Nom complet */}
                   <div>
-                    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 7 }}>
-                      <p style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>{tr(lang, "photo")}</p>
-                      <p style={{ fontSize: 11, color: "#9ca3af" }}>{tr(lang, "photoHint")}</p>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>
+                      {tr(lang, "fullName")} <span style={{ color: "#ef4444" }}>*</span>
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang === "en" ? "Resume header" : "En-tête du CV"}</span>
+                    </label>
+                    <input type="text" name="nom" value={form.nom} onChange={handleChange} placeholder={tr(lang, "fullNamePlaceholder")} className="gen-field" />
+                  </div>
+
+                  {/* Email + Téléphone */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    <div>
+                      <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>{tr(lang, "email")}</label>
+                      <input type="email" name="email" value={form.email} onChange={handleChange} placeholder={tr(lang, "emailPlaceholder")} className="gen-field" style={{ fontSize: 13 }} />
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                      <div
-                        onClick={() => photoInputRef.current?.click()}
-                        style={{
-                          width: 68, height: 68, borderRadius: "50%", cursor: "pointer", flexShrink: 0,
-                          border: photo ? "2px solid #2563eb" : "2px dashed #d1d5db",
-                          background: photo ? "transparent" : "#f9fafb",
-                          overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center",
-                          transition: "border-color 0.15s",
-                        }}
-                      >
-                        {photo ? (
-                          <img src={photo} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
-                        ) : (
-                          <svg width="22" height="22" fill="none" stroke="#9ca3af" strokeWidth="1.5" viewBox="0 0 24 24">
-                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 0 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" strokeLinecap="round" strokeLinejoin="round"/>
-                            <circle cx="12" cy="13" r="4" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        )}
-                      </div>
-                      <div>
-                        <button type="button" onClick={() => photoInputRef.current?.click()}
-                          style={{ fontSize: 13, color: "#2563eb", fontWeight: 600, background: "none", border: "none", cursor: "pointer", padding: 0, display: "block" }}>
-                          {photo ? tr(lang, "changePhoto") : tr(lang, "addPhoto")}
-                        </button>
-                        <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 3 }}>JPG, PNG · max 3 Mo</p>
-                        {photo && (
-                          <button type="button" onClick={() => setPhoto(null)}
-                            style={{ fontSize: 11, color: "#ef4444", background: "none", border: "none", cursor: "pointer", padding: 0, marginTop: 3 }}>
-                            {tr(lang, "deletePhoto")}
-                          </button>
-                        )}
-                      </div>
-                      <input ref={photoInputRef} type="file" accept="image/jpeg,image/png,image/webp" style={{ display: "none" }} onChange={handlePhotoChange} />
+                    <div>
+                      <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>{tr(lang, "phone")}</label>
+                      <input type="tel" name="telephone" value={form.telephone} onChange={handleChange} placeholder={tr(lang, "phonePlaceholder")} className="gen-field" style={{ fontSize: 13 }} />
                     </div>
                   </div>
 
-                  <FieldGroup label={tr(lang, "fullName")} hint={lang === "en" ? "Displayed in resume header" : "Affiché en en-tête du CV"}>
-                    <input
-                      type="text" name="nom" value={form.nom} onChange={handleChange}
-                      placeholder={tr(lang, "fullNamePlaceholder")}
-                      style={inputStyle}
-                      onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
-                      onBlur={e => Object.assign(e.target.style, inputStyle)}
-                    />
-                  </FieldGroup>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <FieldGroup label={tr(lang, "email")} hint={tr(lang, "emailHint")}>
-                      <input
-                        type="email" name="email" value={form.email} onChange={handleChange}
-                        placeholder={tr(lang, "emailPlaceholder")}
-                        style={inputStyle}
-                        onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
-                        onBlur={e => Object.assign(e.target.style, inputStyle)}
-                      />
-                    </FieldGroup>
-                    <FieldGroup label={tr(lang, "phone")} hint={tr(lang, "phoneHint")}>
-                      <input
-                        type="tel" name="telephone" value={form.telephone} onChange={handleChange}
-                        placeholder={tr(lang, "phonePlaceholder")}
-                        style={inputStyle}
-                        onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
-                        onBlur={e => Object.assign(e.target.style, inputStyle)}
-                      />
-                    </FieldGroup>
+                  {/* Expérience */}
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 5 }}>
+                      {tr(lang, "experience")} <span style={{ color: "#ef4444" }}>*</span>
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "experienceHint")}</span>
+                    </label>
+                    <textarea name="experience" value={form.experience} onChange={handleChange} rows={4} placeholder={tr(lang, "experiencePlaceholder")} className="gen-field" style={{ resize: "none", lineHeight: 1.6, display: "block" }} />
                   </div>
-                  <FieldGroup label={tr(lang, "experience")} hint={tr(lang, "experienceHint")}>
-                    <textarea
-                      name="experience" value={form.experience} onChange={handleChange}
-                      rows={4} placeholder={tr(lang, "experiencePlaceholder")}
-                      style={{ ...inputStyle, resize: "none", lineHeight: 1.6 }}
-                      onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
-                      onBlur={e => Object.assign(e.target.style, inputStyle)}
-                    />
-                  </FieldGroup>
-                  <FieldGroup label={tr(lang, "skills")} hint={tr(lang, "skillsHint")}>
-                    <input
-                      type="text" name="competences" value={form.competences} onChange={handleChange}
-                      placeholder={tr(lang, "skillsPlaceholder")}
-                      style={inputStyle}
-                      onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
-                      onBlur={e => Object.assign(e.target.style, inputStyle)}
-                    />
-                  </FieldGroup>
-                  <FieldGroup label={tr(lang, "education")} hint={tr(lang, "educationHint")}>
-                    <input
-                      type="text" name="formation" value={form.formation} onChange={handleChange}
-                      placeholder={tr(lang, "educationPlaceholder")}
-                      style={inputStyle}
-                      onFocus={e => Object.assign(e.target.style, inputFocusStyle)}
-                      onBlur={e => Object.assign(e.target.style, inputStyle)}
-                    />
-                  </FieldGroup>
+
+                  {/* Compétences */}
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 5 }}>
+                      {tr(lang, "skills")} <span style={{ color: "#ef4444" }}>*</span>
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "skillsHint")}</span>
+                    </label>
+                    <input type="text" name="competences" value={form.competences} onChange={handleChange} placeholder={tr(lang, "skillsPlaceholder")} className="gen-field" />
+                  </div>
+
+                  {/* Formation */}
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 5 }}>
+                      {tr(lang, "education")} <span style={{ color: "#ef4444" }}>*</span>
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "educationHint")}</span>
+                    </label>
+                    <input type="text" name="formation" value={form.formation} onChange={handleChange} placeholder={tr(lang, "educationPlaceholder")} className="gen-field" />
+                  </div>
                 </div>
 
-                <div style={{ display: "flex", gap: 10 }}>
+                <div style={{ display: "flex", gap: 10, marginTop: 24 }}>
                   <button type="button" onClick={() => setWizardStep(1)}
-                    style={{ padding: "13px 18px", borderRadius: 10, border: "1.5px solid #e5e7eb", background: "#fff", color: "#6b7280", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+                    style={{ padding: "13px 18px", borderRadius: 12, border: "1.5px solid #e2e8f0", background: "#fff", color: "#64748b", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 7H3M7 3L3 7l4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     {tr(lang, "back")}
                   </button>
                   <button type="button" onClick={() => setWizardStep(3)} disabled={!isStep2Valid}
                     style={{
-                      flex: 1, padding: "13px", borderRadius: 10, border: "none", cursor: isStep2Valid ? "pointer" : "not-allowed",
-                      background: isStep2Valid ? "linear-gradient(135deg, #2563eb, #1d4ed8)" : "#e5e7eb",
-                      color: isStep2Valid ? "#fff" : "#9ca3af",
-                      fontSize: 15, fontWeight: 700,
-                      boxShadow: isStep2Valid ? "0 4px 20px rgba(29,78,216,0.35)" : "none",
-                      transition: "all 0.2s",
-                      display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                      flex: 1, padding: "14px", borderRadius: 12, border: "none", cursor: isStep2Valid ? "pointer" : "not-allowed",
+                      background: isStep2Valid ? "linear-gradient(135deg,#6366f1,#4f46e5)" : "#e2e8f0",
+                      color: isStep2Valid ? "#fff" : "#94a3b8",
+                      fontSize: 15, fontWeight: 800,
+                      boxShadow: isStep2Valid ? "0 6px 28px rgba(99,102,241,0.35)" : "none",
+                      transition: "all 0.25s", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                     }}>
                     {tr(lang, "continueBtn")}
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </button>
                 </div>
               </div>
             )}
 
-            {/* Step 3 — Design & générer */}
+            {/* ── STEP 3 ── */}
             {wizardStep === 3 && (
-              <form onSubmit={handleSubmit}>
-                <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 2px 16px rgba(0,0,0,0.05)", padding: "28px 28px 24px" }}>
-                  <h1 style={{ fontSize: 21, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step3Title")}</h1>
-                  <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 20 }}>{tr(lang, "step3Subtitle")}</p>
+              <form onSubmit={handleSubmit} className="step-card">
+                <div style={{ background: "#fff", borderRadius: 20, border: "1.5px solid rgba(99,102,241,0.12)", boxShadow: "0 8px 40px rgba(99,102,241,0.08)", padding: "28px 24px" }}>
+                  <h1 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "#1e1b4b", marginBottom: 6, letterSpacing: "-0.03em" }}>{tr(lang, "step3Title")}</h1>
+                  <p style={{ fontSize: 14, color: "#64748b", marginBottom: 20, lineHeight: 1.6 }}>{tr(lang, "step3Subtitle")}</p>
 
-                  {/* Galerie de templates */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
+                  {/* Galerie templates */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 22 }}>
                     {TEMPLATES.map((tmpl) => {
                       const sel = template === tmpl.id;
                       return (
                         <button key={tmpl.id} type="button" onClick={() => setTemplate(tmpl.id)}
                           style={{
-                            position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer",
-                            border: sel ? `2.5px solid ${tmpl.accent}` : "2px solid #e5e7eb",
-                            boxShadow: sel ? `0 0 0 3px ${tmpl.accent}22, 0 4px 16px rgba(0,0,0,0.08)` : "0 1px 4px rgba(0,0,0,0.04)",
+                            position: "relative", borderRadius: 16, overflow: "hidden", cursor: "pointer",
+                            border: sel ? `2.5px solid ${tmpl.accent}` : "2px solid #e8eaf6",
+                            boxShadow: sel ? `0 0 0 4px ${tmpl.accent}18, 0 6px 20px rgba(0,0,0,0.10)` : "0 2px 8px rgba(0,0,0,0.04)",
                             background: "#fff", padding: 0, textAlign: "left",
-                            transition: "border-color 0.15s, box-shadow 0.15s",
+                            transition: "all 0.2s",
                           }}>
                           <div style={{ height: 160, overflow: "hidden" }}>
                             <TemplateMiniPreview tmpl={tmpl} compact />
                           </div>
-                          <div style={{ padding: "10px 12px 11px", background: sel ? tmpl.accent + "0d" : "#fafafa", borderTop: "1px solid " + (sel ? tmpl.accent + "30" : "#f0f0f0") }}>
-                            <p style={{ fontSize: 12, fontWeight: 700, color: sel ? tmpl.accent : "#374151" }}>{tmpl.name}</p>
-                            <p style={{ fontSize: 10.5, color: "#9ca3af", marginTop: 1 }}>{tmpl.desc}</p>
+                          <div style={{ padding: "10px 12px 12px", background: sel ? tmpl.accent + "0a" : "#fafbff", borderTop: "1.5px solid " + (sel ? tmpl.accent + "25" : "#eeefff") }}>
+                            <p style={{ fontSize: 12, fontWeight: 800, color: sel ? tmpl.accent : "#1e1b4b" }}>{tmpl.name}</p>
+                            <p style={{ fontSize: 10.5, color: "#94a3b8", marginTop: 2 }}>{tmpl.desc}</p>
                           </div>
                           {sel && (
-                            <div style={{ position: "absolute", top: 8, right: 8, width: 22, height: 22, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.2)" }}>
-                              <svg width="12" height="12" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            <div style={{ position: "absolute", top: 8, right: 8, width: 24, height: 24, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.25)" }}>
+                              <svg width="12" height="12" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </div>
                           )}
                         </button>
@@ -863,81 +820,64 @@ export default function Generate() {
                     })}
                   </div>
 
-                  {/* Récapitulatif compact */}
+                  {/* Récap */}
                   {(form.nom || offrePreview) && (
-                    <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px", marginBottom: 20, display: "flex", flexDirection: "column", gap: 10 }}>
+                    <div style={{ background: "rgba(99,102,241,0.04)", border: "1.5px solid rgba(99,102,241,0.12)", borderRadius: 14, padding: "14px 16px", marginBottom: 18, display: "flex", flexDirection: "column", gap: 8 }}>
                       {form.nom && (
                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <svg width="14" height="14" fill="none" stroke="#9ca3af" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                          <p style={{ fontSize: 13, fontWeight: 600, color: "#0f172a" }}>{form.nom}</p>
+                          <span style={{ fontSize: 14 }}>👤</span>
+                          <p style={{ fontSize: 13, fontWeight: 700, color: "#1e1b4b" }}>{form.nom}</p>
                         </div>
                       )}
                       {offrePreview && (
                         <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-                          <svg width="14" height="14" fill="none" stroke="#9ca3af" strokeWidth="1.5" viewBox="0 0 24 24" style={{ marginTop: 1, flexShrink: 0 }}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                          <p style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{offrePreview}{form.offre.length > 200 ? "…" : ""}</p>
+                          <span style={{ fontSize: 14, flexShrink: 0 }}>💼</span>
+                          <p style={{ fontSize: 12, color: "#64748b", lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{offrePreview}…</p>
                         </div>
                       )}
                     </div>
                   )}
 
-                  {/* Checkbox lettre de motivation */}
-                  <label style={{
-                    display: "flex", alignItems: "center", gap: 14,
-                    background: "#faf5ff", border: "1.5px solid #e9d5ff",
-                    borderRadius: 12, padding: "14px 16px", cursor: "pointer",
-                    marginBottom: 20, transition: "background 0.15s",
-                  }}>
-                    <input
-                      type="checkbox"
-                      checked={withLM}
-                      onChange={(e) => setWithLM(e.target.checked)}
-                      style={{ width: 16, height: 16, accentColor: "#7c3aed", flexShrink: 0 }}
-                    />
+                  {/* LM toggle */}
+                  <label style={{ display: "flex", alignItems: "center", gap: 14, background: "linear-gradient(135deg,#faf5ff,#f5f0ff)", border: "1.5px solid #ddd6fe", borderRadius: 14, padding: "14px 16px", cursor: "pointer", marginBottom: 20 }}>
+                    <input type="checkbox" checked={withLM} onChange={(e) => setWithLM(e.target.checked)} style={{ width: 17, height: 17, accentColor: "#7c3aed", flexShrink: 0 }} />
                     <div>
-                      <p style={{ fontSize: 14, fontWeight: 700, color: "#5b21b6" }}>{tr(lang, "coverLetterLabel")}</p>
+                      <p style={{ fontSize: 14, fontWeight: 800, color: "#5b21b6" }}>{tr(lang, "coverLetterLabel")}</p>
                       <p style={{ fontSize: 12, color: "#7c3aed", marginTop: 2 }}>{tr(lang, "coverLetterSubtitle")}</p>
                     </div>
                   </label>
 
                   {error && (
-                    <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, padding: "12px 14px", marginBottom: 16 }}>
+                    <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 12, padding: "12px 14px", marginBottom: 16 }}>
                       <p style={{ fontSize: 13, color: "#dc2626" }}>{error}</p>
                     </div>
                   )}
 
                   <div style={{ display: "flex", gap: 10 }}>
-                    <button
-                      type="button"
-                      onClick={() => setWizardStep(2)}
-                      style={{ padding: "13px 18px", borderRadius: 10, border: "1.5px solid #e5e7eb", background: "#fff", color: "#6b7280", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}
-                    >
+                    <button type="button" onClick={() => setWizardStep(2)}
+                      style={{ padding: "14px 18px", borderRadius: 12, border: "1.5px solid #e2e8f0", background: "#fff", color: "#64748b", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 7H3M7 3L3 7l4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       {tr(lang, "back")}
                     </button>
-                    <button
-                      type="submit"
-                      disabled={isGenerateDisabled}
+                    <button type="submit" disabled={isGenerateDisabled}
                       style={{
-                        flex: 1, padding: "14px 20px", borderRadius: 10, border: "none",
+                        flex: 1, padding: "15px 20px", borderRadius: 12, border: "none",
                         cursor: isGenerateDisabled ? "not-allowed" : "pointer",
-                        background: isGenerateDisabled ? "#e5e7eb" : "linear-gradient(135deg, #2563eb, #1d4ed8)",
-                        color: isGenerateDisabled ? "#9ca3af" : "#fff",
-                        fontSize: 15, fontWeight: 700,
-                        boxShadow: isGenerateDisabled ? "none" : "0 4px 20px rgba(29,78,216,0.4)",
-                        transition: "all 0.2s",
-                        display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                      }}
-                    >
+                        background: isGenerateDisabled ? "#e2e8f0" : "linear-gradient(135deg,#6366f1,#4f46e5)",
+                        color: isGenerateDisabled ? "#94a3b8" : "#fff",
+                        fontSize: 15, fontWeight: 800,
+                        boxShadow: isGenerateDisabled ? "none" : "0 6px 28px rgba(99,102,241,0.4)",
+                        transition: "all 0.25s", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                      }}>
                       {loading ? (
                         <>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ animation: "spin 1s linear infinite" }}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="31.4" strokeDashoffset="10"/></svg>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ animation: "spin 0.8s linear infinite" }}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="31.4" strokeDashoffset="10"/></svg>
                           {withLM ? tr(lang, "generateWithLMBtn") : tr(lang, "generatingBtn")}
                         </>
                       ) : (
                         <>
                           {withLM ? tr(lang, "generateBtnWithLM") : tr(lang, "generateBtn")}
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         </>
                       )}
                     </button>
