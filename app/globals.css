@@ -36,3 +36,26 @@ body {
 .testimonials-col:hover > div {
   animation-play-state: paused;
 }
+
+/* ── RESPONSIVE MOBILE ── */
+@media (max-width: 767px) {
+  .cv-nav-links { display: none !important; }
+  .cv-cta-btn { padding: 8px 14px !important; font-size: 13px !important; }
+  .cv-hero { grid-template-columns: 1fr !important; padding: 76px 18px 44px !important; min-height: auto !important; }
+  .cv-hero-h1 { font-size: clamp(28px, 8vw, 38px) !important; letter-spacing: -1px !important; }
+  .cv-hero-p { font-size: 15px !important; margin-bottom: 22px !important; }
+  .cv-badge-chrono { display: none !important; }
+  .cv-mockup-wrap { margin-top: 32px; }
+  .cv-section { padding-left: 18px !important; padding-right: 18px !important; }
+  .cv-py { padding-top: 56px !important; padding-bottom: 56px !important; }
+  .cv-grid-3 { grid-template-columns: 1fr !important; }
+  .cv-grid-2 { grid-template-columns: 1fr !important; }
+  .cv-pricing-featured { margin-top: 0 !important; margin-bottom: 0 !important; }
+  .cv-newsletter-form { flex-direction: column !important; }
+  .cv-footer-inner { flex-direction: column !important; align-items: flex-start !important; }
+  .cv-h2 { font-size: clamp(22px, 7vw, 32px) !important; }
+  .cv-steps-mb { margin-bottom: 36px !important; }
+  .cv-card-pad { padding: 20px !important; }
+  .cv-stat-num { font-size: clamp(34px, 10vw, 50px) !important; }
+  .cv-brands { gap: 8px 20px !important; }
+}

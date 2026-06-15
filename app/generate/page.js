@@ -587,135 +587,117 @@ export default function Generate() {
               </div>
             )}
 
-            {/* Indicateur d'étapes */}
-            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", marginBottom: 32, gap: 0 }}>
-              {[
-                { n: 1, label: tr(lang, "step1") },
-                { n: 2, label: tr(lang, "step2") },
-                { n: 3, label: tr(lang, "step3") },
-              ].map((s, idx) => (
-                <div key={s.n} style={{ display: "flex", alignItems: "flex-start" }}>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            {/* Barre de progression */}
+            <div style={{ marginBottom: 32 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                {[
+                  { n: 1, label: tr(lang, "step1") },
+                  { n: 2, label: tr(lang, "step2") },
+                  { n: 3, label: tr(lang, "step3") },
+                ].map((s) => (
+                  <div key={s.n} style={{ display: "flex", alignItems: "center", gap: 6 }}>
                     <div style={{
-                      width: 36, height: 36, borderRadius: "50%",
-                      background: wizardStep >= s.n ? "#2563eb" : "#f3f4f6",
-                      border: "2px solid " + (wizardStep >= s.n ? "#2563eb" : "#e5e7eb"),
+                      width: 24, height: 24, borderRadius: "50%", flexShrink: 0,
+                      background: wizardStep > s.n ? "#2563eb" : wizardStep === s.n ? "#2563eb" : "#e5e7eb",
                       display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: wizardStep > s.n ? 12 : 11, fontWeight: 800,
                       color: wizardStep >= s.n ? "#fff" : "#9ca3af",
-                      fontSize: wizardStep > s.n ? 16 : 13, fontWeight: 700,
-                      transition: "all 0.25s",
-                      flexShrink: 0,
+                      transition: "background 0.3s",
                     }}>
                       {wizardStep > s.n ? "✓" : s.n}
                     </div>
-                    <p style={{ fontSize: 11, color: wizardStep >= s.n ? "#2563eb" : "#9ca3af", marginTop: 5, fontWeight: 600, whiteSpace: "nowrap" }}>{s.label}</p>
+                    <span style={{ fontSize: 12, fontWeight: wizardStep >= s.n ? 700 : 500, color: wizardStep >= s.n ? "#0f172a" : "#9ca3af" }}>{s.label}</span>
                   </div>
-                  {idx < 2 && (
-                    <div style={{ height: 2, width: 56, background: wizardStep > idx + 1 ? "#2563eb" : "#e5e7eb", marginTop: 17, flexShrink: 0, transition: "background 0.3s", margin: "17px 6px 0" }} />
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
+              <div style={{ height: 3, background: "#e5e7eb", borderRadius: 4, overflow: "hidden" }}>
+                <div style={{
+                  height: "100%",
+                  width: wizardStep === 1 ? "0%" : wizardStep === 2 ? "50%" : "100%",
+                  background: "linear-gradient(90deg, #2563eb, #60a5fa)",
+                  borderRadius: 4, transition: "width 0.4s ease",
+                }} />
+              </div>
             </div>
 
             {/* Step 1 — L'offre */}
             {wizardStep === 1 && (
-              <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 1px 12px rgba(0,0,0,0.06)", padding: "28px 28px 24px" }}>
-                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step1Title")}</h1>
-                <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>{tr(lang, "step1Subtitle")}</p>
-
-                {/* Sélecteur de template */}
-                <div style={{ marginBottom: 24 }}>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 12 }}>{tr(lang, "cvDesign")}</p>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                    {TEMPLATES.map((tmpl) => {
-                      const sel = template === tmpl.id;
-                      return (
-                        <button key={tmpl.id} type="button" onClick={() => setTemplate(tmpl.id)}
-                          style={{
-                            position: "relative", borderRadius: 12, overflow: "hidden", cursor: "pointer",
-                            border: sel ? `2px solid ${tmpl.accent}` : "2px solid #e5e7eb",
-                            boxShadow: sel ? `0 0 0 3px ${tmpl.accent}22` : "none",
-                            background: "#fff", padding: 0, textAlign: "left",
-                            transition: "border-color 0.15s, box-shadow 0.15s",
-                          }}>
-                          {/* CV miniature */}
-                          <TemplateMiniPreview tmpl={tmpl} />
-                          {/* Nom */}
-                          <div style={{ padding: "8px 10px 9px", background: sel ? tmpl.accent + "0f" : "#fff", borderTop: "1px solid " + (sel ? tmpl.accent + "33" : "#f3f4f6") }}>
-                            <p style={{ fontSize: 12, fontWeight: 700, color: sel ? tmpl.accent : "#374151" }}>{tmpl.name}</p>
-                            <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 1 }}>{tmpl.desc}</p>
-                          </div>
-                          {/* Checkmark overlay */}
-                          {sel && (
-                            <div style={{ position: "absolute", top: 7, right: 7, width: 20, height: 20, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                              <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            </div>
-                          )}
-                        </button>
-                      );
-                    })}
+              <div>
+                {/* ATS insight card */}
+                <div style={{ background: "linear-gradient(135deg, #eff6ff, #eef2ff)", border: "1px solid #bfdbfe", borderRadius: 14, padding: "16px 18px", marginBottom: 18, display: "flex", alignItems: "center", gap: 14 }}>
+                  <div style={{ width: 44, height: 44, background: "linear-gradient(135deg, #2563eb, #1d4ed8)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 20 }}>
+                    🔍
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 800, color: "#1e40af", marginBottom: 2 }}>
+                      {lang === "en" ? "75% of CVs filtered before being read" : "75% des CV filtrés avant d'être lus"}
+                    </p>
+                    <p style={{ fontSize: 13, color: "#3b82f6", lineHeight: 1.5 }}>
+                      {lang === "en" ? "CVAdapt detects the exact keywords this ATS filter is looking for." : "CVAdapt détecte les mots-clés exacts que le filtre ATS recherche dans cette offre."}
+                    </p>
                   </div>
                 </div>
 
-                {/* Textarea offre */}
-                <div style={{ marginBottom: 20 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <p style={{ fontSize: 13, fontWeight: 700, color: "#374151", margin: 0 }}>{tr(lang, "jobOffer")}</p>
-                      {detectedLang && (
-                        <span style={{
-                          fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 999,
-                          background: detectedLang === "en" ? "#dbeafe" : "#dcfce7",
-                          color: detectedLang === "en" ? "#1d4ed8" : "#15803d",
-                        }}>
-                          {detectedLang === "en" ? "🇺🇸 English detected → CV in English" : "🇫🇷 Français détecté → CV en français"}
-                        </span>
-                      )}
+                <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 2px 16px rgba(0,0,0,0.05)", padding: "28px 28px 24px" }}>
+                  <h1 style={{ fontSize: 21, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step1Title")}</h1>
+                  <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 20 }}>{tr(lang, "step1Subtitle")}</p>
+
+                  {detectedLang && (
+                    <div style={{ marginBottom: 12 }}>
+                      <span style={{ fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 999, background: detectedLang === "en" ? "#dbeafe" : "#dcfce7", color: detectedLang === "en" ? "#1d4ed8" : "#15803d" }}>
+                        {detectedLang === "en" ? "🇺🇸 English detected → CV in English" : "🇫🇷 Français détecté → CV en français"}
+                      </span>
                     </div>
-                    <p style={{ fontSize: 11, color: form.offre.length > 0 ? "#2563eb" : "#9ca3af" }}>{form.offre.length} {lang === "en" ? "chars" : "car."}</p>
-                  </div>
+                  )}
+
                   <textarea
                     name="offre"
                     value={form.offre}
                     onChange={handleChange}
-                    rows={9}
+                    rows={11}
                     placeholder={tr(lang, "jobOfferPlaceholder")}
                     style={{
                       width: "100%", border: "1.5px solid " + (form.offre.length > 0 ? "#bfdbfe" : "#e5e7eb"),
-                      borderRadius: 10, padding: "12px 14px", outline: "none",
+                      borderRadius: 12, padding: "14px 16px", outline: "none",
                       fontSize: 14, color: "#0f172a", background: "#fafafa",
                       resize: "none", lineHeight: 1.6, fontFamily: "inherit",
-                      transition: "border-color 0.15s",
-                      boxSizing: "border-box",
+                      boxSizing: "border-box", transition: "border-color 0.15s, box-shadow 0.15s",
                     }}
                     onFocus={e => { e.target.style.borderColor = "#2563eb"; e.target.style.background = "#fff"; e.target.style.boxShadow = "0 0 0 3px rgba(37,99,235,0.1)"; }}
                     onBlur={e => { e.target.style.borderColor = form.offre.length > 0 ? "#bfdbfe" : "#e5e7eb"; e.target.style.background = "#fafafa"; e.target.style.boxShadow = "none"; }}
                   />
-                </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, marginBottom: 24 }}>
+                    <p style={{ fontSize: 11, color: "#9ca3af" }}>
+                      {lang === "en" ? "More complete = better CV" : "Plus l'annonce est complète, meilleur sera le résultat"}
+                    </p>
+                    <p style={{ fontSize: 11, color: form.offre.length > 0 ? "#2563eb" : "#9ca3af" }}>{form.offre.length} {lang === "en" ? "chars" : "car."}</p>
+                  </div>
 
-                <button
-                  type="button"
-                  onClick={() => setWizardStep(2)}
-                  disabled={!isStep1Valid}
-                  style={{
-                    width: "100%", padding: "14px", borderRadius: 12, border: "none", cursor: isStep1Valid ? "pointer" : "not-allowed",
-                    background: isStep1Valid ? "linear-gradient(135deg, #2563eb, #1d4ed8)" : "#e5e7eb",
-                    color: isStep1Valid ? "#fff" : "#9ca3af",
-                    fontSize: 15, fontWeight: 700, letterSpacing: "-0.01em",
-                    boxShadow: isStep1Valid ? "0 4px 20px rgba(29,78,216,0.35)" : "none",
-                    transition: "all 0.2s",
-                    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                  }}
-                >
-                  {tr(lang, "continueBtn")}
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => setWizardStep(2)}
+                    disabled={!isStep1Valid}
+                    style={{
+                      width: "100%", padding: "15px", borderRadius: 12, border: "none",
+                      cursor: isStep1Valid ? "pointer" : "not-allowed",
+                      background: isStep1Valid ? "linear-gradient(135deg, #2563eb, #1d4ed8)" : "#e5e7eb",
+                      color: isStep1Valid ? "#fff" : "#9ca3af",
+                      fontSize: 15, fontWeight: 800, letterSpacing: "-0.01em",
+                      boxShadow: isStep1Valid ? "0 4px 24px rgba(29,78,216,0.38)" : "none",
+                      transition: "all 0.2s",
+                      display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                    }}
+                  >
+                    {tr(lang, "continueBtn")}
+                    <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                </div>
               </div>
             )}
 
             {/* Step 2 — Profil */}
             {wizardStep === 2 && (
-              <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 1px 12px rgba(0,0,0,0.06)", padding: "28px 28px 24px" }}>
+              <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 2px 16px rgba(0,0,0,0.05)", padding: "28px 28px 24px" }}>
                 <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step2Title")}</h1>
                 <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>{tr(lang, "step2Subtitle")}</p>
 
@@ -844,43 +826,60 @@ export default function Generate() {
               </div>
             )}
 
-            {/* Step 3 — Finaliser */}
+            {/* Step 3 — Design & générer */}
             {wizardStep === 3 && (
               <form onSubmit={handleSubmit}>
-                <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 1px 12px rgba(0,0,0,0.06)", padding: "28px 28px 24px" }}>
-                  <h1 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step3Title")}</h1>
-                  <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 24 }}>{tr(lang, "step3Subtitle")}</p>
+                <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", boxShadow: "0 2px 16px rgba(0,0,0,0.05)", padding: "28px 28px 24px" }}>
+                  <h1 style={{ fontSize: 21, fontWeight: 800, color: "#0f172a", marginBottom: 4, letterSpacing: "-0.02em" }}>{tr(lang, "step3Title")}</h1>
+                  <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 20 }}>{tr(lang, "step3Subtitle")}</p>
 
-                  {/* Récapitulatif */}
-                  <div style={{ background: "#f8fafc", border: "1.5px solid #e2e8f0", borderRadius: 12, padding: "18px 18px", marginBottom: 20, display: "flex", flexDirection: "column", gap: 14 }}>
-                    {/* Template choisi */}
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <div style={{ width: 44, height: 56, borderRadius: 7, flexShrink: 0, overflow: "hidden", border: "2px solid " + (selectedTemplate?.accent || "#e5e7eb") }}>
-                        <TemplateMiniPreview tmpl={selectedTemplate} compact />
-                      </div>
-                      <div>
-                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 2 }}>{tr(lang, "selectedDesign")}</p>
-                        <p style={{ fontSize: 14, fontWeight: 700, color: "#0f172a" }}>{selectedTemplate?.name}</p>
-                        <p style={{ fontSize: 12, color: "#6b7280" }}>{selectedTemplate?.desc}</p>
-                      </div>
-                    </div>
-
-                    {/* Aperçu offre */}
-                    {offrePreview && (
-                      <div style={{ borderTop: "1px solid #e5e7eb", paddingTop: 14 }}>
-                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 6 }}>{tr(lang, "targetOffer")}</p>
-                        <p style={{ fontSize: 12, color: "#4b5563", lineHeight: 1.6, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" }}>{offrePreview}{form.offre.length > 200 ? "…" : ""}</p>
-                      </div>
-                    )}
-
-                    {/* Nom */}
-                    {form.nom && (
-                      <div style={{ borderTop: "1px solid #e5e7eb", paddingTop: 14 }}>
-                        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 4 }}>{tr(lang, "candidate")}</p>
-                        <p style={{ fontSize: 13, color: "#0f172a", fontWeight: 600 }}>{form.nom}</p>
-                      </div>
-                    )}
+                  {/* Galerie de templates */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
+                    {TEMPLATES.map((tmpl) => {
+                      const sel = template === tmpl.id;
+                      return (
+                        <button key={tmpl.id} type="button" onClick={() => setTemplate(tmpl.id)}
+                          style={{
+                            position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer",
+                            border: sel ? `2.5px solid ${tmpl.accent}` : "2px solid #e5e7eb",
+                            boxShadow: sel ? `0 0 0 3px ${tmpl.accent}22, 0 4px 16px rgba(0,0,0,0.08)` : "0 1px 4px rgba(0,0,0,0.04)",
+                            background: "#fff", padding: 0, textAlign: "left",
+                            transition: "border-color 0.15s, box-shadow 0.15s",
+                          }}>
+                          <div style={{ height: 160, overflow: "hidden" }}>
+                            <TemplateMiniPreview tmpl={tmpl} compact />
+                          </div>
+                          <div style={{ padding: "10px 12px 11px", background: sel ? tmpl.accent + "0d" : "#fafafa", borderTop: "1px solid " + (sel ? tmpl.accent + "30" : "#f0f0f0") }}>
+                            <p style={{ fontSize: 12, fontWeight: 700, color: sel ? tmpl.accent : "#374151" }}>{tmpl.name}</p>
+                            <p style={{ fontSize: 10.5, color: "#9ca3af", marginTop: 1 }}>{tmpl.desc}</p>
+                          </div>
+                          {sel && (
+                            <div style={{ position: "absolute", top: 8, right: 8, width: 22, height: 22, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.2)" }}>
+                              <svg width="12" height="12" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
+
+                  {/* Récapitulatif compact */}
+                  {(form.nom || offrePreview) && (
+                    <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px", marginBottom: 20, display: "flex", flexDirection: "column", gap: 10 }}>
+                      {form.nom && (
+                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          <svg width="14" height="14" fill="none" stroke="#9ca3af" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                          <p style={{ fontSize: 13, fontWeight: 600, color: "#0f172a" }}>{form.nom}</p>
+                        </div>
+                      )}
+                      {offrePreview && (
+                        <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                          <svg width="14" height="14" fill="none" stroke="#9ca3af" strokeWidth="1.5" viewBox="0 0 24 24" style={{ marginTop: 1, flexShrink: 0 }}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                          <p style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{offrePreview}{form.offre.length > 200 ? "…" : ""}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Checkbox lettre de motivation */}
                   <label style={{
