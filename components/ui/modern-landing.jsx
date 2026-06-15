@@ -280,15 +280,15 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
             </div>
           </div>
 
-          <h1 style={{ fontSize: "clamp(40px, 5vw, 64px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.05, marginBottom: 20, color: C.navy }}>
-            Optimise ton CV<br />
-            <span style={{ color: C.blue }}>pour chaque offre.</span><br />
-            <span style={{ color: C.slateLight, fontWeight: 700, fontSize: "0.8em" }}>En 30 secondes.</span>
+          <h1 style={{ fontSize: "clamp(36px, 5vw, 60px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.08, marginBottom: 20, color: C.navy }}>
+            T'as envoyé des CV partout.<br />
+            <span style={{ color: C.blue }}>Personne n'a répondu.</span><br />
+            <span style={{ color: C.slateLight, fontWeight: 700, fontSize: "0.78em" }}>Ce n'était pas toi. C'était le filtre.</span>
           </h1>
 
           <p style={{ fontSize: 18, color: C.slate, lineHeight: 1.7, marginBottom: 36, maxWidth: 480 }}>
-            <strong style={{ color: C.navy }}>75% des CV sont filtrés avant qu'un humain les lise.</strong>{" "}
-            CVAdapt analyse l'offre, intègre les mots-clés ATS et optimise ton CV automatiquement.
+            <strong style={{ color: C.navy }}>75% des candidatures sont éliminées par un algorithme avant d'atteindre un recruteur.</strong>{" "}
+            CVAdapt adapte ton CV aux filtres ATS en 30 secondes. Le terrain est enfin égal.
           </p>
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>

@@ -8,13 +8,13 @@ const MAKE_LINKEDIN_WEBHOOK = process.env.MAKE_LINKEDIN_WEBHOOK;
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "contact@cvadapt.eu";
 
 const THEMES = [
-  { theme: "ATS", angle: "Révèle un fait choquant sur les ATS (filtres automatiques CV) et comment s'en sortir. Mentionne CVAdapt naturellement à la fin." },
-  { theme: "Alternance", angle: "Conseil pratique pour décrocher une alternance en 2025. Public : étudiants français. Mentionne CVAdapt naturellement." },
-  { theme: "Reconversion", angle: "Histoire inspirante fictive d'une reconversion réussie grâce à un CV bien adapté. Mentionne CVAdapt naturellement." },
-  { theme: "Erreurs CV", angle: "Top 3 erreurs qui font rejeter un CV automatiquement. Conseil actionnable. Mentionne CVAdapt naturellement." },
-  { theme: "Mots-clés", angle: "Pourquoi les mots-clés de l'offre doivent être dans ton CV mot pour mot. Exemple concret. Mentionne CVAdapt." },
-  { theme: "Motivation", angle: "Conseil anti-procrastination pour les chercheurs d'emploi qui n'envoient pas assez de candidatures." },
-  { theme: "Stats emploi", angle: "Une stat surprenante sur le marché de l'emploi français en 2025 et ce que ça implique pour les candidats." },
+  { theme: "Fondateur", angle: "Post personnel en première personne : l'histoire de la création de CVAdapt. Pas de réseau, candidatures sans réponse, découverte des filtres ATS, décision de construire la solution. Ton authentique, vulnérable, sans morale artificielle. Mentionne CVAdapt naturellement." },
+  { theme: "ATS invisible", angle: "Expliquer ce que sont les filtres ATS et pourquoi 75% des CVs n'arrivent jamais sur le bureau d'un recruteur. Partir d'un vécu concret, pas d'un article de blog. Mentionne CVAdapt naturellement." },
+  { theme: "Sans réseau", angle: "Post pour les étudiants sans réseau, sans parents dans le secteur. Le CV reste le seul levier qu'ils contrôlent. Ton de pair à pair, pas de condescendance. Mentionne CVAdapt naturellement." },
+  { theme: "Reconversion", angle: "Ce que personne ne dit aux gens qui veulent changer de métier : leur CV parle le mauvais langage pour le nouveau secteur. Exemple concret sur comment adapter son vocabulaire aux offres du domaine visé. Mentionne CVAdapt naturellement." },
+  { theme: "Mots-clés", angle: "Pourquoi un excellent profil passe à la trappe : les mots-clés de l'offre n'étaient pas dans le CV. Partir d'un exemple précis et réaliste. Pas de liste générique. Mentionne CVAdapt naturellement." },
+  { theme: "Vérité emploi", angle: "Une stat ou vérité contre-intuitive sur le marché de l'emploi français en 2025. Pas de conseil générique — un fait tranchant avec une implication concrète pour le lecteur. Mentionne CVAdapt naturellement." },
+  { theme: "30 secondes", angle: "Décrire exactement ce que fait CVAdapt en 30 secondes : coller l'offre, entrer ses infos, recevoir un CV PDF adapté. Montrer le contraste avec des heures passées à reformuler le même CV. Ton direct." },
 ];
 
 export async function GET(request) {

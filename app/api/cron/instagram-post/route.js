@@ -4,13 +4,13 @@ import { alertCronFailure } from "@/lib/monitoring";
 const BASE_URL = "https://cvadapt.eu";
 
 const DAILY_THEMES = [
-  { stat: "75%",  statLabel: "des CV sont filtrés avant d'être lus",           tip: "CVAdapt intègre les mots-clés de chaque offre automatiquement." },
-  { stat: "6 sec", statLabel: "c'est le temps qu'un recruteur passe sur un CV", tip: "Un CV ATS optimisé double tes chances d'être rappelé." },
-  { stat: "250",  statLabel: "candidatures reçues en moyenne par offre",        tip: "Seuls les CV avec les bons mots-clés passent les filtres." },
-  { stat: "3×",   statLabel: "plus de rappels avec un CV adapté",               tip: "Adapte ton CV à chaque offre en 30 secondes avec CVAdapt." },
-  { stat: "80%",  statLabel: "des recruteurs utilisent un ATS",                 tip: "Si ton CV n'est pas optimisé ATS, il n'est jamais lu." },
-  { stat: "30s",  statLabel: "pour générer un CV optimisé",                     tip: "Colle l'offre, entre tes infos, reçois ton CV PDF." },
-  { stat: "#1",   statLabel: "outil CV ATS gratuit pour étudiants français",    tip: "3 CV complets gratuits, sans carte bancaire." },
+  { stat: "75%",     statLabel: "des CV filtrés sans jamais être lus",              tip: "Pas parce que tu n'étais pas qualifié. Parce que le filtre ne t'a pas laissé passer." },
+  { stat: "6 sec",   statLabel: "c'est le temps d'un recruteur sur un CV",          tip: "CVAdapt structure ton CV pour ces 6 secondes qui font tout." },
+  { stat: "0",       statLabel: "réponse. C'est ce qu'on reçoit sans réseau",       tip: "J'ai vécu ça. C'est pour ça que j'ai créé CVAdapt." },
+  { stat: "30s",     statLabel: "pour adapter ton CV à une offre",                  tip: "Le même CV pour toutes les offres, c'est la première erreur à éviter." },
+  { stat: "250",     statLabel: "candidatures reçues par offre en moyenne",         tip: "Les mots-clés de l'offre dans ton CV font toute la différence." },
+  { stat: "3×",      statLabel: "plus de rappels avec un CV adapté à l'offre",      tip: "Adapter son CV n'est plus réservé à ceux qui ont du temps ou du réseau." },
+  { stat: "1er filtre", statLabel: "c'est un algorithme, pas un humain",            tip: "CVAdapt t'aide à passer ce filtre. Le reste, c'est toi." },
 ];
 
 export async function GET(request) {
