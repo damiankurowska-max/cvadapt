@@ -42,65 +42,113 @@ function FieldGroup({ label, hint, children }) {
 }
 
 /* ── TemplateMiniPreview: realistic CV thumbnail ───────────────── */
-function TemplateMiniPreview({ tmpl, compact }) {
+function TemplateMiniPreview({ tmpl }) {
   if (!tmpl) return null;
-  const h = compact ? "100%" : 130;
+  const bar = (w, bg) => ({ height: 2.5, width: w + "%", background: bg, borderRadius: 2, marginBottom: 2.5 });
+  const secLabel = (color) => ({ fontSize: 4.5, fontWeight: 900, color, letterSpacing: 0.6, textTransform: "uppercase", marginBottom: 3, marginTop: 5 });
 
   if (tmpl.id === "creatif") {
     return (
-      <div style={{ display: "flex", height: h, background: "#fff" }}>
-        <div style={{ width: "36%", background: tmpl.accent, padding: "7px 5px", display: "flex", flexDirection: "column", gap: 3, flexShrink: 0 }}>
-          <div style={{ width: 18, height: 18, borderRadius: "50%", background: "rgba(255,255,255,0.28)", margin: "0 auto 4px" }} />
-          {[55, 75, 60, 45, 65, 50].map((w, i) => (
-            <div key={i} style={{ height: 2.5, width: w + "%", background: "rgba(255,255,255,0.35)", borderRadius: 2 }} />
+      <div style={{ display: "flex", height: "100%", background: "#fff", overflow: "hidden" }}>
+        <div style={{ width: "36%", background: "#0f172a", padding: "10px 6px", display: "flex", flexDirection: "column", flexShrink: 0 }}>
+          <div style={{ width: 22, height: 22, borderRadius: "50%", background: "rgba(255,255,255,0.25)", margin: "0 auto 7px", border: "1.5px solid rgba(255,255,255,0.4)" }} />
+          <div style={{ height: 3, width: "85%", background: "rgba(255,255,255,0.9)", borderRadius: 2, marginBottom: 1.5 }} />
+          <div style={{ height: 2, width: "55%", background: "rgba(255,255,255,0.45)", borderRadius: 2, marginBottom: 7 }} />
+          <div style={secLabel("rgba(255,255,255,0.55)")}>Compétences</div>
+          {[75, 90, 60, 80, 70].map((w, i) => (
+            <div key={i} style={bar(w, "rgba(255,255,255,0.22)")} />
           ))}
+          <div style={secLabel("rgba(255,255,255,0.55)")}>Contact</div>
+          {[85, 65].map((w, i) => <div key={i} style={bar(w, "rgba(255,255,255,0.18)")} />)}
         </div>
-        <div style={{ flex: 1, padding: "7px 7px" }}>
-          <div style={{ height: 5, width: "70%", background: "#111827", borderRadius: 2, marginBottom: 3 }} />
-          <div style={{ height: 3, width: "50%", background: tmpl.accent, borderRadius: 2, marginBottom: 7 }} />
-          {[90, 80, 70, 85, 60, 75, 55, 80].map((w, i) => (
-            <div key={i} style={{ height: 2.5, width: w + "%", background: i % 3 === 0 ? "#d1d5db" : "#e9ecef", borderRadius: 2, marginBottom: 2.5 }} />
+        <div style={{ flex: 1, padding: "10px 8px", overflow: "hidden" }}>
+          <div style={{ fontSize: 6.5, fontWeight: 900, color: "#111827", marginBottom: 1.5, whiteSpace: "nowrap" }}>Jean Dupont</div>
+          <div style={{ height: 2, width: "55%", background: "#D97706", borderRadius: 2, marginBottom: 6 }} />
+          <div style={secLabel("#374151")}>Expérience</div>
+          {[90, 80, 70, 85, 60, 80].map((w, i) => (
+            <div key={i} style={bar(w, i % 4 === 0 ? "#d1d5db" : "#eee")} />
           ))}
+          <div style={secLabel("#374151")}>Formation</div>
+          {[80, 65, 50].map((w, i) => <div key={i} style={bar(w, "#eee")} />)}
         </div>
       </div>
     );
   }
+
   if (tmpl.id === "classique") {
     return (
-      <div style={{ background: "#fff", padding: "9px 9px", height: h }}>
-        <div style={{ height: 5.5, width: "58%", background: "#111827", borderRadius: 2, marginBottom: 3 }} />
-        <div style={{ height: 3, width: "38%", background: "#6b7280", borderRadius: 2, marginBottom: 5 }} />
+      <div style={{ background: "#fff", padding: "10px 10px", height: "100%", overflow: "hidden" }}>
+        <div style={{ fontSize: 8, fontWeight: 900, color: "#111827", letterSpacing: 0.3, marginBottom: 1 }}>Jean Dupont</div>
+        <div style={{ fontSize: 5, color: "#6b7280", marginBottom: 4 }}>Développeur · Paris</div>
         <div style={{ height: 1, background: "#111827", marginBottom: 5 }} />
-        {[95, 85, 75, 60, 90, 70, 55, 80].map((w, i) => (
-          <div key={i} style={{ height: 2.5, width: w + "%", background: i % 4 === 0 ? "#374151" : "#d1d5db", borderRadius: 2, marginBottom: 2.5 }} />
+        <div style={secLabel("#92400e")}>Expérience professionnelle</div>
+        {[95, 85, 70, 90, 60].map((w, i) => (
+          <div key={i} style={bar(w, i % 3 === 0 ? "#374151" : "#d1d5db")} />
         ))}
+        <div style={{ height: 0.5, background: "#d1d5db", margin: "5px 0" }} />
+        <div style={secLabel("#92400e")}>Formation</div>
+        {[80, 65, 50].map((w, i) => <div key={i} style={bar(w, "#d1d5db")} />)}
+        <div style={{ height: 0.5, background: "#d1d5db", margin: "5px 0" }} />
+        <div style={secLabel("#92400e")}>Compétences</div>
+        {[90, 75, 60].map((w, i) => <div key={i} style={bar(w, "#d1d5db")} />)}
       </div>
     );
   }
+
   if (tmpl.id === "moderne") {
     return (
-      <div style={{ background: "#fff", height: h, overflow: "hidden" }}>
-        <div style={{ height: compact ? 20 : 28, background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", padding: "5px 8px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-          <div style={{ height: compact ? 4 : 5, width: "55%", background: "rgba(255,255,255,0.9)", borderRadius: 2, marginBottom: 2 }} />
-          <div style={{ height: compact ? 2.5 : 3, width: "35%", background: "rgba(255,255,255,0.5)", borderRadius: 2 }} />
+      <div style={{ background: "#fff", height: "100%", overflow: "hidden" }}>
+        <div style={{ background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", padding: "8px 9px 7px" }}>
+          <div style={{ fontSize: 7, fontWeight: 900, color: "#fff", marginBottom: 1.5, whiteSpace: "nowrap" }}>Jean Dupont</div>
+          <div style={{ fontSize: 4.5, color: "rgba(255,255,255,0.7)", marginBottom: 3 }}>Développeur Full-Stack</div>
+          <div style={{ display: "flex", gap: 6 }}>
+            {[45, 55, 50].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "rgba(255,255,255,0.3)", borderRadius: 2 }} />)}
+          </div>
         </div>
-        <div style={{ padding: "6px 8px" }}>
-          {[90, 80, 70, 85, 60, 75, 55, 65].map((w, i) => (
-            <div key={i} style={{ height: 2.5, width: w + "%", background: i % 4 === 0 ? "#bfdbfe" : "#e9ecef", borderRadius: 2, marginBottom: 2.5 }} />
-          ))}
+        <div style={{ display: "grid", gridTemplateColumns: "60% 40%", padding: "7px 9px" }}>
+          <div style={{ paddingRight: 7 }}>
+            <div style={secLabel("#1d4ed8")}>Expérience</div>
+            {[90, 80, 70, 85, 65, 80].map((w, i) => (
+              <div key={i} style={bar(w, i % 4 === 0 ? "#bfdbfe" : "#eee")} />
+            ))}
+            <div style={secLabel("#1d4ed8")}>Formation</div>
+            {[80, 65].map((w, i) => <div key={i} style={bar(w, "#eee")} />)}
+          </div>
+          <div style={{ borderLeft: "1px solid #e5e7eb", paddingLeft: 7 }}>
+            <div style={secLabel("#1d4ed8")}>Compétences</div>
+            {[85, 70, 90, 60, 80, 75].map((w, i) => (
+              <div key={i} style={bar(w, "#bfdbfe")} />
+            ))}
+            <div style={secLabel("#1d4ed8")}>Contact</div>
+            {[80, 70, 60].map((w, i) => <div key={i} style={bar(w, "#eee")} />)}
+          </div>
         </div>
       </div>
     );
   }
-  // minimaliste
+
+  // minimaliste (Trait)
   return (
-    <div style={{ background: "#fff", padding: "9px 9px", height: h }}>
-      <div style={{ height: 5, width: "48%", background: "#111827", borderRadius: 2, marginBottom: 2 }} />
-      <div style={{ height: 2.5, width: "28%", background: tmpl.accent, borderRadius: 2, marginBottom: 7 }} />
-      <div style={{ height: 1, background: tmpl.accent + "40", marginBottom: 6 }} />
-      {[90, 80, 65, 85, 55, 75, 60, 80].map((w, i) => (
-        <div key={i} style={{ height: 2.5, width: w + "%", background: i % 4 === 0 ? tmpl.accent + "55" : "#e9ecef", borderRadius: 2, marginBottom: 2.5 }} />
-      ))}
+    <div style={{ background: "#fff", padding: "10px 10px", height: "100%", overflow: "hidden" }}>
+      <div style={{ fontSize: 7.5, fontWeight: 900, color: "#111827", letterSpacing: -0.3, marginBottom: 1 }}>Jean Dupont</div>
+      <div style={{ fontSize: 5, color: "#0f766e", marginBottom: 3 }}>Développeur Web</div>
+      <div style={{ height: 1.5, background: "#0f766e", marginBottom: 6 }} />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 10px" }}>
+        <div>
+          <div style={secLabel("#0f766e")}>Expérience</div>
+          {[90, 80, 70, 85, 65, 80].map((w, i) => (
+            <div key={i} style={bar(w, i % 4 === 0 ? "#99f6e4" : "#eee")} />
+          ))}
+        </div>
+        <div>
+          <div style={secLabel("#0f766e")}>Compétences</div>
+          {[85, 70, 90, 60, 80, 75].map((w, i) => (
+            <div key={i} style={bar(w, "#eee")} />
+          ))}
+          <div style={secLabel("#0f766e")}>Formation</div>
+          {[80, 65].map((w, i) => <div key={i} style={bar(w, "#eee")} />)}
+        </div>
+      </div>
     </div>
   );
 }
@@ -445,6 +493,13 @@ export default function Generate() {
 
   const selectedTemplate = TEMPLATES.find(tmpl => tmpl.id === template);
   const offrePreview = form.offre.split("\n").slice(0, 4).join("\n").substring(0, 200);
+
+  function extractJobTitle(offre) {
+    if (!offre) return null;
+    const lines = offre.split("\n").map(l => l.trim()).filter(l => l.length > 5 && l.length < 100 && !/^[,.\s\-_*•]+$/.test(l));
+    return lines[0]?.substring(0, 80) || null;
+  }
+  const jobTitle = extractJobTitle(form.offre);
 
   return (
     <main className="min-h-screen" style={{ background: "linear-gradient(145deg,#eef2ff 0%,#fafbff 55%,#f5f0ff 100%)" }}>
@@ -821,20 +876,38 @@ export default function Generate() {
                   </div>
 
                   {/* Récap */}
-                  {(form.nom || offrePreview) && (
-                    <div style={{ background: "rgba(99,102,241,0.04)", border: "1.5px solid rgba(99,102,241,0.12)", borderRadius: 14, padding: "14px 16px", marginBottom: 18, display: "flex", flexDirection: "column", gap: 8 }}>
-                      {form.nom && (
-                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <span style={{ fontSize: 14 }}>👤</span>
-                          <p style={{ fontSize: 13, fontWeight: 700, color: "#1e1b4b" }}>{form.nom}</p>
-                        </div>
-                      )}
-                      {offrePreview && (
-                        <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-                          <span style={{ fontSize: 14, flexShrink: 0 }}>💼</span>
-                          <p style={{ fontSize: 12, color: "#64748b", lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{offrePreview}…</p>
-                        </div>
-                      )}
+                  {(form.nom || jobTitle) && (
+                    <div style={{ background: "rgba(99,102,241,0.04)", border: "1.5px solid rgba(99,102,241,0.12)", borderRadius: 14, padding: "14px 16px", marginBottom: 18 }}>
+                      <p style={{ fontSize: 10, fontWeight: 800, color: "#a5b4fc", textTransform: "uppercase", letterSpacing: 0.7, marginBottom: 10 }}>Récapitulatif</p>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                        {form.nom && (
+                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <span style={{ fontSize: 16, flexShrink: 0 }}>👤</span>
+                            <div>
+                              <p style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600, marginBottom: 1 }}>Candidat</p>
+                              <p style={{ fontSize: 13, fontWeight: 700, color: "#1e1b4b" }}>{form.nom}</p>
+                            </div>
+                          </div>
+                        )}
+                        {jobTitle && (
+                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <span style={{ fontSize: 16, flexShrink: 0 }}>💼</span>
+                            <div style={{ minWidth: 0 }}>
+                              <p style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600, marginBottom: 1 }}>Poste ciblé</p>
+                              <p style={{ fontSize: 13, fontWeight: 700, color: "#1e1b4b", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>{jobTitle}</p>
+                            </div>
+                          </div>
+                        )}
+                        {selectedTemplate && (
+                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <span style={{ fontSize: 16, flexShrink: 0 }}>🎨</span>
+                            <div>
+                              <p style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600, marginBottom: 1 }}>Template</p>
+                              <p style={{ fontSize: 13, fontWeight: 700, color: "#1e1b4b" }}>{selectedTemplate.name} <span style={{ fontWeight: 400, color: "#94a3b8" }}>— {selectedTemplate.desc}</span></p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
 
