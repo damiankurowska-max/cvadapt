@@ -107,6 +107,42 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: 0.85,
     },
+    {
+      url: "https://cvadapt.eu/cv-commercial",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: "https://cvadapt.eu/cv-ingenieur",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: "https://cvadapt.eu/cv-chef-de-projet",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: "https://cvadapt.eu/cv-bts",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: "https://cvadapt.eu/cv-communication",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: "https://cvadapt.eu/cv-logistique",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
     ...metierUrls,
     ...blogUrls,
     {
