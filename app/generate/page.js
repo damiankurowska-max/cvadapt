@@ -179,6 +179,10 @@ export default function Generate() {
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const [wizardStep, setWizardStep] = useState(1);
+  const [boostedCV, setBoostedCV] = useState("");
+  const [boostLoading, setBoostLoading] = useState(false);
+  const [showBoostInput, setShowBoostInput] = useState(false);
+  const [boostExtra, setBoostExtra] = useState("");
   const CV_LIMIT = 3;
 
   const isPro = user?.unsafeMetadata?.isPro || false;
@@ -478,6 +482,37 @@ export default function Generate() {
     </style></head><body>${printContent}${watermark}</body></html>`);
     win.document.close();
     setTimeout(() => win.print(), 500);
+  }
+
+  async function handleBoost() {
+    if (!isPro) {
+      setShowUpgradeModal(true);
+      return;
+    }
+    setBoostLoading(true);
+    try {
+      const res = await fetch("/api/improve-cv", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cv,
+          missingKeywords: atsData?.keywords_missing || [],
+          extraInfo: boostExtra,
+          lang,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.cv) {
+        setBoostedCV(data.cv);
+        setActiveTab("boost");
+        setShowBoostInput(false);
+      } else {
+        setError(data.error || tr(lang, "errorGeneric"));
+      }
+    } catch {
+      setError(tr(lang, "errorGeneric"));
+    }
+    setBoostLoading(false);
   }
 
   function loadFromHistory(entry) {
@@ -973,15 +1008,17 @@ export default function Generate() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <button onClick={() => { setCv(""); setLm(""); setAtsData(null); setWizardStep(1); }}
+                <button onClick={() => { setCv(""); setLm(""); setAtsData(null); setBoostedCV(""); setBoostExtra(""); setShowBoostInput(false); setWizardStep(1); }}
                   className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 text-sm font-medium">
                   {tr(lang, "newCV")}
                 </button>
                 <button
                   onClick={() => handlePrint(
-                    activeTab === "cv" ? cv : lm,
+                    activeTab === "cv" ? cv : activeTab === "boost" ? boostedCV : lm,
                     activeTab === "cv"
                       ? `${lang === "en" ? "Resume" : "CV"} - ${form.nom}`
+                      : activeTab === "boost"
+                      ? `${lang === "en" ? "Boosted Resume" : "CV Boosté"} - ${form.nom}`
                       : `${lang === "en" ? "Cover letter" : "Lettre de motivation"} - ${form.nom}`
                   )}
                   className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 font-semibold text-sm">
@@ -992,6 +1029,83 @@ export default function Generate() {
 
             {/* Banners post-génération */}
             <div className="flex flex-col gap-3 mb-6">
+
+              {/* 0. Boost ATS — score < 80 */}
+              {atsData && !atsData.error && atsData.score < 80 && !boostedCV && !loadingATS && (
+                <div style={{ background: "linear-gradient(135deg,#f5f3ff,#ede9fe)", border: "2px solid #c4b5fd", borderRadius: 16, padding: "18px 20px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 14 }}>
+                    {/* Score mini */}
+                    <div style={{ flexShrink: 0, position: "relative", width: 50, height: 50 }}>
+                      <svg viewBox="0 0 44 44" style={{ width: 50, height: 50, transform: "rotate(-90deg)" }}>
+                        <circle cx="22" cy="22" r="18" fill="none" stroke="#e9d5ff" strokeWidth="4"/>
+                        <circle cx="22" cy="22" r="18" fill="none" stroke="#7c3aed" strokeWidth="4" strokeLinecap="round"
+                          strokeDasharray={`${2 * Math.PI * 18}`}
+                          strokeDashoffset={`${2 * Math.PI * 18 * (1 - atsData.score / 100)}`}
+                        />
+                      </svg>
+                      <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span style={{ fontSize: 11, fontWeight: 900, color: "#5b21b6" }}>{atsData.score}</span>
+                      </div>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <p style={{ fontSize: 14, fontWeight: 900, color: "#3b0764", marginBottom: 5 }}>
+                        {lang === "en" ? "Your CV can reach 85+ automatically" : "Ton CV peut atteindre 85+ automatiquement"}
+                      </p>
+                      {atsData.keywords_missing?.length > 0 && (
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                          {atsData.keywords_missing.slice(0, 5).map((kw, i) => (
+                            <span key={i} style={{ background: "#ddd6fe", color: "#5b21b6", fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 999 }}>+ {kw}</span>
+                          ))}
+                          {atsData.keywords_missing.length > 5 && (
+                            <span style={{ fontSize: 11, color: "#7c3aed", alignSelf: "center" }}>+{atsData.keywords_missing.length - 5}</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {showBoostInput && isPro && (
+                    <textarea
+                      value={boostExtra}
+                      onChange={e => setBoostExtra(e.target.value)}
+                      rows={2}
+                      placeholder={lang === "en" ? "Any extra experience or skills to add? (optional)" : "Expériences ou compétences à ajouter ? (optionnel)"}
+                      style={{ width: "100%", border: "1.5px solid #c4b5fd", borderRadius: 10, padding: "10px 12px", fontSize: 13, color: "#3b0764", background: "#faf5ff", outline: "none", resize: "none", fontFamily: "inherit", boxSizing: "border-box", marginBottom: 10 }}
+                    />
+                  )}
+
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <button onClick={handleBoost} disabled={boostLoading}
+                      style={{
+                        flex: 1, padding: "11px 16px", borderRadius: 10, border: "none",
+                        background: boostLoading ? "#e9d5ff" : "linear-gradient(135deg,#7c3aed,#6d28d9)",
+                        color: boostLoading ? "#7c3aed" : "#fff",
+                        fontSize: 14, fontWeight: 800, cursor: boostLoading ? "wait" : "pointer",
+                        display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                        boxShadow: boostLoading ? "none" : "0 4px 16px rgba(109,40,217,0.3)",
+                        transition: "all 0.2s",
+                      }}>
+                      {boostLoading ? (
+                        <>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ animation: "spin 0.8s linear infinite" }}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="31.4" strokeDashoffset="10"/></svg>
+                          {lang === "en" ? "Optimising…" : "Optimisation en cours…"}
+                        </>
+                      ) : (
+                        <>
+                          ✨ {lang === "en" ? "Boost my CV automatically" : "Booster mon CV automatiquement"}
+                          {!isPro && <span style={{ fontSize: 10, background: "rgba(255,255,255,0.2)", padding: "2px 7px", borderRadius: 999 }}>{lang === "en" ? "Student plan" : "Plan Étudiant"}</span>}
+                        </>
+                      )}
+                    </button>
+                    {isPro && !showBoostInput && (
+                      <button onClick={() => setShowBoostInput(true)}
+                        style={{ padding: "11px 14px", borderRadius: 10, border: "1.5px solid #c4b5fd", background: "#faf5ff", color: "#7c3aed", fontSize: 13, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}>
+                        + infos
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* 1. LM non générée → upsell lettre */}
               {!lm && !loadingLM && !withLM && (
@@ -1124,6 +1238,13 @@ export default function Generate() {
                 className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${activeTab === "ats" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
                 {tr(lang, "tabATS")} {loadingATS && "⏳"} {atsData && !loadingATS && <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${atsData.score >= 75 ? "bg-green-100 text-green-700" : atsData.score >= 50 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}`}>{atsData.score}/100</span>}
               </button>
+              {boostedCV && (
+                <button onClick={() => setActiveTab("boost")}
+                  className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${activeTab === "boost" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
+                  ✨ {lang === "en" ? "Boosted" : "Boosté"}
+                  <span style={{ background: "#7c3aed", color: "#fff", fontSize: 10, padding: "1px 6px", borderRadius: 999, fontWeight: 700 }}>85+</span>
+                </button>
+              )}
             </div>
 
             {/* Aperçu */}
@@ -1133,10 +1254,18 @@ export default function Generate() {
                 <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                 <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 <span className="ml-3 text-sm text-gray-500 font-medium">
-                  {activeTab === "cv" ? tr(lang, "previewCV") : activeTab === "lm" ? tr(lang, "previewLM") : tr(lang, "previewATS")}
+                  {activeTab === "cv" ? tr(lang, "previewCV") : activeTab === "lm" ? tr(lang, "previewLM") : activeTab === "boost" ? (lang === "en" ? "Boosted CV ✨" : "CV Boosté ✨") : tr(lang, "previewATS")}
                 </span>
               </div>
-              {activeTab === "ats" ? (
+              {activeTab === "boost" ? (
+                <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+                  <div style={{ background: "linear-gradient(90deg,#f5f3ff,#ede9fe)", borderBottom: "1px solid #e9d5ff", padding: "10px 20px", display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ fontSize: 13, fontWeight: 800, color: "#6d28d9" }}>✨ {lang === "en" ? "Boosted CV — ATS optimised" : "CV Boosté — Score ATS optimisé"}</span>
+                    <span style={{ marginLeft: "auto", background: "#7c3aed", color: "#fff", fontSize: 11, fontWeight: 700, padding: "2px 10px", borderRadius: 999 }}>85+</span>
+                  </div>
+                  <div className="p-5 sm:p-10" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(injectPhoto(boostedCV)) }} />
+                </div>
+              ) : activeTab === "ats" ? (
                 loadingATS ? (
                   <div className="p-16 text-center text-gray-400">
                     <div className="text-4xl mb-4 animate-spin">⚙️</div>
