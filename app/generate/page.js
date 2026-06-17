@@ -785,12 +785,16 @@ export default function Generate() {
 
                 {/* Card textarea */}
                 <div style={{ background: "#fff", borderRadius: 20, border: "1.5px solid rgba(99,102,241,0.12)", boxShadow: "0 8px 40px rgba(99,102,241,0.08)", padding: "24px" }}>
-                  {form.offre.length > 80 && (() => {
+                  {(() => {
                     const l = CV_LANGUAGES.find(x => x.code === cvLang) || CV_LANGUAGES[0];
+                    const showBadge = cvLang !== "fr" || form.offre.length > 80;
+                    if (!showBadge) return null;
                     return (
                       <div style={{ marginBottom: 12 }}>
-                        <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 999, background: "#ede9fe", color: "#5b21b6" }}>
-                          {l.flag} {lang === "en" ? `CV will be in ${l.labelEn}` : `CV en ${l.label}`} · <span style={{ fontWeight: 400, opacity: 0.7 }}>{lang === "en" ? "change in step 2" : "modifiable à l'étape 2"}</span>
+                        <span style={{ fontSize: 12, fontWeight: 700, padding: "5px 14px", borderRadius: 999, background: "#ede9fe", color: "#5b21b6", display: "inline-flex", alignItems: "center", gap: 6 }}>
+                          <span style={{ fontSize: 16 }}>{l.flag}</span>
+                          {lang === "en" ? `CV in ${l.labelEn}` : `CV en ${l.label}`}
+                          <span style={{ fontWeight: 400, opacity: 0.65 }}>· {lang === "en" ? "change in step 2" : "modifiable étape 2"}</span>
                         </span>
                       </div>
                     );
