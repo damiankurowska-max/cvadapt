@@ -415,27 +415,8 @@ export async function POST(request) {
   const styleDesc = TEMPLATE_STYLES[template];
   const systemPrompt = cvLang === "fr" ? SYSTEM_PROMPT_FR : SYSTEM_PROMPT_EN;
 
-  // Language-specific labels for the user message
-  const labels = cvLang === "en" ? {
-    template: "TEMPLATE",
-    jobPosting: "JOB POSTING",
-    candidate: "CANDIDATE",
-    name: "Name",
-    phone: "Phone",
-    experience: "Experience",
-    skills: "Skills",
-    education: "Education",
-    noExp: "No work experience",
-    inferSkills: "To be inferred from profile and job posting",
-    noEdu: "Not specified",
-    structure: "RESUME STRUCTURE",
-    s1: "Header: name + job title from posting + contact info",
-    s2: "Profile (3 impactful sentences): job keywords + concrete value",
-    s3: "Work Experience: job title | company | dates | 2–3 bullets with measurable results",
-    s4: "Skills: filtered list relevant to the job posting",
-    s5: "Education: degree | institution | year",
-    quality: "REQUIRED QUALITY: professional print-ready output, precise spacing, impeccable visual hierarchy. No generic content. Generate the resume now.",
-  } : {
+  // French labels for French CVs, English labels for everything else
+  const labels = cvLang === "fr" ? {
     template: "TEMPLATE",
     jobPosting: "OFFRE",
     candidate: "CANDIDAT",
@@ -454,6 +435,25 @@ export async function POST(request) {
     s4: "Compétences : liste filtrée et pertinente pour l'offre",
     s5: "Formation : diplôme | établissement | année",
     quality: "QUALITÉ REQUISE : rendu professionnel impression-ready, espacement précis, hiérarchie visuelle impeccable. Pas de contenu générique. Génère le CV maintenant.",
+  } : {
+    template: "TEMPLATE",
+    jobPosting: "JOB POSTING",
+    candidate: "CANDIDATE",
+    name: "Name",
+    phone: "Phone",
+    experience: "Experience",
+    skills: "Skills",
+    education: "Education",
+    noExp: "No work experience",
+    inferSkills: "To be inferred from profile and job posting",
+    noEdu: "Not specified",
+    structure: "RESUME STRUCTURE",
+    s1: `Header: name + job title from posting + contact info (${emailCv || "email if provided"}${telephoneCv ? ` · ${telephoneCv}` : ""}${adresse ? ` · ${adresse}` : ""}${linkedin ? ` · ${linkedin}` : ""})`,
+    s2: "Profile (3 impactful sentences): job keywords + concrete value",
+    s3: "Work Experience: job title | company | dates | 2–3 bullets with measurable results",
+    s4: "Skills: filtered list relevant to the job posting",
+    s5: "Education: degree | institution | year",
+    quality: "REQUIRED QUALITY: professional print-ready output, precise spacing, impeccable visual hierarchy. No generic content. Generate the resume now.",
   };
 
   try {
