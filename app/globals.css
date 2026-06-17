@@ -46,8 +46,31 @@ body {
   to   { transform: translateY(0);    opacity: 1; }
 }
 
+/* ── LANGUAGE SELECTOR (generate page) ── */
+.cv-lang-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.cv-lang-btn {
+  padding: 10px 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 56px;
+  transition: all 0.15s;
+}
+.cv-lang-flag { font-size: 20px; line-height: 1; }
+.cv-lang-label { font-size: 10px; font-weight: 700; line-height: 1.2; text-align: center; }
+
 /* ── RESPONSIVE MOBILE ── */
 @media (max-width: 767px) {
+  .cv-lang-label { display: none; }
+  .cv-lang-btn { min-height: 44px; padding: 8px 2px; gap: 0; }
+  .cv-lang-flag { font-size: 24px !important; }
   .cv-sticky-cta {
     display: flex;
     position: fixed;

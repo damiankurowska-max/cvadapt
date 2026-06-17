@@ -216,6 +216,15 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
             </div>
             <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB · 3 CV gratuits</span>
           </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 12, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: C.slateLight, letterSpacing: "0.02em", textTransform: "uppercase" }}>CV en 10 langues</span>
+            <div style={{ display: "flex", gap: 4, fontSize: 18, lineHeight: 1 }}>
+              {"🇫🇷 🇬🇧 🇩🇪 🇪🇸 🇮🇹 🇧🇷 🇲🇦 🇷🇺 🇨🇳 🇻🇳".split(" ").map((flag, i) => (
+                <span key={i} title={["Français","Anglais","Allemand","Espagnol","Italien","Portugais","Arabe","Russe","Chinois","Vietnamien"][i]}>{flag}</span>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div style={{ position: "relative", zIndex: 1 }}>

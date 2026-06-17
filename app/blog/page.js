@@ -1,7 +1,34 @@
 import Link from "next/link";
 import Logo from "../components/Logo";
-import { articles } from "./data";
+import { articles as staticArticles } from "./data";
 import NewsletterForm from "./NewsletterForm";
+import { supabase } from "@/lib/supabase";
+
+async function getAllArticles() {
+  try {
+    const { data } = await supabase
+      .from("blog_articles")
+      .select("slug, titre, description, date, categorie, temps_lecture")
+      .eq("published", true)
+      .order("date", { ascending: false });
+
+    const dynamic = (data || []).map((a) => ({
+      slug: a.slug,
+      titre: a.titre,
+      description: a.description,
+      date: a.date,
+      categorie: a.categorie,
+      tempsLecture: a.temps_lecture,
+    }));
+
+    // Merge: dynamic articles first (most recent), then static, dedup by slug
+    const seen = new Set(dynamic.map((a) => a.slug));
+    const merged = [...dynamic, ...staticArticles.filter((a) => !seen.has(a.slug))];
+    return merged;
+  } catch {
+    return staticArticles;
+  }
+}
 
 export const metadata = {
   title: "Blog CVAdapt — Décroche 3× Plus d'Entretiens avec ces Guides",
@@ -29,7 +56,8 @@ function getCategoryStyle(cat) {
   return CATEGORY_STYLE[cat] || { dot: "bg-gray-400", pill: "bg-gray-100 text-gray-600" };
 }
 
-export default function Blog() {
+export default async function Blog() {
+  const articles = await getAllArticles();
   if (!articles || articles.length === 0) return null;
   const featured = articles[0];
   const rest = articles.slice(1);

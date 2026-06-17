@@ -18,16 +18,16 @@ const TEMPLATES = [
 ];
 
 const CV_LANGUAGES = [
-  { code: "fr", flag: "🇫🇷", label: "Français",           labelEn: "French"      },
-  { code: "en", flag: "🇬🇧", label: "Anglais",            labelEn: "English"     },
-  { code: "de", flag: "🇩🇪", label: "Allemand",           labelEn: "German"      },
-  { code: "es", flag: "🇪🇸", label: "Espagnol",           labelEn: "Spanish"     },
-  { code: "it", flag: "🇮🇹", label: "Italien",            labelEn: "Italian"     },
-  { code: "pt", flag: "🇧🇷", label: "Portugais (Brésil)", labelEn: "Portuguese"  },
-  { code: "ar", flag: "🇲🇦", label: "Arabe",              labelEn: "Arabic"      },
-  { code: "ru", flag: "🇷🇺", label: "Russe",              labelEn: "Russian"     },
-  { code: "zh", flag: "🇨🇳", label: "Chinois",            labelEn: "Chinese"     },
-  { code: "vi", flag: "🇻🇳", label: "Vietnamien",         labelEn: "Vietnamese"  },
+  { code: "fr", flag: "🇫🇷", label: "Français",           labelEn: "French",      short: "FR"    },
+  { code: "en", flag: "🇬🇧", label: "Anglais",            labelEn: "English",     short: "EN"    },
+  { code: "de", flag: "🇩🇪", label: "Allemand",           labelEn: "German",      short: "DE"    },
+  { code: "es", flag: "🇪🇸", label: "Espagnol",           labelEn: "Spanish",     short: "ES"    },
+  { code: "it", flag: "🇮🇹", label: "Italien",            labelEn: "Italian",     short: "IT"    },
+  { code: "pt", flag: "🇧🇷", label: "Portugais",          labelEn: "Portuguese",  short: "PT"    },
+  { code: "ar", flag: "🇲🇦", label: "Arabe",              labelEn: "Arabic",      short: "AR"    },
+  { code: "ru", flag: "🇷🇺", label: "Russe",              labelEn: "Russian",     short: "RU"    },
+  { code: "zh", flag: "🇨🇳", label: "Chinois",            labelEn: "Chinese",     short: "ZH"    },
+  { code: "vi", flag: "🇻🇳", label: "Vietnamien",         labelEn: "Vietnamese",  short: "VI"    },
 ];
 
 /* ── Input style objects (used via onFocus/onBlur) ─────────────── */
@@ -887,20 +887,17 @@ export default function Generate() {
                       {lang === "en" ? "CV Language" : "Langue du CV"}
                       <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang === "en" ? "Language the CV will be written in" : "Langue dans laquelle le CV sera rédigé"}</span>
                     </label>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 6 }}>
+                    <div className="cv-lang-grid">
                       {CV_LANGUAGES.map(l => (
                         <button key={l.code} type="button" onClick={() => setCvLang(l.code)}
+                          className="cv-lang-btn"
                           style={{
-                            padding: "8px 4px", borderRadius: 10, cursor: "pointer",
                             border: cvLang === l.code ? "2px solid #6366f1" : "1.5px solid #e2e8f0",
                             background: cvLang === l.code ? "rgba(99,102,241,0.08)" : "#fafafa",
-                            display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
-                            fontSize: 9, fontWeight: 700,
                             color: cvLang === l.code ? "#4f46e5" : "#64748b",
-                            transition: "all 0.15s",
                           }}>
-                          <span style={{ fontSize: 18, lineHeight: 1 }}>{l.flag}</span>
-                          <span style={{ lineHeight: 1.2, textAlign: "center" }}>{lang === "en" ? l.labelEn : l.label}</span>
+                          <span className="cv-lang-flag">{l.flag}</span>
+                          <span className="cv-lang-label">{l.short}</span>
                         </button>
                       ))}
                     </div>

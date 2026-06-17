@@ -1,15 +1,48 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Logo from "../../components/Logo";
-import { articles } from "../data";
+import { articles as staticArticles } from "../data";
+import { supabase } from "@/lib/supabase";
+
+// Allow slugs from Supabase that weren't pre-generated at build time
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
+  return staticArticles.map((a) => ({ slug: a.slug }));
+}
+
+async function getArticle(slug) {
+  // 1. Check static data first (fastest)
+  const staticArticle = staticArticles.find((a) => a.slug === slug);
+  if (staticArticle) return staticArticle;
+
+  // 2. Fall back to Supabase for dynamically generated articles
+  try {
+    const { data } = await supabase
+      .from("blog_articles")
+      .select("*")
+      .eq("slug", slug)
+      .eq("published", true)
+      .maybeSingle();
+
+    if (!data) return null;
+    return {
+      slug: data.slug,
+      titre: data.titre,
+      description: data.description,
+      date: data.date,
+      categorie: data.categorie,
+      tempsLecture: data.temps_lecture,
+      contenu: data.contenu,
+    };
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const article = articles.find((a) => a.slug === slug);
+  const article = await getArticle(slug);
   if (!article) return {};
   return {
     title: `${article.titre} — CVAdapt`,
@@ -29,10 +62,10 @@ export async function generateMetadata({ params }) {
 
 export default async function Article({ params }) {
   const { slug } = await params;
-  const article = articles.find((a) => a.slug === slug);
+  const article = await getArticle(slug);
   if (!article) notFound();
 
-  const autres = articles.filter((a) => a.slug !== article.slug).slice(0, 2);
+  const autres = staticArticles.filter((a) => a.slug !== article.slug).slice(0, 2);
 
   // JSON-LD Schema
   const jsonLd = {
