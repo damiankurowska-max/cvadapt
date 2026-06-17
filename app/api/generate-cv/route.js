@@ -319,7 +319,7 @@ ABSOLUTE RULES:
 6. NEVER invent missing information. If experience is empty, still generate a section with what is available.
 7. width:794px exact on the root container. No overflow. Precise spacing.
 8. Print-ready A4 layout: compact sections, no unwanted page breaks.
-9. All section headers MUST be in English: Profile, Work Experience, Skills, Education, Contact.`;
+9. Section headers and ALL text content MUST be in the language specified in the user message.`;
 
 export async function POST(request) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
