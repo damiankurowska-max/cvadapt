@@ -300,7 +300,7 @@ export default function Generate() {
 
     if (!isPro) {
       if (cvCount >= CV_LIMIT) {
-        setError(tr(lang, "limit3"));
+        setShowUpgradeModal(true);
         try { window.clarity?.("event", "limit_hit_free"); } catch {}
         return;
       }

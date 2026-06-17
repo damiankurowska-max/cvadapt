@@ -14,6 +14,7 @@ const C = {
   blue: "#2563EB",
   blueLight: "#EFF6FF",
   amber: "#F59E0B",
+  amberLight: "#FEF3C7",
   green: "#10B981",
   greenLight: "#ECFDF5",
   red: "#EF4444",
@@ -199,6 +200,9 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
             <a href="/generate" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 26px", background: C.blue, color: "#fff", borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.35)" }}>
               Générer mon CV gratuit →
+            </a>
+            <a href="/analyse" style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "14px 22px", background: C.bg, color: C.navy, borderRadius: 12, fontSize: 15, fontWeight: 600, textDecoration: "none", border: `1.5px solid ${C.border}` }}>
+              🎯 Tester mon score ATS
             </a>
           </div>
 
@@ -571,6 +575,11 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
           </div>
         </div>
       </section>
+
+      {/* ── STICKY MOBILE CTA ── */}
+      <a href="/generate" className="cv-sticky-cta">
+        Générer mon CV gratuit → <span style={{ fontSize: 12, opacity: 0.75, fontWeight: 600 }}>· Sans CB · 30s</span>
+      </a>
 
       {/* ── FOOTER ── */}
       <footer className="cv-section" style={{ padding: "22px 40px 18px", borderTop: `1px solid ${C.border}`, background: C.bg }}>
