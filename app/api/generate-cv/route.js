@@ -281,16 +281,16 @@ STRUCTURE HTML EXACTE à produire :
 };
 
 const CV_LANG_NAMES = {
-  fr: "français",
+  fr: "French",
   en: "English",
-  de: "Deutsch (allemand)",
-  es: "español",
-  it: "italiano",
-  pt: "português (brésilien)",
-  ar: "arabe (عربي) — écriture droite-à-gauche : ajoute dir=\"rtl\" sur le conteneur racine",
-  ru: "русский (russe)",
-  zh: "中文 (chinois simplifié)",
-  vi: "tiếng Việt (vietnamien)",
+  de: "German (Deutsch)",
+  es: "Spanish (Español)",
+  it: "Italian (Italiano)",
+  pt: "Portuguese / Português Brasileiro",
+  ar: "Arabic (العربية)",
+  ru: "Russian (Русский)",
+  zh: "Simplified Chinese (中文)",
+  vi: "Vietnamese (Tiếng Việt)",
 };
 
 const VALID_CV_LANGS = Object.keys(CV_LANG_NAMES);
@@ -413,7 +413,7 @@ export async function POST(request) {
 
   // ── 5. GÉNÉRATION CV ─────────────────────────────────────────────────
   const styleDesc = TEMPLATE_STYLES[template];
-  const systemPrompt = cvLang === "en" ? SYSTEM_PROMPT_EN : SYSTEM_PROMPT_FR;
+  const systemPrompt = cvLang === "fr" ? SYSTEM_PROMPT_FR : SYSTEM_PROMPT_EN;
 
   // Language-specific labels for the user message
   const labels = cvLang === "en" ? {
@@ -463,7 +463,7 @@ export async function POST(request) {
       system: systemPrompt,
       messages: [{
         role: "user",
-        content: `${labels.template} : ${styleDesc}
+        content: `${cvLang !== "fr" && cvLang !== "en" ? `⚠️ MANDATORY LANGUAGE: Generate ALL text content of this CV in ${CV_LANG_NAMES[cvLang]}. Every word visible in the CV (section titles, profile, skills, experience bullets, education) MUST be in ${CV_LANG_NAMES[cvLang]}. Do NOT use French or English anywhere in the CV text.${cvLang === "ar" ? ' Set dir="rtl" on the root container.' : ""}\n\n` : ""}${labels.template} : ${styleDesc}
 
 ${labels.jobPosting} :
 ${offre}
@@ -472,12 +472,12 @@ ${labels.candidate} :
 ${labels.name}: ${nom}
 ${emailCv ? `Email: ${emailCv}` : ""}
 ${telephoneCv ? `${labels.phone}: ${telephoneCv}` : ""}
-${adresse ? `${lang === "en" ? "Address" : "Adresse"}: ${adresse}` : ""}
+${adresse ? `Address: ${adresse}` : ""}
 ${linkedin ? `LinkedIn/Portfolio: ${linkedin}` : ""}
 ${labels.experience}: ${experience || labels.noExp}
 ${labels.skills}: ${competences || labels.inferSkills}
 ${labels.education}: ${formation || labels.noEdu}
-${langues ? `${lang === "en" ? "Languages" : "Langues"}: ${langues}` : ""}
+${langues ? `Languages: ${langues}` : ""}
 
 ${labels.structure} :
 1. ${labels.s1}
@@ -486,9 +486,7 @@ ${labels.structure} :
 4. ${labels.s4}
 5. ${labels.s5}
 
-${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `
-
-LANGUE DU CV : ${CV_LANG_NAMES[cvLang]}. CRITIQUE : génère TOUT le contenu textuel du CV (titres de sections, profil, compétences, formation, bullets d'expérience) en ${CV_LANG_NAMES[cvLang]}. Traduis les en-têtes de section du template (Compétences → traduction, Formation → traduction, Expériences → traduction, Profil → traduction, Contact → traduction). Le reste du HTML et des styles CSS reste inchangé.` : ""}`,
+${labels.quality}`,
       }],
     });
 
