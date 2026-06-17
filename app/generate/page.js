@@ -158,7 +158,7 @@ export default function Generate() {
   const router = useRouter();
   const [lang, setLang] = useState("fr");
   const [detectedLang, setDetectedLang] = useState(null); // auto-detected from job posting
-  const [form, setForm] = useState({ nom: "", email: "", telephone: "", offre: "", experience: "", competences: "", formation: "" });
+  const [form, setForm] = useState({ nom: "", email: "", telephone: "", adresse: "", offre: "", experience: "", competences: "", formation: "", langues: "", linkedin: "" });
   const [photo, setPhoto] = useState(null);
   const photoInputRef = useRef(null);
   const [template, setTemplate] = useState("moderne");
@@ -848,6 +848,33 @@ export default function Generate() {
                       <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "educationHint")}</span>
                     </label>
                     <input type="text" name="formation" value={form.formation} onChange={handleChange} placeholder={tr(lang, "educationPlaceholder")} className="gen-field" />
+                  </div>
+
+                  {/* Adresse */}
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>
+                      {lang === "en" ? "City / Address" : "Ville / Adresse"}
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang === "en" ? "Appears in the CV header" : "Apparaît dans l'en-tête du CV"}</span>
+                    </label>
+                    <input type="text" name="adresse" value={form.adresse} onChange={handleChange} placeholder={lang === "en" ? "Paris, France" : "Paris 75008"} className="gen-field" style={{ fontSize: 13 }} />
+                  </div>
+
+                  {/* Langues */}
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>
+                      {lang === "en" ? "Languages" : "Langues"}
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang === "en" ? "Included in the CV" : "Incluses dans le CV"}</span>
+                    </label>
+                    <input type="text" name="langues" value={form.langues} onChange={handleChange} placeholder={lang === "en" ? "English (native), French (B2)" : "Français (natif), Anglais (B2), Espagnol (A2)"} className="gen-field" style={{ fontSize: 13 }} />
+                  </div>
+
+                  {/* LinkedIn / Portfolio */}
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>
+                      LinkedIn / Portfolio
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang === "en" ? "Optional" : "Optionnel"}</span>
+                    </label>
+                    <input type="text" name="linkedin" value={form.linkedin} onChange={handleChange} placeholder={lang === "en" ? "linkedin.com/in/your-profile" : "linkedin.com/in/ton-profil"} className="gen-field" style={{ fontSize: 13 }} />
                   </div>
                 </div>
 

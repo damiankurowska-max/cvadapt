@@ -36,6 +36,8 @@ export async function POST(request) {
   const experience  = sanitizeInput(body.experience,   3000);
   const competences = sanitizeInput(body.competences,  2000);
   const formation   = sanitizeInput(body.formation,    1000);
+  const langues     = sanitizeInput(body.langues,       500);
+  const adresse     = sanitizeInput(body.adresse,       200);
 
   if (!offre || !nom) {
     return Response.json({ error: "L'offre et le nom sont requis." }, { status: 400 });
@@ -58,9 +60,11 @@ ${offre}
 
 PROFIL DU CANDIDAT:
 Nom: ${nom}
+${adresse ? `Localisation: ${adresse}` : ""}
 Expérience: ${experience || "Aucune"}
 Compétences: ${competences || "Non précisées"}
 Formation: ${formation || "Non précisée"}
+${langues ? `Langues: ${langues}` : ""}
 
 Retourne UNIQUEMENT un JSON valide (sans markdown, sans backticks) avec cette structure exacte:
 {

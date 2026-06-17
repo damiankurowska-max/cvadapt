@@ -27,7 +27,7 @@ function scoreColor(s) {
 }
 
 export default function Analyse() {
-  const [form, setForm] = useState({ offre: "", nom: "", experience: "", competences: "", formation: "" });
+  const [form, setForm] = useState({ offre: "", nom: "", email: "", telephone: "", adresse: "", experience: "", competences: "", formation: "", langues: "", linkedin: "" });
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
@@ -288,21 +288,59 @@ export default function Analyse() {
                     </div>
                   </div>
 
-                  {[
-                    { name: "nom",          label: "Nom complet",  placeholder: "Sophie Martin",                                             type: "input"    },
-                    { name: "experience",   label: "Expérience",   placeholder: "2 ans chez Accenture en tant que développeur React…",       type: "textarea", rows: 4 },
-                    { name: "competences",  label: "Compétences",  placeholder: "React, JavaScript, Node.js, SQL, Git…",                     type: "input"    },
-                    { name: "formation",    label: "Formation",    placeholder: "Licence Informatique, École d'ingénieur…",                  type: "input"    },
-                  ].map(({ name, label, placeholder, type, rows }) => (
-                    <div key={name}>
-                      <label className="ats-label">{label}</label>
-                      {type === "textarea" ? (
-                        <textarea className="ats-input" name={name} value={form[name]} onChange={handleChange} required rows={rows} placeholder={placeholder} />
-                      ) : (
-                        <input className="ats-input" type="text" name={name} value={form[name]} onChange={handleChange} required placeholder={placeholder} />
-                      )}
+                  {/* Nom complet */}
+                  <div>
+                    <label className="ats-label">Nom complet <span style={{ color: "#ef4444" }}>*</span></label>
+                    <input className="ats-input" type="text" name="nom" value={form.nom} onChange={handleChange} required placeholder="Sophie Martin" />
+                  </div>
+
+                  {/* Email + Téléphone */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                    <div>
+                      <label className="ats-label">Email</label>
+                      <input className="ats-input" type="email" name="email" value={form.email} onChange={handleChange} placeholder="sophie@email.com" />
                     </div>
-                  ))}
+                    <div>
+                      <label className="ats-label">Téléphone</label>
+                      <input className="ats-input" type="tel" name="telephone" value={form.telephone} onChange={handleChange} placeholder="06 12 34 56 78" />
+                    </div>
+                  </div>
+
+                  {/* Adresse */}
+                  <div>
+                    <label className="ats-label">Ville / Adresse</label>
+                    <input className="ats-input" type="text" name="adresse" value={form.adresse} onChange={handleChange} placeholder="Paris 75008" />
+                  </div>
+
+                  {/* Expérience */}
+                  <div>
+                    <label className="ats-label">Expérience professionnelle <span style={{ color: "#ef4444" }}>*</span></label>
+                    <textarea className="ats-input" name="experience" value={form.experience} onChange={handleChange} required rows={4} placeholder="2 ans chez Accenture en tant que développeur React…&#10;Chef de projet chez Orange (2020–2023)…" />
+                  </div>
+
+                  {/* Compétences */}
+                  <div>
+                    <label className="ats-label">Compétences <span style={{ color: "#ef4444" }}>*</span></label>
+                    <input className="ats-input" type="text" name="competences" value={form.competences} onChange={handleChange} required placeholder="React, JavaScript, Node.js, SQL, Git…" />
+                  </div>
+
+                  {/* Formation */}
+                  <div>
+                    <label className="ats-label">Formation <span style={{ color: "#ef4444" }}>*</span></label>
+                    <input className="ats-input" type="text" name="formation" value={form.formation} onChange={handleChange} required placeholder="Licence Informatique — Université Paris VI, 2021" />
+                  </div>
+
+                  {/* Langues + LinkedIn */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                    <div>
+                      <label className="ats-label">Langues</label>
+                      <input className="ats-input" type="text" name="langues" value={form.langues} onChange={handleChange} placeholder="Français (natif), Anglais (B2)" />
+                    </div>
+                    <div>
+                      <label className="ats-label">LinkedIn / Portfolio</label>
+                      <input className="ats-input" type="text" name="linkedin" value={form.linkedin} onChange={handleChange} placeholder="linkedin.com/in/sophie-martin" />
+                    </div>
+                  </div>
                 </div>
               </div>
 

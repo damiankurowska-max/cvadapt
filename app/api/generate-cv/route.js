@@ -377,9 +377,12 @@ export async function POST(request) {
   const nom         = sanitizeInput(body.nom,         200);
   const emailCv     = sanitizeInput(body.email,       200);
   const telephoneCv = sanitizeInput(body.telephone,   100);
+  const adresse     = sanitizeInput(body.adresse,     200);
   const experience  = sanitizeInput(body.experience,  3000);
   const competences = sanitizeInput(body.competences, 2000);
   const formation   = sanitizeInput(body.formation,   1000);
+  const langues     = sanitizeInput(body.langues,     500);
+  const linkedin    = sanitizeInput(body.linkedin,    300);
   const template    = ["moderne","classique","creatif","minimaliste"].includes(body.template)
     ? body.template : "moderne";
   const lang        = body.lang === "en" ? "en" : "fr";
@@ -429,7 +432,7 @@ export async function POST(request) {
     inferSkills: "À déduire du profil et de l'offre",
     noEdu: "Non précisée",
     structure: "STRUCTURE DU CV",
-    s1: `En-tête : nom + titre extrait de l'offre + coordonnées (${emailCv || "email si fourni"}${telephoneCv ? ` · ${telephoneCv}` : ""} · Paris, France)`,
+    s1: `En-tête : nom + titre extrait de l'offre + coordonnées (${emailCv || "email si fourni"}${telephoneCv ? ` · ${telephoneCv}` : ""}${adresse ? ` · ${adresse}` : ""}${linkedin ? ` · ${linkedin}` : ""})`,
     s2: "Profil (3 phrases percutantes) : mots-clés de l'offre + valeur ajoutée concrète",
     s3: "Expériences : titre poste | entreprise | dates | 2–3 bullets avec résultats chiffrés",
     s4: "Compétences : liste filtrée et pertinente pour l'offre",
@@ -453,9 +456,12 @@ ${labels.candidate} :
 ${labels.name}: ${nom}
 ${emailCv ? `Email: ${emailCv}` : ""}
 ${telephoneCv ? `${labels.phone}: ${telephoneCv}` : ""}
+${adresse ? `${lang === "en" ? "Address" : "Adresse"}: ${adresse}` : ""}
+${linkedin ? `LinkedIn/Portfolio: ${linkedin}` : ""}
 ${labels.experience}: ${experience || labels.noExp}
 ${labels.skills}: ${competences || labels.inferSkills}
 ${labels.education}: ${formation || labels.noEdu}
+${langues ? `${lang === "en" ? "Languages" : "Langues"}: ${langues}` : ""}
 
 ${labels.structure} :
 1. ${labels.s1}
