@@ -694,8 +694,8 @@ export default function Generate() {
         </div>
       )}
 
-      <div style={{ maxWidth: 580, margin: "0 auto", padding: "32px 16px 80px" }}>
-        {!cv ? (
+      <div className={cv ? "gen-split" : ""} style={!cv ? { maxWidth: 580, margin: "0 auto", padding: "32px 16px 80px" } : {}}>
+        <div className={cv ? "gen-form-col" : ""}>
           <>
             {/* Banners limite */}
             {!isPro && cvCount >= CV_LIMIT && (
@@ -1112,8 +1112,9 @@ export default function Generate() {
               </form>
             )}
           </>
-        ) : (
-          <div className="max-w-4xl mx-auto">
+        </div>
+        {cv && (
+          <div className="gen-result-col">
             {/* Barre succès */}
             <div className="bg-green-50 border border-green-200 rounded-xl px-5 py-4 mb-4 flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center gap-3">

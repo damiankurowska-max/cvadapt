@@ -46,6 +46,33 @@ body {
   to   { transform: translateY(0);    opacity: 1; }
 }
 
+/* ── GENERATE PAGE SPLIT LAYOUT ── */
+.gen-split {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 20px 16px 80px;
+}
+.gen-form-col {
+  width: 420px;
+  flex-shrink: 0;
+}
+.gen-result-col {
+  flex: 1;
+  min-width: 0;
+  position: sticky;
+  top: 72px;
+  max-height: calc(100vh - 88px);
+  overflow-y: auto;
+}
+@media (max-width: 960px) {
+  .gen-split { flex-direction: column; }
+  .gen-form-col { width: 100%; }
+  .gen-result-col { position: static; max-height: none; }
+}
+
 /* ── LANGUAGE SELECTOR (generate page) ── */
 .cv-lang-grid {
   display: grid;
