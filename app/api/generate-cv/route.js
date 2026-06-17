@@ -280,6 +280,21 @@ STRUCTURE HTML EXACTE à produire :
 </div>`,
 };
 
+const CV_LANG_NAMES = {
+  fr: "français",
+  en: "English",
+  de: "Deutsch (allemand)",
+  es: "español",
+  it: "italiano",
+  pt: "português (brésilien)",
+  ar: "arabe (عربي) — écriture droite-à-gauche : ajoute dir=\"rtl\" sur le conteneur racine",
+  ru: "русский (russe)",
+  zh: "中文 (chinois simplifié)",
+  vi: "tiếng Việt (vietnamien)",
+};
+
+const VALID_CV_LANGS = Object.keys(CV_LANG_NAMES);
+
 // System prompts (stable → cache API Anthropic)
 const SYSTEM_PROMPT_FR = `Tu es un expert RH et designer CV de haut niveau. Tu génères des CV HTML en CSS inline, prêts à imprimer, d'une qualité professionnelle irréprochable.
 
@@ -386,6 +401,7 @@ export async function POST(request) {
   const template    = ["moderne","classique","creatif","minimaliste"].includes(body.template)
     ? body.template : "moderne";
   const lang        = body.lang === "en" ? "en" : "fr";
+  const cvLang      = VALID_CV_LANGS.includes(body.cvLang) ? body.cvLang : lang;
 
   if (!offre || !nom) {
     return Response.json({
@@ -397,10 +413,10 @@ export async function POST(request) {
 
   // ── 5. GÉNÉRATION CV ─────────────────────────────────────────────────
   const styleDesc = TEMPLATE_STYLES[template];
-  const systemPrompt = lang === "en" ? SYSTEM_PROMPT_EN : SYSTEM_PROMPT_FR;
+  const systemPrompt = cvLang === "en" ? SYSTEM_PROMPT_EN : SYSTEM_PROMPT_FR;
 
   // Language-specific labels for the user message
-  const labels = lang === "en" ? {
+  const labels = cvLang === "en" ? {
     template: "TEMPLATE",
     jobPosting: "JOB POSTING",
     candidate: "CANDIDATE",
@@ -470,7 +486,9 @@ ${labels.structure} :
 4. ${labels.s4}
 5. ${labels.s5}
 
-${labels.quality}`,
+${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `
+
+LANGUE DU CV : ${CV_LANG_NAMES[cvLang]}. CRITIQUE : génère TOUT le contenu textuel du CV (titres de sections, profil, compétences, formation, bullets d'expérience) en ${CV_LANG_NAMES[cvLang]}. Traduis les en-têtes de section du template (Compétences → traduction, Formation → traduction, Expériences → traduction, Profil → traduction, Contact → traduction). Le reste du HTML et des styles CSS reste inchangé.` : ""}`,
       }],
     });
 

@@ -17,6 +17,19 @@ const TEMPLATES = [
   { id: "minimaliste", name: "Trait",      desc: "Minimaliste & teal", accent: "#0f766e", bg: "#f0fdfa", sidebar: false },
 ];
 
+const CV_LANGUAGES = [
+  { code: "fr", flag: "🇫🇷", label: "Français",           labelEn: "French"      },
+  { code: "en", flag: "🇬🇧", label: "Anglais",            labelEn: "English"     },
+  { code: "de", flag: "🇩🇪", label: "Allemand",           labelEn: "German"      },
+  { code: "es", flag: "🇪🇸", label: "Espagnol",           labelEn: "Spanish"     },
+  { code: "it", flag: "🇮🇹", label: "Italien",            labelEn: "Italian"     },
+  { code: "pt", flag: "🇧🇷", label: "Portugais (Brésil)", labelEn: "Portuguese"  },
+  { code: "ar", flag: "🇲🇦", label: "Arabe",              labelEn: "Arabic"      },
+  { code: "ru", flag: "🇷🇺", label: "Russe",              labelEn: "Russian"     },
+  { code: "zh", flag: "🇨🇳", label: "Chinois",            labelEn: "Chinese"     },
+  { code: "vi", flag: "🇻🇳", label: "Vietnamien",         labelEn: "Vietnamese"  },
+];
+
 /* ── Input style objects (used via onFocus/onBlur) ─────────────── */
 const inputStyle = {
   width: "100%", border: "1.5px solid #e5e7eb", borderRadius: 10,
@@ -157,7 +170,7 @@ export default function Generate() {
   const { user, isSignedIn, isLoaded } = useUser();
   const router = useRouter();
   const [lang, setLang] = useState("fr");
-  const [detectedLang, setDetectedLang] = useState(null); // auto-detected from job posting
+  const [cvLang, setCvLang] = useState("fr"); // language the CV will be generated in
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", adresse: "", offre: "", experience: "", competences: "", formation: "", langues: "", linkedin: "" });
   const [photo, setPhoto] = useState(null);
   const photoInputRef = useRef(null);
@@ -237,18 +250,33 @@ export default function Generate() {
 
   function detectLang(text) {
     if (!text || text.length < 60) return null;
+    // Non-Latin scripts detected by Unicode ranges
+    if (/[؀-ۿ]/.test(text)) return "ar";
+    if (/[Ѐ-ӿ]/.test(text)) return "ru";
+    if (/[一-鿿]/.test(text)) return "zh";
     const lower = text.toLowerCase();
-    const en = ["the ", " and ", " of ", " in ", " to ", " for ", " you ", " we ", " are ", " is ", "requirements", "experience", "skills", "team", "position", "role", "candidate", "salary", "apply", "workplace"].filter(w => lower.includes(w)).length;
-    const fr = [" le ", " la ", " les ", " et ", " de ", " du ", " un ", " une ", " des ", " pour ", " dans ", " nous ", " vous ", " est ", "expérience", "compétences", "poste", "entreprise", "équipe", "candidat", "rémunération", "rejoindre"].filter(w => lower.includes(w)).length;
-    if (en === 0 && fr === 0) return null;
-    return en > fr ? "en" : "fr";
+    const scores = {
+      en: ["the ", " and ", " for ", "requirements", "experience", "skills", "position", "company", "apply", "candidate"].filter(w => lower.includes(w)).length,
+      fr: [" le ", " la ", " les ", " et ", " de ", " du ", "expérience", "compétences", "poste", "entreprise", "candidat"].filter(w => lower.includes(w)).length,
+      de: [" und ", " der ", " die ", " das ", " für ", "berufserfahrung", "kenntnisse", "stelle", "unternehmen", "bewerb"].filter(w => lower.includes(w)).length,
+      es: [" el ", " la ", " los ", " y ", " para ", "experiencia", "competencias", "empresa", "puesto", "candidato"].filter(w => lower.includes(w)).length,
+      it: [" il ", " le ", " gli ", " e ", " per ", "esperienza", "competenze", "azienda", "posizione", "candidato"].filter(w => lower.includes(w)).length,
+      pt: [" o ", " a ", " os ", " as ", " para ", "experiência", "competências", "empresa", "vaga", "candidato"].filter(w => lower.includes(w)).length,
+      vi: ["việc", "kinh nghiệm", "công ty", "ứng viên", "kỹ năng", "tuyển dụng"].filter(w => lower.includes(w)).length,
+    };
+    let best = null, bestScore = 0;
+    for (const [code, score] of Object.entries(scores)) {
+      if (score > bestScore) { bestScore = score; best = code; }
+    }
+    return bestScore >= 2 ? best : null;
   }
 
   function handleChange(e) {
     const updated = { ...form, [e.target.name]: e.target.value };
     setForm(updated);
     if (e.target.name === "offre") {
-      setDetectedLang(detectLang(e.target.value));
+      const detected = detectLang(e.target.value);
+      if (detected) setCvLang(detected);
     }
   }
 
@@ -294,7 +322,7 @@ export default function Generate() {
       const cvRes = await fetch("/api/generate-cv", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, template, lang: detectedLang || lang }),
+        body: JSON.stringify({ ...form, template, lang, cvLang }),
       });
       const cvData = await cvRes.json();
 
@@ -737,13 +765,16 @@ export default function Generate() {
 
                 {/* Card textarea */}
                 <div style={{ background: "#fff", borderRadius: 20, border: "1.5px solid rgba(99,102,241,0.12)", boxShadow: "0 8px 40px rgba(99,102,241,0.08)", padding: "24px" }}>
-                  {detectedLang && (
-                    <div style={{ marginBottom: 12 }}>
-                      <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 999, background: detectedLang === "en" ? "#dbeafe" : "#dcfce7", color: detectedLang === "en" ? "#1d4ed8" : "#15803d" }}>
-                        {detectedLang === "en" ? "🇺🇸 English detected → CV in English" : "🇫🇷 Français détecté → CV en français"}
-                      </span>
-                    </div>
-                  )}
+                  {form.offre.length > 80 && (() => {
+                    const l = CV_LANGUAGES.find(x => x.code === cvLang) || CV_LANGUAGES[0];
+                    return (
+                      <div style={{ marginBottom: 12 }}>
+                        <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 999, background: "#ede9fe", color: "#5b21b6" }}>
+                          {l.flag} {lang === "en" ? `CV will be in ${l.labelEn}` : `CV en ${l.label}`} · <span style={{ fontWeight: 400, opacity: 0.7 }}>{lang === "en" ? "change in step 2" : "modifiable à l'étape 2"}</span>
+                        </span>
+                      </div>
+                    );
+                  })()}
                   <textarea
                     name="offre" value={form.offre} onChange={handleChange}
                     rows={10}
@@ -848,6 +879,31 @@ export default function Generate() {
                       <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "educationHint")}</span>
                     </label>
                     <input type="text" name="formation" value={form.formation} onChange={handleChange} placeholder={tr(lang, "educationPlaceholder")} className="gen-field" />
+                  </div>
+
+                  {/* Langue du CV */}
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 8 }}>
+                      {lang === "en" ? "CV Language" : "Langue du CV"}
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang === "en" ? "Language the CV will be written in" : "Langue dans laquelle le CV sera rédigé"}</span>
+                    </label>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 6 }}>
+                      {CV_LANGUAGES.map(l => (
+                        <button key={l.code} type="button" onClick={() => setCvLang(l.code)}
+                          style={{
+                            padding: "8px 4px", borderRadius: 10, cursor: "pointer",
+                            border: cvLang === l.code ? "2px solid #6366f1" : "1.5px solid #e2e8f0",
+                            background: cvLang === l.code ? "rgba(99,102,241,0.08)" : "#fafafa",
+                            display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
+                            fontSize: 9, fontWeight: 700,
+                            color: cvLang === l.code ? "#4f46e5" : "#64748b",
+                            transition: "all 0.15s",
+                          }}>
+                          <span style={{ fontSize: 18, lineHeight: 1 }}>{l.flag}</span>
+                          <span style={{ lineHeight: 1.2, textAlign: "center" }}>{lang === "en" ? l.labelEn : l.label}</span>
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Adresse */}
