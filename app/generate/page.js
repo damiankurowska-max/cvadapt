@@ -248,6 +248,13 @@ export default function Generate() {
         localStorage.removeItem("cvadapt_analyse_data");
       }
     } catch {}
+    try {
+      const savedCvLang = localStorage.getItem("cvadapt_cvlang");
+      if (savedCvLang) {
+        setCvLang(savedCvLang);
+        localStorage.removeItem("cvadapt_cvlang");
+      }
+    } catch {}
   }, []);
 
   useEffect(() => {

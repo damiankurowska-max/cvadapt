@@ -217,11 +217,40 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
             <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB · 3 CV gratuits</span>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 12, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: C.slateLight, letterSpacing: "0.02em", textTransform: "uppercase" }}>CV en 10 langues</span>
-            <div style={{ display: "flex", gap: 4, fontSize: 18, lineHeight: 1 }}>
-              {"🇫🇷 🇬🇧 🇩🇪 🇪🇸 🇮🇹 🇧🇷 🇲🇦 🇷🇺 🇨🇳 🇻🇳".split(" ").map((flag, i) => (
-                <span key={i} title={["Français","Anglais","Allemand","Espagnol","Italien","Portugais","Arabe","Russe","Chinois","Vietnamien"][i]}>{flag}</span>
+          <div style={{ marginTop: 14 }}>
+            <p style={{ fontSize: 11, fontWeight: 700, color: C.slateLight, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+              Génère ton CV en :
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {[
+                { flag: "🇫🇷", code: "fr", name: "Français" },
+                { flag: "🇬🇧", code: "en", name: "Anglais" },
+                { flag: "🇩🇪", code: "de", name: "Allemand" },
+                { flag: "🇪🇸", code: "es", name: "Espagnol" },
+                { flag: "🇮🇹", code: "it", name: "Italien" },
+                { flag: "🇧🇷", code: "pt", name: "Portugais" },
+                { flag: "🇲🇦", code: "ar", name: "Arabe" },
+                { flag: "🇷🇺", code: "ru", name: "Russe" },
+                { flag: "🇨🇳", code: "zh", name: "Chinois" },
+                { flag: "🇻🇳", code: "vi", name: "Vietnamien" },
+              ].map((l) => (
+                <a key={l.code} href="/generate"
+                  onClick={() => { try { localStorage.setItem("cvadapt_cvlang", l.code); } catch {} }}
+                  title={`CV en ${l.name}`}
+                  style={{
+                    display: "inline-flex", alignItems: "center", gap: 5,
+                    padding: "5px 10px", borderRadius: 999,
+                    border: `1px solid ${C.border}`, background: C.bg,
+                    fontSize: 13, fontWeight: 600, color: C.navy,
+                    textDecoration: "none", cursor: "pointer",
+                    transition: "border-color 0.15s, background 0.15s",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = C.blue; e.currentTarget.style.background = C.blueLight; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.bg; }}
+                >
+                  <span style={{ fontSize: 16 }}>{l.flag}</span>
+                  <span>{l.name}</span>
+                </a>
               ))}
             </div>
           </div>
