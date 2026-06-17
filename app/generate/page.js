@@ -191,6 +191,8 @@ export default function Generate() {
   const [showReferralPopup, setShowReferralPopup] = useState(false);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [showLangPicker, setShowLangPicker] = useState(false);
+  const langPickerRef = useRef(null);
   const [wizardStep, setWizardStep] = useState(1);
   const [boostedCV, setBoostedCV] = useState("");
   const [boostLoading, setBoostLoading] = useState(false);
@@ -247,6 +249,17 @@ export default function Generate() {
       }
     } catch {}
   }, []);
+
+  useEffect(() => {
+    if (!showLangPicker) return;
+    function handleClickOut(e) {
+      if (langPickerRef.current && !langPickerRef.current.contains(e.target)) {
+        setShowLangPicker(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOut);
+    return () => document.removeEventListener("mousedown", handleClickOut);
+  }, [showLangPicker]);
 
   function detectLang(text) {
     if (!text || text.length < 60) return null;
@@ -881,25 +894,50 @@ export default function Generate() {
                     <input type="text" name="formation" value={form.formation} onChange={handleChange} placeholder={tr(lang, "educationPlaceholder")} className="gen-field" />
                   </div>
 
-                  {/* Langue du CV */}
+                  {/* Langue du CV — compact popover */}
                   <div>
                     <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 8 }}>
                       {lang === "en" ? "CV Language" : "Langue du CV"}
-                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang === "en" ? "Language the CV will be written in" : "Langue dans laquelle le CV sera rédigé"}</span>
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang === "en" ? "Auto-detected · editable" : "Détectée auto · modifiable"}</span>
                     </label>
-                    <div className="cv-lang-grid">
-                      {CV_LANGUAGES.map(l => (
-                        <button key={l.code} type="button" onClick={() => setCvLang(l.code)}
-                          className="cv-lang-btn"
-                          style={{
-                            border: cvLang === l.code ? "2px solid #6366f1" : "1.5px solid #e2e8f0",
-                            background: cvLang === l.code ? "rgba(99,102,241,0.08)" : "#fafafa",
-                            color: cvLang === l.code ? "#4f46e5" : "#64748b",
-                          }}>
-                          <span className="cv-lang-flag">{l.flag}</span>
-                          <span className="cv-lang-label">{l.short}</span>
-                        </button>
-                      ))}
+                    <div style={{ position: "relative", display: "inline-block" }} ref={langPickerRef}>
+                      <button type="button" onClick={() => setShowLangPicker(v => !v)}
+                        style={{
+                          display: "inline-flex", alignItems: "center", gap: 8,
+                          padding: "9px 16px", border: "1.5px solid #e2e8f0",
+                          borderRadius: 999, background: "#fafafa", cursor: "pointer",
+                          fontSize: 14, fontWeight: 600, color: "#1e293b",
+                          transition: "border-color 0.15s",
+                        }}>
+                        <span style={{ fontSize: 22, lineHeight: 1 }}>{CV_LANGUAGES.find(l => l.code === cvLang)?.flag}</span>
+                        <span>{lang === "en" ? CV_LANGUAGES.find(l => l.code === cvLang)?.labelEn : CV_LANGUAGES.find(l => l.code === cvLang)?.label}</span>
+                        <span style={{ fontSize: 10, color: "#94a3b8" }}>▾</span>
+                      </button>
+                      {showLangPicker && (
+                        <div style={{
+                          position: "absolute", top: "calc(100% + 8px)", left: 0, zIndex: 50,
+                          background: "#fff", border: "1.5px solid #e2e8f0", borderRadius: 14,
+                          padding: 10, display: "grid", gridTemplateColumns: "repeat(5, 52px)",
+                          gap: 6, boxShadow: "0 8px 28px rgba(0,0,0,0.12)",
+                        }}>
+                          {CV_LANGUAGES.map(l => (
+                            <button key={l.code} type="button"
+                              onClick={() => { setCvLang(l.code); setShowLangPicker(false); }}
+                              style={{
+                                width: 52, height: 52, borderRadius: 10, cursor: "pointer",
+                                border: cvLang === l.code ? "2px solid #6366f1" : "1.5px solid #e2e8f0",
+                                background: cvLang === l.code ? "rgba(99,102,241,0.08)" : "#fafafa",
+                                display: "flex", flexDirection: "column", alignItems: "center",
+                                justifyContent: "center", gap: 3,
+                                fontSize: 11, fontWeight: 700,
+                                color: cvLang === l.code ? "#4f46e5" : "#64748b",
+                              }}>
+                              <span style={{ fontSize: 22, lineHeight: 1 }}>{l.flag}</span>
+                              <span>{l.short}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
 
