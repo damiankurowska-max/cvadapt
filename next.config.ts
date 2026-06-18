@@ -4,6 +4,24 @@ import { withSentryConfig } from "@sentry/nextjs";
 const nextConfig: NextConfig = {
   serverExternalPackages: ["stripe"],
 
+  // Redirection cvadapt.eu → postulera.com
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "cvadapt.eu" }],
+        destination: "https://postulera.com/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.cvadapt.eu" }],
+        destination: "https://postulera.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
+
   // Compression gzip automatique
   compress: true,
 
