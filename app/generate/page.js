@@ -166,11 +166,13 @@ function TemplateMiniPreview({ tmpl }) {
   );
 }
 
+const VALID_CV_LANG_CODES = ["fr","en","de","es","it","pt","ar","ru","zh","vi"];
+
 export default function Generate() {
   const { user, isSignedIn, isLoaded } = useUser();
   const router = useRouter();
   const [lang, setLang] = useState("fr");
-  const [cvLang, setCvLang] = useState("fr"); // language the CV will be generated in
+  const [cvLang, setCvLang] = useState("fr");
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", adresse: "", offre: "", experience: "", competences: "", formation: "", langues: "", linkedin: "" });
   const [photo, setPhoto] = useState(null);
   const photoInputRef = useRef(null);
@@ -203,11 +205,15 @@ export default function Generate() {
   const isPro = user?.unsafeMetadata?.isPro || false;
   const plan = user?.unsafeMetadata?.plan || "free";
 
-  // Init language from localStorage
+  // Init UI language + CV language from URL param or localStorage
   useEffect(() => {
     try {
       const saved = localStorage.getItem("cvadapt_lang");
       if (saved === "en" || saved === "fr") setLang(saved);
+    } catch {}
+    try {
+      const p = new URLSearchParams(window.location.search).get("cvlang");
+      if (p && VALID_CV_LANG_CODES.includes(p)) setCvLang(p);
     } catch {}
   }, []);
 
@@ -246,13 +252,6 @@ export default function Generate() {
         setForm(f => ({ ...f, ...saved }));
         setWizardStep(2);
         localStorage.removeItem("cvadapt_analyse_data");
-      }
-    } catch {}
-    try {
-      const savedCvLang = localStorage.getItem("cvadapt_cvlang");
-      if (savedCvLang) {
-        setCvLang(savedCvLang);
-        localStorage.removeItem("cvadapt_cvlang");
       }
     } catch {}
   }, []);

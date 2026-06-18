@@ -234,8 +234,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
                 { flag: "🇨🇳", code: "zh", name: "Chinois" },
                 { flag: "🇻🇳", code: "vi", name: "Vietnamien" },
               ].map((l) => (
-                <a key={l.code} href="/generate"
-                  onClick={() => { try { localStorage.setItem("cvadapt_cvlang", l.code); } catch {} }}
+                <a key={l.code} href={`/generate?cvlang=${l.code}`}
                   title={`CV en ${l.name}`}
                   style={{
                     display: "inline-flex", alignItems: "center", gap: 5,

@@ -463,7 +463,7 @@ export async function POST(request) {
       system: systemPrompt,
       messages: [{
         role: "user",
-        content: `${cvLang !== "fr" && cvLang !== "en" ? `⚠️ MANDATORY LANGUAGE: Generate ALL text content of this CV in ${CV_LANG_NAMES[cvLang]}. Every word visible in the CV (section titles, profile, skills, experience bullets, education) MUST be in ${CV_LANG_NAMES[cvLang]}. Do NOT use French or English anywhere in the CV text.${cvLang === "ar" ? ' Set dir="rtl" on the root container.' : ""}\n\n` : ""}${labels.template} : ${styleDesc}
+        content: `${cvLang !== "fr" && cvLang !== "en" ? `[LANGUAGE OVERRIDE — READ FIRST] The CV MUST be written entirely in ${CV_LANG_NAMES[cvLang]}. All section titles, profile text, experience bullets, skills, and education content must be in ${CV_LANG_NAMES[cvLang]}. Using French or English in the CV content is forbidden.${cvLang === "ar" ? ' Add dir="rtl" on the root div.' : ""}\n\n` : ""}${labels.template} : ${styleDesc}
 
 ${labels.jobPosting} :
 ${offre}
@@ -486,7 +486,7 @@ ${labels.structure} :
 4. ${labels.s4}
 5. ${labels.s5}
 
-${labels.quality}`,
+${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write every word of the CV in ${CV_LANG_NAMES[cvLang]}. Zero French. Zero English.` : ""}`,
       }],
     });
 
