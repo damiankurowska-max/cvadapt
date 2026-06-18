@@ -69,7 +69,7 @@ export default function JoinPage() {
         {isLoaded && !user && (
           <>
             <h1 style={{ fontSize: 22, fontWeight: 800, color: "#1e3a8a", marginBottom: 10, lineHeight: 1.3 }}>
-              Ton école t&apos;a offert CVAdapt
+              Ton école t&apos;a offert Postulera
             </h1>
             <p style={{ fontSize: 15, color: "#6b7280", marginBottom: 32, lineHeight: 1.6 }}>
               Crée un compte gratuit pour accéder à la génération de CV optimisée pour ton BDE / ta filière.

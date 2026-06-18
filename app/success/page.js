@@ -27,7 +27,7 @@ export default function Success() {
       <header className="bg-white border-b border-gray-100 px-5 py-3">
         <div className="max-w-5xl mx-auto flex items-center gap-2">
           <Logo size={26} />
-          <span className="font-bold text-blue-600 text-base">CVAdapt</span>
+          <span className="font-bold text-blue-600 text-base">Postulera</span>
         </div>
       </header>
 
@@ -89,19 +89,19 @@ export default function Success() {
               <span className="text-2xl">🎁</span>
               <div>
                 <p className="text-sm font-bold text-gray-900">Invite un ami, aide-le à décrocher son poste</p>
-                <p className="text-xs text-gray-400">Partage CVAdapt — gratuit pour commencer</p>
+                <p className="text-xs text-gray-400">Partage Postulera — gratuit pour commencer</p>
               </div>
             </div>
             <div className="flex gap-2">
               <div className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs text-gray-500 font-mono overflow-hidden text-ellipsis whitespace-nowrap">
-                https://cvadapt.eu
+                https://postulera.com
               </div>
               <button
                 onClick={() => {
                   if (navigator.share) {
-                    navigator.share({ title: "CVAdapt — CV ATS en 30 sec", text: "J'utilise CVAdapt pour adapter mon CV à chaque offre en 30 secondes. C'est gratuit pour commencer !", url: "https://cvadapt.eu" });
+                    navigator.share({ title: "Postulera — CV ATS en 30 sec", text: "J'utilise Postulera pour adapter mon CV à chaque offre en 30 secondes. C'est gratuit pour commencer !", url: "https://postulera.com" });
                   } else {
-                    navigator.clipboard.writeText("https://cvadapt.eu");
+                    navigator.clipboard.writeText("https://postulera.com");
                     alert("Lien copié !");
                   }
                 }}
@@ -131,7 +131,7 @@ export default function Success() {
           </div>
 
           <p className="text-center text-xs text-gray-400 pb-2">
-            Une confirmation a été envoyée par email · <a href="mailto:contact@cvadapt.eu" className="text-blue-500 hover:underline">contact@cvadapt.eu</a>
+            Une confirmation a été envoyée par email · <a href="mailto:contact@postulera.com" className="text-blue-500 hover:underline">contact@postulera.com</a>
           </p>
         </div>
       </div>

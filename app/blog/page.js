@@ -31,13 +31,13 @@ async function getAllArticles() {
 }
 
 export const metadata = {
-  title: "Blog CVAdapt — Décroche 3× Plus d'Entretiens avec ces Guides",
+  title: "Blog Postulera — Décroche 3× Plus d'Entretiens avec ces Guides",
   description: "Guides CV concrets pour étudiants et jeunes diplômés : passer les filtres ATS, rédiger une lettre percutante, décrocher stage et alternance. Lus par +12 000 étudiants.",
-  alternates: { canonical: "https://cvadapt.eu/blog" },
+  alternates: { canonical: "https://postulera.com/blog" },
   openGraph: {
-    title: "Blog CVAdapt — Décroche 3× Plus d'Entretiens avec ces Guides",
+    title: "Blog Postulera — Décroche 3× Plus d'Entretiens avec ces Guides",
     description: "Guides CV concrets pour étudiants et jeunes diplômés : passer les filtres ATS, rédiger une lettre percutante, décrocher stage et alternance. Lus par +12 000 étudiants.",
-    url: "https://cvadapt.eu/blog",
+    url: "https://postulera.com/blog",
   },
 };
 
@@ -70,7 +70,7 @@ export default async function Blog() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Logo size={28} />
-            <span className="text-xl font-bold text-blue-600">CVAdapt</span>
+            <span className="text-xl font-bold text-blue-600">Postulera</span>
           </Link>
           <nav className="flex items-center gap-6">
             <Link href="/analyse" className="text-sm text-gray-500 hover:text-gray-900 font-medium hidden sm:inline transition-colors">Analyser mon CV</Link>
@@ -229,7 +229,7 @@ export default async function Blog() {
           <Link href="/mentions-legales" className="hover:text-gray-600 transition-colors">Mentions légales</Link>
           <Link href="/cgu"            className="hover:text-gray-600 transition-colors">CGU</Link>
         </div>
-        © 2025 CVAdapt — Fait en France 🇫🇷
+        © 2025 Postulera — Fait en France 🇫🇷
       </footer>
     </main>
   );

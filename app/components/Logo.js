@@ -17,24 +17,17 @@ export default function Logo({ size = 36, className = "" }) {
       {/* Fond arrondi — style iOS app icon */}
       <rect width="512" height="512" rx="115" fill="url(#logoBg)"/>
 
-      {/* C — s'ouvre à droite, de ~1h à ~5h */}
-      <path
-        d="M338 150
-           C303 122 257 108 212 117
-           C144 130 96 189 96 256
-           C96 323 144 382 212 395
-           C257 404 303 390 338 362"
-        stroke="white"
-        strokeWidth="62"
-        strokeLinecap="round"
-        fill="none"
-      />
+      {/* P — tige verticale */}
+      <rect x="130" y="110" width="68" height="292" rx="34" fill="white"/>
 
-      {/* > flèche chevron dans l'ouverture du C */}
+      {/* P — bosse droite (demi-cercle) */}
       <path
-        d="M294 200 L382 256 L294 312"
+        d="M198 110 L278 110
+           C340 110 384 150 384 210
+           C384 270 340 310 278 310
+           L198 310"
         stroke="white"
-        strokeWidth="56"
+        strokeWidth="68"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"

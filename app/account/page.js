@@ -61,7 +61,7 @@ export default function AccountPage() {
       <header className="bg-white/80 backdrop-blur border-b border-gray-200/60 px-5 py-3 flex items-center justify-between sticky top-0 z-50">
         <Link href="/" className="flex items-center gap-2">
           <Logo size={26} />
-          <span className="font-bold text-blue-600 text-base">CVAdapt</span>
+          <span className="font-bold text-blue-600 text-base">Postulera</span>
         </Link>
         <Link href="/generate" className="text-sm text-gray-500 hover:text-gray-900 font-medium flex items-center gap-1">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -210,7 +210,7 @@ export default function AccountPage() {
           </SignOutButton>
         </div>
 
-        <p className="text-center text-xs text-gray-300 pb-4">CVAdapt · contact@cvadapt.eu</p>
+        <p className="text-center text-xs text-gray-300 pb-4">Postulera · contact@postulera.com</p>
       </div>
     </div>
   );

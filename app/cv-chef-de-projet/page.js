@@ -2,22 +2,22 @@ import Link from "next/link";
 import Logo from "../components/Logo";
 
 export const metadata = {
-  title: "CV Chef de Projet Gratuit — Optimisé ATS en 30 secondes | CVAdapt",
-  description: "Génère un CV chef de projet adapté à chaque offre. CVAdapt intègre les mots-clés gestion de projet et outils Agile en 30 secondes. Gratuit, sans CB.",
+  title: "CV Chef de Projet Gratuit — Optimisé ATS en 30 secondes | Postulera",
+  description: "Génère un CV chef de projet adapté à chaque offre. Postulera intègre les mots-clés gestion de projet et outils Agile en 30 secondes. Gratuit, sans CB.",
   keywords: "cv chef de projet gratuit, modèle cv chef de projet, cv project manager, cv chef de projet agile, cv chef de projet digital",
-  alternates: { canonical: "https://cvadapt.eu/cv-chef-de-projet" },
+  alternates: { canonical: "https://postulera.com/cv-chef-de-projet" },
 };
 
 const ERREURS = [
-  { titre: "Méthodologies Agile/Scrum absentes", solution: "CVAdapt intègre Scrum, Kanban, Prince2, PMP selon les exigences de l'offre" },
-  { titre: "Livrables et KPIs non mentionnés", solution: "CVAdapt valorise tes projets avec budget géré, délais tenus, équipes pilotées" },
-  { titre: "Outils de gestion manquants", solution: "Jira, Confluence, MS Project, Monday, Asana — CVAdapt les ajoute selon l'offre" },
-  { titre: "Taille et contexte des projets flous", solution: "CVAdapt structure : budget, équipe, durée, résultat de chaque projet clé" },
+  { titre: "Méthodologies Agile/Scrum absentes", solution: "Postulera intègre Scrum, Kanban, Prince2, PMP selon les exigences de l'offre" },
+  { titre: "Livrables et KPIs non mentionnés", solution: "Postulera valorise tes projets avec budget géré, délais tenus, équipes pilotées" },
+  { titre: "Outils de gestion manquants", solution: "Jira, Confluence, MS Project, Monday, Asana — Postulera les ajoute selon l'offre" },
+  { titre: "Taille et contexte des projets flous", solution: "Postulera structure : budget, équipe, durée, résultat de chaque projet clé" },
 ];
 
 const TEMOIGNAGES = [
-  { nom: "Marie L.", poste: "Chef de projet digital · Paris", resultat: "CDI signé chez Capgemini", texte: "Mon CV listait des projets mais sans structure. CVAdapt a tout reformaté avec les bons mots-clés Agile en 30 secondes." },
-  { nom: "Pierre C.", poste: "Project Manager · Nantes", resultat: "Rappelé en 72h", texte: "J'avais du mal à valoriser mes certifications PMP. CVAdapt les a mis en avant exactement là où le recruteur regardait." },
+  { nom: "Marie L.", poste: "Chef de projet digital · Paris", resultat: "CDI signé chez Capgemini", texte: "Mon CV listait des projets mais sans structure. Postulera a tout reformaté avec les bons mots-clés Agile en 30 secondes." },
+  { nom: "Pierre C.", poste: "Project Manager · Nantes", resultat: "Rappelé en 72h", texte: "J'avais du mal à valoriser mes certifications PMP. Postulera les a mis en avant exactement là où le recruteur regardait." },
   { nom: "Aurélie V.", poste: "Chef de projet SI · Lyon", resultat: "3 offres en 2 semaines", texte: "Score ATS 87/100 dès le premier CV généré. Les recruteurs m'ont dit que mon profil était immédiatement lisible." },
 ];
 
@@ -28,7 +28,7 @@ export default function CvChefDeProjet() {
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Logo size={28} />
-            <span className="text-lg font-extrabold text-blue-700">CVAdapt</span>
+            <span className="text-lg font-extrabold text-blue-700">Postulera</span>
           </Link>
           <Link href="/generate" className="text-white px-5 py-2 text-sm font-bold rounded-full" style={{ background: "#1d4ed8" }}>Créer mon CV →</Link>
         </div>
@@ -43,7 +43,7 @@ export default function CvChefDeProjet() {
         </h1>
         <p className="max-w-2xl mx-auto mb-8 text-lg" style={{ color: "#4b5563" }}>
           Les postes de chef de projet reçoivent 180+ CV — 75% sont filtrés avant d'atteindre un recruteur humain.
-          CVAdapt adapte ton profil aux mots-clés exacts de chaque offre : Agile, Scrum, outils, KPIs.
+          Postulera adapte ton profil aux mots-clés exacts de chaque offre : Agile, Scrum, outils, KPIs.
         </p>
         <Link href="/generate" className="inline-block text-white font-bold px-8 py-4 text-lg rounded-full mb-4"
           style={{ background: "#1d4ed8", boxShadow: "0 6px 24px rgba(29,78,216,0.35)" }}>
@@ -77,8 +77,8 @@ export default function CvChefDeProjet() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
             {[
               { n:"1", e:"📋", t:"Colle l'offre", d:"Copie l'offre depuis LinkedIn, APEC, Cadremploi ou Michael Page." },
-              { n:"2", e:"📊", t:"Tes projets", d:"Budget, équipe, délais, résultats. CVAdapt structure chaque projet clé." },
-              { n:"3", e:"🚀", t:"CV prêt", d:"CVAdapt génère un CV avec les mots-clés Agile et PM exacts. Score ATS inclus." },
+              { n:"2", e:"📊", t:"Tes projets", d:"Budget, équipe, délais, résultats. Postulera structure chaque projet clé." },
+              { n:"3", e:"🚀", t:"CV prêt", d:"Postulera génère un CV avec les mots-clés Agile et PM exacts. Score ATS inclus." },
             ].map(s => (
               <div key={s.n} className="relative rounded-2xl p-6 bg-white" style={{ border: "2px solid #dbeafe" }}>
                 <div className="absolute top-4 right-5 font-black text-6xl select-none" style={{ color: "#eff6ff" }}>{s.n}</div>
@@ -99,7 +99,7 @@ export default function CvChefDeProjet() {
       <section className="py-16 px-5" style={{ background: "#ffffff" }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10" style={{ color: "#1e3a8a" }}>
-            Ils ont décroché leur poste de chef de projet avec CVAdapt
+            Ils ont décroché leur poste de chef de projet avec Postulera
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {TEMOIGNAGES.map((t, i) => (
@@ -129,7 +129,7 @@ export default function CvChefDeProjet() {
           <Link href="/score-ats-gratuit" className="hover:text-gray-600">Score ATS</Link>
           <Link href="/tarifs" className="hover:text-gray-600">Tarifs</Link>
         </div>
-        © 2025 CVAdapt — Fait en France 🇫🇷
+        © 2025 Postulera — Fait en France 🇫🇷
       </footer>
     </main>
   );

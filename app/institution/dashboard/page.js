@@ -64,7 +64,7 @@ export default function InstitutionDashboard() {
 
   const { institution, members, totalMembers, totalCVs, cvsThisMonth, quotaMonthly, avgScore } = stats;
   const plan = PLAN_LABELS[institution.plan] || PLAN_LABELS.starter;
-  const inviteUrl = `${typeof window !== "undefined" ? window.location.origin : "https://cvadapt.eu"}/join/${institution.slug}`;
+  const inviteUrl = `${typeof window !== "undefined" ? window.location.origin : "https://postulera.com"}/join/${institution.slug}`;
   const quotaPct = institution.plan === "campus" ? 100 : Math.min(100, Math.round((cvsThisMonth / quotaMonthly) * 100));
 
   function copyLink() {
@@ -79,7 +79,7 @@ export default function InstitutionDashboard() {
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Logo size={26} />
-            <span style={{ fontWeight: 700, fontSize: 15, color: "#1d4ed8" }}>CVAdapt</span>
+            <span style={{ fontWeight: 700, fontSize: 15, color: "#1d4ed8" }}>Postulera</span>
             <span style={{ fontSize: 12, color: "#9ca3af", margin: "0 4px" }}>·</span>
             <span style={{ fontSize: 13, color: "#374151", fontWeight: 600 }}>{institution.name}</span>
           </div>
@@ -124,7 +124,7 @@ export default function InstitutionDashboard() {
             </div>
             {quotaPct > 85 && (
               <p style={{ fontSize: 12, color: "#dc2626", marginTop: 8, fontWeight: 600 }}>
-                Quota presque atteint — <a href="mailto:contact@cvadapt.eu?subject=Upgrade établissement" style={{ color: "#dc2626" }}>contacte-nous pour upgrader</a>
+                Quota presque atteint — <a href="mailto:contact@postulera.com?subject=Upgrade établissement" style={{ color: "#dc2626" }}>contacte-nous pour upgrader</a>
               </p>
             )}
           </div>
@@ -186,7 +186,7 @@ export default function InstitutionDashboard() {
 
         {/* Footer contact */}
         <p style={{ textAlign: "center", fontSize: 12, color: "#9ca3af", marginTop: 32 }}>
-          Question ou upgrade ? <a href="mailto:contact@cvadapt.eu" style={{ color: "#1d4ed8" }}>contact@cvadapt.eu</a>
+          Question ou upgrade ? <a href="mailto:contact@postulera.com" style={{ color: "#1d4ed8" }}>contact@postulera.com</a>
         </p>
       </div>
 

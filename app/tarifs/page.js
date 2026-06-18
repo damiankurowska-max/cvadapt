@@ -38,7 +38,7 @@ export default function Tarifs() {
     }
   }
 
-  /** Plans CVAdapt — price / yearlyPrice en nombre (€/mois) */
+  /** Plans Postulera — price / yearlyPrice en nombre (€/mois) */
   const plans = [
     {
       name: "Gratuit",
@@ -50,7 +50,7 @@ export default function Tarifs() {
         "4 templates visuels",
         "Téléchargement PDF",
       ],
-      description: "Pour découvrir CVAdapt sans engagement.",
+      description: "Pour découvrir Postulera sans engagement.",
       buttonText: "Commencer gratuitement",
       href: "/generate",
       isPopular: false,
@@ -106,7 +106,7 @@ export default function Tarifs() {
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
           <Logo size={30} />
-          <span className="text-xl font-bold text-blue-600">CVAdapt</span>
+          <span className="text-xl font-bold text-blue-600">Postulera</span>
         </Link>
         <Link
           href="/generate"
@@ -146,8 +146,8 @@ export default function Tarifs() {
         </p>
         <p className="text-blue-600 text-sm font-semibold">
           🎓 Remise de 50% disponible sur justificatif étudiant —{" "}
-          <a href="mailto:contact@cvadapt.eu" className="underline">
-            contact@cvadapt.eu
+          <a href="mailto:contact@postulera.com" className="underline">
+            contact@postulera.com
           </a>
         </p>
       </div>
@@ -210,7 +210,7 @@ export default function Tarifs() {
                   marginBottom: 10, letterSpacing: "-0.03em", lineHeight: 1.2,
                 }}
               >
-                Offrez CVAdapt à toute votre promo
+                Offrez Postulera à toute votre promo
               </h3>
               <p
                 style={{
@@ -280,7 +280,7 @@ export default function Tarifs() {
                 Voir les offres →
               </a>
               <a
-                href="mailto:contact@cvadapt.eu?subject=Devis CVAdapt Établissement&body=Bonjour, je souhaite un devis pour mon établissement.%0AType :%0ANombre d'étudiants :%0AContact :"
+                href="mailto:contact@postulera.com?subject=Devis Postulera Établissement&body=Bonjour, je souhaite un devis pour mon établissement.%0AType :%0ANombre d'étudiants :%0AContact :"
                 style={{
                   display: "block", textAlign: "center",
                   background: "rgba(255,255,255,0.1)", color: "#fff",
@@ -340,7 +340,7 @@ export default function Tarifs() {
           <Link href="/mentions-legales" className="hover:text-gray-600">Mentions légales</Link>
           <Link href="/cgu"             className="hover:text-gray-600">CGU</Link>
         </div>
-        © 2025 CVAdapt — Fait en France 🇫🇷
+        © 2025 Postulera — Fait en France 🇫🇷
       </footer>
     </main>
   );

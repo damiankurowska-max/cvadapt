@@ -51,7 +51,7 @@ export async function GET(request) {
       const isEN = contact.attributes?.LANGUAGE === "en";
       try {
         await resend.emails.send({
-          from: "CVAdapt <contact@cvadapt.eu>",
+          from: "Postulera <contact@cvadapt.eu>",
           to: email,
           replyTo: "contact@cvadapt.eu",
           subject: isEN

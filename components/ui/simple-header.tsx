@@ -122,7 +122,7 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Logo size={28} />
           <span className="text-lg font-extrabold tracking-tight" style={{ color: '#1d4ed8' }}>
-            CVAdapt
+            Postulera
           </span>
         </Link>
 
@@ -228,7 +228,7 @@ export function SimpleHeader({ lang: langProp }: { lang?: string }) {
               style={{ borderBottom: '1px solid rgba(29,78,216,0.08)' }}
             >
               <Logo size={24} />
-              <span className="text-base font-extrabold" style={{ color: '#1d4ed8' }}>CVAdapt</span>
+              <span className="text-base font-extrabold" style={{ color: '#1d4ed8' }}>Postulera</span>
             </div>
 
             {/* Nav links — fills remaining space, scrollable if needed */}

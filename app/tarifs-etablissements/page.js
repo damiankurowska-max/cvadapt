@@ -1,7 +1,7 @@
 import Logo from "@/app/components/Logo";
 
 export const metadata = {
-  title: "CVAdapt pour les établissements — BTS, Lycées, Universités",
+  title: "Postulera pour les établissements — BTS, Lycées, Universités",
   description: "Offrez à vos étudiants un accès illimité au générateur de CV IA. Tarifs établissements à partir de 800€/an. Dashboard admin, statistiques, lien d'invitation.",
 };
 
@@ -130,7 +130,7 @@ function PlanCard({ plan }) {
 
       {/* CTA */}
       <a
-        href={`mailto:contact@cvadapt.eu?subject=Devis CVAdapt ${plan.name} — ${plan.price}€/an&body=Bonjour,%0A%0AJe souhaite un devis pour le plan ${plan.name} (${plan.price}€/an HT).%0A%0AÉtablissement :%0ANombre d'étudiants :%0AContact :%0A%0AMerci`}
+        href={`mailto:contact@postulera.com?subject=Devis Postulera ${plan.name} — ${plan.price}€/an&body=Bonjour,%0A%0AJe souhaite un devis pour le plan ${plan.name} (${plan.price}€/an HT).%0A%0AÉtablissement :%0ANombre d'étudiants :%0AContact :%0A%0AMerci`}
         style={{
           display: "block", textAlign: "center", marginTop: 28,
           background: isDark ? "#fff" : plan.color,
@@ -156,11 +156,11 @@ export default function TarifsEtablissements() {
         <div style={{ maxWidth: 1140, margin: "0 auto", padding: "0 24px", height: 58, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <a href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
             <Logo size={28} />
-            <span style={{ fontWeight: 700, fontSize: 16, color: "#1d4ed8" }}>CVAdapt</span>
+            <span style={{ fontWeight: 700, fontSize: 16, color: "#1d4ed8" }}>Postulera</span>
           </a>
           <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
             <a href="/tarifs" style={{ fontSize: 13, color: "#6b7280", textDecoration: "none", fontWeight: 500 }}>Tarifs étudiants</a>
-            <a href="mailto:contact@cvadapt.eu?subject=Demande renseignements établissement"
+            <a href="mailto:contact@postulera.com?subject=Demande renseignements établissement"
               style={{ background: "#1d4ed8", color: "#fff", fontWeight: 700, fontSize: 13, padding: "8px 18px", borderRadius: 8, textDecoration: "none" }}>
               Nous contacter
             </a>
@@ -178,7 +178,7 @@ export default function TarifsEtablissements() {
           75% des CV de vos étudiants<br />sont rejetés avant d'être lus
         </h1>
         <p style={{ fontSize: 17, color: "#475569", maxWidth: 580, margin: "0 auto 20px", lineHeight: 1.65 }}>
-          Les filtres ATS éliminent automatiquement les CV mal optimisés. CVAdapt corrige ça en 30 secondes — et vos étudiants décrochent plus d'entretiens.
+          Les filtres ATS éliminent automatiquement les CV mal optimisés. Postulera corrige ça en 30 secondes — et vos étudiants décrochent plus d'entretiens.
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 8 }}>
           {["BTS", "Lycées Pro", "IUT", "Universités", "Écoles de commerce"].map(t => (
@@ -286,7 +286,7 @@ export default function TarifsEtablissements() {
           <div style={{ textAlign: "center" }}>
             <a
               className="step-cta"
-              href="mailto:contact@cvadapt.eu?subject=Demande devis CVAdapt Établissement&body=Bonjour,%0A%0AJe souhaite un devis pour CVAdapt pour notre établissement.%0A%0AÉtablissement :%0AType (BTS / lycée / IUT / université) :%0ANombre d'étudiants :%0AContact :%0A%0AMerci"
+              href="mailto:contact@postulera.com?subject=Demande devis Postulera Établissement&body=Bonjour,%0A%0AJe souhaite un devis pour Postulera pour notre établissement.%0A%0AÉtablissement :%0AType (BTS / lycée / IUT / université) :%0ANombre d'étudiants :%0AContact :%0A%0AMerci"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               Recevoir un devis gratuit →
@@ -304,7 +304,7 @@ export default function TarifsEtablissements() {
           {[
             { stat: "75%", label: "des CV éliminés par les filtres ATS avant d'atteindre un recruteur" },
             { stat: "30s", label: "pour générer un CV adapté à une offre, score ATS inclus" },
-            { stat: "+40%", label: "de taux d'entretien obtenu par les étudiants utilisant CVAdapt" },
+            { stat: "+40%", label: "de taux d'entretien obtenu par les étudiants utilisant Postulera" },
             { stat: "4,8/5", label: "satisfaction des étudiants utilisateurs (312 avis)" },
           ].map(({ stat, label }) => (
             <div key={stat} style={{ background: "#fff", border: "1px solid #e8f0fe", borderRadius: 14, padding: "24px 20px", textAlign: "center" }}>
@@ -325,10 +325,10 @@ export default function TarifsEtablissements() {
             Dites-nous le nom de votre établissement et le nombre d'étudiants. On s'occupe du reste.
           </p>
           <a
-            href="mailto:contact@cvadapt.eu?subject=Demande devis CVAdapt Établissement&body=Bonjour,%0A%0AJe souhaite un devis pour CVAdapt pour notre établissement.%0A%0AÉtablissement :%0AType (BTS / lycée / IUT / université) :%0ANombre d'étudiants :%0ABudget indicatif :%0AContact :%0A%0AMerci"
+            href="mailto:contact@postulera.com?subject=Demande devis Postulera Établissement&body=Bonjour,%0A%0AJe souhaite un devis pour Postulera pour notre établissement.%0A%0AÉtablissement :%0AType (BTS / lycée / IUT / université) :%0ANombre d'étudiants :%0ABudget indicatif :%0AContact :%0A%0AMerci"
             style={{ display: "inline-block", background: "#fff", color: "#1e3a8a", fontWeight: 700, fontSize: 15, padding: "14px 32px", borderRadius: 10, textDecoration: "none" }}
           >
-            contact@cvadapt.eu →
+            contact@postulera.com →
           </a>
           <p style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", marginTop: 16 }}>
             Réponse garantie sous 24h · Aucun engagement avant signature
@@ -344,7 +344,7 @@ export default function TarifsEtablissements() {
           <a href="/generate" style={{ fontSize: 13, color: "#94a3b8", textDecoration: "none" }}>Générer un CV</a>
           <a href="/mentions-legales" style={{ fontSize: 13, color: "#94a3b8", textDecoration: "none" }}>Mentions légales</a>
         </div>
-        <p style={{ fontSize: 12, color: "#cbd5e1" }}>© 2026 CVAdapt — Fait en France 🇫🇷</p>
+        <p style={{ fontSize: 12, color: "#cbd5e1" }}>© 2026 Postulera — Fait en France 🇫🇷</p>
       </footer>
 
     </main>

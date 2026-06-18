@@ -106,7 +106,7 @@ export default function Onboarding() {
       <header className="px-6 py-4 flex items-center justify-between max-w-2xl mx-auto w-full">
         <div className="flex items-center gap-2">
           <Logo size={28} />
-          <span className="text-lg font-bold text-blue-600">CVAdapt</span>
+          <span className="text-lg font-bold text-blue-600">Postulera</span>
         </div>
         <button onClick={skip} className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
           Passer →
@@ -176,7 +176,7 @@ export default function Onboarding() {
                 : "bg-gray-100 text-gray-300 cursor-not-allowed"
             }`}
           >
-            {step < STEPS.length - 1 ? "Continuer →" : "Accéder à CVAdapt →"}
+            {step < STEPS.length - 1 ? "Continuer →" : "Accéder à Postulera →"}
           </button>
         </div>
       </div>

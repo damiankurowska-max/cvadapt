@@ -2,10 +2,10 @@ import Link from "next/link";
 import Logo from "../components/Logo";
 
 export const metadata = {
-  title: "CV Stage Étudiant Gratuit — Modèle CV Stage 2025 | CVAdapt",
-  description: "Crée un CV parfait pour ton stage en moins de 30 secondes. CVAdapt adapte ton CV aux mots-clés de l'offre. Modèle CV stage étudiant gratuit, sans CB.",
+  title: "CV Stage Étudiant Gratuit — Modèle CV Stage 2025 | Postulera",
+  description: "Crée un CV parfait pour ton stage en moins de 30 secondes. Postulera adapte ton CV aux mots-clés de l'offre. Modèle CV stage étudiant gratuit, sans CB.",
   keywords: "cv stage étudiant, modèle cv stage, cv stage gratuit, cv pour stage, cv stage sans expérience",
-  alternates: { canonical: "https://cvadapt.eu/cv-stage" },
+  alternates: { canonical: "https://postulera.com/cv-stage" },
 };
 
 export default function CvStage() {
@@ -15,7 +15,7 @@ export default function CvStage() {
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Logo size={28} />
-            <span className="text-lg font-extrabold text-blue-700">CVAdapt</span>
+            <span className="text-lg font-extrabold text-blue-700">Postulera</span>
           </Link>
           <Link href="/generate" className="text-white px-5 py-2 text-sm font-bold rounded-full"
             style={{ background: "#1d4ed8" }}>Créer mon CV →</Link>
@@ -30,7 +30,7 @@ export default function CvStage() {
           CV Stage étudiant<br />prêt en <span style={{ color: "#3b82f6" }}>30 secondes</span>
         </h1>
         <p className="max-w-2xl mx-auto mb-8 text-lg" style={{ color: "#4b5563" }}>
-          Chaque offre de stage attend des mots-clés précis. CVAdapt analyse l'offre et génère un CV 
+          Chaque offre de stage attend des mots-clés précis. Postulera analyse l'offre et génère un CV 
           adapté automatiquement — même sans expérience professionnelle.
         </p>
         <Link href="/generate" className="inline-block text-white font-bold px-8 py-4 text-lg rounded-full mb-4"
@@ -47,7 +47,7 @@ export default function CvStage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {[
-              { icon:"🎯", titre:"Mots-clés de l'offre intégrés", desc:"CVAdapt extrait les termes clés de chaque offre et les intègre naturellement dans ton CV." },
+              { icon:"🎯", titre:"Mots-clés de l'offre intégrés", desc:"Postulera extrait les termes clés de chaque offre et les intègre naturellement dans ton CV." },
               { icon:"📊", titre:"Score ATS inclus", desc:"Tu sais exactement si ton CV va passer les filtres automatiques avant de l'envoyer." },
               { icon:"✉️", titre:"Lettre de motivation incluse", desc:"Générée en même temps que le CV, adaptée à l'entreprise et au poste visé." },
               { icon:"⚡", titre:"4 templates professionnels", desc:"Moderne, Classique, Créatif, Minimaliste — tous compatibles avec les logiciels RH." },
@@ -71,10 +71,10 @@ export default function CvStage() {
           </h2>
           <div className="space-y-4">
             {[
-              { q:"Comment faire un CV stage sans expérience ?", r:"CVAdapt met en avant ta formation, tes projets universitaires, tes activités extra-scolaires et tes compétences — exactement ce que les recruteurs cherchent pour un premier stage." },
-              { q:"Quel format de CV pour un stage ?", r:"Le format PDF est obligatoire. CVAdapt génère un CV PDF optimisé ATS en 30 secondes, avec une mise en page lisible par tous les logiciels de tri automatique." },
-              { q:"Comment adapter son CV à chaque offre de stage ?", r:"Il suffit de coller le texte de l'offre dans CVAdapt. L'IA analyse les mots-clés du poste et génère un CV personnalisé en quelques secondes." },
-              { q:"CVAdapt est-il vraiment gratuit ?", r:"Oui. Tu génères 3 CV complets gratuitement, sans carte bancaire. Le plan Étudiant à 4,99€/mois débloque 15 CV par mois avec score ATS et lettre de motivation." },
+              { q:"Comment faire un CV stage sans expérience ?", r:"Postulera met en avant ta formation, tes projets universitaires, tes activités extra-scolaires et tes compétences — exactement ce que les recruteurs cherchent pour un premier stage." },
+              { q:"Quel format de CV pour un stage ?", r:"Le format PDF est obligatoire. Postulera génère un CV PDF optimisé ATS en 30 secondes, avec une mise en page lisible par tous les logiciels de tri automatique." },
+              { q:"Comment adapter son CV à chaque offre de stage ?", r:"Il suffit de coller le texte de l'offre dans Postulera. L'IA analyse les mots-clés du poste et génère un CV personnalisé en quelques secondes." },
+              { q:"Postulera est-il vraiment gratuit ?", r:"Oui. Tu génères 3 CV complets gratuitement, sans carte bancaire. Le plan Étudiant à 4,99€/mois débloque 15 CV par mois avec score ATS et lettre de motivation." },
             ].map((item, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100">
                 <p className="font-semibold text-gray-900 mb-2">{item.q}</p>
@@ -99,7 +99,7 @@ export default function CvStage() {
           <Link href="/score-ats-gratuit" className="hover:text-gray-600">Score ATS</Link>
           <Link href="/tarifs" className="hover:text-gray-600">Tarifs</Link>
         </div>
-        © 2025 CVAdapt — Fait en France 🇫🇷
+        © 2025 Postulera — Fait en France 🇫🇷
       </footer>
     </main>
   );

@@ -2,23 +2,23 @@ import Link from "next/link";
 import Logo from "../components/Logo";
 
 export const metadata = {
-  title: "CV Commercial Gratuit — Optimisé ATS en 30 secondes | CVAdapt",
-  description: "Génère un CV commercial percutant adapté à chaque offre. CVAdapt intègre les mots-clés ATS exacts en 30 secondes. Gratuit, sans CB.",
+  title: "CV Commercial Gratuit — Optimisé ATS en 30 secondes | Postulera",
+  description: "Génère un CV commercial percutant adapté à chaque offre. Postulera intègre les mots-clés ATS exacts en 30 secondes. Gratuit, sans CB.",
   keywords: "cv commercial gratuit, modèle cv commercial, cv technico-commercial, cv attaché commercial, cv ingénieur commercial",
-  alternates: { canonical: "https://cvadapt.eu/cv-commercial" },
+  alternates: { canonical: "https://postulera.com/cv-commercial" },
 };
 
 const ERREURS = [
-  { titre: "Chiffres absents ou flous", solution: "CVAdapt structure tes résultats : CA généré, taux de conversion, portefeuille clients" },
-  { titre: "Mots-clés CRM et outils manquants", solution: "Salesforce, HubSpot, Pipedrive — CVAdapt les intègre selon l'offre ciblée" },
-  { titre: "Secteur non ciblé", solution: "CVAdapt adapte le vocabulaire à ton secteur (B2B, B2C, SaaS, industrie...)" },
-  { titre: "Profil trop généraliste", solution: "CVAdapt valorise ta spécialité : grands comptes, chasse, élevage, inbound" },
+  { titre: "Chiffres absents ou flous", solution: "Postulera structure tes résultats : CA généré, taux de conversion, portefeuille clients" },
+  { titre: "Mots-clés CRM et outils manquants", solution: "Salesforce, HubSpot, Pipedrive — Postulera les intègre selon l'offre ciblée" },
+  { titre: "Secteur non ciblé", solution: "Postulera adapte le vocabulaire à ton secteur (B2B, B2C, SaaS, industrie...)" },
+  { titre: "Profil trop généraliste", solution: "Postulera valorise ta spécialité : grands comptes, chasse, élevage, inbound" },
 ];
 
 const TEMOIGNAGES = [
-  { nom: "Nicolas B.", poste: "Attaché commercial · Lyon", resultat: "CDI signé en 3 semaines", texte: "J'avais un bon profil mais mon CV ne mettait pas en avant mes chiffres. CVAdapt a tout restructuré automatiquement." },
+  { nom: "Nicolas B.", poste: "Attaché commercial · Lyon", resultat: "CDI signé en 3 semaines", texte: "J'avais un bon profil mais mon CV ne mettait pas en avant mes chiffres. Postulera a tout restructuré automatiquement." },
   { nom: "Sarah M.", poste: "Ingénieure commerciale · Paris", resultat: "Recrutée chez Salesforce", texte: "Le CV généré correspondait exactement à ce que cherchait le recruteur. Score ATS 89/100 dès le premier essai." },
-  { nom: "Julien R.", poste: "Business Developer · Bordeaux", resultat: "3 entretiens en 1 semaine", texte: "Mon ancien CV me valait zéro réponse. Avec CVAdapt, j'ai eu des rappels dans les 48h." },
+  { nom: "Julien R.", poste: "Business Developer · Bordeaux", resultat: "3 entretiens en 1 semaine", texte: "Mon ancien CV me valait zéro réponse. Avec Postulera, j'ai eu des rappels dans les 48h." },
 ];
 
 export default function CvCommercial() {
@@ -28,7 +28,7 @@ export default function CvCommercial() {
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Logo size={28} />
-            <span className="text-lg font-extrabold text-blue-700">CVAdapt</span>
+            <span className="text-lg font-extrabold text-blue-700">Postulera</span>
           </Link>
           <Link href="/generate" className="text-white px-5 py-2 text-sm font-bold rounded-full" style={{ background: "#1d4ed8" }}>Créer mon CV →</Link>
         </div>
@@ -43,7 +43,7 @@ export default function CvCommercial() {
         </h1>
         <p className="max-w-2xl mx-auto mb-8 text-lg" style={{ color: "#4b5563" }}>
           Les recruteurs commerciaux reçoivent 150+ CV par offre — 75% sont éliminés par un ATS avant lecture.
-          CVAdapt intègre les mots-clés exacts de chaque offre pour que ton profil passe les filtres.
+          Postulera intègre les mots-clés exacts de chaque offre pour que ton profil passe les filtres.
         </p>
         <Link href="/generate" className="inline-block text-white font-bold px-8 py-4 text-lg rounded-full mb-4"
           style={{ background: "#1d4ed8", boxShadow: "0 6px 24px rgba(29,78,216,0.35)" }}>
@@ -77,8 +77,8 @@ export default function CvCommercial() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
             {[
               { n:"1", e:"📋", t:"Colle l'offre", d:"Copie l'offre depuis LinkedIn, Indeed, Cadremploi ou Welcome to the Jungle." },
-              { n:"2", e:"✍️", t:"Tes résultats", d:"CA, taux de conversion, portefeuille. CVAdapt structure les chiffres automatiquement." },
-              { n:"3", e:"🚀", t:"CV prêt", d:"CVAdapt génère un CV avec les mots-clés CRM et commerciaux exacts. Score ATS inclus." },
+              { n:"2", e:"✍️", t:"Tes résultats", d:"CA, taux de conversion, portefeuille. Postulera structure les chiffres automatiquement." },
+              { n:"3", e:"🚀", t:"CV prêt", d:"Postulera génère un CV avec les mots-clés CRM et commerciaux exacts. Score ATS inclus." },
             ].map(s => (
               <div key={s.n} className="relative rounded-2xl p-6 bg-white" style={{ border: "2px solid #dbeafe" }}>
                 <div className="absolute top-4 right-5 font-black text-6xl select-none" style={{ color: "#eff6ff" }}>{s.n}</div>
@@ -98,7 +98,7 @@ export default function CvCommercial() {
       <section className="py-16 px-5" style={{ background: "#ffffff" }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10" style={{ color: "#1e3a8a" }}>
-            Ils ont décroché leur poste commercial avec CVAdapt
+            Ils ont décroché leur poste commercial avec Postulera
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {TEMOIGNAGES.map((t, i) => (
@@ -127,7 +127,7 @@ export default function CvCommercial() {
           <Link href="/score-ats-gratuit" className="hover:text-gray-600">Score ATS</Link>
           <Link href="/tarifs" className="hover:text-gray-600">Tarifs</Link>
         </div>
-        © 2025 CVAdapt — Fait en France 🇫🇷
+        © 2025 Postulera — Fait en France 🇫🇷
       </footer>
     </main>
   );

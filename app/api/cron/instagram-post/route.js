@@ -1,16 +1,16 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { alertCronFailure } from "@/lib/monitoring";
 
-const BASE_URL = "https://cvadapt.eu";
+const BASE_URL = "https://postulera.com";
 
 const DAILY_THEMES = [
   { stat: "75%",     statLabel: "des CV filtrés sans jamais être lus",              tip: "Pas parce que tu n'étais pas qualifié. Parce que le filtre ne t'a pas laissé passer." },
-  { stat: "6 sec",   statLabel: "c'est le temps d'un recruteur sur un CV",          tip: "CVAdapt structure ton CV pour ces 6 secondes qui font tout." },
-  { stat: "0",       statLabel: "réponse. C'est ce qu'on reçoit sans réseau",       tip: "J'ai vécu ça. C'est pour ça que j'ai créé CVAdapt." },
+  { stat: "6 sec",   statLabel: "c'est le temps d'un recruteur sur un CV",          tip: "Postulera structure ton CV pour ces 6 secondes qui font tout." },
+  { stat: "0",       statLabel: "réponse. C'est ce qu'on reçoit sans réseau",       tip: "J'ai vécu ça. C'est pour ça que j'ai créé Postulera." },
   { stat: "30s",     statLabel: "pour adapter ton CV à une offre",                  tip: "Le même CV pour toutes les offres, c'est la première erreur à éviter." },
   { stat: "250",     statLabel: "candidatures reçues par offre en moyenne",         tip: "Les mots-clés de l'offre dans ton CV font toute la différence." },
   { stat: "3×",      statLabel: "plus de rappels avec un CV adapté à l'offre",      tip: "Adapter son CV n'est plus réservé à ceux qui ont du temps ou du réseau." },
-  { stat: "1er filtre", statLabel: "c'est un algorithme, pas un humain",            tip: "CVAdapt t'aide à passer ce filtre. Le reste, c'est toi." },
+  { stat: "1er filtre", statLabel: "c'est un algorithme, pas un humain",            tip: "Postulera t'aide à passer ce filtre. Le reste, c'est toi." },
 ];
 
 export async function GET(request) {
@@ -33,7 +33,7 @@ export async function GET(request) {
     const message = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 300,
-      system: "Tu écris des captions Instagram courtes pour CVAdapt (cvadapt.eu). Ton direct, une stat par post, pas de fioriture.",
+      system: "Tu écris des captions Instagram courtes pour Postulera (postulera.com). Ton direct, une stat par post, pas de fioriture.",
       messages: [{
         role: "user",
         content: `Écris une caption Instagram pour ce post :
@@ -43,7 +43,7 @@ Conseil : ${theme.tip}
 Règles :
 - 3-4 phrases maximum
 - Commence par la stat
-- Mentionne cvadapt.eu une fois
+- Mentionne postulera.com une fois
 - Termine par une question courte
 - 5 hashtags : #emploi #CV #ATS #recrutement #alternance
 - Aucune phrase cliché type "tu savais que"

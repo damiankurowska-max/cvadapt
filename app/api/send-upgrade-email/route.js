@@ -24,7 +24,7 @@ export async function POST(request) {
 
   try {
     await resend.emails.send({
-      from: "CVAdapt <contact@cvadapt.eu>",
+      from: "Postulera <contact@cvadapt.eu>",
       to: email,
       replyTo: "contact@cvadapt.eu",
       subject: `${prenom ? prenom + ", tu" : "Tu"} as utilisé tes 3 CV gratuits — continue sans limite 🚀`,

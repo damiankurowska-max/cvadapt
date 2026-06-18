@@ -44,10 +44,10 @@ export async function POST(request) {
 
     // Email de bienvenue à l'utilisateur (FR ou EN)
     await resend.emails.send({
-      from: "CVAdapt <contact@cvadapt.eu>",
+      from: "Postulera <contact@cvadapt.eu>",
       to: email,
       replyTo: "contact@cvadapt.eu",
-      subject: lang === "en" ? "Welcome to CVAdapt 👋" : "Bienvenue dans la liste CVAdapt 👋",
+      subject: lang === "en" ? "Welcome to Postulera 👋" : "Bienvenue dans la liste Postulera 👋",
       html: lang === "en" ? welcomeNewsletterEmailEN() : welcomeNewsletterEmail(),
       headers: {
         "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
@@ -58,7 +58,7 @@ export async function POST(request) {
 
     // Notification interne
     await resend.emails.send({
-      from: "CVAdapt <contact@cvadapt.eu>",
+      from: "Postulera <contact@cvadapt.eu>",
       to: process.env.OWNER_EMAIL || "contact@cvadapt.eu",
       subject: "📬 Nouvelle inscription newsletter",
       html: ownerNotificationEmail({
@@ -66,7 +66,7 @@ export async function POST(request) {
         data: {
           Email: email,
           Date: new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" }),
-          Source: "cvadapt.eu",
+          Source: "postulera.com",
         },
       }),
     });

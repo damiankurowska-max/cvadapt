@@ -91,7 +91,7 @@ export default function Dashboard() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Logo size={28} />
-            <span className="text-lg font-bold text-blue-600">CVAdapt</span>
+            <span className="text-lg font-bold text-blue-600">Postulera</span>
           </Link>
           <nav className="flex items-center gap-4">
             <Link href="/generate" className="text-sm text-gray-600 hover:text-gray-900 font-medium">
@@ -111,7 +111,7 @@ export default function Dashboard() {
           <h1 className="text-2xl font-bold text-gray-900">
             Bonjour {user.firstName || user.emailAddresses[0]?.emailAddress?.split("@")[0]} 👋
           </h1>
-          <p className="text-gray-500 mt-1">Voici ton espace CVAdapt — tous tes CV en un coup d'œil.</p>
+          <p className="text-gray-500 mt-1">Voici ton espace Postulera — tous tes CV en un coup d'œil.</p>
         </div>
 
         {/* Cards stats */}

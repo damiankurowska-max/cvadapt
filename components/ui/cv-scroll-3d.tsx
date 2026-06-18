@@ -191,7 +191,7 @@ function CVDocument() {
           >
             <p style={{ color: "#86efac", fontSize: 9.5, fontWeight: 800, letterSpacing: "0.04em" }}>Score ATS</p>
             <p style={{ color: "#4ade80", fontSize: 22, fontWeight: 900, lineHeight: 1.1, letterSpacing: "-0.03em" }}>91<span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>/100</span></p>
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 7.5, marginTop: 1 }}>Optimisé • CVAdapt</p>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 7.5, marginTop: 1 }}>Optimisé • Postulera</p>
           </div>
         </div>
       </div>

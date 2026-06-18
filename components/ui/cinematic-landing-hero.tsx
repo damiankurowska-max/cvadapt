@@ -192,13 +192,13 @@ export interface CinematicHeroProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 export function CinematicHero({
-  brandName = "CVAdapt",
+  brandName = "Postulera",
   tagline1 = "Adapte ton CV,",
   tagline2 = "décroche l'entretien.",
   cardHeading = "L'IA qui bat l'ATS.",
   cardDescription = (
     <>
-      <span style={{ color: "#fff", fontWeight: 600 }}>CVAdapt</span> analyse l&apos;offre
+      <span style={{ color: "#fff", fontWeight: 600 }}>Postulera</span> analyse l&apos;offre
       d&apos;emploi, intègre les bons mots-clés et génère un CV optimisé pour passer les
       filtres automatiques en{" "}
       <span style={{ color: "#93c5fd", fontWeight: 600 }}>30 secondes</span>.

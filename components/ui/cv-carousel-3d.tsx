@@ -125,7 +125,7 @@ export function CVCarousel3D() {
           className="text-xs font-bold tracking-[0.2em] uppercase mb-3"
           style={{ color: "rgba(147,197,253,0.6)" }}
         >
-          Exemples générés par CVAdapt
+          Exemples générés par Postulera
         </p>
         <h2
           className="text-3xl md:text-4xl font-extrabold tracking-tight"
@@ -313,7 +313,7 @@ function CVCard({ cv }: { cv: (typeof CVS)[number] }) {
           ))}
         </div>
 
-        {/* CVAdapt stamp */}
+        {/* Postulera stamp */}
         <div
           style={{
             borderTop: `1px solid ${cv.accent}20`,
@@ -324,7 +324,7 @@ function CVCard({ cv }: { cv: (typeof CVS)[number] }) {
           }}
         >
           <span style={{ fontSize: 7.5, color: "#9ca3af" }}>Généré en 28 sec</span>
-          <span style={{ fontSize: 7.5, fontWeight: 800, color: cv.accent }}>✓ CVAdapt</span>
+          <span style={{ fontSize: 7.5, fontWeight: 800, color: cv.accent }}>✓ Postulera</span>
         </div>
       </div>
     </div>

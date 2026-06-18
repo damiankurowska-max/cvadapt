@@ -41,8 +41,8 @@ export async function GET(request) {
       return Response.json({
         message: "Établissement déjà existant.",
         institution: existing,
-        dashboard: "https://cvadapt.eu/institution/dashboard",
-        inviteLink: `https://cvadapt.eu/join/${existing.slug}`,
+        dashboard: "https://postulera.com/institution/dashboard",
+        inviteLink: `https://postulera.com/join/${existing.slug}`,
       });
     }
 
@@ -57,8 +57,8 @@ export async function GET(request) {
       success: true,
       adminUserId,
       institution,
-      dashboard: "https://cvadapt.eu/institution/dashboard",
-      inviteLink: `https://cvadapt.eu/join/${slug}`,
+      dashboard: "https://postulera.com/institution/dashboard",
+      inviteLink: `https://postulera.com/join/${slug}`,
     });
   } catch (err) {
     if (err.code === "23505") {

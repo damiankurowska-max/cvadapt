@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Merci pour ta réponse ! — CVAdapt",
+  title: "Merci pour ta réponse ! — Postulera",
 };
 
 export default function MerciSondagePage() {
@@ -32,7 +32,7 @@ export default function MerciSondagePage() {
           Merci pour ta réponse. Chaque question te rapporte <strong style={{ color: "#059669" }}>1 CV supplémentaire</strong>. Réponds aux 3 questions pour en avoir 3 au total.
         </p>
         <a
-          href="https://cvadapt.eu/generate"
+          href="https://postulera.com/generate"
           style={{
             display: "inline-block",
             background: "#2563eb",

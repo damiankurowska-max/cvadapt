@@ -60,7 +60,7 @@ export async function GET(request) {
 
       try {
         await resend.emails.send({
-          from: "CVAdapt <contact@cvadapt.eu>",
+          from: "Postulera <contact@cvadapt.eu>",
           to: email,
           replyTo: "contact@cvadapt.eu",
           subject: `${prenom ? prenom + ", ton" : "Ton"} premier CV ATS t'attend — ça prend 30 secondes`,

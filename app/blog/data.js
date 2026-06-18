@@ -48,8 +48,8 @@ export const articles = [
 </table>
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
-  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">💡 L'astuce CVAdapt</p>
-  <p style="color:#166534;margin:0;font-size:14px">Colle ton offre d'emploi dans CVAdapt — l'IA intègre automatiquement les bons mots-clés dans ton CV en 30 secondes.</p>
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">💡 L'astuce Postulera</p>
+  <p style="color:#166534;margin:0;font-size:14px">Colle ton offre d'emploi dans Postulera — l'IA intègre automatiquement les bons mots-clés dans ton CV en 30 secondes.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -108,8 +108,8 @@ export const articles = [
 </div>
 
 <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
-  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Méthode rapide — CVAdapt</p>
-  <p style="color:#1d4ed8;margin:0;font-size:14px">Colle l'offre dans CVAdapt → l'IA identifie et intègre automatiquement tous les mots-clés en 30 secondes.</p>
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Méthode rapide — Postulera</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">Colle l'offre dans Postulera → l'IA identifie et intègre automatiquement tous les mots-clés en 30 secondes.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -226,7 +226,7 @@ export const articles = [
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ Génère ta lettre automatiquement</p>
-  <p style="color:#166534;margin:0;font-size:14px">CVAdapt génère une lettre de motivation adaptée à chaque offre en même temps que ton CV. Coche l'option avant de générer.</p>
+  <p style="color:#166534;margin:0;font-size:14px">Postulera génère une lettre de motivation adaptée à chaque offre en même temps que ton CV. Coche l'option avant de générer.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -292,8 +292,8 @@ export const articles = [
 </table>
 
 <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
-  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ CVAdapt pour les profils juniors</p>
-  <p style="color:#1d4ed8;margin:0;font-size:14px">CVAdapt met automatiquement en avant les éléments de ton profil qui correspondent le mieux au poste, même sans expérience directe.</p>
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Postulera pour les profils juniors</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">Postulera met automatiquement en avant les éléments de ton profil qui correspondent le mieux au poste, même sans expérience directe.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -375,8 +375,8 @@ export const articles = [
 </table>
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
-  <p style="font-weight:700;color:#15803d;margin:0 0 8px 0">💡 Astuce CVAdapt</p>
-  <p style="color:#166534;margin:0;font-size:14px">CVAdapt calcule ton score ATS en 30 secondes et identifie exactement quels mots-clés ajouter. Essaie l'analyse gratuite sur cvadapt.eu/analyse</p>
+  <p style="font-weight:700;color:#15803d;margin:0 0 8px 0">💡 Astuce Postulera</p>
+  <p style="color:#166534;margin:0;font-size:14px">Postulera calcule ton score ATS en 30 secondes et identifie exactement quels mots-clés ajouter. Essaie l'analyse gratuite sur postulera.com/analyse</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -445,8 +445,8 @@ export const articles = [
 </table>
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
-  <p style="font-weight:700;color:#15803d;margin:0 0 8px 0">💡 CVAdapt pour la reconversion</p>
-  <p style="color:#166534;margin:0;font-size:14px">Colle l'offre du nouveau secteur dans CVAdapt — l'IA reformule automatiquement ton expérience dans le bon vocabulaire métier et intègre les mots-clés attendus.</p>
+  <p style="font-weight:700;color:#15803d;margin:0 0 8px 0">💡 Postulera pour la reconversion</p>
+  <p style="color:#166534;margin:0;font-size:14px">Colle l'offre du nouveau secteur dans Postulera — l'IA reformule automatiquement ton expérience dans le bon vocabulaire métier et intègre les mots-clés attendus.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -510,7 +510,7 @@ ${[
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#15803d;margin:0 0 8px 0">💡 La méthode la plus rapide</p>
-  <p style="color:#166534;margin:0;font-size:14px">Au lieu de chercher les bons mots-clés manuellement, colle ton offre dans CVAdapt. L'outil détecte automatiquement les termes clés de l'offre et les intègre dans ton CV.</p>
+  <p style="color:#166534;margin:0;font-size:14px">Au lieu de chercher les bons mots-clés manuellement, colle ton offre dans Postulera. L'outil détecte automatiquement les termes clés de l'offre et les intègre dans ton CV.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -535,7 +535,7 @@ ${[
 
 <div style="display:grid;gap:16px;margin:24px 0">
   ${[
-    { n: "1", title: "Un CV générique envoyé à toutes les offres", fix: "Adapte ton CV à chaque offre. Intègre les mots-clés spécifiques à l'offre. CVAdapt le fait automatiquement en 30 secondes.", icon: "📋" },
+    { n: "1", title: "Un CV générique envoyé à toutes les offres", fix: "Adapte ton CV à chaque offre. Intègre les mots-clés spécifiques à l'offre. Postulera le fait automatiquement en 30 secondes.", icon: "📋" },
     { n: "2", title: "Des responsabilités sans résultats chiffrés", fix: "Remplace \"Gestion de l'équipe\" par \"Management d'une équipe de 8 personnes, objectifs atteints à 120% sur 2 ans\".", icon: "📊" },
     { n: "3", title: "Une mise en forme illisible par les ATS", fix: "Évite les tableaux, colonnes multiples, graphiques. L'ATS lit de gauche à droite, de haut en bas. Une colonne simple = meilleur score.", icon: "🤖" },
     { n: "4", title: "Un titre de poste qui ne correspond pas à l'offre", fix: "Si l'offre dit \"Product Manager\", ton titre doit être \"Product Manager\" et non \"Chef de produit\" ou \"Responsable produit\".", icon: "🏷️" },
@@ -558,7 +558,7 @@ ${[
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#15803d;margin:0 0 8px 0">💡 Corrige tout ça en 30 secondes</p>
-  <p style="color:#166534;margin:0;font-size:14px">CVAdapt génère un CV optimisé qui évite automatiquement toutes ces erreurs : mots-clés adaptés, structure ATS-friendly, résultats chiffrés mis en avant.</p>
+  <p style="color:#166534;margin:0;font-size:14px">Postulera génère un CV optimisé qui évite automatiquement toutes ces erreurs : mots-clés adaptés, structure ATS-friendly, résultats chiffrés mis en avant.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -616,7 +616,7 @@ ${[
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#15803d;margin:0 0 8px 0">💡 Ton CV comme base LinkedIn</p>
-  <p style="color:#166534;margin:0;font-size:14px">Génère d'abord ton CV optimisé avec CVAdapt, puis utilise exactement les mêmes formulations sur ton profil LinkedIn. Cohérence garantie en 5 minutes.</p>
+  <p style="color:#166534;margin:0;font-size:14px">Génère d'abord ton CV optimisé avec Postulera, puis utilise exactement les mêmes formulations sur ton profil LinkedIn. Cohérence garantie en 5 minutes.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -697,8 +697,8 @@ ${[
 </div>
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
-  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ Astuce CVAdapt pour l'alternance</p>
-  <p style="color:#166534;margin:0;font-size:14px">Colle l'offre d'alternance dans CVAdapt — l'IA adapte automatiquement ton CV aux mots-clés exacts de l'entreprise. Gratuit, 30 secondes.</p>
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ Astuce Postulera pour l'alternance</p>
+  <p style="color:#166534;margin:0;font-size:14px">Colle l'offre d'alternance dans Postulera — l'IA adapte automatiquement ton CV aux mots-clés exacts de l'entreprise. Gratuit, 30 secondes.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -778,7 +778,7 @@ ${[
 
 <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Génère ton CV BTS en 30 secondes</p>
-  <p style="color:#1d4ed8;margin:0;font-size:14px">CVAdapt adapte automatiquement ton CV à chaque offre d'alternance. Entre ta spécialité, tes compétences et l'offre — ton CV est prêt à envoyer.</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">Postulera adapte automatiquement ton CV à chaque offre d'alternance. Entre ta spécialité, tes compétences et l'offre — ton CV est prêt à envoyer.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -865,7 +865,7 @@ ${[
 
 <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ CV + lettre de motivation en 30 secondes</p>
-  <p style="color:#1d4ed8;margin:0;font-size:14px">CVAdapt génère ton CV ET ta lettre de motivation adaptés à chaque offre de stage. Coche l'option "Lettre de motivation" avant de générer.</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">Postulera génère ton CV ET ta lettre de motivation adaptés à chaque offre de stage. Coche l'option "Lettre de motivation" avant de générer.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -943,7 +943,7 @@ ${[
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ Adapte ton CV à chaque offre</p>
-  <p style="color:#166534;margin:0;font-size:14px">Le secret des jeunes diplômés qui décrochent : ils adaptent leur CV à chaque offre. CVAdapt le fait automatiquement en 30 secondes.</p>
+  <p style="color:#166534;margin:0;font-size:14px">Le secret des jeunes diplômés qui décrochent : ils adaptent leur CV à chaque offre. Postulera le fait automatiquement en 30 secondes.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -1021,7 +1021,7 @@ ${[
 
 <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Adapte ton CV à Amazon en 30 secondes</p>
-  <p style="color:#1d4ed8;margin:0;font-size:14px">Colle l'offre Amazon dans CVAdapt — l'IA intègre automatiquement les mots-clés Amazon et structure ton CV selon leurs standards.</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">Colle l'offre Amazon dans Postulera — l'IA intègre automatiquement les mots-clés Amazon et structure ton CV selon leurs standards.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -1103,8 +1103,8 @@ ${[
 </table>
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
-  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ CVAdapt pour les profils data</p>
-  <p style="color:#166534;margin:0;font-size:14px">Colle une offre Data Analyst dans CVAdapt — l'IA identifie les compétences clés demandées et réorganise ton CV pour qu'il corresponde exactement.</p>
+  <p style="font-weight:700;color:#15803d;margin:0 0 4px 0">⚡ Postulera pour les profils data</p>
+  <p style="color:#166534;margin:0;font-size:14px">Colle une offre Data Analyst dans Postulera — l'IA identifie les compétences clés demandées et réorganise ton CV pour qu'il corresponde exactement.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -1197,7 +1197,7 @@ ${[
 
 <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">⚡ Gagne du temps sur ton CV</p>
-  <p style="color:#1d4ed8;margin:0;font-size:14px">Avec CVAdapt, adapte ton CV à chaque offre en 30 secondes — et consacre ton énergie à envoyer plus de candidatures et à relancer.</p>
+  <p style="color:#1d4ed8;margin:0;font-size:14px">Avec Postulera, adapte ton CV à chaque offre en 30 secondes — et consacre ton énergie à envoyer plus de candidatures et à relancer.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -1282,7 +1282,7 @@ ${[
 
 <div style="background:#fdf2f8;border-left:4px solid #ec4899;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#9d174d;margin:0 0 4px 0">⚡ Adapte ton CV marketing en 30 secondes</p>
-  <p style="color:#be185d;margin:0;font-size:14px">Colle l'offre dans CVAdapt — l'IA identifie les outils et compétences exacts demandés et les intègre dans ton CV.</p>
+  <p style="color:#be185d;margin:0;font-size:14px">Colle l'offre dans Postulera — l'IA identifie les outils et compétences exacts demandés et les intègre dans ton CV.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">
@@ -1382,7 +1382,7 @@ ${[
 
 <div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#15803d;margin:0 0 8px 0">⚡ La méthode la plus rapide</p>
-  <p style="color:#166534;margin:0;font-size:14px">CVAdapt analyse automatiquement l'offre et réécrit ton CV avec les bons mots-clés ATS en 30 secondes. Score ATS garanti 85+. Essai gratuit sans CB.</p>
+  <p style="color:#166534;margin:0;font-size:14px">Postulera analyse automatiquement l'offre et réécrit ton CV avec les bons mots-clés ATS en 30 secondes. Score ATS garanti 85+. Essai gratuit sans CB.</p>
 </div>
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0">
@@ -1392,7 +1392,7 @@ ${[
   </div>
   <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px;text-align:center">
     <div style="font-size:28px;font-weight:900;color:#16a34a;margin-bottom:4px">91</div>
-    <div style="font-size:12px;color:#15803d;font-weight:600">Score ATS avec<br/>CVAdapt</div>
+    <div style="font-size:12px;color:#15803d;font-weight:600">Score ATS avec<br/>Postulera</div>
   </div>
 </div>
 
@@ -1467,7 +1467,7 @@ ${[
 
 <div style="background:#eef2ff;border-left:4px solid #6366f1;padding:16px 20px;border-radius:8px;margin:24px 0">
   <p style="font-weight:700;color:#4338ca;margin:0 0 4px 0">⚡ CV adapté à chaque entreprise en 30 sec</p>
-  <p style="color:#4f46e5;margin:0;font-size:14px">Pour chaque candidature spontanée, adapte ton CV à l'entreprise avec CVAdapt — colle une offre similaire ou la description du site pour cibler les bons mots-clés.</p>
+  <p style="color:#4f46e5;margin:0;font-size:14px">Pour chaque candidature spontanée, adapte ton CV à l'entreprise avec Postulera — colle une offre similaire ou la description du site pour cibler les bons mots-clés.</p>
 </div>
 
 <div style="text-align:center;margin-top:32px">

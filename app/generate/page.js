@@ -513,8 +513,8 @@ export default function Generate() {
     const watermark = !isPro ? `
       <div style="margin-top:24px;padding:10px 0 6px;text-align:center;border-top:1px solid #e5e7eb;">
         <span style="font-size:9px;color:#9ca3af;font-family:Arial,sans-serif;letter-spacing:0.2px;">
-          ${tr(lang, "generatedWith")} <strong style="color:#2563eb;">CVAdapt.eu</strong> —
-          <a href="https://cvadapt.eu/tarifs" style="color:#2563eb;text-decoration:none;">${tr(lang, "removeWatermark")}</a>
+          ${tr(lang, "generatedWith")} <strong style="color:#2563eb;">Postulera.com</strong> —
+          <a href="https://postulera.com/tarifs" style="color:#2563eb;text-decoration:none;">${tr(lang, "removeWatermark")}</a>
         </span>
       </div>` : '';
     const printContent = title.startsWith("CV") || title.startsWith("Resume") ? injectPhoto(content) : content;
@@ -605,7 +605,7 @@ export default function Generate() {
       <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between gap-2">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Logo size={28} />
-          <span className="text-lg font-bold text-blue-600">CVAdapt</span>
+          <span className="text-lg font-bold text-blue-600">Postulera</span>
         </Link>
 
         <div className="flex items-center gap-2">
@@ -1312,12 +1312,12 @@ export default function Generate() {
                   onClick={() => {
                     if (navigator.share) {
                       navigator.share({
-                        title: "CVAdapt",
+                        title: "Postulera",
                         text: tr(lang, "shareShareText"),
-                        url: "https://cvadapt.eu",
+                        url: "https://postulera.com",
                       });
                     } else {
-                      navigator.clipboard.writeText("https://cvadapt.eu");
+                      navigator.clipboard.writeText("https://postulera.com");
                       alert(tr(lang, "shareLinkCopied"));
                     }
                   }}

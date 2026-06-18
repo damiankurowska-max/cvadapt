@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "CVAdapt — Adapte ton CV à chaque offre en 30 secondes · Score ATS · Gratuit";
+export const alt = "Postulera — Adapte ton CV à chaque offre en 30 secondes · Score ATS · Gratuit";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -64,7 +64,7 @@ export default function OGImage() {
                 <div style={{ fontSize: "28px", fontWeight: 900, color: "white", display: "flex" }}>C</div>
               </div>
               <div style={{ fontSize: "32px", fontWeight: 800, color: "white", display: "flex", letterSpacing: "-0.5px" }}>
-                CVAdapt
+                Postulera
               </div>
             </div>
             <div style={{

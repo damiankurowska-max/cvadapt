@@ -2,8 +2,8 @@ import Link from "next/link";
 import Logo from "../components/Logo";
 
 export const metadata = {
-  title: "Mentions légales — CVAdapt",
-  description: "Mentions légales et politique de confidentialité de CVAdapt.",
+  title: "Mentions légales — Postulera",
+  description: "Mentions légales et politique de confidentialité de Postulera.",
 };
 
 export default function MentionsLegales() {
@@ -12,7 +12,7 @@ export default function MentionsLegales() {
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
           <Logo size={28} />
-          <span className="text-xl font-bold text-blue-600">CVAdapt</span>
+          <span className="text-xl font-bold text-blue-600">Postulera</span>
         </Link>
         <Link href="/generate" className="text-sm text-gray-600 hover:text-gray-900 font-medium">
           Retour →
@@ -27,12 +27,12 @@ export default function MentionsLegales() {
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">1. Éditeur du site</h2>
-            <p>Le site CVAdapt (cvadapt.eu) est édité par :</p>
+            <p>Le site Postulera (postulera.com) est édité par :</p>
             <ul className="mt-3 space-y-1 text-sm">
               <li><strong>Nom :</strong> Damian Kurowska</li>
               <li><strong>Statut :</strong> Entrepreneur individuel</li>
-              <li><strong>Email :</strong> contact@cvadapt.eu</li>
-              <li><strong>Site web :</strong> https://cvadapt.eu</li>
+              <li><strong>Email :</strong> contact@postulera.com</li>
+              <li><strong>Site web :</strong> https://postulera.com</li>
             </ul>
           </section>
 
@@ -49,14 +49,14 @@ export default function MentionsLegales() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">3. Propriété intellectuelle</h2>
             <p>
-              L'ensemble des contenus présents sur le site CVAdapt (textes, images, logo, interface) est protégé par le droit d'auteur.
+              L'ensemble des contenus présents sur le site Postulera (textes, images, logo, interface) est protégé par le droit d'auteur.
               Toute reproduction, distribution ou modification sans autorisation préalable est interdite.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">4. Collecte de données personnelles</h2>
-            <p className="mb-3">CVAdapt collecte et traite les données suivantes :</p>
+            <p className="mb-3">Postulera collecte et traite les données suivantes :</p>
             <ul className="list-disc list-inside space-y-1 text-sm">
               <li>Adresse email (lors de la création de compte via Clerk)</li>
               <li>Données saisies dans le formulaire (nom, expérience, compétences) — utilisées uniquement pour la génération du CV</li>
@@ -64,7 +64,7 @@ export default function MentionsLegales() {
             </ul>
             <p className="mt-3 text-sm">
               Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données.
-              Pour exercer ce droit : <a href="mailto:contact@cvadapt.eu" className="text-blue-600 hover:underline">contact@cvadapt.eu</a>
+              Pour exercer ce droit : <a href="mailto:contact@postulera.com" className="text-blue-600 hover:underline">contact@postulera.com</a>
             </p>
           </section>
 
@@ -80,15 +80,15 @@ export default function MentionsLegales() {
             <h2 className="text-xl font-bold text-gray-900 mb-4">6. Paiements</h2>
             <p className="text-sm">
               Les paiements sont traités par <strong>Stripe</strong> (Stripe Inc., 510 Townsend St, San Francisco, CA).
-              CVAdapt ne stocke jamais vos informations bancaires. Les abonnements sont résiliables à tout moment depuis votre espace client Stripe.
+              Postulera ne stocke jamais vos informations bancaires. Les abonnements sont résiliables à tout moment depuis votre espace client Stripe.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">7. Limitation de responsabilité</h2>
             <p className="text-sm">
-              CVAdapt est un outil d'aide à la rédaction basé sur l'intelligence artificielle.
-              Les CV générés sont fournis à titre indicatif. CVAdapt ne garantit pas l'obtention d'entretiens ou d'emplois.
+              Postulera est un outil d'aide à la rédaction basé sur l'intelligence artificielle.
+              Les CV générés sont fournis à titre indicatif. Postulera ne garantit pas l'obtention d'entretiens ou d'emplois.
               L'utilisateur reste responsable du contenu final de son CV.
             </p>
           </section>
@@ -105,7 +105,7 @@ export default function MentionsLegales() {
       </div>
 
       <footer className="border-t border-gray-100 py-6 px-6 text-center text-sm text-gray-400">
-        © 2025 CVAdapt — <Link href="/" className="hover:text-gray-600">Retour à l'accueil</Link>
+        © 2025 Postulera — <Link href="/" className="hover:text-gray-600">Retour à l'accueil</Link>
       </footer>
     </main>
   );

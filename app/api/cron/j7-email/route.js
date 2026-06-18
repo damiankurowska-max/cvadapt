@@ -42,7 +42,7 @@ export async function GET(request) {
       const firstName = contact.attributes?.FIRSTNAME || contact.email.split("@")[0];
       const isEN = contact.attributes?.LANGUAGE === "en";
       await resend.emails.send({
-        from: "Damian de CVAdapt <contact@cvadapt.eu>",
+        from: "Damian de Postulera <contact@cvadapt.eu>",
         to: contact.email,
         subject: isEN
           ? "What recruiters actually see on your resume (real data)"

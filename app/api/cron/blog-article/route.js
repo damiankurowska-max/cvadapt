@@ -54,7 +54,7 @@ L'article doit :
 - Être optimisé pour Google (structure H2/H3, mots-clés naturels intégrés)
 - Faire environ 900-1100 mots de contenu réel (pas de padding)
 - Donner des conseils actionnables avec des exemples concrets
-- Mentionner CVAdapt.eu une seule fois de manière naturelle (pas en intro)
+- Mentionner Postulera.eu une seule fois de manière naturelle (pas en intro)
 - Ton direct, pas corporate, comme si tu parlais à un ami étudiant
 
 Réponds UNIQUEMENT en JSON valide avec ces champs exacts :

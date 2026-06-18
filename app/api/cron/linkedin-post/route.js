@@ -8,13 +8,13 @@ const MAKE_LINKEDIN_WEBHOOK = process.env.MAKE_LINKEDIN_WEBHOOK;
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "contact@cvadapt.eu";
 
 const THEMES = [
-  { theme: "Fondateur", angle: "Post personnel en première personne : l'histoire de la création de CVAdapt. Pas de réseau, candidatures sans réponse, découverte des filtres ATS, décision de construire la solution. Ton authentique, vulnérable, sans morale artificielle. Mentionne CVAdapt naturellement." },
-  { theme: "ATS invisible", angle: "Expliquer ce que sont les filtres ATS et pourquoi 75% des CVs n'arrivent jamais sur le bureau d'un recruteur. Partir d'un vécu concret, pas d'un article de blog. Mentionne CVAdapt naturellement." },
-  { theme: "Sans réseau", angle: "Post pour les étudiants sans réseau, sans parents dans le secteur. Le CV reste le seul levier qu'ils contrôlent. Ton de pair à pair, pas de condescendance. Mentionne CVAdapt naturellement." },
-  { theme: "Reconversion", angle: "Ce que personne ne dit aux gens qui veulent changer de métier : leur CV parle le mauvais langage pour le nouveau secteur. Exemple concret sur comment adapter son vocabulaire aux offres du domaine visé. Mentionne CVAdapt naturellement." },
-  { theme: "Mots-clés", angle: "Pourquoi un excellent profil passe à la trappe : les mots-clés de l'offre n'étaient pas dans le CV. Partir d'un exemple précis et réaliste. Pas de liste générique. Mentionne CVAdapt naturellement." },
-  { theme: "Vérité emploi", angle: "Une stat ou vérité contre-intuitive sur le marché de l'emploi français en 2025. Pas de conseil générique — un fait tranchant avec une implication concrète pour le lecteur. Mentionne CVAdapt naturellement." },
-  { theme: "30 secondes", angle: "Décrire exactement ce que fait CVAdapt en 30 secondes : coller l'offre, entrer ses infos, recevoir un CV PDF adapté. Montrer le contraste avec des heures passées à reformuler le même CV. Ton direct." },
+  { theme: "Fondateur", angle: "Post personnel en première personne : l'histoire de la création de Postulera. Pas de réseau, candidatures sans réponse, découverte des filtres ATS, décision de construire la solution. Ton authentique, vulnérable, sans morale artificielle. Mentionne Postulera naturellement." },
+  { theme: "ATS invisible", angle: "Expliquer ce que sont les filtres ATS et pourquoi 75% des CVs n'arrivent jamais sur le bureau d'un recruteur. Partir d'un vécu concret, pas d'un article de blog. Mentionne Postulera naturellement." },
+  { theme: "Sans réseau", angle: "Post pour les étudiants sans réseau, sans parents dans le secteur. Le CV reste le seul levier qu'ils contrôlent. Ton de pair à pair, pas de condescendance. Mentionne Postulera naturellement." },
+  { theme: "Reconversion", angle: "Ce que personne ne dit aux gens qui veulent changer de métier : leur CV parle le mauvais langage pour le nouveau secteur. Exemple concret sur comment adapter son vocabulaire aux offres du domaine visé. Mentionne Postulera naturellement." },
+  { theme: "Mots-clés", angle: "Pourquoi un excellent profil passe à la trappe : les mots-clés de l'offre n'étaient pas dans le CV. Partir d'un exemple précis et réaliste. Pas de liste générique. Mentionne Postulera naturellement." },
+  { theme: "Vérité emploi", angle: "Une stat ou vérité contre-intuitive sur le marché de l'emploi français en 2025. Pas de conseil générique — un fait tranchant avec une implication concrète pour le lecteur. Mentionne Postulera naturellement." },
+  { theme: "30 secondes", angle: "Décrire exactement ce que fait Postulera en 30 secondes : coller l'offre, entrer ses infos, recevoir un CV PDF adapté. Montrer le contraste avec des heures passées à reformuler le même CV. Ton direct." },
 ];
 
 export async function GET(request) {
@@ -47,7 +47,7 @@ export async function GET(request) {
       messages: [
         {
           role: "user",
-          content: `Tu écris un post LinkedIn en français pour CVAdapt (cvadapt.eu).
+          content: `Tu écris un post LinkedIn en français pour Postulera (postulera.com).
 
 Thème : ${theme.theme}
 Angle : ${theme.angle}
@@ -61,7 +61,7 @@ Règles Stop Slop — applique-les toutes :
 - 2 emojis maximum, placés naturellement
 - 150-200 mots
 - Termine par une vraie question ouverte (pas "Et toi ?")
-- CVAdapt mentionné une fois, naturellement, pas en signature
+- Postulera mentionné une fois, naturellement, pas en signature
 - 3-4 hashtags à la fin
 
 Texte du post uniquement, aucune introduction.`,
@@ -88,7 +88,7 @@ Texte du post uniquement, aucune introduction.`,
 
     // Envoyer aussi par email (backup)
     await resend.emails.send({
-      from: "CVAdapt <contact@cvadapt.eu>",
+      from: "Postulera <contact@cvadapt.eu>",
       to: OWNER_EMAIL,
       subject: `📱 Post LinkedIn publié — Thème : ${theme.theme}`,
       html: linkedinPostEmail({ theme: theme.theme, content: postContent }),
@@ -116,9 +116,9 @@ function linkedinPostEmail({ theme, content }) {
 
           <!-- Header -->
           <tr><td style="padding-bottom:20px;text-align:center;">
-            <img src="https://cvadapt.eu/logo-256.png" width="40" height="40"
-              alt="CVAdapt" style="border-radius:10px;display:inline-block;vertical-align:middle;margin-right:8px;" />
-            <span style="font-size:18px;font-weight:800;color:#2563eb;vertical-align:middle;">CVAdapt</span>
+            <img src="https://postulera.com/logo-256.png" width="40" height="40"
+              alt="Postulera" style="border-radius:10px;display:inline-block;vertical-align:middle;margin-right:8px;" />
+            <span style="font-size:18px;font-weight:800;color:#2563eb;vertical-align:middle;">Postulera</span>
           </td></tr>
 
           <!-- Card -->
@@ -158,7 +158,7 @@ function linkedinPostEmail({ theme, content }) {
 
           <!-- Footer -->
           <tr><td style="padding-top:20px;text-align:center;">
-            <p style="font-size:11px;color:#9ca3af;margin:0;">© 2025 CVAdapt · Cet email est envoyé automatiquement 3x/semaine</p>
+            <p style="font-size:11px;color:#9ca3af;margin:0;">© 2025 Postulera · Cet email est envoyé automatiquement 3x/semaine</p>
           </td></tr>
 
         </table>

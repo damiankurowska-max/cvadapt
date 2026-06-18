@@ -1,11 +1,11 @@
 export const metadata = {
-  title: "Tarifs CVAdapt — Dès 4,99€/mois · Remise Étudiants -50%",
+  title: "Tarifs Postulera — Dès 4,99€/mois · Remise Étudiants -50%",
   description: "Plan Étudiant à 4,99€/mois : 15 CV adaptés + lettre de motivation + score ATS complet. Sans engagement, annulable en 1 clic. Remise -50% sur justificatif étudiant.",
-  alternates: { canonical: "https://cvadapt.eu/tarifs" },
+  alternates: { canonical: "https://postulera.com/tarifs" },
   openGraph: {
-    title: "Tarifs CVAdapt — Dès 4,99€/mois · Remise Étudiants -50%",
+    title: "Tarifs Postulera — Dès 4,99€/mois · Remise Étudiants -50%",
     description: "Plan Étudiant à 4,99€/mois : 15 CV adaptés + lettre de motivation + score ATS complet. Sans engagement, annulable en 1 clic. Remise -50% sur justificatif étudiant.",
-    url: "https://cvadapt.eu/tarifs",
+    url: "https://postulera.com/tarifs",
   },
 };
 
@@ -14,28 +14,28 @@ const schemas = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://cvadapt.eu" },
-      { "@type": "ListItem", position: 2, name: "Tarifs", item: "https://cvadapt.eu/tarifs" },
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://postulera.com" },
+      { "@type": "ListItem", position: 2, name: "Tarifs", item: "https://postulera.com/tarifs" },
     ],
   },
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Plans tarifaires CVAdapt",
+    name: "Plans tarifaires Postulera",
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
         item: {
           "@type": "Product",
-          name: "CVAdapt Gratuit",
+          name: "Postulera Gratuit",
           description: "3 CV complets gratuits sans carte bancaire",
           offers: {
             "@type": "Offer",
             price: "0",
             priceCurrency: "EUR",
             availability: "https://schema.org/InStock",
-            url: "https://cvadapt.eu/generate",
+            url: "https://postulera.com/generate",
           },
         },
       },
@@ -44,14 +44,14 @@ const schemas = [
         position: 2,
         item: {
           "@type": "Product",
-          name: "CVAdapt Étudiant",
+          name: "Postulera Étudiant",
           description: "15 CV par mois avec score ATS complet et lettre de motivation",
           offers: {
             "@type": "Offer",
             price: "4.99",
             priceCurrency: "EUR",
             availability: "https://schema.org/InStock",
-            url: "https://cvadapt.eu/tarifs",
+            url: "https://postulera.com/tarifs",
             priceSpecification: {
               "@type": "UnitPriceSpecification",
               price: "4.99",
@@ -66,14 +66,14 @@ const schemas = [
         position: 3,
         item: {
           "@type": "Product",
-          name: "CVAdapt Pro",
+          name: "Postulera Pro",
           description: "CV illimités, templates premium, support prioritaire",
           offers: {
             "@type": "Offer",
             price: "9.99",
             priceCurrency: "EUR",
             availability: "https://schema.org/InStock",
-            url: "https://cvadapt.eu/tarifs",
+            url: "https://postulera.com/tarifs",
             priceSpecification: {
               "@type": "UnitPriceSpecification",
               price: "9.99",

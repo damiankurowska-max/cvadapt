@@ -2,23 +2,23 @@ import Link from "next/link";
 import Logo from "../components/Logo";
 
 export const metadata = {
-  title: "CV BTS Gratuit — Optimisé ATS en 30 secondes | CVAdapt",
-  description: "Génère un CV BTS parfait pour ton stage ou premier emploi. CVAdapt adapte ton CV aux mots-clés ATS de chaque offre en 30 secondes. Gratuit, sans CB.",
+  title: "CV BTS Gratuit — Optimisé ATS en 30 secondes | Postulera",
+  description: "Génère un CV BTS parfait pour ton stage ou premier emploi. Postulera adapte ton CV aux mots-clés ATS de chaque offre en 30 secondes. Gratuit, sans CB.",
   keywords: "cv bts gratuit, modèle cv bts, cv bts sans expérience, cv bts mco, cv bts commerce, cv bts informatique",
-  alternates: { canonical: "https://cvadapt.eu/cv-bts" },
+  alternates: { canonical: "https://postulera.com/cv-bts" },
 };
 
 const ERREURS = [
-  { titre: "Absence d'expérience professionnelle", solution: "CVAdapt valorise stages, projets BTS, missions en entreprise et compétences acquises" },
-  { titre: "Intitulé du BTS mal formulé", solution: "CVAdapt adapte la dénomination exacte selon ce que cherche l'entreprise ciblée" },
-  { titre: "Compétences spécifiques au BTS absentes", solution: "Selon ton BTS (MCO, SIO, NRC...), CVAdapt intègre les mots-clés attendus par les ATS" },
-  { titre: "CV identique pour toutes les offres", solution: "CVAdapt génère un CV unique par offre — chaque candidature est optimisée séparément" },
+  { titre: "Absence d'expérience professionnelle", solution: "Postulera valorise stages, projets BTS, missions en entreprise et compétences acquises" },
+  { titre: "Intitulé du BTS mal formulé", solution: "Postulera adapte la dénomination exacte selon ce que cherche l'entreprise ciblée" },
+  { titre: "Compétences spécifiques au BTS absentes", solution: "Selon ton BTS (MCO, SIO, NRC...), Postulera intègre les mots-clés attendus par les ATS" },
+  { titre: "CV identique pour toutes les offres", solution: "Postulera génère un CV unique par offre — chaque candidature est optimisée séparément" },
 ];
 
 const TEMOIGNAGES = [
-  { nom: "Lucie M.", poste: "BTS MCO · Bordeaux", resultat: "Stage chez Décathlon décroché", texte: "Sans expérience pro, je ne savais pas quoi mettre. CVAdapt a mis en avant mes projets BTS et mes stages d'observation." },
-  { nom: "Kevin B.", poste: "BTS SIO · Lille", resultat: "Alternance signée en 10 jours", texte: "Je postulais sans réponse depuis 3 semaines. Après CVAdapt, j'ai eu deux rappels la même semaine." },
-  { nom: "Inès T.", poste: "BTS Communication · Paris", resultat: "CDI obtenu à la sortie du BTS", texte: "CVAdapt a transformé mes cours et projets en compétences professionnelles lisibles par les recruteurs." },
+  { nom: "Lucie M.", poste: "BTS MCO · Bordeaux", resultat: "Stage chez Décathlon décroché", texte: "Sans expérience pro, je ne savais pas quoi mettre. Postulera a mis en avant mes projets BTS et mes stages d'observation." },
+  { nom: "Kevin B.", poste: "BTS SIO · Lille", resultat: "Alternance signée en 10 jours", texte: "Je postulais sans réponse depuis 3 semaines. Après Postulera, j'ai eu deux rappels la même semaine." },
+  { nom: "Inès T.", poste: "BTS Communication · Paris", resultat: "CDI obtenu à la sortie du BTS", texte: "Postulera a transformé mes cours et projets en compétences professionnelles lisibles par les recruteurs." },
 ];
 
 export default function CvBts() {
@@ -28,7 +28,7 @@ export default function CvBts() {
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Logo size={28} />
-            <span className="text-lg font-extrabold text-blue-700">CVAdapt</span>
+            <span className="text-lg font-extrabold text-blue-700">Postulera</span>
           </Link>
           <Link href="/generate" className="text-white px-5 py-2 text-sm font-bold rounded-full" style={{ background: "#1d4ed8" }}>Créer mon CV →</Link>
         </div>
@@ -43,7 +43,7 @@ export default function CvBts() {
         </h1>
         <p className="max-w-2xl mx-auto mb-8 text-lg" style={{ color: "#4b5563" }}>
           Même sans grande expérience, ton profil BTS a de la valeur — encore faut-il que les ATS le détectent.
-          CVAdapt adapte ton CV aux mots-clés exacts de chaque offre de stage ou d'emploi.
+          Postulera adapte ton CV aux mots-clés exacts de chaque offre de stage ou d'emploi.
         </p>
         <Link href="/generate" className="inline-block text-white font-bold px-8 py-4 text-lg rounded-full mb-4"
           style={{ background: "#1d4ed8", boxShadow: "0 6px 24px rgba(29,78,216,0.35)" }}>
@@ -78,7 +78,7 @@ export default function CvBts() {
             {[
               { n:"1", e:"📋", t:"Colle l'offre", d:"Copie l'offre depuis Indeed, LinkedIn, Pôle Emploi ou l'Étudiant." },
               { n:"2", e:"✍️", t:"Ton profil BTS", d:"Formation, stages, projets, compétences. Même sans expérience pro." },
-              { n:"3", e:"🚀", t:"CV prêt", d:"CVAdapt génère un CV avec les mots-clés exacts de l'offre. Score ATS inclus." },
+              { n:"3", e:"🚀", t:"CV prêt", d:"Postulera génère un CV avec les mots-clés exacts de l'offre. Score ATS inclus." },
             ].map(s => (
               <div key={s.n} className="relative rounded-2xl p-6 bg-white" style={{ border: "2px solid #dbeafe" }}>
                 <div className="absolute top-4 right-5 font-black text-6xl select-none" style={{ color: "#eff6ff" }}>{s.n}</div>
@@ -99,7 +99,7 @@ export default function CvBts() {
       <section className="py-16 px-5" style={{ background: "#ffffff" }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10" style={{ color: "#1e3a8a" }}>
-            Ils ont décroché leur stage ou emploi après BTS avec CVAdapt
+            Ils ont décroché leur stage ou emploi après BTS avec Postulera
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {TEMOIGNAGES.map((t, i) => (
@@ -129,7 +129,7 @@ export default function CvBts() {
           <Link href="/cv-stage" className="hover:text-gray-600">CV Stage</Link>
           <Link href="/tarifs" className="hover:text-gray-600">Tarifs</Link>
         </div>
-        © 2025 CVAdapt — Fait en France 🇫🇷
+        © 2025 Postulera — Fait en France 🇫🇷
       </footer>
     </main>
   );

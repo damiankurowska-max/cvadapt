@@ -2,23 +2,23 @@ import Link from "next/link";
 import Logo from "../components/Logo";
 
 export const metadata = {
-  title: "CV Alternance Gratuit — Optimisé ATS en 30 secondes | CVAdapt",
-  description: "Génère un CV parfait pour décrocher ton alternance. CVAdapt adapte ton CV aux mots-clés de chaque offre en 30 secondes. Gratuit, sans CB.",
+  title: "CV Alternance Gratuit — Optimisé ATS en 30 secondes | Postulera",
+  description: "Génère un CV parfait pour décrocher ton alternance. Postulera adapte ton CV aux mots-clés de chaque offre en 30 secondes. Gratuit, sans CB.",
   keywords: "cv alternance gratuit, modèle cv alternance, cv pour alternance, cv alternance étudiant",
-  alternates: { canonical: "https://cvadapt.eu/cv-alternance" },
+  alternates: { canonical: "https://postulera.com/cv-alternance" },
 };
 
 const ERREURS = [
-  { titre: "CV générique envoyé partout", solution: "CVAdapt adapte chaque CV à l'offre exacte" },
-  { titre: "Mots-clés manquants", solution: "Les ATS cherchent des termes précis — CVAdapt les intègre automatiquement" },
+  { titre: "CV générique envoyé partout", solution: "Postulera adapte chaque CV à l'offre exacte" },
+  { titre: "Mots-clés manquants", solution: "Les ATS cherchent des termes précis — Postulera les intègre automatiquement" },
   { titre: "Mise en page illisible par les ATS", solution: "Nos templates sont 100% compatibles avec les logiciels de tri" },
-  { titre: "Profil mal valorisé sans expérience", solution: "CVAdapt met en avant projets, formations et soft skills" },
+  { titre: "Profil mal valorisé sans expérience", solution: "Postulera met en avant projets, formations et soft skills" },
 ];
 
 const TEMOIGNAGES = [
-  { nom: "Théo V.", ecole: "Master Gestion · Paris", resultat: "3 alternances proposées en 2 semaines", texte: "Mon profil était générique. CVAdapt l'a transformé en 30 secondes." },
-  { nom: "Emma T.", ecole: "Master Marketing · Toulouse", resultat: "Alternance signée chez L'Oréal", texte: "Sans expérience pro, CVAdapt a mis en avant mes projets universitaires parfaitement." },
-  { nom: "Romain S.", ecole: "Licence Finance · Paris", resultat: "Rappelé en 5 jours", texte: "J'avais postulé sans réponse pendant 3 semaines. Après CVAdapt, tout a changé." },
+  { nom: "Théo V.", ecole: "Master Gestion · Paris", resultat: "3 alternances proposées en 2 semaines", texte: "Mon profil était générique. Postulera l'a transformé en 30 secondes." },
+  { nom: "Emma T.", ecole: "Master Marketing · Toulouse", resultat: "Alternance signée chez L'Oréal", texte: "Sans expérience pro, Postulera a mis en avant mes projets universitaires parfaitement." },
+  { nom: "Romain S.", ecole: "Licence Finance · Paris", resultat: "Rappelé en 5 jours", texte: "J'avais postulé sans réponse pendant 3 semaines. Après Postulera, tout a changé." },
 ];
 
 export default function CvAlternance() {
@@ -28,7 +28,7 @@ export default function CvAlternance() {
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Logo size={28} />
-            <span className="text-lg font-extrabold text-blue-700">CVAdapt</span>
+            <span className="text-lg font-extrabold text-blue-700">Postulera</span>
           </Link>
           <Link href="/generate" className="text-white px-5 py-2 text-sm font-bold rounded-full"
             style={{ background: "#1d4ed8" }}>Créer mon CV →</Link>
@@ -44,7 +44,7 @@ export default function CvAlternance() {
         </h1>
         <p className="max-w-2xl mx-auto mb-8 text-lg" style={{ color: "#4b5563" }}>
           75% des CV pour l'alternance sont rejetés par les algorithmes avant d'être lus.
-          CVAdapt intègre les mots-clés exacts de chaque offre pour que ton CV passe les filtres ATS.
+          Postulera intègre les mots-clés exacts de chaque offre pour que ton CV passe les filtres ATS.
         </p>
         <Link href="/generate" className="inline-block text-white font-bold px-8 py-4 text-lg rounded-full mb-4"
           style={{ background: "#1d4ed8", boxShadow: "0 6px 24px rgba(29,78,216,0.35)" }}>
@@ -79,7 +79,7 @@ export default function CvAlternance() {
             {[
               { n:"1", e:"📋", t:"Colle l'offre", d:"Copie l'offre depuis LinkedIn, Indeed, APEC ou l'Étudiant." },
               { n:"2", e:"✍️", t:"Tes infos", d:"Formation, compétences, projets. Même sans expérience pro." },
-              { n:"3", e:"🚀", t:"CV prêt", d:"CVAdapt génère un CV avec les mots-clés exacts. Score ATS inclus." },
+              { n:"3", e:"🚀", t:"CV prêt", d:"Postulera génère un CV avec les mots-clés exacts. Score ATS inclus." },
             ].map(s => (
               <div key={s.n} className="relative rounded-2xl p-6 bg-white" style={{ border: "2px solid #dbeafe" }}>
                 <div className="absolute top-4 right-5 font-black text-6xl select-none" style={{ color: "#eff6ff" }}>{s.n}</div>
@@ -99,7 +99,7 @@ export default function CvAlternance() {
       <section className="py-16 px-5" style={{ background: "#ffffff" }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10" style={{ color: "#1e3a8a" }}>
-            Ils ont décroché leur alternance avec CVAdapt
+            Ils ont décroché leur alternance avec Postulera
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {TEMOIGNAGES.map((t, i) => (
@@ -127,7 +127,7 @@ export default function CvAlternance() {
           <Link href="/score-ats-gratuit" className="hover:text-gray-600">Score ATS</Link>
           <Link href="/tarifs" className="hover:text-gray-600">Tarifs</Link>
         </div>
-        © 2025 CVAdapt — Fait en France 🇫🇷
+        © 2025 Postulera — Fait en France 🇫🇷
       </footer>
     </main>
   );

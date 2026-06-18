@@ -91,7 +91,7 @@ export async function GET(request) {
     const prenomMatch = email.split("@")[0];
 
     await resend.emails.send({
-      from: "CVAdapt <contact@cvadapt.eu>",
+      from: "Postulera <contact@cvadapt.eu>",
       to: email,
       replyTo: "contact@cvadapt.eu",
       subject: "✅ +1 CV ajouté à ton compte",
@@ -104,10 +104,10 @@ export async function GET(request) {
     });
 
     // 4. Rediriger vers une page de remerciement
-    return Response.redirect("https://cvadapt.eu/merci-sondage", 302);
+    return Response.redirect("https://postulera.com/merci-sondage", 302);
 
   } catch (error) {
     console.error("Survey response error:", error);
-    return Response.redirect("https://cvadapt.eu", 302);
+    return Response.redirect("https://postulera.com", 302);
   }
 }
