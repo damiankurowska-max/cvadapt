@@ -51,15 +51,15 @@ export async function GET(request) {
       const isEN = contact.attributes?.LANGUAGE === "en";
       try {
         await resend.emails.send({
-          from: "Postulera <contact@cvadapt.eu>",
+          from: "Postulera <contact@postulera.com>",
           to: email,
-          replyTo: "contact@cvadapt.eu",
+          replyTo: "contact@postulera.com",
           subject: isEN
             ? `${prenom ? `${prenom}, your` : "Your"} resume might be invisible to recruiters`
             : `${prenom ? prenom + ", ton" : "Ton"} CV est peut-être invisible pour les recruteurs`,
           html: isEN ? j2EmailEN({ prenom }) : j2Email({ prenom }),
           headers: {
-            "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
+            "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
             "X-Entity-Ref-ID": `cron-j2-${email}-${dateStr}`,
           },

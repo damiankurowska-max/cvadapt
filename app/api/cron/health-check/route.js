@@ -79,7 +79,7 @@ export async function GET(request) {
       </tr>`).join("");
 
     await resend.emails.send({
-      from: "Postulera Monitoring <contact@cvadapt.eu>",
+      from: "Postulera Monitoring <contact@postulera.com>",
       to: ALERT_EMAIL,
       subject: `⚠️ Postulera — ${failed.length} problème(s) détecté(s)`,
       html: `

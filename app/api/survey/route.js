@@ -91,13 +91,13 @@ export async function GET(request) {
     const prenomMatch = email.split("@")[0];
 
     await resend.emails.send({
-      from: "Postulera <contact@cvadapt.eu>",
+      from: "Postulera <contact@postulera.com>",
       to: email,
-      replyTo: "contact@cvadapt.eu",
+      replyTo: "contact@postulera.com",
       subject: "✅ +1 CV ajouté à ton compte",
       html: surveyThanksEmail({ prenom: "", question, reponse: reponseLabel }),
       headers: {
-        "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
+        "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
         "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
         "X-Entity-Ref-ID": `survey-thanks-${email}-${question}`,
       },

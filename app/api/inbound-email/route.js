@@ -5,7 +5,7 @@ import { Resend } from "resend";
  * Webhook email entrant — appelé par le Cloudflare Email Worker
  *
  * Le Worker Cloudflare (cvadapt-email-worker) reçoit les emails de
- * contact@cvadapt.eu et appelle cette route avec :
+ * contact@postulera.com et appelle cette route avec :
  *   Authorization: Bearer {INBOUND_EMAIL_SECRET}
  *   Body: { from, to, subject, text }
  *
@@ -58,7 +58,7 @@ export async function POST(request) {
     // ── 3. Forward l'email à Damian (iCloud) ──────────────────────────
     const ownerEmail = process.env.OWNER_EMAIL || "damiankurowska@icloud.com";
     await resend.emails.send({
-      from: "Postulera Inbound <contact@cvadapt.eu>",
+      from: "Postulera Inbound <contact@postulera.com>",
       to: ownerEmail,
       subject: `[Reçu] ${subject || "(sans objet)"}`,
       text: `De : ${from}\n\n${text}`,
@@ -104,7 +104,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
 
     // ── 5. Envoie la réponse au BDE ───────────────────────────────────
     await resend.emails.send({
-      from: "Damian — Postulera <contact@cvadapt.eu>",
+      from: "Damian — Postulera <contact@postulera.com>",
       to: from,
       subject: subject.startsWith("Re:") ? subject : `Re: ${subject}`,
       text: replyBody,
@@ -115,7 +115,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
 
     // ── 6. Notifie Damian de la réponse envoyée ───────────────────────
     await resend.emails.send({
-      from: "Postulera Bot <contact@cvadapt.eu>",
+      from: "Postulera Bot <contact@postulera.com>",
       to: ownerEmail,
       subject: `📬 Réponse BDE auto-envoyée — ${from}`,
       html: `<div style="font-family:sans-serif;font-size:14px;color:#111827;max-width:560px">

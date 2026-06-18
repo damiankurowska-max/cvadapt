@@ -571,7 +571,7 @@ ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write ev
     // ── 9. EMAIL DE RELANCE si dernier CV gratuit ─────────────────────────
     if (!isPro && newCvCount === PLAN_LIMITS.free.max && email) {
       await resend.emails.send({
-        from: "Postulera <contact@cvadapt.eu>",
+        from: "Postulera <contact@postulera.com>",
         to: email,
         subject: `${prenom ? prenom + ", tu" : "Tu"} as utilisé tes 3 CV gratuits — continue sans limite 🚀`,
         html: upgradeReminderEmail({ prenom }),

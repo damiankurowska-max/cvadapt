@@ -166,7 +166,7 @@ Règles STRICTES :
 - Valeur claire : outil gratuit, adapte le CV à chaque offre, passe les filtres ATS
 - Proposition : accès premium offert pour leurs membres + relai via leurs canaux (newsletter, groupe, Discord…)
 - Jamais mentionner un réseau social spécifique
-- Signature : "Damian — Postulera.eu | contact@cvadapt.eu"
+- Signature : "Damian — Postulera.eu | contact@postulera.com"
 - Objet court et accrocheur (max 8 mots)
 
 Réponds en JSON valide UNIQUEMENT (pas de markdown, pas de texte avant/après) :
@@ -198,9 +198,9 @@ Réponds en JSON valide UNIQUEMENT (pas de markdown, pas de texte avant/après) 
 
       try {
         await resend.emails.send({
-          from: "Damian — Postulera <contact@cvadapt.eu>",
+          from: "Damian — Postulera <contact@postulera.com>",
           to: target.email,
-          replyTo: "contact@cvadapt.eu",
+          replyTo: "contact@postulera.com",
           subject: emailData.objet,
           text: emailData.corps,
           html: `<div style="font-family:-apple-system,sans-serif;font-size:15px;color:#111827;line-height:1.7;max-width:560px">
@@ -221,7 +221,7 @@ Réponds en JSON valide UNIQUEMENT (pas de markdown, pas de texte avant/après) 
     const progress = Math.min(100, Math.round((totalContacted / BDE_CONTACTS.length) * 100));
 
     await resend.emails.send({
-      from: "Postulera BDE Bot <contact@cvadapt.eu>",
+      from: "Postulera BDE Bot <contact@postulera.com>",
       to: ownerEmail,
       subject: `📤 Outreach BDE — ${sent.length} envoyés aujourd'hui (${progress}% de la liste)`,
       html: `<!DOCTYPE html>

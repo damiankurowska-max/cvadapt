@@ -72,13 +72,13 @@ export async function GET(request) {
 
       try {
         await resend.emails.send({
-          from: "Postulera <contact@cvadapt.eu>",
+          from: "Postulera <contact@postulera.com>",
           to: email,
-          replyTo: "contact@cvadapt.eu",
+          replyTo: "contact@postulera.com",
           subject: `${prenom ? prenom + ", ton" : "Ton"} CV attend toujours d'être optimisé ⚡`,
           html: reactivationEmail({ prenom }),
           headers: {
-            "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
+            "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
             "X-Entity-Ref-ID": `cron-reactivation-${email}-${dateStr}`,
           },

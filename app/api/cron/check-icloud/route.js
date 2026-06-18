@@ -145,7 +145,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
 
         // Envoie la réponse
         await resend.emails.send({
-          from: "Damian — Postulera <contact@cvadapt.eu>",
+          from: "Damian — Postulera <contact@postulera.com>",
           to: from,
           subject: subject.startsWith("Re:") ? subject : `Re: ${subject}`,
           text: replyBody,
@@ -156,7 +156,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
 
         // Notifie Damian
         await resend.emails.send({
-          from: "Postulera Bot <contact@cvadapt.eu>",
+          from: "Postulera Bot <contact@postulera.com>",
           to: ownerEmail,
           subject: `📬 [iCloud] Réponse auto-envoyée — ${from}`,
           html: `<div style="font-family:sans-serif;font-size:14px;color:#111827;max-width:560px">

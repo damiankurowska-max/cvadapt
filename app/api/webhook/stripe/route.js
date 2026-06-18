@@ -75,9 +75,9 @@ export async function POST(request) {
       // Email de confirmation au client
       if (customerEmail) {
         await resend.emails.send({
-          from: "Postulera <contact@cvadapt.eu>",
+          from: "Postulera <contact@postulera.com>",
           to: customerEmail,
-          replyTo: "contact@cvadapt.eu",
+          replyTo: "contact@postulera.com",
           subject: "✅ Ton abonnement Postulera est actif !",
           html: paymentConfirmationEmail({ plan: plan || "essentiel", email: customerEmail }),
           headers: {
@@ -94,8 +94,8 @@ export async function POST(request) {
         pro_annuel: "Plan Pro Annuel — 79,99€/an",
       };
       await resend.emails.send({
-        from: "Postulera <contact@cvadapt.eu>",
-        to: process.env.OWNER_EMAIL || "contact@cvadapt.eu",
+        from: "Postulera <contact@postulera.com>",
+        to: process.env.OWNER_EMAIL || "contact@postulera.com",
         subject: "💰 Nouveau paiement Postulera !",
         html: ownerNotificationEmail({
           type: "payment",
@@ -133,9 +133,9 @@ export async function POST(request) {
         const userEmail = user.primaryEmailAddress?.emailAddress;
         if (userEmail) {
           await resend.emails.send({
-            from: "Postulera <contact@cvadapt.eu>",
+            from: "Postulera <contact@postulera.com>",
             to: userEmail,
-            replyTo: "contact@cvadapt.eu",
+            replyTo: "contact@postulera.com",
             subject: "Ton abonnement Postulera a été annulé",
             headers: {
               "X-Entity-Ref-ID": `cancel-${user.id}-${Date.now()}`,
@@ -144,7 +144,7 @@ export async function POST(request) {
               <div style="font-family:sans-serif;max-width:560px;margin:auto;padding:40px 20px;">
                 <h2 style="color:#111827;">Ton abonnement est terminé</h2>
                 <p style="color:#6b7280;">Ton accès Pro a été désactivé. Tu peux continuer à utiliser Postulera gratuitement (3 CV).</p>
-                <p style="color:#6b7280;">Si tu as des questions, réponds à cet email ou écris à <a href="mailto:contact@cvadapt.eu">contact@cvadapt.eu</a>.</p>
+                <p style="color:#6b7280;">Si tu as des questions, réponds à cet email ou écris à <a href="mailto:contact@postulera.com">contact@postulera.com</a>.</p>
                 <a href="https://postulera.com/tarifs" style="display:inline-block;margin-top:20px;background:#2563eb;color:#fff;font-weight:700;padding:12px 28px;border-radius:10px;text-decoration:none;">
                   Réabonner →
                 </a>

@@ -42,13 +42,13 @@ export async function GET(request) {
       const firstName = contact.attributes?.FIRSTNAME || contact.email.split("@")[0];
       const isEN = contact.attributes?.LANGUAGE === "en";
       await resend.emails.send({
-        from: "Damian de Postulera <contact@cvadapt.eu>",
+        from: "Damian de Postulera <contact@postulera.com>",
         to: contact.email,
         subject: isEN
           ? "What recruiters actually see on your resume (real data)"
           : "Ce que les recruteurs voient sur ton CV (résultats réels)",
         headers: {
-          "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
+          "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
           "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
           "X-Entity-Ref-ID": `cron-j7-${contact.email}-${new Date().toISOString().split("T")[0]}`,
         },

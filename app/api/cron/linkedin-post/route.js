@@ -5,7 +5,7 @@ import { alertCronFailure } from "@/lib/monitoring";
 // const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }); — initialized per-request
 // resend initialized per-request
 const MAKE_LINKEDIN_WEBHOOK = process.env.MAKE_LINKEDIN_WEBHOOK;
-const OWNER_EMAIL = process.env.OWNER_EMAIL || "contact@cvadapt.eu";
+const OWNER_EMAIL = process.env.OWNER_EMAIL || "contact@postulera.com";
 
 const THEMES = [
   { theme: "Fondateur", angle: "Post personnel en première personne : l'histoire de la création de Postulera. Pas de réseau, candidatures sans réponse, découverte des filtres ATS, décision de construire la solution. Ton authentique, vulnérable, sans morale artificielle. Mentionne Postulera naturellement." },
@@ -88,7 +88,7 @@ Texte du post uniquement, aucune introduction.`,
 
     // Envoyer aussi par email (backup)
     await resend.emails.send({
-      from: "Postulera <contact@cvadapt.eu>",
+      from: "Postulera <contact@postulera.com>",
       to: OWNER_EMAIL,
       subject: `📱 Post LinkedIn publié — Thème : ${theme.theme}`,
       html: linkedinPostEmail({ theme: theme.theme, content: postContent }),

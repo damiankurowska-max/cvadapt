@@ -42,13 +42,13 @@ export async function GET(request) {
       const firstName = contact.attributes?.FIRSTNAME || contact.email.split("@")[0];
       const isEN = contact.attributes?.LANGUAGE === "en";
       await resend.emails.send({
-        from: "Damian de Postulera <contact@cvadapt.eu>",
+        from: "Damian de Postulera <contact@postulera.com>",
         to: contact.email,
         subject: isEN
           ? `It's been 2 weeks — a gift for ${firstName || "you"}`
           : "Ça fait 2 semaines — une offre pour toi",
         headers: {
-          "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
+          "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
           "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
           "X-Entity-Ref-ID": `cron-j14-${contact.email}-${new Date().toISOString().split("T")[0]}`,
         },
