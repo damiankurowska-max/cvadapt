@@ -23,11 +23,10 @@ const CV_LANGUAGES = [
   { code: "de", flag: "🇩🇪", label: "Allemand",           labelEn: "German",      short: "DE"    },
   { code: "es", flag: "🇪🇸", label: "Espagnol",           labelEn: "Spanish",     short: "ES"    },
   { code: "it", flag: "🇮🇹", label: "Italien",            labelEn: "Italian",     short: "IT"    },
-  { code: "pt", flag: "🇧🇷", label: "Portugais",          labelEn: "Portuguese",  short: "PT"    },
+  { code: "pt", flag: "🇵🇹", label: "Portugais",          labelEn: "Portuguese",  short: "PT"    },
   { code: "ar", flag: "🇲🇦", label: "Arabe",              labelEn: "Arabic",      short: "AR"    },
   { code: "ru", flag: "🇷🇺", label: "Russe",              labelEn: "Russian",     short: "RU"    },
   { code: "zh", flag: "🇨🇳", label: "Chinois",            labelEn: "Chinese",     short: "ZH"    },
-  { code: "vi", flag: "🇻🇳", label: "Vietnamien",         labelEn: "Vietnamese",  short: "VI"    },
 ];
 
 /* ── Input style objects (used via onFocus/onBlur) ─────────────── */
@@ -166,7 +165,7 @@ function TemplateMiniPreview({ tmpl }) {
   );
 }
 
-const VALID_CV_LANG_CODES = ["fr","en","de","es","it","pt","ar","ru","zh","vi"];
+const VALID_CV_LANG_CODES = ["fr","en","de","es","it","pt","ar","ru","zh"];
 
 export default function Generate() {
   const { user, isSignedIn, isLoaded } = useUser();

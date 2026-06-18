@@ -228,11 +228,10 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
                 { flag: "🇩🇪", code: "de", name: "Allemand" },
                 { flag: "🇪🇸", code: "es", name: "Espagnol" },
                 { flag: "🇮🇹", code: "it", name: "Italien" },
-                { flag: "🇧🇷", code: "pt", name: "Portugais" },
+                { flag: "🇵🇹", code: "pt", name: "Portugais" },
                 { flag: "🇲🇦", code: "ar", name: "Arabe" },
                 { flag: "🇷🇺", code: "ru", name: "Russe" },
                 { flag: "🇨🇳", code: "zh", name: "Chinois" },
-                { flag: "🇻🇳", code: "vi", name: "Vietnamien" },
               ].map((l) => (
                 <a key={l.code} href={`/generate?cvlang=${l.code}`}
                   title={`CV en ${l.name}`}

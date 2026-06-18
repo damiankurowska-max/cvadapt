@@ -290,7 +290,6 @@ const CV_LANG_NAMES = {
   ar: "Arabic (العربية)",
   ru: "Russian (Русский)",
   zh: "Simplified Chinese (中文)",
-  vi: "Vietnamese (Tiếng Việt)",
 };
 
 const VALID_CV_LANGS = Object.keys(CV_LANG_NAMES);
