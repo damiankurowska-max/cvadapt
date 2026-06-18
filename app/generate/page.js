@@ -205,15 +205,20 @@ export default function Generate() {
   const isPro = user?.unsafeMetadata?.isPro || false;
   const plan = user?.unsafeMetadata?.plan || "free";
 
-  // Init UI language + CV language from URL param or localStorage
+  // Init CV language from URL param, then sync UI lang
   useEffect(() => {
+    try {
+      const p = new URLSearchParams(window.location.search).get("cvlang");
+      if (p && VALID_CV_LANG_CODES.includes(p)) {
+        setCvLang(p);
+        setLang(p === "fr" ? "fr" : "en");
+        return;
+      }
+    } catch {}
+    // No URL param — fallback to saved UI lang preference
     try {
       const saved = localStorage.getItem("cvadapt_lang");
       if (saved === "en" || saved === "fr") setLang(saved);
-    } catch {}
-    try {
-      const p = new URLSearchParams(window.location.search).get("cvlang");
-      if (p && VALID_CV_LANG_CODES.includes(p)) setCvLang(p);
     } catch {}
   }, []);
 
@@ -607,29 +612,6 @@ export default function Generate() {
         </Link>
 
         <div className="flex items-center gap-2">
-          {/* Toggle FR / EN */}
-          <button
-            type="button"
-            onClick={() => setLang(l => l === "fr" ? "en" : "fr")}
-            title={lang === "fr" ? "Switch to English" : "Passer en français"}
-            style={{
-              display: "flex", alignItems: "center", gap: "3px",
-              padding: "3px 8px",
-              fontSize: "0.65rem",
-              fontWeight: 700,
-              background: "rgba(29,78,216,0.06)",
-              border: "1px solid rgba(29,78,216,0.15)",
-              borderRadius: "999px",
-              cursor: "pointer",
-              lineHeight: 1,
-              flexShrink: 0,
-            }}
-          >
-            <span style={{ opacity: lang === "fr" ? 1 : 0.35 }}>🇫🇷</span>
-            <span style={{ color: "#d1d5db", fontSize: "0.6rem" }}>|</span>
-            <span style={{ opacity: lang === "en" ? 1 : 0.35 }}>🇺🇸</span>
-          </button>
-
           <button
             onClick={() => setShowHistory(!showHistory)}
             className="relative flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
@@ -932,7 +914,7 @@ export default function Generate() {
                         }}>
                           {CV_LANGUAGES.map(l => (
                             <button key={l.code} type="button"
-                              onClick={() => { setCvLang(l.code); setShowLangPicker(false); }}
+                              onClick={() => { setCvLang(l.code); setLang(l.code === "fr" ? "fr" : "en"); setShowLangPicker(false); }}
                               style={{
                                 width: 52, height: 52, borderRadius: 10, cursor: "pointer",
                                 border: cvLang === l.code ? "2px solid #6366f1" : "1.5px solid #e2e8f0",
