@@ -211,7 +211,7 @@ export default function Generate() {
       const p = new URLSearchParams(window.location.search).get("cvlang");
       if (p && VALID_CV_LANG_CODES.includes(p)) {
         setCvLang(p);
-        setLang(p === "fr" ? "fr" : "en");
+        setLang(p);
         return;
       }
     } catch {}
@@ -914,7 +914,7 @@ export default function Generate() {
                         }}>
                           {CV_LANGUAGES.map(l => (
                             <button key={l.code} type="button"
-                              onClick={() => { setCvLang(l.code); setLang(l.code === "fr" ? "fr" : "en"); setShowLangPicker(false); }}
+                              onClick={() => { setCvLang(l.code); setLang(l.code); setShowLangPicker(false); }}
                               style={{
                                 width: 52, height: 52, borderRadius: 10, cursor: "pointer",
                                 border: cvLang === l.code ? "2px solid #6366f1" : "1.5px solid #e2e8f0",
