@@ -306,7 +306,7 @@ export default function Generate() {
   function handlePhotoChange(e) {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 3 * 1024 * 1024) { alert(lang !== "fr" ? "Photo must be under 3 MB." : "La photo doit faire moins de 3 Mo."); return; }
+    if (file.size > 3 * 1024 * 1024) { alert(tr(lang, "photoSizeError")); return; }
     const reader = new FileReader();
     reader.onload = (ev) => setPhoto(ev.target.result);
     reader.readAsDataURL(file);
@@ -441,7 +441,7 @@ export default function Generate() {
       const currentAts = atsData?.score ?? null;
       const newEntry = {
         id: Date.now(),
-        date: new Date().toLocaleDateString(lang !== "fr" ? "en-US" : "fr-FR"),
+        date: new Date().toLocaleDateString(tr(lang, "dateLocale")),
         nom: form.nom,
         apercu: form.offre.substring(0, 60) + "...",
         template,
@@ -507,16 +507,14 @@ export default function Generate() {
   function handlePrint(content, title) {
     const win = window.open("", "_blank");
     if (!win) {
-      alert(lang === "en"
-        ? "Pop-ups are blocked. Please allow pop-ups for this site."
-        : "Impossible d'ouvrir le PDF. Autorise les pop-ups pour ce site dans ton navigateur.");
+      alert(tr(lang, "popupBlocked"));
       return;
     }
     const watermark = !isPro ? `
       <div style="margin-top:24px;padding:10px 0 6px;text-align:center;border-top:1px solid #e5e7eb;">
         <span style="font-size:9px;color:#9ca3af;font-family:Arial,sans-serif;letter-spacing:0.2px;">
-          ${lang !== "fr" ? "Generated with" : "Généré avec"} <strong style="color:#2563eb;">CVAdapt.eu</strong> —
-          <a href="https://cvadapt.eu/tarifs" style="color:#2563eb;text-decoration:none;">${lang !== "fr" ? "Remove this · Student plan €4.99/mo" : "Supprimer cette mention → Plan Étudiant 4,99€/mois"}</a>
+          ${tr(lang, "generatedWith")} <strong style="color:#2563eb;">CVAdapt.eu</strong> —
+          <a href="https://cvadapt.eu/tarifs" style="color:#2563eb;text-decoration:none;">${tr(lang, "removeWatermark")}</a>
         </span>
       </div>` : '';
     const printContent = title.startsWith("CV") || title.startsWith("Resume") ? injectPhoto(content) : content;
@@ -773,8 +771,8 @@ export default function Generate() {
                       <div style={{ marginBottom: 12 }}>
                         <span style={{ fontSize: 12, fontWeight: 700, padding: "5px 14px", borderRadius: 999, background: "#ede9fe", color: "#5b21b6", display: "inline-flex", alignItems: "center", gap: 6 }}>
                           <span style={{ fontSize: 16 }}>{l.flag}</span>
-                          {lang !== "fr" ? `CV in ${l.labelEn}` : `CV en ${l.label}`}
-                          <span style={{ fontWeight: 400, opacity: 0.65 }}>· {lang !== "fr" ? "change in step 2" : "modifiable étape 2"}</span>
+                          {`${tr(lang, "cvIn")} ${lang === "fr" ? l.label : l.labelEn}`}
+                          <span style={{ fontWeight: 400, opacity: 0.65 }}>· {tr(lang, "changeInStep2")}</span>
                         </span>
                       </div>
                     );
@@ -787,9 +785,9 @@ export default function Generate() {
                     style={{ resize: "none", lineHeight: 1.65, display: "block" }}
                   />
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 10, marginBottom: 20 }}>
-                    <p style={{ fontSize: 12, color: "#94a3b8" }}>{lang !== "fr" ? "More complete = better result" : "Plus l'annonce est complète, meilleur le résultat"}</p>
+                    <p style={{ fontSize: 12, color: "#94a3b8" }}>{tr(lang, "moreComplete")}</p>
                     <span style={{ fontSize: 12, fontWeight: 700, color: form.offre.length > 100 ? "#6366f1" : "#cbd5e1", background: form.offre.length > 100 ? "rgba(99,102,241,0.08)" : "transparent", padding: "2px 8px", borderRadius: 999 }}>
-                      {form.offre.length} {lang !== "fr" ? "chars" : "car."}
+                      {form.offre.length} {tr(lang, "chars")}
                     </span>
                   </div>
                   <button type="button" onClick={() => setWizardStep(2)} disabled={!isStep1Valid}
@@ -841,7 +839,7 @@ export default function Generate() {
                   <div>
                     <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>
                       {tr(lang, "fullName")} <span style={{ color: "#ef4444" }}>*</span>
-                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang !== "fr" ? "Resume header" : "En-tête du CV"}</span>
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "resumeHeaderHint")}</span>
                     </label>
                     <input type="text" name="nom" value={form.nom} onChange={handleChange} placeholder={tr(lang, "fullNamePlaceholder")} className="gen-field" />
                   </div>
@@ -888,8 +886,8 @@ export default function Generate() {
                   {/* Langue du CV — compact popover */}
                   <div>
                     <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 8 }}>
-                      {lang !== "fr" ? "CV Language" : "Langue du CV"}
-                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang !== "fr" ? "Auto-detected · editable" : "Détectée auto · modifiable"}</span>
+                      {tr(lang, "cvLangLabel")}
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "autoDetected")}</span>
                     </label>
                     <div style={{ position: "relative", display: "inline-block" }} ref={langPickerRef}>
                       <button type="button" onClick={() => setShowLangPicker(v => !v)}
@@ -901,7 +899,7 @@ export default function Generate() {
                           transition: "border-color 0.15s",
                         }}>
                         <span style={{ fontSize: 22, lineHeight: 1 }}>{CV_LANGUAGES.find(l => l.code === cvLang)?.flag}</span>
-                        <span>{lang !== "fr" ? CV_LANGUAGES.find(l => l.code === cvLang)?.labelEn : CV_LANGUAGES.find(l => l.code === cvLang)?.label}</span>
+                        <span>{lang === "fr" ? CV_LANGUAGES.find(l => l.code === cvLang)?.label : CV_LANGUAGES.find(l => l.code === cvLang)?.labelEn}</span>
                         <span style={{ fontSize: 10, color: "#94a3b8" }}>▾</span>
                       </button>
                       {showLangPicker && (
@@ -935,28 +933,28 @@ export default function Generate() {
                   {/* Adresse */}
                   <div>
                     <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>
-                      {lang !== "fr" ? "City / Address" : "Ville / Adresse"}
-                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang !== "fr" ? "Appears in the CV header" : "Apparaît dans l'en-tête du CV"}</span>
+                      {tr(lang, "cityLabel")}
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "cityHint")}</span>
                     </label>
-                    <input type="text" name="adresse" value={form.adresse} onChange={handleChange} placeholder={lang !== "fr" ? "Paris, France" : "Paris 75008"} className="gen-field" style={{ fontSize: 13 }} />
+                    <input type="text" name="adresse" value={form.adresse} onChange={handleChange} placeholder={tr(lang, "cityPlaceholder")} className="gen-field" style={{ fontSize: 13 }} />
                   </div>
 
                   {/* Langues */}
                   <div>
                     <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>
-                      {lang !== "fr" ? "Languages" : "Langues"}
-                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang !== "fr" ? "Included in the CV" : "Incluses dans le CV"}</span>
+                      {tr(lang, "languesLabel")}
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "languesHint")}</span>
                     </label>
-                    <input type="text" name="langues" value={form.langues} onChange={handleChange} placeholder={lang !== "fr" ? "English (native), French (B2)" : "Français (natif), Anglais (B2), Espagnol (A2)"} className="gen-field" style={{ fontSize: 13 }} />
+                    <input type="text" name="langues" value={form.langues} onChange={handleChange} placeholder={tr(lang, "languesPlaceholder")} className="gen-field" style={{ fontSize: 13 }} />
                   </div>
 
                   {/* LinkedIn / Portfolio */}
                   <div>
                     <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#374151", marginBottom: 7 }}>
                       LinkedIn / Portfolio
-                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{lang !== "fr" ? "Optional" : "Optionnel"}</span>
+                      <span style={{ color: "#94a3b8", fontWeight: 400, marginLeft: 6, fontSize: 11 }}>{tr(lang, "optional")}</span>
                     </label>
-                    <input type="text" name="linkedin" value={form.linkedin} onChange={handleChange} placeholder={lang !== "fr" ? "linkedin.com/in/your-profile" : "linkedin.com/in/ton-profil"} className="gen-field" style={{ fontSize: 13 }} />
+                    <input type="text" name="linkedin" value={form.linkedin} onChange={handleChange} placeholder={tr(lang, "linkedinPlaceholder")} className="gen-field" style={{ fontSize: 13 }} />
                   </div>
                 </div>
 
@@ -1126,10 +1124,10 @@ export default function Generate() {
                   onClick={() => handlePrint(
                     activeTab === "cv" ? cv : activeTab === "boost" ? boostedCV : lm,
                     activeTab === "cv"
-                      ? `${lang !== "fr" ? "Resume" : "CV"} - ${form.nom}`
+                      ? `${tr(lang, "fileResume")} - ${form.nom}`
                       : activeTab === "boost"
-                      ? `${lang !== "fr" ? "Boosted Resume" : "CV Boosté"} - ${form.nom}`
-                      : `${lang !== "fr" ? "Cover letter" : "Lettre de motivation"} - ${form.nom}`
+                      ? `${tr(lang, "fileBoostedResume")} - ${form.nom}`
+                      : `${tr(lang, "fileCoverLetter")} - ${form.nom}`
                   )}
                   className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 font-semibold text-sm">
                   📄 {tr(lang, "downloadPDF")}
@@ -1159,7 +1157,7 @@ export default function Generate() {
                     </div>
                     <div style={{ flex: 1 }}>
                       <p style={{ fontSize: 14, fontWeight: 900, color: "#3b0764", marginBottom: 5 }}>
-                        {lang !== "fr" ? "Your CV can reach 85+ automatically" : "Ton CV peut atteindre 85+ automatiquement"}
+                        {tr(lang, "atsCan85")}
                       </p>
                       {atsData.keywords_missing?.length > 0 && (
                         <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
@@ -1179,7 +1177,7 @@ export default function Generate() {
                       value={boostExtra}
                       onChange={e => setBoostExtra(e.target.value)}
                       rows={2}
-                      placeholder={lang !== "fr" ? "Any extra experience or skills to add? (optional)" : "Expériences ou compétences à ajouter ? (optionnel)"}
+                      placeholder={tr(lang, "boostPlaceholder")}
                       style={{ width: "100%", border: "1.5px solid #c4b5fd", borderRadius: 10, padding: "10px 12px", fontSize: 13, color: "#3b0764", background: "#faf5ff", outline: "none", resize: "none", fontFamily: "inherit", boxSizing: "border-box", marginBottom: 10 }}
                     />
                   )}
@@ -1198,12 +1196,12 @@ export default function Generate() {
                       {boostLoading ? (
                         <>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ animation: "spin 0.8s linear infinite" }}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="31.4" strokeDashoffset="10"/></svg>
-                          {lang !== "fr" ? "Optimising…" : "Optimisation en cours…"}
+                          {tr(lang, "boostOptimising")}
                         </>
                       ) : (
                         <>
-                          ✨ {lang !== "fr" ? "Boost my CV automatically" : "Booster mon CV automatiquement"}
-                          {!isPro && <span style={{ fontSize: 10, background: "rgba(255,255,255,0.2)", padding: "2px 7px", borderRadius: 999 }}>{lang !== "fr" ? "Student plan" : "Plan Étudiant"}</span>}
+                          ✨ {tr(lang, "boostBtnLabel")}
+                          {!isPro && <span style={{ fontSize: 10, background: "rgba(255,255,255,0.2)", padding: "2px 7px", borderRadius: 999 }}>{tr(lang, "boostStudentPlan")}</span>}
                         </>
                       )}
                     </button>
@@ -1264,16 +1262,16 @@ export default function Generate() {
                     <span className="text-xl shrink-0">⚠️</span>
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-amber-900">
-                        {lang !== "fr" ? "Only 1 free resume left" : "Plus qu'un CV gratuit restant"}
+                        {tr(lang, "upsellOnly1Left")}
                       </p>
                       <p className="text-xs text-amber-600">
-                        {lang !== "fr" ? "Upgrade to Student for unlimited resumes at €4.99/mo" : "Passe à Étudiant pour des CV illimités à 4,99€/mois"}
+                        {tr(lang, "upsellUpgradeText")}
                       </p>
                     </div>
                   </div>
                   <a href="/tarifs"
                     className="bg-amber-500 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors whitespace-nowrap shrink-0">
-                    {lang !== "fr" ? "See plans →" : "Voir l'offre →"}
+                    {tr(lang, "upsellSeePlans")}
                   </a>
                 </div>
               )}
@@ -1286,7 +1284,7 @@ export default function Generate() {
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-blue-900">{tr(lang, "limit3")}</p>
                       <p className="text-xs text-blue-600">
-                        {lang !== "fr" ? "Continue with the Student plan at €4.99/mo" : "Continue avec le plan Étudiant à 4,99€/mois"}
+                        {tr(lang, "upsellContinueText")}
                       </p>
                     </div>
                   </div>
@@ -1303,10 +1301,10 @@ export default function Generate() {
                   <span className="text-xl shrink-0">🎁</span>
                   <div className="min-w-0">
                     <p className="text-sm font-semibold text-gray-800">
-                      {lang !== "fr" ? "Know someone job hunting?" : "Un ami cherche un emploi ?"}
+                      {tr(lang, "shareTitle")}
                     </p>
                     <p className="text-xs text-gray-400">
-                      {lang !== "fr" ? "Share CVAdapt — free to start" : "Partage CVAdapt — c'est gratuit pour commencer"}
+                      {tr(lang, "shareSubtitle")}
                     </p>
                   </div>
                 </div>
@@ -1315,18 +1313,16 @@ export default function Generate() {
                     if (navigator.share) {
                       navigator.share({
                         title: "CVAdapt",
-                        text: lang === "en"
-                          ? "Generate an ATS-optimized resume in 30 seconds — free!"
-                          : "Génère un CV optimisé ATS en 30 secondes — gratuit !",
+                        text: tr(lang, "shareShareText"),
                         url: "https://cvadapt.eu",
                       });
                     } else {
                       navigator.clipboard.writeText("https://cvadapt.eu");
-                      alert(lang !== "fr" ? "Link copied!" : "Lien copié !");
+                      alert(tr(lang, "shareLinkCopied"));
                     }
                   }}
                   className="border border-gray-200 text-gray-600 text-xs font-bold px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0">
-                  {lang !== "fr" ? "Share" : "Partager"}
+                  {tr(lang, "shareBtn")}
                 </button>
               </div>
 
@@ -1351,7 +1347,7 @@ export default function Generate() {
               {boostedCV && (
                 <button onClick={() => setActiveTab("boost")}
                   className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${activeTab === "boost" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
-                  ✨ {lang !== "fr" ? "Boosted" : "Boosté"}
+                  ✨ {tr(lang, "tabBoosted")}
                   <span style={{ background: "#7c3aed", color: "#fff", fontSize: 10, padding: "1px 6px", borderRadius: 999, fontWeight: 700 }}>85+</span>
                 </button>
               )}
@@ -1364,13 +1360,13 @@ export default function Generate() {
                 <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                 <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 <span className="ml-3 text-sm text-gray-500 font-medium">
-                  {activeTab === "cv" ? tr(lang, "previewCV") : activeTab === "lm" ? tr(lang, "previewLM") : activeTab === "boost" ? (lang !== "fr" ? "Boosted CV ✨" : "CV Boosté ✨") : tr(lang, "previewATS")}
+                  {activeTab === "cv" ? tr(lang, "previewCV") : activeTab === "lm" ? tr(lang, "previewLM") : activeTab === "boost" ? tr(lang, "previewBoostedCV") : tr(lang, "previewATS")}
                 </span>
               </div>
               {activeTab === "boost" ? (
                 <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
                   <div style={{ background: "linear-gradient(90deg,#f5f3ff,#ede9fe)", borderBottom: "1px solid #e9d5ff", padding: "10px 20px", display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontSize: 13, fontWeight: 800, color: "#6d28d9" }}>✨ {lang !== "fr" ? "Boosted CV — ATS optimised" : "CV Boosté — Score ATS optimisé"}</span>
+                    <span style={{ fontSize: 13, fontWeight: 800, color: "#6d28d9" }}>✨ {tr(lang, "boostedBanner")}</span>
                     <span style={{ marginLeft: "auto", background: "#7c3aed", color: "#fff", fontSize: 11, fontWeight: 700, padding: "2px 10px", borderRadius: 999 }}>85+</span>
                   </div>
                   <div className="p-5 sm:p-10" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(injectPhoto(boostedCV)) }} />
@@ -1468,12 +1464,10 @@ export default function Generate() {
                           <span style={{ fontSize: 22, flexShrink: 0 }}>💡</span>
                           <div>
                             <p style={{ fontWeight: 800, color: "#1e3a8a", fontSize: 15, marginBottom: 4 }}>
-                              {lang !== "fr" ? "Your score can easily reach 85+" : "Ton score peut monter à 85+ facilement"}
+                              {tr(lang, "scoreCanReach85")}
                             </p>
                             <p style={{ color: "#3b82f6", fontSize: 13 }}>
-                              {lang === "en"
-                                ? "Add these missing keywords to your profile and regenerate your CV:"
-                                : "Ajoute ces mots-clés manquants à ton profil et regénère ton CV :"}
+                              {tr(lang, "addKeywordsText")}
                             </p>
                           </div>
                         </div>
@@ -1489,7 +1483,7 @@ export default function Generate() {
                           style={{ width: "100%", background: "linear-gradient(135deg,#2563eb,#1d4ed8)", color: "#fff", fontWeight: 700, fontSize: 14, padding: "13px", borderRadius: 10, border: "none", cursor: "pointer", boxShadow: "0 4px 16px rgba(29,78,216,0.35)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
                         >
                           <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M12 2v3.5H8.5M3 13v-3.5H6.5M12 5.5A6 6 0 0 0 3 9.5M3 9.5a6 6 0 0 0 9 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                          {lang !== "fr" ? "Update my profile → Regenerate" : "Améliorer mon profil → Regénérer"}
+                          {tr(lang, "updateProfileRegen")}
                         </button>
                       </div>
                     )}
