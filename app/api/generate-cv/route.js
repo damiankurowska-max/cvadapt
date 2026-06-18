@@ -411,7 +411,35 @@ export async function POST(request) {
   }
 
   // ── 5. GÉNÉRATION CV ─────────────────────────────────────────────────
-  const styleDesc = TEMPLATE_STYLES[template];
+  // For non-French CVs, replace hard-coded French section headers in the
+  // template with English so Claude can reliably translate them to the target language.
+  const rawTemplate = TEMPLATE_STYLES[template];
+  const styleDesc = cvLang === "fr" ? rawTemplate : rawTemplate
+    .replace(/Expériences professionnelles/g, "Work Experience")
+    .replace(/Expériences/g, "Work Experience")
+    .replace(/Compétences/g, "Skills")
+    .replace(/Formation/g, "Education")
+    .replace(/Profil/g, "Profile")
+    .replace(/\[NOM COMPLET\]/g, "[FULL NAME]")
+    .replace(/\[TITRE DU POSTE ciblé\]/g, "[TARGET JOB TITLE]")
+    .replace(/\[TITRE DU POSTE\]/g, "[JOB TITLE]")
+    .replace(/\[Titre du poste ciblé\]/g, "[TARGET JOB TITLE]")
+    .replace(/\[Titre du poste\]/g, "[JOB TITLE]")
+    .replace(/\[Diplôme\]/g, "[DEGREE]")
+    .replace(/\[Établissement\]/g, "[INSTITUTION]")
+    .replace(/\[Entreprise\]/g, "[COMPANY]")
+    .replace(/\[Année\]/g, "[YEAR]")
+    .replace(/\[Dates\]/g, "[DATES]")
+    .replace(/3 phrases percutantes, mots-clés de l'offre intégrés/g, "3 impactful sentences, job keywords integrated")
+    .replace(/3 phrases, mots-clés de l'offre/g, "3 sentences, job keywords")
+    .replace(/mots-clés de l'offre/g, "job keywords")
+    .replace(/résultat chiffré/g, "measurable result")
+    .replace(/pour chaque expérience\s*:/g, "for each work experience:")
+    .replace(/pour chaque diplôme\s*:/g, "for each degree:")
+    .replace(/chaque compétence\s*:/g, "each skill:")
+    .replace(/si email\s*:/g, "if email:")
+    .replace(/si téléphone\s*:/g, "if phone:")
+    .replace(/Paris, France/g, "[city if provided, else omit]");
   const systemPrompt = cvLang === "fr" ? SYSTEM_PROMPT_FR : SYSTEM_PROMPT_EN;
 
   // French labels for French CVs, English labels for everything else
