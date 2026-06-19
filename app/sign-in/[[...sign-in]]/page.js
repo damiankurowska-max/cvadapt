@@ -1,10 +1,5 @@
 "use client";
-import dynamic from "next/dynamic";
-
-const SignIn = dynamic(
-  () => import("@clerk/nextjs").then((m) => ({ default: m.SignIn })),
-  { ssr: false, loading: () => null }
-);
+import { SignIn } from "@clerk/nextjs";
 
 export default function SignInPage() {
   return (
@@ -15,7 +10,11 @@ export default function SignInPage() {
       alignItems: "center",
       justifyContent: "center",
     }}>
-      <SignIn />
+      <SignIn
+        afterSignInUrl="/generate"
+        redirectUrl="/generate"
+        signUpUrl="/sign-up"
+      />
     </div>
   );
 }
