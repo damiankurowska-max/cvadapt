@@ -11,8 +11,9 @@ import ReferralPopup from "../components/ReferralPopup";
 import { t as tr } from "@/lib/i18n";
 
 const TEMPLATES = [
-  { id: "moderne",     name: "Sobre",      desc: "Ardoise & épuré",  accent: "#1e293b", bg: "#f8fafc", sidebar: false },
-  { id: "classique",   name: "Coupure",    desc: "Éditorial & ambre", accent: "#92400e", bg: "#fef3c7", sidebar: false },
+  { id: "moderne",     name: "Sobre",      desc: "Ardoise & épuré",    accent: "#1e293b", bg: "#f8fafc", sidebar: false },
+  { id: "photo",       name: "Photo",      desc: "Portrait & beige",   accent: "#b8a99a", bg: "#ffffff", sidebar: true  },
+  { id: "classique",   name: "Coupure",    desc: "Éditorial & ambre",  accent: "#92400e", bg: "#fef3c7", sidebar: false },
   { id: "creatif",     name: "Atelier",    desc: "Sidebar sombre & or", accent: "#0f172a", bg: "#fafafa", sidebar: true  },
   { id: "minimaliste", name: "Trait",      desc: "Minimaliste & teal", accent: "#0f766e", bg: "#f0fdfa", sidebar: false },
 ];

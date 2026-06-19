@@ -278,6 +278,94 @@ STRUCTURE HTML EXACTE à produire :
   ]
 
 </div>`,
+
+  photo: `
+TEMPLATE PHOTO — deux colonnes, photo portrait en haut à gauche, typographie minimaliste, qualité impression A4.
+
+STRUCTURE HTML EXACTE à produire :
+<div style="width:794px;min-height:1123px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;line-height:1.6;color:#1a1a1a;background:#ffffff;box-sizing:border-box;display:grid;grid-template-columns:210px 1fr;">
+
+  <!-- COLONNE GAUCHE -->
+  <div style="background:#ffffff;padding:40px 24px 40px 32px;border-right:1px solid #e8e8e8;box-sizing:border-box;">
+
+    <!-- Photo + Nom -->
+    <span id="cv-photo-slot" style="display:block;margin-bottom:16px;"></span>
+    <div style="margin-bottom:28px;">
+      <span style="display:block;font-size:18px;font-weight:700;color:#111111;letter-spacing:-0.3px;line-height:1.2;text-transform:uppercase;">[NOM COMPLET]</span>
+      <span style="display:block;font-size:10px;font-weight:400;color:#888888;letter-spacing:2px;text-transform:uppercase;margin-top:4px;">RESUME</span>
+    </div>
+
+    <div style="height:1px;background:#e0e0e0;margin-bottom:24px;"></div>
+
+    <!-- Section COORDONNÉES -->
+    <span style="display:block;font-size:8.5px;font-weight:700;color:#111111;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">CONTACT</span>
+    <div style="margin-bottom:24px;display:flex;flex-direction:column;gap:6px;font-size:11px;color:#555555;">
+      [email si fourni : <span>[email]</span>]
+      [téléphone si fourni : <span>[téléphone]</span>]
+      [linkedin si fourni : <span>[linkedin]</span>]
+      [adresse si fournie : <span>[adresse]</span>]
+    </div>
+
+    <!-- Section COMPÉTENCES -->
+    <span style="display:block;font-size:8.5px;font-weight:700;color:#111111;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">COMPÉTENCES</span>
+    <div style="margin-bottom:24px;display:flex;flex-direction:column;gap:7px;">
+      [chaque compétence :
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <span style="font-size:11px;color:#333333;">[compétence]</span>
+          <div style="height:3px;background:#e8e8e8;border-radius:2px;overflow:hidden;">
+            <div style="height:100%;width:[70-95]%;background:#b8a99a;border-radius:2px;"></div>
+          </div>
+        </div>
+      ]
+    </div>
+
+    <!-- Section LANGUES -->
+    [si langues fournies :
+    <span style="display:block;font-size:8.5px;font-weight:700;color:#111111;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">LANGUES</span>
+    <div style="margin-bottom:24px;display:flex;flex-direction:column;gap:5px;">
+      [chaque langue : <span style="font-size:11px;color:#444444;">[langue] — [niveau]</span>]
+    </div>]
+
+    <!-- Section FORMATION -->
+    <span style="display:block;font-size:8.5px;font-weight:700;color:#111111;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">FORMATION</span>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      [pour chaque diplôme :
+        <div>
+          <span style="display:block;font-size:11px;font-weight:600;color:#111111;">[Diplôme]</span>
+          <span style="display:block;font-size:10.5px;color:#666666;margin-top:1px;">[Établissement]</span>
+          <span style="display:block;font-size:10px;color:#999999;margin-top:1px;">[Année]</span>
+        </div>
+      ]
+    </div>
+
+  </div>
+
+  <!-- COLONNE DROITE -->
+  <div style="padding:40px 36px 40px 32px;box-sizing:border-box;background:#ffffff;">
+
+    <!-- PROFIL -->
+    <span style="display:block;font-size:8.5px;font-weight:700;color:#111111;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">PROFIL</span>
+    <p style="font-size:12px;line-height:1.8;color:#444444;margin:0 0 28px;padding-bottom:20px;border-bottom:1px solid #e8e8e8;">[3 phrases percutantes avec mots-clés ATS de l'offre intégrés naturellement]</p>
+
+    <!-- EXPÉRIENCE -->
+    <span style="display:block;font-size:8.5px;font-weight:700;color:#111111;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">EXPÉRIENCE</span>
+    [pour chaque expérience :
+      <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #f0f0f0;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">
+          <span style="font-size:12.5px;font-weight:600;color:#111111;">[Titre du poste]</span>
+          <span style="font-size:10px;color:#999999;">[Dates]</span>
+        </div>
+        <span style="display:block;font-size:11px;color:#777777;margin-bottom:8px;">[Entreprise]</span>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px;">
+          <li style="font-size:11.5px;color:#444444;padding-left:12px;position:relative;line-height:1.5;"><span style="position:absolute;left:0;color:#b8a99a;">·</span>[résultat chiffré ou réalisation clé]</li>
+        </ul>
+      </div>
+    ]
+
+  </div>
+</div>
+
+RÈGLES ABSOLUES : fond blanc partout. Accent couleur sable/beige (#b8a99a) uniquement sur les barres de compétences et les puces. Titres de section en 8.5px uppercase letter-spacing 2px noir. Pas de background coloré. Pas de border-left. Photo dans le slot cv-photo-slot uniquement.`,
 };
 
 const CV_LANG_NAMES = {
@@ -397,7 +485,7 @@ export async function POST(request) {
   const formation   = sanitizeInput(body.formation,   1000);
   const langues     = sanitizeInput(body.langues,     500);
   const linkedin    = sanitizeInput(body.linkedin,    300);
-  const template    = ["moderne","classique","creatif","minimaliste"].includes(body.template)
+  const template    = ["moderne","classique","creatif","minimaliste","photo"].includes(body.template)
     ? body.template : "moderne";
   const lang        = body.lang === "en" ? "en" : "fr";
   const cvLang      = VALID_CV_LANGS.includes(body.cvLang) ? body.cvLang : lang;
