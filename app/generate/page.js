@@ -192,6 +192,9 @@ export default function Generate() {
   const [showReferralPopup, setShowReferralPopup] = useState(false);
   const [showLastCVGate, setShowLastCVGate] = useState(false);
   const gatePassedRef = useRef(false);
+  const [hasDraft, setHasDraft] = useState(false);
+  const firstInteractionRef = useRef(false);
+  const generateStartRef = useRef(null);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const [showLangPicker, setShowLangPicker] = useState(false);
@@ -249,6 +252,52 @@ export default function Generate() {
       setHistory(saved);
     } catch {}
   }, [user, isPro, plan]);
+
+  // RICE: helper de tracking
+  function track(event) {
+    try { window.clarity?.("event", event); } catch {}
+  }
+
+  // MRE: autosave du formulaire (déclenché 2s après chaque changement)
+  useEffect(() => {
+    const hasContent = form.offre?.length > 50 || form.experience?.length > 50;
+    if (!hasContent) return;
+    const timer = setTimeout(() => {
+      try {
+        localStorage.setItem("postulera_form_draft", JSON.stringify({ form, template, cvLang, savedAt: Date.now() }));
+      } catch {}
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [form, template, cvLang]);
+
+  // MRE: restauration du brouillon au chargement
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("postulera_form_draft");
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (Date.now() - saved.savedAt > 7 * 24 * 60 * 60 * 1000) {
+        localStorage.removeItem("postulera_form_draft");
+        return;
+      }
+      const hasContent = saved.form?.offre?.length > 50 || saved.form?.experience?.length > 50;
+      if (hasContent && !cv) setHasDraft(true);
+    } catch {}
+  }, []);
+
+  function restoreDraft() {
+    try {
+      const raw = localStorage.getItem("postulera_form_draft");
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      setForm(f => ({ ...f, ...saved.form }));
+      if (saved.template) setTemplate(saved.template);
+      if (saved.cvLang) setCvLang(saved.cvLang);
+      setHasDraft(false);
+      setWizardStep(2);
+      track("mre_draft_restored");
+    } catch {}
+  }
 
   // Pré-remplissage depuis localStorage (ex: page analyse)
   useEffect(() => {
@@ -331,7 +380,7 @@ export default function Generate() {
       }
       if (cvCount === CV_LIMIT - 1 && !gatePassedRef.current) {
         setShowLastCVGate(true);
-        try { window.clarity?.("event", "last_cv_gate_shown"); } catch {}
+        track("last_cv_gate_shown");
         return;
       }
       gatePassedRef.current = false;
@@ -343,7 +392,8 @@ export default function Generate() {
       }
     }
 
-    try { window.clarity?.("event", "cv_generation_started"); } catch {}
+    track("rice_generate_clicked");
+    generateStartRef.current = Date.now();
     setLoading(true);
     setError("");
     setCv("");
@@ -365,7 +415,11 @@ export default function Generate() {
 
       setCv(cvData.cv);
       setActiveTab("cv");
-      try { window.clarity?.("event", "cv_generation_success"); } catch {}
+      // Clear saved draft on successful generation
+      try { localStorage.removeItem("postulera_form_draft"); } catch {}
+      const ttg = generateStartRef.current ? Math.round((Date.now() - generateStartRef.current) / 1000) : null;
+      track("rice_cv_generated");
+      if (ttg) track(`rice_ttg_${ttg < 15 ? "fast" : ttg < 30 ? "medium" : "slow"}`);
 
       setLoadingATS(true);
       setAtsData(null);
@@ -374,8 +428,12 @@ export default function Generate() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, lang }),
       }).then(r => r.json()).then(data => {
-        setAtsData(data.error ? { error: true, message: data.error } : data);
+        const ats = data.error ? { error: true, message: data.error } : data;
+        setAtsData(ats);
         setLoadingATS(false);
+        if (!data.error && data.score) {
+          track(`rice_ats_score_${data.score >= 75 ? "high" : data.score >= 50 ? "mid" : "low"}`);
+        }
       }).catch(() => {
         setAtsData({ error: true, message: tr(lang, "atsNotAvailable") });
         setLoadingATS(false);
@@ -604,6 +662,20 @@ export default function Generate() {
         .gen-field:focus { border-color:#6366f1;background:#fff;box-shadow:0 0 0 4px rgba(99,102,241,0.10); }
         .gen-field::placeholder { color:#a5b4fc; }
       `}</style>
+
+      {/* MRE: banner brouillon sauvegardé */}
+      {hasDraft && !cv && (
+        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 bg-blue-600 text-white rounded-2xl p-4 shadow-xl z-40 flex items-center justify-between gap-3">
+          <div>
+            <p className="font-semibold text-sm">Candidature sauvegardée</p>
+            <p className="text-blue-200 text-xs">Reprendre là où tu en étais →</p>
+          </div>
+          <div className="flex gap-2 shrink-0">
+            <button onClick={() => setHasDraft(false)} className="text-blue-300 hover:text-white text-lg leading-none px-1">×</button>
+            <button onClick={restoreDraft} className="bg-white text-blue-600 font-bold text-xs px-3 py-1.5 rounded-lg hover:bg-blue-50 whitespace-nowrap">Reprendre</button>
+          </div>
+        </div>
+      )}
 
       {showUpgradeModal && <UpgradeModal onClose={() => setShowUpgradeModal(false)} />}
 

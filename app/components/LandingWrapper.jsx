@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ModernLanding } from "@/components/ui/modern-landing";
+import ExitIntentPopup from "@/app/components/ExitIntentPopup";
 
 export function LandingWrapper({ faqSchema }) {
   const [email, setEmail] = useState("");
@@ -19,11 +20,14 @@ export function LandingWrapper({ faqSchema }) {
   }
 
   return (
-    <ModernLanding
-      onNewsletter={handleNewsletter}
-      emailStatus={emailStatus}
-      email={email}
-      setEmail={setEmail}
-    />
+    <>
+      <ModernLanding
+        onNewsletter={handleNewsletter}
+        emailStatus={emailStatus}
+        email={email}
+        setEmail={setEmail}
+      />
+      <ExitIntentPopup />
+    </>
   );
 }
