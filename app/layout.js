@@ -4,7 +4,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import ClientProviders from "./components/ClientProviders";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -175,7 +174,6 @@ export default function RootLayout({ children }) {
         >
           <ClientProviders>{children}</ClientProviders>
           <Analytics />
-          <SpeedInsights />
         </body>
       </html>
     </ClerkProvider>
