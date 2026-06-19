@@ -394,9 +394,18 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
                 { flag: "🇪🇸", code: "es", name: "Espagnol" },
                 { flag: "🇮🇹", code: "it", name: "Italien" },
                 { flag: "🇵🇹", code: "pt", name: "Portugais" },
-                { flag: "🇲🇦", code: "ar", name: "Arabe" },
+                { flag: "🇳🇱", code: "nl", name: "Néerlandais" },
+                { flag: "🇵🇱", code: "pl", name: "Polonais" },
+                { flag: "🇰🇷", code: "ko", name: "Coréen" },
+                { flag: "🇯🇵", code: "ja", name: "Japonais" },
+                { flag: "🇸🇪", code: "sv", name: "Suédois" },
+                { flag: "🇫🇮", code: "fi", name: "Finnois" },
+                { flag: "🇸🇦", code: "ar", name: "Arabe" },
                 { flag: "🇷🇺", code: "ru", name: "Russe" },
                 { flag: "🇨🇳", code: "zh", name: "Chinois" },
+                { flag: "🇮🇳", code: "hi", name: "Hindi" },
+                { flag: "🇮🇱", code: "he", name: "Hébreu" },
+                { flag: "🇹🇷", code: "tr", name: "Turc" },
               ].map((l) => (
                 <a key={l.code} href={`/generate?cvlang=${l.code}`}
                   title={`CV en ${l.name}`}

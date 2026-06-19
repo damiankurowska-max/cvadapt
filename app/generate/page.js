@@ -25,9 +25,18 @@ const CV_LANGUAGES = [
   { code: "es", flag: "🇪🇸", label: "Espagnol",           labelEn: "Spanish",     short: "ES"    },
   { code: "it", flag: "🇮🇹", label: "Italien",            labelEn: "Italian",     short: "IT"    },
   { code: "pt", flag: "🇵🇹", label: "Portugais",          labelEn: "Portuguese",  short: "PT"    },
-  { code: "ar", flag: "🇲🇦", label: "Arabe",              labelEn: "Arabic",      short: "AR"    },
+  { code: "nl", flag: "🇳🇱", label: "Néerlandais",        labelEn: "Dutch",       short: "NL"    },
+  { code: "pl", flag: "🇵🇱", label: "Polonais",           labelEn: "Polish",      short: "PL"    },
+  { code: "ko", flag: "🇰🇷", label: "Coréen",             labelEn: "Korean",      short: "KO"    },
+  { code: "ja", flag: "🇯🇵", label: "Japonais",           labelEn: "Japanese",    short: "JA"    },
+  { code: "tr", flag: "🇹🇷", label: "Turc",               labelEn: "Turkish",     short: "TR"    },
+  { code: "he", flag: "🇮🇱", label: "Hébreu",             labelEn: "Hebrew",      short: "HE"    },
+  { code: "sv", flag: "🇸🇪", label: "Suédois",            labelEn: "Swedish",     short: "SV"    },
+  { code: "fi", flag: "🇫🇮", label: "Finnois",            labelEn: "Finnish",     short: "FI"    },
+  { code: "ar", flag: "🇸🇦", label: "Arabe",              labelEn: "Arabic",      short: "AR"    },
   { code: "ru", flag: "🇷🇺", label: "Russe",              labelEn: "Russian",     short: "RU"    },
   { code: "zh", flag: "🇨🇳", label: "Chinois",            labelEn: "Chinese",     short: "ZH"    },
+  { code: "hi", flag: "🇮🇳", label: "Hindi",              labelEn: "Hindi",       short: "HI"    },
 ];
 
 /* ── Input style objects (used via onFocus/onBlur) ─────────────── */
@@ -166,7 +175,7 @@ function TemplateMiniPreview({ tmpl }) {
   );
 }
 
-const VALID_CV_LANG_CODES = ["fr","en","de","es","it","pt","ar","ru","zh"];
+const VALID_CV_LANG_CODES = ["fr","en","de","es","it","pt","nl","pl","ko","ja","tr","he","sv","fi","ar","ru","zh","hi"];
 
 export default function Generate() {
   const { user, isSignedIn, isLoaded } = useUser();

@@ -375,9 +375,18 @@ const CV_LANG_NAMES = {
   es: "Spanish (Español)",
   it: "Italian (Italiano)",
   pt: "Portuguese / Português Brasileiro",
+  nl: "Dutch (Nederlands)",
+  pl: "Polish (Polski)",
+  ko: "Korean (한국어)",
+  ja: "Japanese (日本語)",
+  tr: "Turkish (Türkçe)",
+  he: "Hebrew (עברית)",
+  sv: "Swedish (Svenska)",
+  fi: "Finnish (Suomi)",
   ar: "Arabic (العربية)",
   ru: "Russian (Русский)",
   zh: "Simplified Chinese (中文)",
+  hi: "Hindi (हिन्दी)",
 };
 
 const VALID_CV_LANGS = Object.keys(CV_LANG_NAMES);
