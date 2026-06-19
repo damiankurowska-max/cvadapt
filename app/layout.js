@@ -140,7 +140,7 @@ const softwareSchema = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider proxyUrl="https://postulera.com/__clerk">
       <html lang="fr" className={outfit.variable}>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
