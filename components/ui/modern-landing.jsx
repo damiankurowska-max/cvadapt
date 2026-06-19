@@ -96,7 +96,172 @@ const STEPS = [
   { n: "03", icon: "🚀", label: "CV optimisé", desc: "Ton CV est réécrit et optimisé. Score ATS 85+ garanti. En 30 secondes." },
 ];
 
-const BRANDS = ["Capgemini", "L'Oréal", "BNP Paribas", "Total Energies", "Decathlon", "LVMH", "Airbus", "Renault"];
+// Remplacer par l'ID YouTube de ta vidéo démo (ex: "dQw4w9WgXcQ")
+const DEMO_VIDEO_ID = null;
+
+const BRANDS = [
+  "Capgemini", "L'Oréal", "BNP Paribas", "TotalEnergies", "Decathlon",
+  "LVMH", "Airbus", "Renault", "Société Générale", "Crédit Agricole",
+  "Deloitte", "McKinsey", "KPMG", "Thales", "Schneider Electric",
+  "Orange", "Peugeot", "Michelin", "SNCF", "Dassault Systèmes",
+];
+
+const DEMO_STEPS = [
+  {
+    label: "Colle l'offre d'emploi",
+    desc: "Copie-colle n'importe quelle offre depuis LinkedIn, Indeed ou une page carrière.",
+    screen: (
+      <div style={{ background: "#0F172A", borderRadius: 10, padding: "16px 18px", fontFamily: "monospace" }}>
+        <div style={{ fontSize: 10, color: "#64748B", marginBottom: 10 }}>📋 Offre collée</div>
+        <div style={{ fontSize: 11, color: "#94A3B8", lineHeight: 1.7 }}>
+          <span style={{ color: "#38BDF8" }}>Poste :</span> Chargé de Projet Digital<br />
+          <span style={{ color: "#38BDF8" }}>Entreprise :</span> Capgemini<br />
+          <span style={{ color: "#38BDF8" }}>Compétences requises :</span><br />
+          <span style={{ color: "#A3E635", paddingLeft: 12 }}>→ Gestion de projet agile</span><br />
+          <span style={{ color: "#A3E635", paddingLeft: 12 }}>→ Excel, PowerPoint</span><br />
+          <span style={{ color: "#A3E635", paddingLeft: 12 }}>→ Communication client</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    label: "L'IA analyse tes mots-clés",
+    desc: "Postulera identifie les 18+ mots-clés ATS que les recruteurs attendent exactement.",
+    screen: (
+      <div style={{ background: "#0F172A", borderRadius: 10, padding: "16px 18px" }}>
+        <div style={{ fontSize: 10, color: "#64748B", marginBottom: 10 }}>🧠 Analyse ATS en cours…</div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          {["Agile", "Scrum", "Excel", "PowerPoint", "Gestion projet", "Client", "Reporting", "KPI", "Budgets", "Planning", "Stakeholders", "Coordination"].map((kw, i) => (
+            <span key={i} style={{ padding: "3px 9px", background: i < 6 ? "rgba(56,189,248,0.15)" : "rgba(163,230,53,0.12)", color: i < 6 ? "#38BDF8" : "#A3E635", borderRadius: 999, fontSize: 10, fontWeight: 700, border: `1px solid ${i < 6 ? "rgba(56,189,248,0.3)" : "rgba(163,230,53,0.2)"}` }}>{kw}</span>
+          ))}
+        </div>
+        <div style={{ marginTop: 12, height: 4, background: "#1E293B", borderRadius: 999, overflow: "hidden" }}>
+          <div style={{ width: "78%", height: "100%", background: "linear-gradient(90deg,#38BDF8,#818CF8)", borderRadius: 999 }} />
+        </div>
+        <div style={{ fontSize: 9, color: "#475569", marginTop: 5 }}>Score ATS estimé : <strong style={{ color: "#A3E635" }}>91/100</strong></div>
+      </div>
+    ),
+  },
+  {
+    label: "Télécharge ton CV en PDF",
+    desc: "Ton CV optimisé est prêt. Clique Télécharger et postule immédiatement.",
+    screen: (
+      <div style={{ background: "#0F172A", borderRadius: 10, padding: "16px 18px" }}>
+        <div style={{ fontSize: 10, color: "#64748B", marginBottom: 10 }}>✅ CV généré en 28 secondes</div>
+        <div style={{ background: "#FFFFFF", borderRadius: 8, padding: "12px 14px", marginBottom: 10 }}>
+          <div style={{ height: 7, background: "#0F172A", borderRadius: 3, width: "60%", marginBottom: 5 }} />
+          <div style={{ height: 5, background: "#E2E8F0", borderRadius: 3, width: "40%", marginBottom: 10 }} />
+          <div style={{ height: 4, background: "#E2E8F0", borderRadius: 3, width: "90%", marginBottom: 3 }} />
+          <div style={{ height: 4, background: "#E2E8F0", borderRadius: 3, width: "80%", marginBottom: 3 }} />
+          <div style={{ height: 4, background: "#EFF6FF", borderRadius: 3, width: "95%", marginBottom: 3 }} />
+          <div style={{ height: 4, background: "#E2E8F0", borderRadius: 3, width: "70%", marginBottom: 6 }} />
+          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+            {["Agile", "Scrum", "KPI"].map(k => <span key={k} style={{ padding: "1px 6px", background: "#EFF6FF", color: "#2563EB", borderRadius: 4, fontSize: 7, fontWeight: 700 }}>{k}</span>)}
+          </div>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ fontSize: 9, color: "#A3E635", fontWeight: 700 }}>● Score ATS : 91/100</span>
+          <span style={{ padding: "5px 12px", background: "#2563EB", color: "#fff", borderRadius: 6, fontSize: 10, fontWeight: 700 }}>📄 Télécharger PDF</span>
+        </div>
+      </div>
+    ),
+  },
+];
+
+function DemoSection() {
+  const [active, setActive] = useState(0);
+  const [playing, setPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!playing) return;
+    const t = setInterval(() => setActive(a => (a + 1) % DEMO_STEPS.length), 3500);
+    return () => clearInterval(t);
+  }, [playing]);
+
+  return (
+    <section style={{ background: "#0A0F1E", padding: "80px 40px" }}>
+      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 52 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#38BDF8", marginBottom: 12 }}>
+            Comment ça marche
+          </p>
+          <h2 style={{ fontSize: "clamp(26px,4vw,44px)", fontWeight: 900, letterSpacing: "-1.5px", color: "#F1F5F9", marginBottom: 12 }}>
+            30 secondes. Du collage au PDF.
+          </h2>
+          <p style={{ fontSize: 15, color: "#64748B", maxWidth: 400, margin: "0 auto" }}>
+            {DEMO_VIDEO_ID ? "Regarde comment ça marche." : "Trois étapes, zéro friction."}
+          </p>
+        </div>
+
+        {DEMO_VIDEO_ID ? (
+          <div style={{ position: "relative", paddingBottom: "56.25%", borderRadius: 16, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.6)" }}>
+            <iframe
+              src={`https://www.youtube.com/embed/${DEMO_VIDEO_ID}?rel=0&modestbranding=1`}
+              title="Démo Postulera"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+            />
+          </div>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: 32, alignItems: "start" }}>
+            {/* Steps nav */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              {DEMO_STEPS.map((s, i) => (
+                <button
+                  key={i}
+                  onClick={() => { setActive(i); setPlaying(false); }}
+                  style={{
+                    display: "flex", alignItems: "flex-start", gap: 16, padding: "18px 20px",
+                    background: active === i ? "rgba(37,99,235,0.12)" : "transparent",
+                    border: `1px solid ${active === i ? "rgba(37,99,235,0.3)" : "transparent"}`,
+                    borderRadius: 12, cursor: "pointer", textAlign: "left", transition: "all 0.2s",
+                  }}
+                >
+                  <div style={{
+                    width: 28, height: 28, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                    background: active === i ? "#2563EB" : "#1E293B",
+                    color: active === i ? "#fff" : "#475569",
+                    fontSize: 12, fontWeight: 800, transition: "all 0.2s",
+                  }}>{i + 1}</div>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: active === i ? "#F1F5F9" : "#64748B", marginBottom: 4, transition: "color 0.2s" }}>{s.label}</p>
+                    <p style={{ fontSize: 12, color: "#475569", lineHeight: 1.5 }}>{s.desc}</p>
+                  </div>
+                </button>
+              ))}
+              <a href="/generate" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 12, padding: "12px 20px", background: "#2563EB", color: "#fff", borderRadius: 10, fontSize: 14, fontWeight: 700, textDecoration: "none" }}>
+                Essayer maintenant — gratuit →
+              </a>
+            </div>
+
+            {/* Screen preview */}
+            <div style={{ background: "#111827", borderRadius: 14, overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}>
+              {/* Browser chrome */}
+              <div style={{ background: "#1E293B", padding: "10px 16px", display: "flex", alignItems: "center", gap: 8, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <div style={{ display: "flex", gap: 5 }}>
+                  {["#EF4444","#F59E0B","#10B981"].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c, opacity: 0.7 }} />)}
+                </div>
+                <div style={{ flex: 1, background: "#0F172A", borderRadius: 6, padding: "4px 12px", fontSize: 10, color: "#475569", textAlign: "center" }}>
+                  postulera.com/generate
+                </div>
+              </div>
+              <div style={{ padding: 20, minHeight: 220, transition: "opacity 0.25s" }}>
+                {DEMO_STEPS[active].screen}
+              </div>
+              {/* Progress dots */}
+              <div style={{ padding: "0 20px 16px", display: "flex", justifyContent: "center", gap: 6 }}>
+                {DEMO_STEPS.map((_, i) => (
+                  <div key={i} onClick={() => { setActive(i); setPlaying(false); }} style={{ width: i === active ? 20 : 6, height: 6, borderRadius: 999, background: i === active ? "#2563EB" : "#1E293B", cursor: "pointer", transition: "all 0.3s" }} />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
 
 export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
   const containerRef = useRef(null);
@@ -259,17 +424,50 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
         </div>
       </section>
 
-      {/* ── MARQUES ── */}
-      <section className="brands-section cv-section" style={{ padding: "20px 40px 28px", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, background: C.bg }}>
-        <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.slateLight, marginBottom: 14 }}>
-          Nos utilisateurs ont été recrutés chez
-        </p>
-        <div className="cv-brands" style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "8px 32px", maxWidth: 800, margin: "0 auto" }}>
-          {BRANDS.map(b => (
-            <span key={b} className="brand-item" style={{ fontSize: 13, fontWeight: 800, color: "#94A3B8" }}>{b}</span>
-          ))}
+      {/* ── MARQUEE ── */}
+      <style>{`
+        @keyframes marquee-scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        .marquee-track {
+          display: flex;
+          width: max-content;
+          animation: marquee-scroll 36s linear infinite;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+        }
+        .marquee-fade-l {
+          background: linear-gradient(to right, #fff 0%, transparent 100%);
+        }
+        .marquee-fade-r {
+          background: linear-gradient(to left, #fff 0%, transparent 100%);
+        }
+      `}</style>
+      <section style={{ borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, background: C.bg, display: "flex", alignItems: "stretch", overflow: "hidden" }}>
+        <div style={{ flexShrink: 0, display: "flex", alignItems: "center", padding: "18px 28px", borderRight: `1px solid ${C.border}`, minWidth: 148 }}>
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: C.slateLight, lineHeight: 1.6, margin: 0 }}>
+            Nos utilisateurs<br />recrutés chez
+          </p>
+        </div>
+        <div style={{ position: "relative", overflow: "hidden", flex: 1 }}>
+          <div className="marquee-fade-l" style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 60, zIndex: 2, pointerEvents: "none" }} />
+          <div className="marquee-track">
+            {[...BRANDS, ...BRANDS].map((b, i) => (
+              <span key={i} style={{ display: "inline-flex", alignItems: "center", padding: "20px 0", whiteSpace: "nowrap" }}>
+                <span style={{ fontSize: 13, fontWeight: 800, color: "#94A3B8", letterSpacing: "-0.2px", padding: "0 36px" }}>{b}</span>
+                <span style={{ display: "inline-block", width: 3, height: 3, borderRadius: "50%", background: C.border, flexShrink: 0 }} />
+              </span>
+            ))}
+          </div>
+          <div className="marquee-fade-r" style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 60, zIndex: 2, pointerEvents: "none" }} />
         </div>
       </section>
+
+      {/* ── DEMO VIDEO ── */}
+      <DemoSection />
 
       {/* ── STATS ── */}
       <section className="stats-section cv-section cv-py" style={{ padding: "72px 40px", background: C.bgAlt }}>
