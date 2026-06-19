@@ -190,6 +190,8 @@ export default function Generate() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showPostGenUpsell, setShowPostGenUpsell] = useState(false);
   const [showReferralPopup, setShowReferralPopup] = useState(false);
+  const [showLastCVGate, setShowLastCVGate] = useState(false);
+  const gatePassedRef = useRef(false);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const [showLangPicker, setShowLangPicker] = useState(false);
@@ -327,6 +329,12 @@ export default function Generate() {
         try { window.clarity?.("event", "limit_hit_free"); } catch {}
         return;
       }
+      if (cvCount === CV_LIMIT - 1 && !gatePassedRef.current) {
+        setShowLastCVGate(true);
+        try { window.clarity?.("event", "last_cv_gate_shown"); } catch {}
+        return;
+      }
+      gatePassedRef.current = false;
     } else if (plan === "essentiel") {
       if (cvMonthCount >= 15) {
         setError(tr(lang, "limit15"));
@@ -598,6 +606,35 @@ export default function Generate() {
       `}</style>
 
       {showUpgradeModal && <UpgradeModal onClose={() => setShowUpgradeModal(false)} />}
+
+      {showLastCVGate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: "rgba(0,0,0,0.65)", backdropFilter: "blur(6px)" }}
+          onClick={() => setShowLastCVGate(false)}>
+          <div className="bg-white rounded-3xl max-w-sm w-full shadow-2xl overflow-hidden"
+            onClick={e => e.stopPropagation()}>
+            <div style={{ background: "linear-gradient(135deg,#f59e0b,#d97706)" }} className="px-7 pt-6 pb-5 text-center">
+              <div className="text-4xl mb-2">⚡</div>
+              <h2 className="text-xl font-extrabold text-white">C'est ton dernier CV gratuit</h2>
+              <p className="text-amber-100 text-sm mt-1">Tu en as utilisé {cvCount}/3 — ce sera le dernier.</p>
+            </div>
+            <div className="px-7 py-5">
+              <p className="text-sm text-gray-500 mb-5 text-center">Upgrade maintenant et génère autant de CV que tu veux, avec score ATS complet et lettre de motivation.</p>
+              <a href="/tarifs"
+                onClick={() => { try { window.clarity?.("event", "last_cv_gate_upgrade"); } catch {} }}
+                className="block w-full text-center font-bold py-3.5 rounded-2xl mb-3 text-white text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all"
+                style={{ background: "linear-gradient(135deg,#1e40af,#2563eb)" }}>
+                Passer au plan Étudiant — 4,99€/mois →
+              </a>
+              <button
+                onClick={() => { gatePassedRef.current = true; setShowLastCVGate(false); handleSubmit(); }}
+                className="w-full text-center text-sm text-gray-400 hover:text-gray-600 py-2 transition-colors">
+                Utiliser mon dernier CV gratuit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <PostGenerationUpsell show={showPostGenUpsell} isPro={isPro} onClose={() => setShowPostGenUpsell(false)} />
       <ReferralPopup show={showReferralPopup} onClose={() => setShowReferralPopup(false)} userId={user?.id} />
 
@@ -1219,14 +1256,14 @@ export default function Generate() {
               {!lm && !loadingLM && !withLM && (
                 <div className="flex items-center justify-between gap-4 bg-purple-50 border border-purple-100 rounded-xl px-5 py-3.5">
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-xl shrink-0">✉️</span>
+                    <span className="text-xl shrink-0">{isPro ? "✉️" : "🔒"}</span>
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-purple-900">{tr(lang, "addCoverLetterTitle")}</p>
-                      <p className="text-xs text-purple-500 truncate">{tr(lang, "addCoverLetterSubtitle")}</p>
+                      <p className="text-xs text-purple-500 truncate">{isPro ? tr(lang, "addCoverLetterSubtitle") : "Inclus dans le plan Étudiant — 4,99€/mois"}</p>
                     </div>
                   </div>
                   <button
-                    onClick={async () => {
+                    onClick={!isPro ? () => { setShowUpgradeModal(true); try { window.clarity?.("event", "lm_gate_click"); } catch {} } : async () => {
                       setWithLM(true);
                       setLoadingLM(true);
                       setActiveTab("lm");
@@ -1250,7 +1287,7 @@ export default function Generate() {
                       setLoadingLM(false);
                     }}
                     className="bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors whitespace-nowrap shrink-0">
-                    {tr(lang, "generateLM")} →
+                    {isPro ? `${tr(lang, "generateLM")} →` : "Débloquer →"}
                   </button>
                 </div>
               )}
@@ -1426,9 +1463,16 @@ export default function Generate() {
                           {tr(lang, "atsMissing")} ({atsData.keywords_missing?.length})
                         </h4>
                         <div className="flex flex-wrap gap-2">
-                          {atsData.keywords_missing?.map((kw, i) => (
+                          {(isPro ? atsData.keywords_missing : atsData.keywords_missing?.slice(0, 2))?.map((kw, i) => (
                             <span key={i} className="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full border border-red-200">{kw}</span>
                           ))}
+                          {!isPro && atsData.keywords_missing?.length > 2 && (
+                            <button
+                              onClick={() => { setShowUpgradeModal(true); try { window.clarity?.("event", "ats_keywords_gate_click"); } catch {} }}
+                              className="flex items-center gap-1 bg-white border border-red-200 text-red-500 text-xs font-semibold px-3 py-1 rounded-full hover:bg-red-50 transition-colors">
+                              🔒 +{atsData.keywords_missing.length - 2} mots-clés — Étudiant
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
