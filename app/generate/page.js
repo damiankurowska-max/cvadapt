@@ -775,12 +775,17 @@ export default function Generate() {
           )}
 
           {sbUser && (
-            <button
-              onClick={() => supabase.auth.signOut().then(() => router.push("/"))}
-              style={{ fontSize: 12, color: "#94a3b8", background: "none", border: "none", cursor: "pointer", padding: "4px 8px" }}
-            >
-              Déconnexion
-            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Link href="/account" style={{ fontSize: 12, color: "#64748b", textDecoration: "none", padding: "4px 10px", border: "1px solid #e2e8f0", borderRadius: 8 }}>
+                Mon profil
+              </Link>
+              <button
+                onClick={() => supabase.auth.signOut().then(() => router.push("/"))}
+                style={{ fontSize: 12, color: "#94a3b8", background: "none", border: "none", cursor: "pointer", padding: "4px 8px" }}
+              >
+                Déconnexion
+              </button>
+            </div>
           )}
         </div>
       </header>

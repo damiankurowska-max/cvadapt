@@ -2,7 +2,7 @@
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useSupabase } from "@/app/components/SupabaseProvider";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Logo from "@/app/components/Logo";
@@ -10,10 +10,12 @@ import Logo from "@/app/components/Logo";
 export default function SignUpPage() {
   const supabase = useSupabase();
   const router = useRouter();
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_IN") router.push("/generate");
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" && session) router.push("/generate");
+      if (event === "USER_UPDATED") router.push("/generate");
     });
     return () => subscription.unsubscribe();
   }, [supabase, router]);
@@ -33,12 +35,14 @@ export default function SignUpPage() {
           </div>
           <h1 style={{ fontSize: 24, fontWeight: 800, color: "#0f172a", marginBottom: 8, letterSpacing: "-0.5px" }}>Créer un compte</h1>
           <p style={{ fontSize: 14, color: "#64748b", marginBottom: 24 }}>Génère jusqu'à 3 CV optimisés gratuitement</p>
+          {msg && <p style={{ fontSize: 13, color: "#10b981", background: "#ecfdf5", padding: "10px 14px", borderRadius: 8, marginBottom: 16 }}>{msg}</p>}
           <Auth
             supabaseClient={supabase}
             view="sign_up"
             appearance={{ theme: ThemeSupa, variables: { default: { colors: { brand: "#2563eb", brandAccent: "#1d4ed8" } } } }}
             providers={["google"]}
             redirectTo={typeof window !== "undefined" ? `${window.location.origin}/generate` : "/generate"}
+            localization={{ variables: { sign_up: { button_label: "Créer mon compte", email_label: "Email", password_label: "Mot de passe (min. 6 caractères)" } } }}
           />
           <div style={{ marginTop: 16, textAlign: "center" }}>
             <Link href="/sign-in" style={{ fontSize: 13, color: "#64748b", textDecoration: "none" }}>

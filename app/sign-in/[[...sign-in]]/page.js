@@ -12,8 +12,8 @@ export default function SignInPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_IN") router.push("/generate");
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" && session) router.push("/generate");
     });
     return () => subscription.unsubscribe();
   }, [supabase, router]);
@@ -32,9 +32,10 @@ export default function SignInPage() {
           <Auth
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa, variables: { default: { colors: { brand: "#2563eb", brandAccent: "#1d4ed8" } } } }}
+            providers={["google"]}
             redirectTo={typeof window !== "undefined" ? `${window.location.origin}/generate` : "/generate"}
             view="sign_in"
-            providers={["google"]}
+            localization={{ variables: { sign_in: { button_label: "Se connecter", email_label: "Email", password_label: "Mot de passe" } } }}
           />
           <div style={{ marginTop: 16, textAlign: "center" }}>
             <Link href="/sign-up" style={{ fontSize: 13, color: "#64748b", textDecoration: "none" }}>
