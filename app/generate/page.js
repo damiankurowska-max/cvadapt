@@ -377,11 +377,10 @@ export default function Generate() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // Auth temporairement désactivée — Clerk en maintenance
-    // if (isLoaded && !isSignedIn) {
-    //   router.push("/sign-up?redirect_url=/generate");
-    //   return;
-    // }
+    if (isLoaded && !isSignedIn) {
+      router.push("/sign-up?redirect_url=/generate");
+      return;
+    }
 
     if (!isPro) {
       if (cvCount >= CV_LIMIT) {
