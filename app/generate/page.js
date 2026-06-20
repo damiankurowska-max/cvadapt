@@ -731,7 +731,7 @@ export default function Generate() {
         </div>
       )}
       <PostGenerationUpsell show={showPostGenUpsell} isPro={isPro} onClose={() => setShowPostGenUpsell(false)} />
-      <ReferralPopup show={showReferralPopup} onClose={() => setShowReferralPopup(false)} userId={user?.id} />
+      <ReferralPopup show={showReferralPopup} onClose={() => setShowReferralPopup(false)} userId={sbUser?.id} />
 
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between gap-2">
