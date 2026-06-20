@@ -658,7 +658,7 @@ ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write ev
       console.error("Supabase save error:", dbErr);
     }
 
-    // ── 8. BREVO : ajout liste cvadapt-free-users au 1er CV ──────────────────
+    // ── 8. BREVO : ajout liste postulera-free-users au 1er CV ──────────────────
     if (cvCount === 0 && email) {
       fetch("https://api.brevo.com/v3/contacts", {
         method: "POST",

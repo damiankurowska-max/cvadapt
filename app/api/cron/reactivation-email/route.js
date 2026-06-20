@@ -3,7 +3,7 @@
  * qui n'ont pas généré de CV dans les 7 derniers jours.
  *
  * Déclenché via vercel.json — appel quotidien à 9h.
- * Utilise Brevo pour lister les contacts list #4 (cvadapt-newsletter)
+ * Utilise Brevo pour lister les contacts list #4 (postulera-newsletter)
  * et filtre ceux qui n'ont pas de CV généré (cvCount === 0 dans les métadonnées Clerk).
  *
  * NOTE : implémentation simplifiée — on envoie aux contacts Brevo list #4

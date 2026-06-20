@@ -92,7 +92,7 @@ export default function ExitIntentPopup() {
 
             {/* Après */}
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#2563EB", marginBottom: 6, letterSpacing: "0.05em" }}>AVEC CVADAPT</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#2563EB", marginBottom: 6, letterSpacing: "0.05em" }}>AVEC POSTULERA</div>
               <div style={{ width: 72, height: 72, borderRadius: "50%", background: "#ECFDF5", border: "4px solid #6EE7B7", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", boxShadow: "0 0 20px rgba(16,185,129,0.2)" }}>
                 <span style={{ fontSize: 22, fontWeight: 900, color: "#10B981", lineHeight: 1 }}>{score}</span>
                 <span style={{ fontSize: 9, color: "#6EE7B7" }}>/100</span>

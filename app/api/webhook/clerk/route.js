@@ -2,10 +2,10 @@ import { Webhook } from "svix";
 
 export const runtime = "nodejs";
 
-const BREVO_LIST_ID = 4; // cvadapt-free-users
+const BREVO_LIST_ID = 4; // postulera-free-users
 
 /**
- * Ajoute ou met à jour un contact dans Brevo (liste cvadapt-free-users #4)
+ * Ajoute ou met à jour un contact dans Brevo (liste postulera-free-users #4)
  */
 async function addToBrevo({ email, firstName, lastName }) {
   const res = await fetch("https://api.brevo.com/v3/contacts", {
@@ -77,7 +77,7 @@ export async function POST(request) {
 
     try {
       await addToBrevo({ email, firstName: first_name, lastName: last_name });
-      console.log(`✅ Brevo: ${email} ajouté à la liste cvadapt-free-users (#${BREVO_LIST_ID})`);
+      console.log(`✅ Brevo: ${email} ajouté à la liste postulera-free-users (#${BREVO_LIST_ID})`);
     } catch (err) {
       // On ne bloque pas Clerk — on log l'erreur seulement
       console.error(`❌ Brevo ajout échoué pour ${email}:`, err.message);

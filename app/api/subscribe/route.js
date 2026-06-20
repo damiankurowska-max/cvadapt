@@ -24,7 +24,7 @@ export async function POST(request) {
   }
 
   try {
-    // Ajouter à Brevo liste #4 (cvadapt-free-users) pour la séquence email J+2/J+5/J+7/J+14
+    // Ajouter à Brevo liste #4 (postulera-free-users) pour la séquence email J+2/J+5/J+7/J+14
     if (process.env.BREVO_API_KEY) {
       await fetch("https://api.brevo.com/v3/contacts", {
         method: "POST",
