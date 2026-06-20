@@ -140,7 +140,7 @@ const softwareSchema = {
 
 export default function RootLayout({ children }) {
   return (
-    <SupabaseProvider url={process.env.SUPABASE_URL} anonKey={process.env.SUPABASE_ANON_KEY}>
+    <SupabaseProvider url={process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL} anonKey={process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY}>
       <html lang="fr" className={outfit.variable}>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
