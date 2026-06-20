@@ -151,12 +151,31 @@ body {
   .cv-mockup-wrap { display: none !important; }
   .cv-badge-chrono { display: none !important; }
 
-  /* Boutons hero full-width sur mobile */
-  .hero-left > div:nth-child(4) { flex-direction: column !important; }
-  .hero-left > div:nth-child(4) > a {
+  /* Hero centré sur mobile */
+  .hero-left {
+    text-align: center !important;
+    align-items: center !important;
+  }
+  .hero-left > div:first-child {
+    justify-content: center !important;
+  }
+  .cv-hero-p { max-width: 100% !important; }
+
+  /* Boutons hero full-width */
+  .hero-cta-row {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .hero-cta-primary, .hero-cta-row > a {
     width: 100% !important;
     justify-content: center !important;
     text-align: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Avatar/social proof centré */
+  .hero-left > div:nth-child(5) {
+    justify-content: center !important;
   }
 
   /* Sections */

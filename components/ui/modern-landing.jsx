@@ -387,8 +387,8 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
             Postulera adapte ton CV aux filtres ATS en 30 secondes.
           </p>
 
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
-            <a href="/generate" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 26px", background: C.blue, color: "#fff", borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.35)" }}>
+          <div className="hero-cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+            <a href="/generate" className="hero-cta-primary" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 26px", background: C.blue, color: "#fff", borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.35)" }}>
               Générer mon CV gratuit →
             </a>
             <a href="/analyse" style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "14px 22px", background: C.bg, color: C.navy, borderRadius: 12, fontSize: 15, fontWeight: 600, textDecoration: "none", border: `1.5px solid ${C.border}` }}>
