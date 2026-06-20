@@ -11,11 +11,14 @@ import ReferralPopup from "../components/ReferralPopup";
 import { t as tr } from "@/lib/i18n";
 
 const TEMPLATES = [
-  { id: "moderne",     name: "Sobre",      desc: "Ardoise & épuré",    accent: "#1e293b", bg: "#f8fafc", sidebar: false },
-  { id: "photo",       name: "Photo",      desc: "Portrait & beige",   accent: "#b8a99a", bg: "#ffffff", sidebar: true  },
-  { id: "classique",   name: "Coupure",    desc: "Éditorial & ambre",  accent: "#92400e", bg: "#fef3c7", sidebar: false },
-  { id: "creatif",     name: "Atelier",    desc: "Sidebar sombre & or", accent: "#0f172a", bg: "#fafafa", sidebar: true  },
-  { id: "minimaliste", name: "Trait",      desc: "Minimaliste & teal", accent: "#0f766e", bg: "#f0fdfa", sidebar: false },
+  { id: "moderne",     name: "Sobre",      desc: "Épuré & professionnel",   accent: "#1e293b", bg: "#f8fafc", sidebar: false, badge: "⭐ Populaire" },
+  { id: "photo",       name: "Photo",      desc: "Portrait & beige",        accent: "#b8a99a", bg: "#ffffff", sidebar: true,  badge: "📸 Avec photo" },
+  { id: "classique",   name: "Coupure",    desc: "Éditorial & ambre",       accent: "#92400e", bg: "#fef3c7", sidebar: false, badge: null },
+  { id: "creatif",     name: "Atelier",    desc: "Sidebar sombre & or",     accent: "#0f172a", bg: "#fafafa", sidebar: true,  badge: "🎨 Créatif" },
+  { id: "minimaliste", name: "Trait",      desc: "Minimaliste & teal",      accent: "#0f766e", bg: "#f0fdfa", sidebar: false, badge: null },
+  { id: "executive",   name: "Executive",  desc: "Cadre & sobre",           accent: "#0c4a6e", bg: "#f0f9ff", sidebar: false, badge: "💼 Cadre" },
+  { id: "bold",        name: "Impact",     desc: "Accrocheur & bleu",       accent: "#2563eb", bg: "#eff6ff", sidebar: false, badge: "🚀 Nouveau" },
+  { id: "elegant",     name: "Élégant",    desc: "Sobre & violet",          accent: "#6d28d9", bg: "#f5f3ff", sidebar: false, badge: "✨ Premium" },
 ];
 
 const CV_LANGUAGES = [
@@ -1130,28 +1133,34 @@ export default function Generate() {
                   <p style={{ fontSize: 14, color: "#64748b", marginBottom: 20, lineHeight: 1.6 }}>{tr(lang, "step3Subtitle")}</p>
 
                   {/* Galerie templates */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 22 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginBottom: 22 }}>
                     {TEMPLATES.map((tmpl) => {
                       const sel = template === tmpl.id;
                       return (
                         <button key={tmpl.id} type="button" onClick={() => setTemplate(tmpl.id)}
                           style={{
-                            position: "relative", borderRadius: 16, overflow: "hidden", cursor: "pointer",
+                            position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer",
                             border: sel ? `2.5px solid ${tmpl.accent}` : "2px solid #e8eaf6",
-                            boxShadow: sel ? `0 0 0 4px ${tmpl.accent}18, 0 6px 20px rgba(0,0,0,0.10)` : "0 2px 8px rgba(0,0,0,0.04)",
+                            boxShadow: sel ? `0 0 0 3px ${tmpl.accent}20, 0 4px 16px rgba(0,0,0,0.08)` : "0 1px 4px rgba(0,0,0,0.04)",
                             background: "#fff", padding: 0, textAlign: "left",
-                            transition: "all 0.2s",
+                            transition: "all 0.18s",
                           }}>
-                          <div style={{ height: 160, overflow: "hidden" }}>
+                          {/* Badge */}
+                          {tmpl.badge && (
+                            <div style={{ position: "absolute", top: 6, left: 6, zIndex: 2, background: "rgba(0,0,0,0.65)", backdropFilter: "blur(4px)", borderRadius: 6, padding: "2px 6px", fontSize: 8.5, fontWeight: 700, color: "#fff", whiteSpace: "nowrap" }}>
+                              {tmpl.badge}
+                            </div>
+                          )}
+                          <div style={{ height: 120, overflow: "hidden" }}>
                             <TemplateMiniPreview tmpl={tmpl} compact />
                           </div>
-                          <div style={{ padding: "10px 12px 12px", background: sel ? tmpl.accent + "0a" : "#fafbff", borderTop: "1.5px solid " + (sel ? tmpl.accent + "25" : "#eeefff") }}>
-                            <p style={{ fontSize: 12, fontWeight: 800, color: sel ? tmpl.accent : "#1e1b4b" }}>{tmpl.name}</p>
-                            <p style={{ fontSize: 10.5, color: "#94a3b8", marginTop: 2 }}>{tmpl.desc}</p>
+                          <div style={{ padding: "8px 10px 10px", background: sel ? tmpl.accent + "0a" : "#fafbff", borderTop: "1.5px solid " + (sel ? tmpl.accent + "25" : "#eeefff") }}>
+                            <p style={{ fontSize: 11, fontWeight: 800, color: sel ? tmpl.accent : "#1e1b4b" }}>{tmpl.name}</p>
+                            <p style={{ fontSize: 9.5, color: "#94a3b8", marginTop: 1 }}>{tmpl.desc}</p>
                           </div>
                           {sel && (
-                            <div style={{ position: "absolute", top: 8, right: 8, width: 24, height: 24, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.25)" }}>
-                              <svg width="12" height="12" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            <div style={{ position: "absolute", top: 6, right: 6, width: 20, height: 20, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
+                              <svg width="10" height="10" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </div>
                           )}
                         </button>

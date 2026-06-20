@@ -387,6 +387,122 @@ const CV_LANG_NAMES = {
   ru: "Russian (Русский)",
   zh: "Simplified Chinese (中文)",
   hi: "Hindi (हिन्दी)",
+  executive: `
+TEMPLATE EXECUTIVE — sobre, corporate, typographie serif/sans, idéal profils cadres et seniors, A4.
+
+STRUCTURE HTML EXACTE :
+<div style="width:794px;min-height:1123px;font-family:'Georgia',serif;font-size:12.5px;color:#0c4a6e;background:#fff;box-sizing:border-box;">
+  <div style="background:#0c4a6e;padding:44px 52px 36px;">
+    <div style="font-size:30px;font-weight:700;color:#fff;letter-spacing:-0.5px;margin-bottom:4px;">[NOM COMPLET]</div>
+    <div style="font-size:14px;color:#7dd3fc;font-weight:400;letter-spacing:0.5px;margin-bottom:16px;">[TITRE DU POSTE]</div>
+    <div style="display:flex;gap:28px;font-size:11px;color:#bae6fd;">
+      [email si fourni : <span>[email]</span>] [téléphone si fourni : <span>[téléphone]</span>] [linkedin si fourni : <span>[linkedin]</span>]
+    </div>
+  </div>
+  <div style="padding:40px 52px;">
+    <span id="cv-photo-slot" style="display:none;"></span>
+    <div style="border-bottom:2px solid #0c4a6e;padding-bottom:6px;margin-bottom:20px;">
+      <span style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#0c4a6e;">Profil</span>
+    </div>
+    <p style="font-size:13px;line-height:1.8;color:#1e3a5f;margin:0 0 32px;">[3 phrases percutantes avec mots-clés ATS]</p>
+    <div style="border-bottom:2px solid #0c4a6e;padding-bottom:6px;margin-bottom:20px;">
+      <span style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#0c4a6e;">Expériences</span>
+    </div>
+    [pour chaque expérience :
+      <div style="margin-bottom:22px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+          <span style="font-size:14px;font-weight:700;color:#0c4a6e;">[Titre du poste]</span>
+          <span style="font-size:11px;color:#64748b;">[Dates]</span>
+        </div>
+        <div style="font-size:12px;color:#475569;font-style:italic;margin-bottom:8px;">[Entreprise]</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:12px;color:#334155;padding:2px 0 2px 16px;position:relative;"><span style="position:absolute;left:0;color:#0c4a6e;">▸</span>[réalisation]</li></ul>
+      </div>]
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:8px;">
+      <div>
+        <div style="border-bottom:2px solid #0c4a6e;padding-bottom:6px;margin-bottom:16px;"><span style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#0c4a6e;">Formation</span></div>
+        [pour chaque diplôme :<div style="margin-bottom:12px;"><span style="font-size:12px;font-weight:700;display:block;">[Diplôme]</span><span style="font-size:11px;color:#64748b;">[École] · [Année]</span></div>]
+      </div>
+      <div>
+        <div style="border-bottom:2px solid #0c4a6e;padding-bottom:6px;margin-bottom:16px;"><span style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#0c4a6e;">Compétences</span></div>
+        [chaque compétence : <span style="display:inline-block;margin:3px 4px 3px 0;font-size:11px;color:#0c4a6e;padding:3px 10px;border:1px solid #bae6fd;border-radius:4px;">[compétence]</span>]
+      </div>
+    </div>
+  </div>
+</div>
+RÈGLES : Fond blanc sauf header bleu marine. Accents bleu ciel. Typographie serif sobre.`,
+
+  bold: `
+TEMPLATE IMPACT — design accrocheur avec bande bleue, typo sans-serif, moderne et dynamique, A4.
+
+STRUCTURE HTML EXACTE :
+<div style="width:794px;min-height:1123px;font-family:'Arial',sans-serif;font-size:12.5px;color:#111827;background:#fff;box-sizing:border-box;display:grid;grid-template-columns:220px 1fr;">
+  <div style="background:#2563eb;padding:36px 22px;color:#fff;">
+    <span id="cv-photo-slot" style="display:block;margin-bottom:20px;"></span>
+    <div style="font-size:20px;font-weight:900;margin-bottom:4px;letter-spacing:-0.5px;">[NOM COMPLET]</div>
+    <div style="font-size:11px;color:#bfdbfe;margin-bottom:24px;">[TITRE DU POSTE]</div>
+    <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#93c5fd;margin-bottom:10px;">Contact</div>
+    <div style="font-size:11px;line-height:1.8;color:#dbeafe;">[email]<br/>[téléphone]<br/>[adresse si fournie]</div>
+    <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#93c5fd;margin:20px 0 10px;">Compétences</div>
+    [chaque compétence : <div style="margin-bottom:8px;"><span style="font-size:11px;color:#fff;display:block;margin-bottom:3px;">[compétence]</span><div style="height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"><div style="height:100%;width:85%;background:#fff;border-radius:2px;"></div></div></div>]
+    [si langues : <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#93c5fd;margin:20px 0 10px;">Langues</div>
+    [chaque langue : <span style="font-size:11px;color:#dbeafe;display:block;">[langue] — [niveau]</span>]]
+  </div>
+  <div style="padding:36px 32px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2563eb;margin-bottom:8px;">Profil</div>
+    <div style="width:40px;height:3px;background:#2563eb;margin-bottom:14px;"></div>
+    <p style="font-size:12.5px;line-height:1.7;color:#374151;margin:0 0 24px;">[3 phrases percutantes avec mots-clés ATS]</p>
+    <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2563eb;margin-bottom:8px;">Expériences</div>
+    <div style="width:40px;height:3px;background:#2563eb;margin-bottom:16px;"></div>
+    [pour chaque expérience :
+      <div style="margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #f3f4f6;">
+        <div style="display:flex;justify-content:space-between;"><span style="font-size:13px;font-weight:700;color:#111827;">[Titre]</span><span style="font-size:10.5px;color:#6b7280;">[Dates]</span></div>
+        <div style="font-size:11.5px;color:#2563eb;margin:3px 0 8px;font-weight:600;">[Entreprise]</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:12px;color:#374151;padding:2px 0 2px 14px;position:relative;"><span style="position:absolute;left:0;color:#2563eb;font-weight:700;">·</span>[réalisation]</li></ul>
+      </div>]
+    <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2563eb;margin-bottom:8px;margin-top:4px;">Formation</div>
+    <div style="width:40px;height:3px;background:#2563eb;margin-bottom:14px;"></div>
+    [pour chaque diplôme : <div style="margin-bottom:12px;"><span style="font-size:12.5px;font-weight:700;color:#111827;">[Diplôme]</span><br/><span style="font-size:11px;color:#6b7280;">[École] · [Année]</span></div>]
+  </div>
+</div>
+RÈGLES : Sidebar bleu #2563eb, contenu blanc. Titres sections en majuscules tracés, accent bleu vif.`,
+
+  elegant: `
+TEMPLATE ÉLÉGANT — sobre, violet discret, typographie fine, idéal profils créatifs et marketing, A4.
+
+STRUCTURE HTML EXACTE :
+<div style="width:794px;min-height:1123px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;color:#1e1b4b;background:#fff;padding:56px 60px;box-sizing:border-box;">
+  <span id="cv-photo-slot" style="display:none;"></span>
+  <div style="text-align:center;padding-bottom:32px;margin-bottom:32px;border-bottom:2px solid #ede9fe;">
+    <div style="font-size:34px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:#1e1b4b;margin-bottom:8px;">[NOM COMPLET]</div>
+    <div style="font-size:13px;letter-spacing:2px;color:#6d28d9;text-transform:uppercase;">[TITRE DU POSTE]</div>
+    <div style="font-size:11px;color:#94a3b8;margin-top:12px;">[email] · [téléphone] [linkedin si fourni : · [linkedin]]</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 200px;gap:48px;">
+    <div>
+      <div style="font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:#6d28d9;margin-bottom:12px;">Profil</div>
+      <p style="font-size:12.5px;line-height:1.9;color:#374151;margin:0 0 28px;">[3 phrases percutantes avec mots-clés ATS]</p>
+      <div style="font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:#6d28d9;margin-bottom:14px;">Expériences</div>
+      [pour chaque expérience :
+        <div style="margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <span style="font-size:13px;font-weight:600;color:#1e1b4b;">[Titre]</span>
+            <span style="font-size:10.5px;color:#94a3b8;">[Dates]</span>
+          </div>
+          <div style="font-size:11.5px;color:#6d28d9;margin:3px 0 8px;">[Entreprise]</div>
+          <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:12px;color:#475569;padding:3px 0 3px 14px;position:relative;line-height:1.5;"><span style="position:absolute;left:0;color:#a78bfa;">—</span>[réalisation]</li></ul>
+        </div>]
+    </div>
+    <div>
+      <div style="font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:#6d28d9;margin-bottom:12px;">Formation</div>
+      [pour chaque diplôme : <div style="margin-bottom:14px;"><span style="font-size:12px;font-weight:600;display:block;color:#1e1b4b;">[Diplôme]</span><span style="font-size:11px;color:#6b7280;">[École]</span><span style="font-size:10px;color:#94a3b8;display:block;">[Année]</span></div>]
+      <div style="font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:#6d28d9;margin:20px 0 12px;">Compétences</div>
+      [chaque compétence : <span style="display:inline-block;font-size:11px;color:#6d28d9;background:#f5f3ff;padding:4px 10px;border-radius:4px;margin:3px 3px 3px 0;">[compétence]</span>]
+      [si langues :<div style="font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:#6d28d9;margin:20px 0 12px;">Langues</div>
+      [chaque langue : <span style="font-size:11.5px;color:#374151;display:block;margin-bottom:6px;">[langue] — [niveau]</span>]]
+    </div>
+  </div>
+</div>
+RÈGLES : Fond blanc pur. Accents violet #6d28d9. Nom en lettres espacées fines. Tiret long comme puce.`,
 };
 
 const VALID_CV_LANGS = Object.keys(CV_LANG_NAMES);
@@ -499,7 +615,7 @@ export async function POST(request) {
   const formation   = sanitizeInput(body.formation,   1000);
   const langues     = sanitizeInput(body.langues,     500);
   const linkedin    = sanitizeInput(body.linkedin,    300);
-  const template    = ["moderne","classique","creatif","minimaliste","photo"].includes(body.template)
+  const template    = ["moderne","classique","creatif","minimaliste","photo","executive","bold","elegant"].includes(body.template)
     ? body.template : "moderne";
   const lang        = body.lang === "en" ? "en" : "fr";
   const cvLang      = VALID_CV_LANGS.includes(body.cvLang) ? body.cvLang : lang;
