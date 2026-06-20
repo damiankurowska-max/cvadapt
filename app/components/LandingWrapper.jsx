@@ -57,6 +57,7 @@ export function LandingWrapper({ faqSchema }) {
           emailStatus={emailStatus}
           email={email}
           setEmail={setEmail}
+          user={user}
         />
       </div>
       <ExitIntentPopup />

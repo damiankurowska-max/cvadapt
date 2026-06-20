@@ -263,7 +263,7 @@ function DemoSection() {
   );
 }
 
-export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
+export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user = null }) {
   const containerRef = useRef(null);
   const [counters, setCounters] = useState({ pct: 0, users: 0 });
   const [openFaq, setOpenFaq] = useState(null);
@@ -330,10 +330,27 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
             <a href="#steps" style={{ color: C.slate, fontSize: 14, fontWeight: 500, textDecoration: "none" }}>Comment ça marche</a>
             <a href="/tarifs" style={{ color: C.slate, fontSize: 14, fontWeight: 500, textDecoration: "none" }}>Tarifs</a>
           </div>
-          <a href="/sign-in" style={{ color: C.navy, fontSize: 14, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap", padding: "9px 18px", borderRadius: 999, border: `1.5px solid ${C.border}` }}>Se connecter</a>
-          <a href="/sign-up" className="cv-cta-btn" style={{ background: C.blue, color: "#fff", padding: "9px 20px", borderRadius: 999, fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
-            S'inscrire
-          </a>
+          {user ? (
+            <a href="/account" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "6px 16px 6px 6px", borderRadius: 999, border: `1.5px solid ${C.border}`, background: "#fff" }}>
+              {user.user_metadata?.avatar_url ? (
+                <img src={user.user_metadata.avatar_url} style={{ width: 30, height: 30, borderRadius: "50%", objectFit: "cover" }} alt="" />
+              ) : (
+                <div style={{ width: 30, height: 30, borderRadius: "50%", background: C.blue, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 800, fontSize: 13 }}>
+                  {(user.user_metadata?.full_name || user.email || "U")[0].toUpperCase()}
+                </div>
+              )}
+              <span style={{ fontSize: 13, fontWeight: 600, color: C.navy }}>
+                {user.user_metadata?.full_name?.split(" ")[0] || "Mon profil"}
+              </span>
+            </a>
+          ) : (
+            <>
+              <a href="/sign-in" style={{ color: C.navy, fontSize: 14, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap", padding: "9px 18px", borderRadius: 999, border: `1.5px solid ${C.border}` }}>Se connecter</a>
+              <a href="/sign-up" className="cv-cta-btn" style={{ background: C.blue, color: "#fff", padding: "9px 20px", borderRadius: 999, fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+                S'inscrire
+              </a>
+            </>
+          )}
         </nav>
       </header>
 
