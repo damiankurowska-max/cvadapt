@@ -185,8 +185,8 @@ function DemoSection() {
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#38BDF8", marginBottom: 12 }}>
             Comment ça marche
           </p>
-          <h2 style={{ fontSize: "clamp(26px,4vw,44px)", fontWeight: 900, letterSpacing: "-1.5px", color: "#F1F5F9", marginBottom: 12 }}>
-            30 secondes. Du collage au PDF.
+          <h2 style={{ fontSize: "clamp(24px,4vw,44px)", fontWeight: 900, letterSpacing: "-1.5px", color: "#F1F5F9", marginBottom: 12 }}>
+            Colle l'offre.<br />Reçois ton CV en 30s.
           </h2>
           <p style={{ fontSize: 15, color: "#64748B", maxWidth: 400, margin: "0 auto" }}>
             {DEMO_VIDEO_ID ? "Regarde comment ça marche." : "Trois étapes, zéro friction."}
@@ -352,7 +352,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
             </a>
           ) : (
             <>
-              <a href="/sign-in" style={{ color: C.navy, fontSize: 14, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap", padding: "9px 18px", borderRadius: 999, border: `1.5px solid ${C.border}` }}>Se connecter</a>
+              <a href="/sign-in" className="cv-signin-mobile-hide" style={{ color: C.navy, fontSize: 14, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap", padding: "9px 18px", borderRadius: 999, border: `1.5px solid ${C.border}` }}>Se connecter</a>
               <a href="/sign-up" className="cv-cta-btn" style={{ background: C.blue, color: "#fff", padding: "9px 20px", borderRadius: 999, fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
                 S'inscrire
               </a>

@@ -122,11 +122,17 @@ body {
   /* Padding bas du body pour la barre sticky */
   body { padding-bottom: 72px; }
 
-  /* Header mobile : masque les liens, garde bouton S'inscrire */
+  /* Header mobile */
   .cv-nav-links { display: none !important; }
+
+  /* "Se connecter" → icône uniquement sur mobile */
+  .cv-signin-mobile-hide { display: none !important; }
+
+  /* "S'inscrire" compact */
   .cv-cta-btn {
-    padding: 9px 16px !important;
-    font-size: 13px !important;
+    padding: 7px 13px !important;
+    font-size: 12px !important;
+    border-radius: 999px !important;
   }
 
   /* Hero : pleine largeur, mockup masqué, titre plus grand */
