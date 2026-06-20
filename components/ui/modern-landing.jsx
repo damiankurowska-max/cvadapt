@@ -329,8 +329,9 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
           <div className="cv-nav-links" style={{ display: "flex", gap: 24, alignItems: "center" }}>
             <a href="#steps" style={{ color: C.slate, fontSize: 14, fontWeight: 500, textDecoration: "none" }}>Comment ça marche</a>
             <a href="/tarifs" style={{ color: C.slate, fontSize: 14, fontWeight: 500, textDecoration: "none" }}>Tarifs</a>
+            <a href="/sign-in" style={{ color: C.slate, fontSize: 14, fontWeight: 500, textDecoration: "none" }}>Se connecter</a>
           </div>
-          <a href="/generate" className="cv-cta-btn" style={{ background: C.blue, color: "#fff", padding: "9px 20px", borderRadius: 999, fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+          <a href="/sign-up" className="cv-cta-btn" style={{ background: C.blue, color: "#fff", padding: "9px 20px", borderRadius: 999, fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
             Commencer gratuitement
           </a>
         </nav>
