@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { createSupabaseServer } from "@/lib/supabase-server";
 import { Resend } from "resend";
 import { upgradeReminderEmail } from "@/lib/email-templates";
 import { sanitizeInput, rateLimitAsync } from "@/lib/rate-limit";
@@ -420,26 +420,24 @@ ABSOLUTE RULES:
 export async function POST(request) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const resend = new Resend(process.env.RESEND_API_KEY);
-  // ── 1. AUTHENTIFICATION (temporairement optionnelle — Clerk en maintenance) ──
-  const { userId } = await auth().catch(() => ({ userId: null }));
+  // ── 1. AUTHENTIFICATION SUPABASE ─────────────────────────────────────
+  const supabase = await createSupabaseServer();
+  const { data: { user: sbUser } } = await supabase.auth.getUser();
+  const userId = sbUser?.id || null;
   const isGuest = !userId;
 
-  // ── 2. LECTURE METADATA CLERK (ou valeurs guest) ─────────────────────
+  // ── 2. LECTURE METADATA SUPABASE (user_metadata) ─────────────────────
   let isPro = false, plan = "free", email = "", prenom = "", cvCount = 0;
 
   if (!isGuest) {
-    try {
-      const clerk = await clerkClient();
-      const user = await clerk.users.getUser(userId);
-      const meta = user.unsafeMetadata || {};
-      isPro   = meta.isPro  || false;
-      plan    = meta.plan   || "free";
-      email   = user.emailAddresses?.[0]?.emailAddress || "";
-      prenom  = user.firstName || "";
-      cvCount = parseInt(meta.cvCount || 0);
-    } catch {}
+    const meta = sbUser.user_metadata || {};
+    isPro   = meta.isPro  || false;
+    plan    = meta.plan   || "free";
+    email   = sbUser.email || "";
+    prenom  = meta.first_name || meta.full_name?.split(" ")[0] || "";
+    cvCount = parseInt(meta.cvCount || 0);
   }
-  // Guest: IP-based rate limiting (3 CVs max via header check)
+  // Guest: IP-based rate limiting (3 CVs max)
   if (isGuest) {
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
     const { success } = await rateLimitAsync(`guest-cv:${ip}`, 3, 24 * 60 * 60 * 1000);
@@ -630,9 +628,8 @@ ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write ev
 
     if (!isGuest) {
       try {
-        const clerk2 = await clerkClient();
-        await clerk2.users.updateUser(userId, {
-          unsafeMetadata: {
+        await supabase.auth.updateUser({
+          data: {
             cvCount:      newCvCount,
             cvMonthCount: newCvMonthCount,
             cvMonthKey:   currentMonthKey,

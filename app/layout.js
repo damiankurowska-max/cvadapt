@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Outfit } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
+import { SupabaseProvider } from "./components/SupabaseProvider";
 import ClientProviders from "./components/ClientProviders";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
@@ -140,10 +140,7 @@ const softwareSchema = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider
-      proxyUrl="https://postulera.com/api/clerk-proxy"
-      __internal_clerkJSUrl="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@6/dist/clerk.browser.js"
-    >
+    <SupabaseProvider url={process.env.SUPABASE_URL} anonKey={process.env.SUPABASE_ANON_KEY}>
       <html lang="fr" className={outfit.variable}>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -179,6 +176,6 @@ export default function RootLayout({ children }) {
           <Analytics />
         </body>
       </html>
-    </ClerkProvider>
+    </SupabaseProvider>
   );
 }

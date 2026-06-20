@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useUser, UserButton } from "@clerk/nextjs";
+import { useSupabase } from "../components/SupabaseProvider";
 import DOMPurify from "isomorphic-dompurify";
 import Logo from "../components/Logo";
 import UpgradeModal from "../components/UpgradeModal";
@@ -178,8 +178,23 @@ function TemplateMiniPreview({ tmpl }) {
 const VALID_CV_LANG_CODES = ["fr","en","de","es","it","pt","nl","pl","ko","ja","tr","he","sv","fi","ar","ru","zh","hi"];
 
 export default function Generate() {
-  const { user, isSignedIn, isLoaded } = useUser();
+  const supabase = useSupabase();
+  const [sbUser, setSbUser] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const isSignedIn = !!sbUser;
   const router = useRouter();
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setSbUser(user);
+      setIsLoaded(true);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+      setSbUser(session?.user ?? null);
+      setIsLoaded(true);
+    });
+    return () => subscription.unsubscribe();
+  }, [supabase]);
   const [lang, setLang] = useState("fr");
   const [cvLang, setCvLang] = useState("fr");
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", adresse: "", offre: "", experience: "", competences: "", formation: "", langues: "", linkedin: "" });
@@ -216,8 +231,8 @@ export default function Generate() {
   const [boostExtra, setBoostExtra] = useState("");
   const CV_LIMIT = 3;
 
-  const isPro = user?.unsafeMetadata?.isPro || false;
-  const plan = user?.unsafeMetadata?.plan || "free";
+  const isPro = sbUser?.user_metadata?.isPro || false;
+  const plan = sbUser?.user_metadata?.plan || "free";
 
   // Init CV language from URL param, then sync UI lang
   useEffect(() => {
@@ -242,14 +257,15 @@ export default function Generate() {
   }, [lang]);
 
   useEffect(() => {
-    if (user) {
-      const count = parseInt(user.unsafeMetadata?.cvCount || 0);
+    if (sbUser) {
+      const meta = sbUser.user_metadata || {};
+      const count = parseInt(meta.cvCount || 0);
       setCvCount(count);
 
       if (isPro && plan === "essentiel") {
         const currentMonthKey = new Date().toISOString().slice(0, 7);
-        const storedKey = user.unsafeMetadata?.cvMonthKey;
-        const storedMonthCount = parseInt(user.unsafeMetadata?.cvMonthCount || 0);
+        const storedKey = meta.cvMonthKey;
+        const storedMonthCount = parseInt(meta.cvMonthCount || 0);
         if (storedKey === currentMonthKey) {
           setCvMonthCount(storedMonthCount);
         } else {
@@ -261,7 +277,7 @@ export default function Generate() {
       const saved = JSON.parse(localStorage.getItem("cvadapt_history") || "[]");
       setHistory(saved);
     } catch {}
-  }, [user, isPro, plan]);
+  }, [sbUser, isPro, plan]);
 
   // RICE: helper de tracking
   function track(event) {
@@ -453,7 +469,9 @@ export default function Generate() {
       if (!isPro) {
         const newCount = cvCount + 1;
         setCvCount(newCount);
-        if (user) await user.update({ unsafeMetadata: { ...user.unsafeMetadata, cvCount: newCount } });
+        if (sbUser) {
+          supabase.auth.updateUser({ data: { ...sbUser.user_metadata, cvCount: newCount } }).catch(() => {});
+        }
 
         try {
           if (newCount === 1 && !localStorage.getItem("cvadapt_upsell_shown")) {
@@ -474,8 +492,8 @@ export default function Generate() {
         if (newCount >= CV_LIMIT) {
           setShowUpgradeModal(true);
           try { window.clarity?.("event", "upgrade_modal_shown_limit"); } catch {}
-          const userEmail = user?.primaryEmailAddress?.emailAddress;
-          const prenom = user?.firstName || "";
+          const userEmail = sbUser?.email;
+          const prenom = sbUser?.user_metadata?.full_name?.split(" ")[0] || "";
           if (userEmail) {
             fetch("/api/send-upgrade-email", {
               method: "POST",
@@ -488,14 +506,8 @@ export default function Generate() {
         const currentMonthKey = new Date().toISOString().slice(0, 7);
         const newMonthCount = cvMonthCount + 1;
         setCvMonthCount(newMonthCount);
-        if (user) {
-          await user.update({
-            unsafeMetadata: {
-              ...user.unsafeMetadata,
-              cvMonthCount: newMonthCount,
-              cvMonthKey: currentMonthKey,
-            },
-          });
+        if (sbUser) {
+          supabase.auth.updateUser({ data: { ...sbUser.user_metadata, cvMonthCount: newMonthCount, cvMonthKey: currentMonthKey } }).catch(() => {});
         }
       }
 
@@ -762,7 +774,14 @@ export default function Generate() {
             </div>
           )}
 
-          <UserButton userProfileUrl="/account" userProfileMode="navigation" />
+          {sbUser && (
+            <button
+              onClick={() => supabase.auth.signOut().then(() => router.push("/"))}
+              style={{ fontSize: 12, color: "#94a3b8", background: "none", border: "none", cursor: "pointer", padding: "4px 8px" }}
+            >
+              Déconnexion
+            </button>
+          )}
         </div>
       </header>
 
