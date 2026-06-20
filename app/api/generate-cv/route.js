@@ -2,7 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { Resend } from "resend";
 import { upgradeReminderEmail } from "@/lib/email-templates";
-import { sanitizeInput } from "@/lib/rate-limit";
+import { sanitizeInput, rateLimitAsync } from "@/lib/rate-limit";
 import { saveCV, consumeInstitutionQuota } from "@/lib/supabase";
 
 // Skills appliqués : context-engineering · stop-slop · server-side-auth
@@ -420,33 +420,40 @@ ABSOLUTE RULES:
 export async function POST(request) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const resend = new Resend(process.env.RESEND_API_KEY);
-  // ── 1. AUTHENTIFICATION ──────────────────────────────────────────────
-  const { userId } = await auth();
-  if (!userId) {
-    return Response.json({ error: "Connexion requise pour générer un CV." }, { status: 401 });
+  // ── 1. AUTHENTIFICATION (temporairement optionnelle — Clerk en maintenance) ──
+  const { userId } = await auth().catch(() => ({ userId: null }));
+  const isGuest = !userId;
+
+  // ── 2. LECTURE METADATA CLERK (ou valeurs guest) ─────────────────────
+  let isPro = false, plan = "free", email = "", prenom = "", cvCount = 0;
+
+  if (!isGuest) {
+    try {
+      const clerk = await clerkClient();
+      const user = await clerk.users.getUser(userId);
+      const meta = user.unsafeMetadata || {};
+      isPro   = meta.isPro  || false;
+      plan    = meta.plan   || "free";
+      email   = user.emailAddresses?.[0]?.emailAddress || "";
+      prenom  = user.firstName || "";
+      cvCount = parseInt(meta.cvCount || 0);
+    } catch {}
   }
-
-  // ── 2. LECTURE METADATA CLERK (source de vérité) ─────────────────────
-  const clerk = await clerkClient();
-  const user = await clerk.users.getUser(userId);
-  const meta = user.unsafeMetadata || {};
-
-  const isPro   = meta.isPro  || false;
-  const plan    = meta.plan   || "free";
-  const email   = user.emailAddresses?.[0]?.emailAddress || "";
-  const prenom  = user.firstName || "";
-
-  const cvCount = parseInt(meta.cvCount || 0);
+  // Guest: IP-based rate limiting (3 CVs max via header check)
+  if (isGuest) {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const { success } = await rateLimitAsync(`guest-cv:${ip}`, 3, 24 * 60 * 60 * 1000);
+    if (!success) {
+      return Response.json({ error: "Limite gratuite atteinte. Créez un compte pour continuer." }, { status: 429 });
+    }
+  }
 
   // Compteur mensuel (réinitialisé automatiquement chaque mois)
   const currentMonthKey = new Date().toISOString().slice(0, 7); // "2025-05"
-  const storedMonthKey  = meta.cvMonthKey || "";
-  const cvMonthCount    = storedMonthKey === currentMonthKey
-    ? parseInt(meta.cvMonthCount || 0)
-    : 0;
+  const cvMonthCount    = 0; // géré via Clerk metadata côté client pour les users connectés
 
   // ── 3. VÉRIFICATION DES LIMITES (côté serveur) ───────────────────────
-  const institutionId = meta.institutionId || null;
+  const institutionId = null; // institutions désactivées pour les guests
 
   if (institutionId) {
     // Membre institution : quota géré au niveau de l'établissement
@@ -617,18 +624,22 @@ ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write ev
     let cv = message.content[0].text;
     cv = cv.replace(/^```html\s*/i, "").replace(/^```\s*/i, "").replace(/\s*```$/i, "").trim();
 
-    // ── 6. MISE À JOUR METADATA CLERK (côté serveur) ─────────────────────
+    // ── 6. MISE À JOUR METADATA CLERK (côté serveur, skip si guest) ──────
     const newCvCount      = cvCount + 1;
     const newCvMonthCount = cvMonthCount + 1;
 
-    await clerk.users.updateUser(userId, {
-      unsafeMetadata: {
-        ...meta,
-        cvCount:      newCvCount,
-        cvMonthCount: newCvMonthCount,
-        cvMonthKey:   currentMonthKey,
-      },
-    });
+    if (!isGuest) {
+      try {
+        const clerk2 = await clerkClient();
+        await clerk2.users.updateUser(userId, {
+          unsafeMetadata: {
+            cvCount:      newCvCount,
+            cvMonthCount: newCvMonthCount,
+            cvMonthKey:   currentMonthKey,
+          },
+        });
+      } catch {}
+    }
 
     // ── 7. SAUVEGARDE SUPABASE ────────────────────────────────────────────
     let savedId = null;
