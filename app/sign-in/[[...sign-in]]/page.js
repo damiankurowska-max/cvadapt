@@ -81,7 +81,10 @@ export default function SignInPage() {
                 style={{ width: "100%", padding: "11px 14px", border: "1.5px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} />
             </div>
             <div style={{ marginBottom: 20 }}>
-              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 6 }}>Mot de passe</label>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                <label style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>Mot de passe</label>
+                <Link href="/forgot-password" style={{ fontSize: 12, color: "#2563eb", textDecoration: "none" }}>Mot de passe oublié ?</Link>
+              </div>
               <div style={{ position: "relative" }}>
                 <input type={showPwd ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} required
                   style={{ width: "100%", padding: "11px 44px 11px 14px", border: "1.5px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} />
