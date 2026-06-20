@@ -80,11 +80,8 @@ export default function SignInPage() {
               <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
                 style={{ width: "100%", padding: "11px 14px", border: "1.5px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} />
             </div>
-            <div style={{ marginBottom: 20 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                <label style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>Mot de passe</label>
-                <Link href="/forgot-password" style={{ fontSize: 12, color: "#2563eb", textDecoration: "none" }}>Mot de passe oublié ?</Link>
-              </div>
+            <div style={{ marginBottom: 8 }}>
+              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 6 }}>Mot de passe</label>
               <div style={{ position: "relative" }}>
                 <input type={showPwd ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} required
                   style={{ width: "100%", padding: "11px 44px 11px 14px", border: "1.5px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} />
@@ -104,6 +101,9 @@ export default function SignInPage() {
                   )}
                 </button>
               </div>
+            </div>
+            <div style={{ textAlign: "right", marginBottom: 20 }}>
+              <Link href="/forgot-password" style={{ fontSize: 12, color: "#2563eb", textDecoration: "none" }}>Mot de passe oublié ?</Link>
             </div>
             {error && <p style={{ fontSize: 13, color: "#ef4444", background: "#fef2f2", padding: "10px 14px", borderRadius: 8, marginBottom: 16 }}>{error}</p>}
             <button type="submit" disabled={loading} style={{ width: "100%", padding: "13px", background: loading ? "#93c5fd" : "#2563eb", color: "#fff", border: "none", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer" }}>
