@@ -482,11 +482,11 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail }) {
       <section className="stats-section cv-section cv-py" style={{ padding: "72px 40px", background: C.bgAlt }}>
         <div className="cv-grid-3" style={{ maxWidth: 900, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
           {[
-            { value: counters.pct + "%", label: "des CV filtrés\npar les ATS", sublabel: "avant tout recruteur humain", color: C.red, bg: "#FEF2F2" },
-            { value: counters.users.toLocaleString("fr-FR") + "+", label: "candidats ont\noptimisé leur CV", sublabel: "note moyenne 4,9/5", color: C.blue, bg: C.blueLight },
-            { value: "30s", label: "pour générer\nun CV ATS-optimisé", sublabel: "garanti sans carte bancaire", color: C.green, bg: C.greenLight },
+            { value: counters.pct + "%", label: "des CV filtrés\npar les ATS", sublabel: "avant tout recruteur humain", color: C.red, bg: "#ffffff" },
+            { value: counters.users.toLocaleString("fr-FR") + "+", label: "candidats ont\noptimisé leur CV", sublabel: "note moyenne 4,9/5", color: C.blue, bg: "#ffffff" },
+            { value: "30s", label: "pour générer\nun CV ATS-optimisé", sublabel: "garanti sans carte bancaire", color: C.green, bg: "#ffffff" },
           ].map((s, i) => (
-            <div key={i} className="stat-card cv-card-pad" style={{ background: s.bg, borderRadius: 18, padding: "28px 24px", border: `1px solid rgba(0,0,0,0.04)` }}>
+            <div key={i} className="stat-card cv-card-pad" style={{ background: s.bg, borderRadius: 18, padding: "28px 24px", border: `1px solid ${C.border}`, boxShadow: C.shadow }}>
               <div className="cv-stat-num" style={{ fontSize: "clamp(38px,5vw,58px)", fontWeight: 900, color: s.color, letterSpacing: "-2px", lineHeight: 1, marginBottom: 8, fontVariantNumeric: "tabular-nums" }}>
                 {s.value}
               </div>

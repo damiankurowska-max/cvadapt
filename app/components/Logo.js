@@ -18,19 +18,23 @@ export default function Logo({ size = 36, className = "" }) {
       <rect width="512" height="512" rx="115" fill="url(#logoBg)"/>
 
       {/* P — tige verticale */}
-      <rect x="130" y="110" width="68" height="292" rx="34" fill="white"/>
+      <rect x="128" y="108" width="72" height="296" rx="36" fill="white"/>
 
-      {/* P — bosse droite (demi-cercle) */}
+      {/* P — bosse (demi-cercle plein, plus lisible à petite taille) */}
       <path
-        d="M198 110 L278 110
-           C340 110 384 150 384 210
-           C384 270 340 310 278 310
-           L198 310"
-        stroke="white"
-        strokeWidth="68"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
+        d="M200 108 L290 108
+           C368 108 412 152 412 212
+           C412 272 368 316 290 316
+           L200 316 Z"
+        fill="white"
+      />
+      {/* Trou intérieur pour créer le P creux */}
+      <path
+        d="M200 160 L282 160
+           C338 160 358 180 358 212
+           C358 244 338 264 282 264
+           L200 264 Z"
+        fill="url(#logoBg)"
       />
     </svg>
   );
