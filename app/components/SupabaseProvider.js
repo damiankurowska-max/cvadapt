@@ -4,10 +4,16 @@ import { createBrowserClient } from "@supabase/ssr";
 
 const SupabaseContext = createContext(null);
 
+const SUPABASE_URL = "https://dhofekpfpunvabcrbfek.supabase.co";
+const SUPABASE_ANON = "sb_publishable_2kAnmX2nmXkfWnCJioFoag_fSD2hwG2";
+
 export function SupabaseProvider({ url, anonKey, children }) {
   const supabase = useMemo(
-    () => createBrowserClient(url, anonKey),
-    [url, anonKey]
+    () => createBrowserClient(
+      SUPABASE_URL,
+      SUPABASE_ANON
+    ),
+    []
   );
   return (
     <SupabaseContext.Provider value={supabase}>
