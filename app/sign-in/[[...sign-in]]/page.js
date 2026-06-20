@@ -13,6 +13,7 @@ export default function SignInPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [showPwd, setShowPwd] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -81,8 +82,14 @@ export default function SignInPage() {
             </div>
             <div style={{ marginBottom: 20 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 6 }}>Mot de passe</label>
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)} required
-                style={{ width: "100%", padding: "11px 14px", border: "1.5px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} />
+              <div style={{ position: "relative" }}>
+                <input type={showPwd ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} required
+                  style={{ width: "100%", padding: "11px 44px 11px 14px", border: "1.5px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} />
+                <button type="button" onClick={() => setShowPwd(v => !v)}
+                  style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#94a3b8", padding: 2 }}>
+                  {showPwd ? "🙈" : "👁️"}
+                </button>
+              </div>
             </div>
             {error && <p style={{ fontSize: 13, color: "#ef4444", background: "#fef2f2", padding: "10px 14px", borderRadius: 8, marginBottom: 16 }}>{error}</p>}
             <button type="submit" disabled={loading} style={{ width: "100%", padding: "13px", background: loading ? "#93c5fd" : "#2563eb", color: "#fff", border: "none", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer" }}>
