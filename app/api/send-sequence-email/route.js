@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { clerkClient } from "@clerk/nextjs/server";
+
 import {
   atsEducationEmail,
   testimonialEmail,

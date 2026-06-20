@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+
 import { getUserCVHistory, getCVById, deleteCV } from "@/lib/supabase";
 
 // GET /api/cv-history → liste des CV de l'utilisateur connecté

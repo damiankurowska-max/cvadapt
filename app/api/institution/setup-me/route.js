@@ -3,7 +3,7 @@
  * Crée l'établissement demo — lookup Clerk par email côté serveur.
  * Protégé par ADMIN_SECRET.
  */
-import { clerkClient } from "@clerk/nextjs/server";
+
 import { createInstitution, getUserInstitution, joinInstitution } from "@/lib/supabase";
 
 const SETUP_SECRET = process.env.ADMIN_SECRET;

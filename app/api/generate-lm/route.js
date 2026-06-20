@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+
 import { sanitizeInput } from "@/lib/rate-limit";
 
 // const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }); — initialized per-request

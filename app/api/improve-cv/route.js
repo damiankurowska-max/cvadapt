@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+
 import { sanitizeInput } from "@/lib/rate-limit";
 
 export async function POST(req) {

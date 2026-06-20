@@ -9,7 +9,7 @@
  * après envoi pour ne pas renvoyer le lendemain.
  */
 import { Resend } from "resend";
-import { clerkClient } from "@clerk/nextjs/server";
+
 import { noCvReminderEmail } from "@/lib/email-templates";
 import { alertCronFailure } from "@/lib/monitoring";
 

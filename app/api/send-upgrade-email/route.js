@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+
 import { upgradeReminderEmail } from "@/lib/email-templates";
 
 // resend initialized per-request

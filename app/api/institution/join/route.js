@@ -3,9 +3,9 @@
  * Rattache l'utilisateur connecté à un établissement via son slug.
  * Appelé depuis la page /join/[slug] après connexion Clerk.
  */
-import { auth } from "@clerk/nextjs/server";
+
 import { getInstitutionBySlug, joinInstitution, getUserInstitution } from "@/lib/supabase";
-import { clerkClient } from "@clerk/nextjs/server";
+
 
 export async function POST(request) {
   const { userId } = await auth();

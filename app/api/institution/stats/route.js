@@ -3,7 +3,7 @@
  * Retourne les stats d'un établissement.
  * Accessible uniquement à l'admin (adminUserId === userId Clerk).
  */
-import { auth } from "@clerk/nextjs/server";
+
 import { getInstitutionStats, getUserInstitution } from "@/lib/supabase";
 
 export async function GET(request) {

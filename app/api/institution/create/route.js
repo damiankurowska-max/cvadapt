@@ -3,7 +3,7 @@
  * Crée un établissement après paiement Stripe (ou manuellement par l'admin Damian).
  * Protégé par ADMIN_SECRET. Si adminUserId est absent, utilise le user Clerk authentifié.
  */
-import { auth, currentUser } from "@clerk/nextjs/server";
+
 import { createInstitution } from "@/lib/supabase";
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;

@@ -3,7 +3,7 @@
  * Crédite +2 CV gratuits au nouvel utilisateur (referee)
  * et +1 CV au parrain (referrer) via son code.
  */
-import { auth, clerkClient } from "@clerk/nextjs/server";
+
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(req) {
