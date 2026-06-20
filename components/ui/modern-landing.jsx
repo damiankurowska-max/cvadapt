@@ -331,15 +331,22 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
             <a href="/tarifs" style={{ color: C.slate, fontSize: 14, fontWeight: 500, textDecoration: "none" }}>Tarifs</a>
           </div>
           {user ? (
-            <a href="/account" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "6px 16px 6px 6px", borderRadius: 999, border: `1.5px solid ${C.border}`, background: "#fff" }}>
+            <a href="/account" style={{
+              display: "flex", alignItems: "center", gap: 8, textDecoration: "none",
+              padding: "5px 14px 5px 5px", borderRadius: 999,
+              background: "rgba(37,99,235,0.06)",
+              border: `1.5px solid rgba(37,99,235,0.15)`,
+              backdropFilter: "blur(8px)",
+              transition: "background 0.15s",
+            }}>
               {user.user_metadata?.avatar_url ? (
-                <img src={user.user_metadata.avatar_url} style={{ width: 30, height: 30, borderRadius: "50%", objectFit: "cover" }} alt="" />
+                <img src={user.user_metadata.avatar_url} style={{ width: 28, height: 28, borderRadius: "50%", objectFit: "cover" }} alt="" />
               ) : (
-                <div style={{ width: 30, height: 30, borderRadius: "50%", background: C.blue, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 800, fontSize: 13 }}>
+                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "linear-gradient(135deg,#7AAAF9,#3B6EE8)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 800, fontSize: 12 }}>
                   {(user.user_metadata?.full_name || user.email || "U")[0].toUpperCase()}
                 </div>
               )}
-              <span style={{ fontSize: 13, fontWeight: 600, color: C.navy }}>
+              <span style={{ fontSize: 13, fontWeight: 600, color: C.blue }}>
                 {user.user_metadata?.full_name?.split(" ")[0] || "Mon profil"}
               </span>
             </a>
