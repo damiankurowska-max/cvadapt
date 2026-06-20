@@ -102,8 +102,8 @@ export default function SignInPage() {
                 </button>
               </div>
             </div>
-            <div style={{ textAlign: "right", marginBottom: 20 }}>
-              <Link href="/forgot-password" style={{ fontSize: 12, color: "#2563eb", textDecoration: "none" }}>Mot de passe oublié ?</Link>
+            <div style={{ textAlign: "center", marginBottom: 20 }}>
+              <Link href="/forgot-password" style={{ fontSize: 13, color: "#2563eb", textDecoration: "none" }}>Mot de passe oublié ?</Link>
             </div>
             {error && <p style={{ fontSize: 13, color: "#ef4444", background: "#fef2f2", padding: "10px 14px", borderRadius: 8, marginBottom: 16 }}>{error}</p>}
             <button type="submit" disabled={loading} style={{ width: "100%", padding: "13px", background: loading ? "#93c5fd" : "#2563eb", color: "#fff", border: "none", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer" }}>
