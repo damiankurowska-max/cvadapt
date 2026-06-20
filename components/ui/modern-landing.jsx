@@ -407,46 +407,34 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
             <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB · 3 CV gratuits</span>
           </div>
 
-          <div style={{ marginTop: 14 }}>
-            <p style={{ fontSize: 11, fontWeight: 700, color: C.slateLight, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+          <div style={{ marginTop: 12 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: C.slateLight, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6 }}>
               Génère ton CV en :
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
               {[
-                { flag: "🇫🇷", code: "fr", name: "Français" },
-                { flag: "🇬🇧", code: "en", name: "Anglais" },
-                { flag: "🇩🇪", code: "de", name: "Allemand" },
-                { flag: "🇪🇸", code: "es", name: "Espagnol" },
-                { flag: "🇮🇹", code: "it", name: "Italien" },
-                { flag: "🇵🇹", code: "pt", name: "Portugais" },
-                { flag: "🇳🇱", code: "nl", name: "Néerlandais" },
-                { flag: "🇵🇱", code: "pl", name: "Polonais" },
-                { flag: "🇰🇷", code: "ko", name: "Coréen" },
-                { flag: "🇯🇵", code: "ja", name: "Japonais" },
-                { flag: "🇸🇪", code: "sv", name: "Suédois" },
-                { flag: "🇫🇮", code: "fi", name: "Finnois" },
-                { flag: "🇸🇦", code: "ar", name: "Arabe" },
-                { flag: "🇷🇺", code: "ru", name: "Russe" },
-                { flag: "🇨🇳", code: "zh", name: "Chinois" },
-                { flag: "🇮🇳", code: "hi", name: "Hindi" },
-                { flag: "🇮🇱", code: "he", name: "Hébreu" },
-                { flag: "🇹🇷", code: "tr", name: "Turc" },
+                { flag: "🇫🇷", code: "fr" }, { flag: "🇬🇧", code: "en" },
+                { flag: "🇩🇪", code: "de" }, { flag: "🇪🇸", code: "es" },
+                { flag: "🇮🇹", code: "it" }, { flag: "🇵🇹", code: "pt" },
+                { flag: "🇳🇱", code: "nl" }, { flag: "🇵🇱", code: "pl" },
+                { flag: "🇰🇷", code: "ko" }, { flag: "🇯🇵", code: "ja" },
+                { flag: "🇸🇪", code: "sv" }, { flag: "🇫🇮", code: "fi" },
+                { flag: "🇸🇦", code: "ar" }, { flag: "🇷🇺", code: "ru" },
+                { flag: "🇨🇳", code: "zh" }, { flag: "🇮🇳", code: "hi" },
+                { flag: "🇮🇱", code: "he" }, { flag: "🇹🇷", code: "tr" },
               ].map((l) => (
                 <a key={l.code} href={`/generate?cvlang=${l.code}`}
-                  title={`CV en ${l.name}`}
                   style={{
-                    display: "inline-flex", alignItems: "center", gap: 5,
-                    padding: "5px 10px", borderRadius: 999,
+                    display: "inline-flex", alignItems: "center",
+                    padding: "3px 7px", borderRadius: 999,
                     border: `1px solid ${C.border}`, background: C.bg,
-                    fontSize: 13, fontWeight: 600, color: C.navy,
-                    textDecoration: "none", cursor: "pointer",
-                    transition: "border-color 0.15s, background 0.15s",
+                    fontSize: 16, textDecoration: "none", cursor: "pointer",
+                    transition: "border-color 0.15s",
                   }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = C.blue; e.currentTarget.style.background = C.blueLight; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.bg; }}
                 >
-                  <span style={{ fontSize: 16 }}>{l.flag}</span>
-                  <span>{l.name}</span>
+                  {l.flag}
                 </a>
               ))}
             </div>
