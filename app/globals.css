@@ -395,6 +395,35 @@ body {
     margin-bottom: 0 !important;
   }
 
+  /* ── FAQ : scroll horizontal cartes ── */
+  .faq-accordion {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 12px !important;
+    margin: 0 -20px !important;
+    padding: 4px 20px 12px !important;
+    align-items: stretch !important;
+  }
+  .faq-item {
+    min-width: 270px !important;
+    max-width: 270px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
+    border-radius: 14px !important;
+  }
+  .faq-item button {
+    align-items: flex-start !important;
+    min-height: 80px !important;
+  }
+
+  /* ── STEPS : fix blanc en bas ── */
+  .steps-section { padding-bottom: 40px !important; }
+  .steps-section .cv-py { padding-bottom: 40px !important; }
+  .steps-swipe { margin-bottom: 0 !important; }
+  .steps-section > div { padding-bottom: 0 !important; }
+
   /* ── GUIDES : scroll horizontal ── */
   .guides-grid {
     display: flex !important;

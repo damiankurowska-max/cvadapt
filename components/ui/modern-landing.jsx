@@ -726,9 +726,9 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
       <section className="cv-section cv-py" style={{ padding: "88px 40px" }}>
         <div style={{ maxWidth: 620, margin: "0 auto" }}>
           <h2 className="cv-h2" style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 900, letterSpacing: "-1px", textAlign: "center", marginBottom: 40 }}>Questions fréquentes</h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <div className="faq-accordion" style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             {faqItems.map((item, i) => (
-              <div key={i} style={{ border: `1px solid ${C.border}`, borderRadius: 13, overflow: "hidden" }}>
+              <div key={i} className="faq-item" style={{ border: `1px solid ${C.border}`, borderRadius: 13, overflow: "hidden" }}>
                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "15px 17px", background: openFaq === i ? C.bgAlt : C.bg, border: "none", cursor: "pointer", textAlign: "left", gap: 12 }}>
                   <span style={{ fontWeight: 600, color: C.navy, fontSize: 14 }}>{item.q}</span>
