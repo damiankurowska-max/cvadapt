@@ -34,7 +34,7 @@ export default function SignInPage() {
             appearance={{ theme: ThemeSupa, variables: { default: { colors: { brand: "#2563eb", brandAccent: "#1d4ed8" } } } }}
             redirectTo={typeof window !== "undefined" ? `${window.location.origin}/generate` : "/generate"}
             view="sign_in"
-            providers={[]}
+            providers={["google"]}
           />
           <div style={{ marginTop: 16, textAlign: "center" }}>
             <Link href="/sign-up" style={{ fontSize: 13, color: "#64748b", textDecoration: "none" }}>

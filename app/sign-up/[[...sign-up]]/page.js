@@ -37,7 +37,7 @@ export default function SignUpPage() {
             supabaseClient={supabase}
             view="sign_up"
             appearance={{ theme: ThemeSupa, variables: { default: { colors: { brand: "#2563eb", brandAccent: "#1d4ed8" } } } }}
-            providers={[]}
+            providers={["google"]}
             redirectTo={typeof window !== "undefined" ? `${window.location.origin}/generate` : "/generate"}
           />
           <div style={{ marginTop: 16, textAlign: "center" }}>
