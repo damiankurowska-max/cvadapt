@@ -245,6 +245,39 @@ body {
   /* Step cards : plein largeur */
   .step-card { padding: 20px !important; }
 
+  /* ── DEMO SECTION : colonne unique, mockup masqué ── */
+  .demo-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .demo-screen {
+    display: none !important;
+  }
+  .demo-grid > div:first-child > a {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .demo-grid button {
+    padding: 14px 16px !important;
+  }
+
+  /* ── GUIDES : scroll horizontal ── */
+  .guides-grid {
+    display: flex !important;
+    grid-template-columns: unset !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 12px !important;
+    margin: 0 -20px !important;
+    padding: 4px 20px 12px !important;
+  }
+  .guides-grid > a {
+    min-width: 260px !important;
+    max-width: 260px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
+  }
+
   /* Compare : 1 colonne */
   .compare-before, .compare-after { padding: 20px !important; }
 }

@@ -204,7 +204,7 @@ function DemoSection() {
             />
           </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: 32, alignItems: "start" }}>
+          <div className="demo-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: 32, alignItems: "start" }}>
             {/* Steps nav */}
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
               {DEMO_STEPS.map((s, i) => (
@@ -236,7 +236,7 @@ function DemoSection() {
             </div>
 
             {/* Screen preview */}
-            <div style={{ background: "#111827", borderRadius: 14, overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}>
+            <div className="demo-screen" style={{ background: "#111827", borderRadius: 14, overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}>
               {/* Browser chrome */}
               <div style={{ background: "#1E293B", padding: "10px 16px", display: "flex", alignItems: "center", gap: 8, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                 <div style={{ display: "flex", gap: 5 }}>
@@ -754,7 +754,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
               Tout ce qu'il faut savoir pour décrocher un entretien
             </h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
+          <div className="guides-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
             {[
               { href: "/blog/comment-optimiser-son-cv", icon: "🎯", cat: "Guide essentiel", title: "Comment optimiser son CV en 2025", desc: "Le guide complet pour passer les filtres ATS et ×3 tes réponses." },
               { href: "/blog/cv-ats-passer-les-filtres-automatiques", icon: "🤖", cat: "ATS & Mots-clés", title: "CV ATS : passer les filtres automatiques", desc: "5 règles vérifiées sur +1 000 candidatures réelles." },
