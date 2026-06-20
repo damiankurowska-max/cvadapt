@@ -777,16 +777,24 @@ export default function Generate() {
             </div>
           )}
 
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <Link href="/account" style={{ fontSize: 12, color: "#64748b", textDecoration: "none", padding: "5px 12px", border: "1px solid #e2e8f0", borderRadius: 8, background: "#fff" }}>
-              {sbUser ? "Mon profil" : "Se connecter"}
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <Link href="/account" style={{ textDecoration: "none" }}>
+              {sbUser ? (
+                <div style={{
+                  width: 34, height: 34, borderRadius: "50%",
+                  background: "linear-gradient(135deg,#7AAAF9,#3B6EE8)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  color: "#fff", fontWeight: 800, fontSize: 13, flexShrink: 0,
+                  boxShadow: "0 2px 8px rgba(37,99,235,0.3)",
+                }}>
+                  {(sbUser.user_metadata?.full_name || sbUser.email || "?")[0].toUpperCase()}
+                </div>
+              ) : (
+                <div style={{ fontSize: 12, color: "#2563eb", fontWeight: 700, padding: "6px 12px", borderRadius: 999, background: "#eff6ff", border: "1px solid #bfdbfe" }}>
+                  Connexion
+                </div>
+              )}
             </Link>
-            {sbUser && <button
-                onClick={() => supabase.auth.signOut().then(() => router.push("/"))}
-                style={{ fontSize: 12, color: "#94a3b8", background: "none", border: "none", cursor: "pointer", padding: "4px 8px" }}
-              >
-                Déconnexion
-              </button>}
           </div>
         </div>
       </header>
