@@ -1,68 +1,40 @@
-import https from "https";
+// Clerk proxy: routes /api/clerk-proxy/* → frontend-api.clerk.services/*
+// Clerk JS is loaded from jsDelivr CDN directly.
+// API calls come here and are forwarded server-side (Vercel → Clerk, no CF conflict).
 
-// Direct TCP connection to Clerk's FAPI IP, bypassing DNS and Cloudflare conflict.
-// Sets SNI + Host to clerk.postulera.com so Clerk identifies the correct instance.
-
-const CLERK_HOST = "clerk.postulera.com";
-// Clerk FAPI IPs (from DNS resolution of frontend-api.clerk.services)
-const CLERK_IP = "172.64.153.110";
-
-function rawRequest(method, path, headers, body) {
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: CLERK_IP,
-      port: 443,
-      path,
-      method,
-      servername: CLERK_HOST, // SNI
-      headers: { ...headers, host: CLERK_HOST },
-      rejectUnauthorized: false, // Clerk cert is valid for clerk.postulera.com via wildcard
-    };
-    const req = https.request(options, (res) => {
-      const chunks = [];
-      res.on("data", (c) => chunks.push(c));
-      res.on("end", () => resolve({ status: res.statusCode, headers: res.headers, body: Buffer.concat(chunks) }));
-    });
-    req.on("error", reject);
-    if (body && body.length) req.write(body);
-    req.end();
-  });
-}
+const FAPI = "https://frontend-api.clerk.services";
 
 async function clerkProxy(request) {
   const url = new URL(request.url);
-  const clerkPath = url.pathname.replace(/^\/api\/clerk-proxy/, "") || "/";
-  const fullPath = `${clerkPath}${url.search}`;
+  const path = url.pathname.replace(/^\/api\/clerk-proxy/, "") || "/";
+  const targetUrl = `${FAPI}${path}${url.search}`;
 
-  // Forward select headers
-  const fwdHeaders = {
-    "x-clerk-proxy-url": "https://postulera.com/api/clerk-proxy",
-  };
-  for (const k of ["cookie", "authorization", "content-type", "accept", "user-agent",
-    "x-forwarded-for", "_clerk_js_version", "origin", "referer"]) {
-    const v = request.headers.get(k);
-    if (v) fwdHeaders[k] = v;
+  // Forward headers but strip problematic ones
+  const headers = {};
+  for (const [k, v] of request.headers.entries()) {
+    const lower = k.toLowerCase();
+    if (["host", "connection", "content-length"].includes(lower)) continue;
+    headers[k] = v;
   }
+  // Tell Clerk which proxy this came from
+  headers["x-clerk-proxy-url"] = "https://postulera.com/api/clerk-proxy";
+  // Include publishable key so Clerk identifies the instance
+  headers["x-publishable-key"] = "pk_live_Y2xlcmsucG9zdHVsZXJhLmNvbSQ";
 
-  let bodyBuf;
+  const init = { method: request.method, headers };
   if (!["GET", "HEAD"].includes(request.method)) {
-    bodyBuf = Buffer.from(await request.arrayBuffer());
-    if (bodyBuf.length) fwdHeaders["content-length"] = String(bodyBuf.length);
+    try { init.body = await request.arrayBuffer(); } catch {}
   }
 
   try {
-    const { status, headers: resHeaders, body } = await rawRequest(
-      request.method, fullPath, fwdHeaders, bodyBuf
-    );
-
-    const outHeaders = {};
-    for (const [k, v] of Object.entries(resHeaders)) {
-      if (!["transfer-encoding", "connection"].includes(k)) {
-        outHeaders[k] = Array.isArray(v) ? v.join(", ") : v;
+    const res = await fetch(targetUrl, init);
+    const resHeaders = {};
+    for (const [k, v] of res.headers.entries()) {
+      if (!["transfer-encoding", "connection", "content-encoding"].includes(k.toLowerCase())) {
+        resHeaders[k] = v;
       }
     }
-
-    return new Response(body, { status, headers: outHeaders });
+    return new Response(res.body, { status: res.status, headers: resHeaders });
   } catch (err) {
     return new Response(
       JSON.stringify({ error: "proxy_error", detail: err.message }),
