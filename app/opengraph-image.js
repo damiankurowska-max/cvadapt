@@ -61,7 +61,7 @@ export default function OGImage() {
                 background: "linear-gradient(135deg, #2563eb, #7c3aed)",
                 boxShadow: "0 0 30px rgba(37,99,235,0.5)",
               }}>
-                <div style={{ fontSize: "28px", fontWeight: 900, color: "white", display: "flex" }}>C</div>
+                <div style={{ fontSize: "28px", fontWeight: 900, color: "white", display: "flex" }}>P</div>
               </div>
               <div style={{ fontSize: "32px", fontWeight: 800, color: "white", display: "flex", letterSpacing: "-0.5px" }}>
                 Postulera
@@ -108,12 +108,12 @@ export default function OGImage() {
                 display: "flex", flexDirection: "column", gap: "4px",
                 padding: "16px 24px",
                 borderRadius: "16px",
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.1)",
+                background: "white",
+                border: "1px solid rgba(255,255,255,0.2)",
                 flex: 1,
               }}>
-                <div style={{ fontSize: "32px", fontWeight: 800, color: "white", display: "flex" }}>{value}</div>
-                <div style={{ fontSize: "14px", color: "rgba(255,255,255,0.5)", display: "flex" }}>{label}</div>
+                <div style={{ fontSize: "32px", fontWeight: 800, color: "#0f172a", display: "flex" }}>{value}</div>
+                <div style={{ fontSize: "14px", color: "#64748b", display: "flex" }}>{label}</div>
               </div>
             ))}
           </div>
