@@ -1,22 +1,43 @@
-async function clerkProxy(request, { params }) {
-  const path = ((await params)?.path || []).join("/");
-  const searchParams = new URL(request.url).searchParams.toString();
-  const clerkUrl = `https://frontend-api.clerk.services/${path}${searchParams ? `?${searchParams}` : ""}`;
+const CLERK_FAPI = "https://clerk.postulera.com";
 
-  const headers = new Headers(request.headers);
-  headers.set("host", "frontend-api.clerk.services");
+async function clerkProxy(request) {
+  const url = new URL(request.url);
+  const clerkPath = url.pathname.replace(/^\/api\/clerk-proxy/, "") || "/";
+  const clerkUrl = `${CLERK_FAPI}${clerkPath}${url.search}`;
 
-  const init = { method: request.method, headers };
+  const reqHeaders = new Headers();
+  for (const [key, value] of request.headers.entries()) {
+    if (!["host", "content-length"].includes(key.toLowerCase())) {
+      reqHeaders.set(key, value);
+    }
+  }
+  reqHeaders.set("x-clerk-proxy-url", "https://postulera.com/api/clerk-proxy");
+
+  const init = { method: request.method, headers: reqHeaders, redirect: "follow" };
   if (!["GET", "HEAD"].includes(request.method)) {
-    init.body = await request.arrayBuffer();
-    init.duplex = "half";
+    try { init.body = await request.arrayBuffer(); init.duplex = "half"; } catch {}
   }
 
-  return fetch(clerkUrl, init);
+  try {
+    const res = await fetch(clerkUrl, init);
+    const resHeaders = new Headers();
+    for (const [key, value] of res.headers.entries()) {
+      if (!["content-encoding", "transfer-encoding", "connection"].includes(key.toLowerCase())) {
+        resHeaders.set(key, value);
+      }
+    }
+    return new Response(res.body, { status: res.status, headers: resHeaders });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: "proxy_error", detail: err.message }), {
+      status: 502,
+      headers: { "content-type": "application/json" },
+    });
+  }
 }
 
-export async function GET(request, ctx) { return clerkProxy(request, ctx); }
-export async function POST(request, ctx) { return clerkProxy(request, ctx); }
-export async function PUT(request, ctx) { return clerkProxy(request, ctx); }
-export async function DELETE(request, ctx) { return clerkProxy(request, ctx); }
-export async function PATCH(request, ctx) { return clerkProxy(request, ctx); }
+export async function GET(req) { return clerkProxy(req); }
+export async function POST(req) { return clerkProxy(req); }
+export async function PUT(req) { return clerkProxy(req); }
+export async function DELETE(req) { return clerkProxy(req); }
+export async function PATCH(req) { return clerkProxy(req); }
+export async function OPTIONS(req) { return clerkProxy(req); }
