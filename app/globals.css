@@ -260,28 +260,61 @@ body {
     padding: 14px 16px !important;
   }
 
-  /* ── GENERATE PAGE : template grid 2 colonnes ── */
-  .step-card > form > div:first-of-type,
-  .step-card div[style*="repeat(3, 1fr)"] {
-    grid-template-columns: repeat(2, 1fr) !important;
+  /* ── GENERATE PAGE : colonne unique sur mobile ── */
+  .gen-split {
+    flex-direction: column !important;
+  }
+  /* Quand CV généré : cache le formulaire, montre seulement le résultat */
+  .gen-split .gen-form-col {
+    display: none !important;
+  }
+  .gen-result-col {
+    width: 100% !important;
+    position: static !important;
+    max-height: none !important;
+    overflow-y: visible !important;
   }
 
-  /* ── GENERATE : success bar stack vertical ── */
-  .bg-green-50.flex { flex-direction: column !important; align-items: flex-start !important; }
-  .bg-green-50 .flex.gap-3 { width: 100% !important; }
-  .bg-green-50 .flex.gap-3 > button { flex: 1 !important; justify-content: center !important; }
+  /* ── GENERATE : success bar compact ── */
+  .bg-green-50 { flex-wrap: wrap !important; gap: 8px !important; }
+  .bg-green-50 .flex.gap-3 { flex: 1 !important; justify-content: flex-end !important; }
 
-  /* ── GENERATE : CV preview scale to fit ── */
+  /* ── GENERATE : CV preview scrollable horizontal ── */
   .gen-result-col [style*="overflowX"] {
-    overflow-x: hidden !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
-  .gen-result-col .p-5 {
-    transform: scale(0.42) !important;
-    transform-origin: top left !important;
-    width: 238% !important;
-    height: 42% !important;
-    overflow: hidden !important;
-    padding: 0 !important;
+  .gen-result-col .p-5,
+  .gen-result-col .p-5.sm\:p-10 {
+    padding: 8px !important;
+  }
+
+  /* ── GENERATE : templates scroll horizontal ── */
+  .gen-templates-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 10px !important;
+    padding-bottom: 8px !important;
+    margin: 0 -4px !important;
+    padding-left: 4px !important;
+  }
+  .gen-templates-grid > button {
+    min-width: 140px !important;
+    max-width: 140px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
+  }
+
+  /* ── GENERATE : popup modal full screen mobile ── */
+  [class*="UpgradeModal"] > div,
+  .fixed.inset-0 > div.bg-white,
+  .fixed.inset-0 > div.rounded-3xl {
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    margin: 5vh 8px !important;
+    border-radius: 16px !important;
   }
 
   /* ── GUIDES : scroll horizontal ── */

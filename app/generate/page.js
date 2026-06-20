@@ -1133,7 +1133,7 @@ export default function Generate() {
                   <p style={{ fontSize: 14, color: "#64748b", marginBottom: 20, lineHeight: 1.6 }}>{tr(lang, "step3Subtitle")}</p>
 
                   {/* Galerie templates */}
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginBottom: 22 }}>
+                  <div className="gen-templates-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginBottom: 22 }}>
                     {TEMPLATES.map((tmpl) => {
                       const sel = template === tmpl.id;
                       return (
