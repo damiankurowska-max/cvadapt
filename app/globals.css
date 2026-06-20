@@ -260,6 +260,30 @@ body {
     padding: 14px 16px !important;
   }
 
+  /* ── GENERATE PAGE : template grid 2 colonnes ── */
+  .step-card > form > div:first-of-type,
+  .step-card div[style*="repeat(3, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ── GENERATE : success bar stack vertical ── */
+  .bg-green-50.flex { flex-direction: column !important; align-items: flex-start !important; }
+  .bg-green-50 .flex.gap-3 { width: 100% !important; }
+  .bg-green-50 .flex.gap-3 > button { flex: 1 !important; justify-content: center !important; }
+
+  /* ── GENERATE : CV preview scale to fit ── */
+  .gen-result-col [style*="overflowX"] {
+    overflow-x: hidden !important;
+  }
+  .gen-result-col .p-5 {
+    transform: scale(0.42) !important;
+    transform-origin: top left !important;
+    width: 238% !important;
+    height: 42% !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+  }
+
   /* ── GUIDES : scroll horizontal ── */
   .guides-grid {
     display: flex !important;
