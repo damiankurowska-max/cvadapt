@@ -1,51 +1,53 @@
-// Clerk proxy: routes /api/clerk-proxy/* → frontend-api.clerk.services/*
-// Clerk JS is loaded from jsDelivr CDN directly.
-// API calls come here and are forwarded server-side (Vercel → Clerk, no CF conflict).
+// Clerk proxy: simple passthrough to frontend-api.clerk.services
 
-const FAPI = "https://frontend-api.clerk.services";
-
-async function clerkProxy(request) {
-  const url = new URL(request.url);
-  const path = url.pathname.replace(/^\/api\/clerk-proxy/, "") || "/";
-  const targetUrl = `${FAPI}${path}${url.search}`;
-
-  // Forward headers but strip problematic ones
-  const headers = {};
-  for (const [k, v] of request.headers.entries()) {
-    const lower = k.toLowerCase();
-    if (["host", "connection", "content-length"].includes(lower)) continue;
-    headers[k] = v;
-  }
-  // Tell Clerk which proxy this came from
-  headers["x-clerk-proxy-url"] = "https://postulera.com/api/clerk-proxy";
-  // Include publishable key so Clerk identifies the instance
-  headers["x-publishable-key"] = "pk_live_Y2xlcmsucG9zdHVsZXJhLmNvbSQ";
-
-  const init = { method: request.method, headers };
-  if (!["GET", "HEAD"].includes(request.method)) {
-    try { init.body = await request.arrayBuffer(); } catch {}
-  }
-
-  try {
-    const res = await fetch(targetUrl, init);
-    const resHeaders = {};
-    for (const [k, v] of res.headers.entries()) {
-      if (!["transfer-encoding", "connection", "content-encoding"].includes(k.toLowerCase())) {
-        resHeaders[k] = v;
-      }
-    }
-    return new Response(res.body, { status: res.status, headers: resHeaders });
-  } catch (err) {
-    return new Response(
-      JSON.stringify({ error: "proxy_error", detail: err.message }),
-      { status: 502, headers: { "content-type": "application/json" } }
-    );
-  }
+export async function GET(req) { return proxy(req); }
+export async function POST(req) { return proxy(req); }
+export async function PUT(req) { return proxy(req); }
+export async function DELETE(req) { return proxy(req); }
+export async function PATCH(req) { return proxy(req); }
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "access-control-allow-origin": "*",
+      "access-control-allow-methods": "GET,POST,PUT,DELETE,PATCH,OPTIONS",
+      "access-control-allow-headers": "*",
+    },
+  });
 }
 
-export async function GET(req) { return clerkProxy(req); }
-export async function POST(req) { return clerkProxy(req); }
-export async function PUT(req) { return clerkProxy(req); }
-export async function DELETE(req) { return clerkProxy(req); }
-export async function PATCH(req) { return clerkProxy(req); }
-export async function OPTIONS(req) { return clerkProxy(req); }
+async function proxy(req) {
+  try {
+    const url = new URL(req.url);
+    const path = url.pathname.replace(/^\/api\/clerk-proxy/, "") || "/";
+    const target = `https://frontend-api.clerk.services${path}${url.search}`;
+
+    const headers = new Headers();
+    for (const [k, v] of req.headers) {
+      const l = k.toLowerCase();
+      if (l === "host" || l === "content-length" || l === "connection") continue;
+      headers.set(k, v);
+    }
+
+    const init = { method: req.method, headers };
+    if (req.method !== "GET" && req.method !== "HEAD") {
+      const body = await req.arrayBuffer();
+      if (body.byteLength > 0) init.body = body;
+    }
+
+    const res = await fetch(target, init);
+
+    const resHeaders = new Headers();
+    for (const [k, v] of res.headers) {
+      if (["transfer-encoding", "connection"].includes(k.toLowerCase())) continue;
+      resHeaders.set(k, v);
+    }
+    resHeaders.set("access-control-allow-origin", "*");
+
+    const body = await res.arrayBuffer();
+    return new Response(body, { status: res.status, headers: resHeaders });
+
+  } catch (e) {
+    return Response.json({ ok: false, error: e.message }, { status: 502 });
+  }
+}
