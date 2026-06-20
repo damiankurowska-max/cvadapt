@@ -125,8 +125,13 @@ body {
   /* Header mobile */
   .cv-nav-links { display: none !important; }
 
-  /* "Se connecter" → icône uniquement sur mobile */
-  .cv-signin-mobile-hide { display: none !important; }
+  /* "Se connecter" compact sur mobile */
+  .cv-signin-mobile-hide {
+    padding: 7px 10px !important;
+    font-size: 12px !important;
+    border-radius: 999px !important;
+    display: inline-flex !important;
+  }
 
   /* "S'inscrire" compact */
   .cv-cta-btn {
