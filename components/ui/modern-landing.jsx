@@ -838,25 +838,45 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
       </a>
 
       {/* ── FOOTER ── */}
-      <footer className="cv-section" style={{ padding: "22px 40px 18px", borderTop: `1px solid ${C.border}`, background: C.bg }}>
-        <div className="cv-footer-inner" style={{ maxWidth: 960, margin: "0 auto", display: "flex", gap: 16, alignItems: "center", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <Logo size={26} />
-            <span style={{ fontWeight: 800, fontSize: 14, color: C.navy }}>Postulera</span>
+      <footer style={{ borderTop: `1px solid ${C.border}`, background: C.bg }}>
+        {/* Desktop footer */}
+        <div className="cv-footer-desktop" style={{ padding: "22px 40px 18px" }}>
+          <div className="cv-footer-inner" style={{ maxWidth: 960, margin: "0 auto", display: "flex", gap: 16, alignItems: "center", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Logo size={26} />
+              <span style={{ fontWeight: 800, fontSize: 14, color: C.navy }}>Postulera</span>
+            </div>
+            <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+              {[["Blog","/blog"],["Tarifs","/tarifs"],["Générer","/generate"],["Analyser","/analyse"],["Mentions légales","/mentions-legales"],["CGU","/cgu"]].map(([label, href]) => (
+                <a key={href} href={href} style={{ fontSize: 12, color: C.slateLight, textDecoration: "none" }}>{label}</a>
+              ))}
+            </div>
+            <p style={{ fontSize: 11, color: C.slateLight }}>© 2026 Postulera</p>
           </div>
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-            {[["Blog","/blog"],["Tarifs","/tarifs"],["Générer","/generate"],["Analyser","/analyse"],["Mentions légales","/mentions-legales"],["CGU","/cgu"]].map(([label, href]) => (
-              <a key={href} href={href} style={{ fontSize: 12, color: C.slateLight, textDecoration: "none" }}>{label}</a>
+          <div style={{ maxWidth: 960, margin: "0 auto", paddingTop: 12, borderTop: `1px solid ${C.border}`, display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
+            {[["🔒","Données SSL"],["🇪🇺","Hébergé en Europe · RGPD"],["✓","Sans carte bancaire"],["↩","Remboursé si non satisfait · 7j"]].map(([icon, text]) => (
+              <div key={text} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, color: C.slateLight }}>
+                <span>{icon}</span>{text}
+              </div>
             ))}
           </div>
-          <p style={{ fontSize: 11, color: C.slateLight }}>© 2026 Postulera</p>
         </div>
-        <div style={{ maxWidth: 960, margin: "0 auto", paddingTop: 12, borderTop: `1px solid ${C.border}`, display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
-          {[["🔒","Données SSL"],["🇪🇺","Hébergé en Europe · RGPD"],["✓","Sans carte bancaire"],["↩","Remboursé si non satisfait · 7j"]].map(([icon, text]) => (
-            <div key={text} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, color: C.slateLight }}>
-              <span>{icon}</span>{text}
-            </div>
+
+        {/* Mobile footer style Apple */}
+        <div className="cv-footer-mobile">
+          {[["Blog","/blog"],["Tarifs","/tarifs"],["Générer un CV","/generate"],["Tester mon score ATS","/analyse"],["Mentions légales","/mentions-legales"],["CGU","/cgu"]].map(([label, href]) => (
+            <a key={href} href={href} style={{ display: "block", padding: "14px 20px", fontSize: 15, color: C.navy, textDecoration: "none", borderBottom: `1px solid ${C.border}`, fontWeight: 400 }}>
+              {label}
+            </a>
           ))}
+          <div style={{ padding: "20px 20px 40px", background: C.bg }}>
+            <p style={{ fontSize: 12, color: C.slateLight, marginBottom: 12 }}>© 2026 Postulera. Tous droits réservés.</p>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {[["Confidentialité","/mentions-legales"],["Cookies","/mentions-legales"],["CGU","/cgu"]].map(([label, href]) => (
+                <a key={label} href={href} style={{ fontSize: 12, color: C.slateLight, textDecoration: "underline" }}>{label}</a>
+              ))}
+            </div>
+          </div>
         </div>
       </footer>
     </div>

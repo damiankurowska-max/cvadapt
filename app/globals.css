@@ -424,6 +424,18 @@ body {
   .steps-swipe { margin-bottom: 0 !important; }
   .steps-section > div { padding-bottom: 0 !important; }
 
+  /* ── FOOTER mobile Apple style ── */
+  .cv-footer-desktop { display: none !important; }
+  .cv-footer-mobile {
+    display: block !important;
+    background: #f5f5f7 !important;
+  }
+  .cv-footer-mobile a {
+    background: #f5f5f7 !important;
+    transition: background 0.1s;
+  }
+  .cv-footer-mobile a:active { background: #e8e8ed !important; }
+
   /* ── GUIDES : scroll horizontal ── */
   .guides-grid {
     display: flex !important;
