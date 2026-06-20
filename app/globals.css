@@ -366,12 +366,15 @@ body {
     gap: 12px !important;
     margin: 0 -20px !important;
     padding: 4px 20px 12px !important;
+    align-items: flex-start !important;
   }
   .step-swipe-item {
-    min-width: 260px !important;
-    max-width: 260px !important;
+    min-width: 240px !important;
+    max-width: 240px !important;
     flex-shrink: 0 !important;
     scroll-snap-align: start !important;
+    height: auto !important;
+    align-self: flex-start !important;
   }
 
   /* ── PRICING : scroll horizontal ── */
