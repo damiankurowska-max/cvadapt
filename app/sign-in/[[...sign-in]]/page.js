@@ -32,9 +32,9 @@ export default function SignInPage() {
           <Auth
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa, variables: { default: { colors: { brand: "#2563eb", brandAccent: "#1d4ed8" } } } }}
-            providers={["google"]}
             redirectTo={typeof window !== "undefined" ? `${window.location.origin}/generate` : "/generate"}
             view="sign_in"
+            providers={[]}
           />
           <div style={{ marginTop: 16, textAlign: "center" }}>
             <Link href="/sign-up" style={{ fontSize: 13, color: "#64748b", textDecoration: "none" }}>
