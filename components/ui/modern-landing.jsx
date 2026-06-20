@@ -524,9 +524,9 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
               Pas besoin de savoir ce qu'est un ATS. Postulera s'en charge.
             </p>
           </div>
-          <div className="cv-grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+          <div className="cv-grid-3 steps-swipe" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
             {STEPS.map((step, i) => (
-              <div key={i} className="step-card cv-card-pad" style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 18, padding: 28 }}>
+              <div key={i} className="step-card cv-card-pad step-swipe-item" style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 18, padding: 28 }}>
                 <div style={{ width: 44, height: 44, borderRadius: 12, background: C.blueLight, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, marginBottom: 14 }}>{step.icon}</div>
                 <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.1em", color: C.blue, marginBottom: 6 }}>ÉTAPE {step.n}</div>
                 <h3 style={{ fontSize: 18, fontWeight: 800, letterSpacing: "-0.5px", marginBottom: 8, color: C.navy }}>{step.label}</h3>
@@ -659,7 +659,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
             <h2 className="cv-h2" style={{ fontSize: "clamp(26px,4vw,44px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 8 }}>Ton investissement.</h2>
             <p style={{ fontSize: 14, color: C.slateLight }}>Commence gratuitement. Passe à l'accompagnement complet quand tu veux.</p>
           </div>
-          <div className="cv-grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, alignItems: "center" }}>
+          <div className="cv-grid-3 pricing-swipe" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, alignItems: "center" }}>
             <div className="price-card cv-card-pad" style={{ padding: 26, background: C.bg, border: `1px solid ${C.border}`, borderRadius: 20 }}>
               <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: C.slateLight, marginBottom: 12 }}>ESSENTIEL</p>
               <div style={{ marginBottom: 4 }}>
