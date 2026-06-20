@@ -832,7 +832,7 @@ export default function Generate() {
         </div>
       )}
 
-      <div className={cv ? "gen-split" : ""} style={!cv ? { maxWidth: 580, margin: "0 auto", padding: "32px 16px 80px" } : {}}>
+      <div className={cv ? "gen-split" : "gen-wrap"} style={!cv ? { maxWidth: 580, margin: "0 auto", padding: "32px 16px 80px", minHeight: "calc(100vh - 60px)", display: "flex", flexDirection: "column" } : {}}>
         <div className={cv ? "gen-form-col" : ""}>
           <>
             {/* Banners limite */}

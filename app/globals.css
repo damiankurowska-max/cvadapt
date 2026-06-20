@@ -263,6 +263,7 @@ body {
   /* ── GENERATE PAGE : colonne unique sur mobile ── */
   .gen-split {
     flex-direction: column !important;
+    min-height: calc(100vh - 60px) !important;
   }
   /* Quand CV généré : cache le formulaire, montre seulement le résultat */
   .gen-split .gen-form-col {
@@ -273,6 +274,24 @@ body {
     position: static !important;
     max-height: none !important;
     overflow-y: visible !important;
+    min-height: calc(100vh - 60px) !important;
+  }
+
+  /* Formulaire seul : remplit toute la hauteur pour pas de blanc */
+  .step-card {
+    min-height: calc(100vh - 120px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .step-card > div:last-child,
+  .step-card > form {
+    flex: 1 !important;
+  }
+
+  /* Container principal plein écran */
+  .gen-wrap {
+    min-height: calc(100vh - 60px) !important;
+    background: #f5f6fa !important;
   }
 
   /* ── GENERATE : success bar compact ── */
