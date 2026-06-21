@@ -363,25 +363,28 @@ body {
     border-radius: 16px !important;
   }
 
-  /* ── STEPS : scroll horizontal ── */
+  /* ── STEPS : scroll horizontal compact ── */
+  .steps-section { padding-top: 36px !important; padding-bottom: 24px !important; }
   .steps-swipe {
     display: flex !important;
     grid-template-columns: unset !important;
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
     -webkit-overflow-scrolling: touch !important;
-    gap: 12px !important;
+    gap: 10px !important;
     margin: 0 -20px !important;
-    padding: 4px 20px 12px !important;
+    padding: 4px 20px 8px !important;
     align-items: flex-start !important;
   }
   .step-swipe-item {
-    min-width: 240px !important;
-    max-width: 240px !important;
+    min-width: 200px !important;
+    max-width: 200px !important;
     flex-shrink: 0 !important;
     scroll-snap-align: start !important;
     height: auto !important;
     align-self: flex-start !important;
+    padding: 16px !important;
+    min-height: unset !important;
   }
 
   /* ── PRICING : scroll horizontal ── */
