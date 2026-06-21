@@ -153,7 +153,7 @@ export default function Tarifs() {
       </div>
 
       {/* Bloc établissements */}
-      <div className="max-w-5xl mx-auto px-6 py-6">
+      <div className="max-w-2xl mx-auto px-6 py-6">
         <div
           style={{
             background: "linear-gradient(135deg, #0c1445 0%, #1a2d7a 50%, #2451c7 100%)",
