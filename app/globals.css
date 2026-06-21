@@ -297,15 +297,22 @@ body {
     padding: 12px 16px !important;
   }
 
-  /* Formulaire seul : remplit toute la hauteur pour pas de blanc */
-  .step-card {
+  /* Formulaire generate seul : remplit toute la hauteur (PAS les step-card landing) */
+  .gen-wrap > div > .step-card {
     min-height: calc(100vh - 120px) !important;
     display: flex !important;
     flex-direction: column !important;
   }
-  .step-card > div:last-child,
-  .step-card > form {
+  .gen-wrap > div > .step-card > div:last-child,
+  .gen-wrap > div > .step-card > form {
     flex: 1 !important;
+  }
+
+  /* Landing steps : hauteur naturelle uniquement */
+  .steps-swipe .step-card,
+  .step-swipe-item {
+    min-height: unset !important;
+    height: auto !important;
   }
 
   /* Container principal plein écran */
