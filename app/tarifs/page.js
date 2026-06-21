@@ -156,9 +156,9 @@ export default function Tarifs() {
       <div className="max-w-5xl mx-auto px-6 py-6">
         <div
           style={{
-            background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%)",
-            borderRadius: 24,
-            padding: "44px 40px",
+            background: "linear-gradient(135deg, #0c1445 0%, #1a2d7a 50%, #2451c7 100%)",
+            borderRadius: 20,
+            padding: "40px 36px",
             position: "relative",
             overflow: "hidden",
           }}
@@ -298,35 +298,25 @@ export default function Tarifs() {
       </div>
 
       {/* FAQ */}
-      <div className="max-w-5xl mx-auto px-6 pb-16 mt-10">
-        <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">
+      <div className="max-w-2xl mx-auto px-6 pb-16 mt-10">
+        <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
           Questions fréquentes
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-3">
           {[
-            {
-              q: "Puis-je annuler à tout moment ?",
-              r: "Oui, sans condition. Tu peux annuler depuis ton espace Stripe à tout moment, l'accès reste actif jusqu'à la fin de la période payée.",
-            },
-            {
-              q: "L'offre annuelle est-elle remboursable ?",
-              r: "Oui, sous 14 jours après l'achat (droit de rétractation légal français). Au-delà, l'accès reste actif jusqu'à la fin de l'année.",
-            },
-            {
-              q: "La lettre de motivation est-elle incluse ?",
-              r: "Oui, dans les plans Étudiant et Pro. Elle est générée automatiquement en même temps que ton CV, adaptée à l'offre d'emploi.",
-            },
-            {
-              q: "Les CV générés m'appartiennent ?",
-              r: "Oui, à 100%. Tu peux télécharger, modifier et utiliser tes CV comme tu le souhaites, sans restriction.",
-            },
+            { q: "Puis-je annuler à tout moment ?", r: "Oui, sans condition. Tu peux annuler depuis ton espace Stripe à tout moment, l'accès reste actif jusqu'à la fin de la période payée." },
+            { q: "L'offre annuelle est-elle remboursable ?", r: "Oui, sous 14 jours après l'achat (droit de rétractation légal français). Au-delà, l'accès reste actif jusqu'à la fin de l'année." },
+            { q: "La lettre de motivation est-elle incluse ?", r: "Oui, dans les plans Étudiant et Pro. Elle est générée automatiquement en même temps que ton CV, adaptée à l'offre d'emploi." },
+            { q: "Les CV générés m'appartiennent ?", r: "Oui, à 100%. Tu peux télécharger, modifier et utiliser tes CV comme tu le souhaites, sans restriction." },
+            { q: "Combien de temps pour générer un CV ?", r: "30 secondes en moyenne. L'IA analyse l'offre, intègre les mots-clés ATS et génère un CV complet prêt à télécharger." },
+            { q: "Ça fonctionne pour tous les secteurs ?", r: "Oui — marketing, tech, finance, santé, droit, commerce. L'IA s'adapte au vocabulaire spécifique de chaque offre." },
           ].map((item) => (
-            <div
-              key={item.q}
-              className="bg-gray-50 rounded-xl p-6 border border-gray-100"
-            >
-              <p className="font-semibold text-gray-900 mb-2">{item.q}</p>
-              <p className="text-gray-600 text-sm leading-relaxed">{item.r}</p>
+            <div key={item.q} style={{ display: "flex", background: "#fff", borderRadius: 14, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", border: "1px solid #f0f0f0" }}>
+              <div style={{ width: 4, flexShrink: 0, background: "#10b981" }} />
+              <div style={{ padding: "18px 20px" }}>
+                <p style={{ fontWeight: 700, color: "#0f172a", fontSize: 15, marginBottom: 6 }}>{item.q}</p>
+                <p style={{ color: "#64748b", fontSize: 13, lineHeight: 1.6 }}>{item.r}</p>
+              </div>
             </div>
           ))}
         </div>
