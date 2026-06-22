@@ -1475,4 +1475,494 @@ ${[
 </div>
     `,
   },
+  {
+    slug: "phrase-accroche-cv-exemples",
+    titre: "50 phrases d'accroche CV percutantes par profil (2026)",
+    description: "Exemples de phrases d'accroche CV pour décrocher un entretien. Étudiant, débutant, reconversion, cadre — copie-colle et adapte en 2 minutes.",
+    date: "2026-06-10",
+    categorie: "Conseils CV",
+    tempsLecture: "5 min",
+    illustration: "✍️",
+    couleur: "from-violet-500 to-violet-700",
+    contenu: `
+<div style="background:#f5f3ff;border-left:4px solid #7c3aed;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#5b21b6;margin:0 0 4px 0">💡 Pourquoi la phrase d'accroche ?</p>
+  <p style="color:#6d28d9;margin:0;font-size:15px">C'est les <strong>3 premières secondes</strong> du recruteur. Une accroche faible = CV jeté. Une accroche forte = entretien décroché.</p>
+</div>
+
+<h2>La formule universelle</h2>
+<div style="background:#eff6ff;border-radius:12px;padding:20px 24px;margin:20px 0;font-size:15px;color:#1e40af;line-height:1.8">
+  <strong>[Profil] + [diplôme ou X ans d'expérience] + [1 résultat chiffré ou compétence clé] + [objectif précis]</strong>
+</div>
+
+<h2>❌ Formules à bannir</h2>
+<div style="display:grid;gap:8px;margin:16px 0">
+  ${["« Dynamique et motivé(e) »", "« Rigoureux(se) et organisé(e) »", "« Passionné(e) par mon métier »", "« À la recherche d'un nouveau challenge »"].map(f => `<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 16px;color:#dc2626;font-size:14px">❌ ${f}</div>`).join("")}
+</div>
+
+<h2>✅ Exemples par profil</h2>
+
+<h3>🎓 Étudiant / Alternant</h3>
+<div style="display:grid;gap:8px;margin:12px 0">
+  ${[
+    "Étudiant en Master Marketing Digital à Dauphine, j'ai géré les réseaux sociaux d'une enseigne locale (+34% d'engagement) et cherche une alternance pour contribuer à la croissance d'une marque ambitieuse.",
+    "BTS Commerce en alternance — développement d'un portefeuille de 40 clients, CA +22% en 6 mois. Je recherche un poste commercial dans un environnement exigeant.",
+    "Licence Pro Informatique, développeur React/Node.js avec 3 projets déployés. Je cherche une alternance pour contribuer à un produit en production.",
+    "Étudiante école de commerce, spécialisation Finance. Après un semestre à Dublin et un stage en contrôle de gestion, je cherche une alternance en analyse financière.",
+  ].map(p => `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 16px;font-size:14px;color:#14532d;line-height:1.6">✅ ${p}</div>`).join("")}
+</div>
+
+<h3>👤 Premier emploi (Bac+3 à Bac+5)</h3>
+<div style="display:grid;gap:8px;margin:12px 0">
+  ${[
+    "Jeune diplômé en Droit des affaires (Master 2), avec 6 mois chez Linklaters. Je recherche un premier poste d'avocat en droit des sociétés.",
+    "Diplômée design graphique — 12 identités de marque réalisées en freelance durant mes études. Je cherche un poste créatif orienté branding.",
+    "Ingénieur génie civil ESTP, je souhaite débuter ma carrière sur des projets d'infrastructure dans un groupe international.",
+  ].map(p => `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 16px;font-size:14px;color:#14532d;line-height:1.6">✅ ${p}</div>`).join("")}
+</div>
+
+<h3>💼 Profil expérimenté</h3>
+<div style="display:grid;gap:8px;margin:12px 0">
+  ${[
+    "Responsable Marketing 7 ans en B2B SaaS — 3M€ de pipeline généré, équipe de 5 personnes managée. Je cherche un poste de Head of Marketing.",
+    "Chef de projet IT certifié PMP — 15 projets ERP livrés dans les délais (budget moyen 800K€). Je vise la direction de transformations digitales complexes.",
+    "Commercial terrain 10 ans en B2B industriel — territoire développé de 0 à 2,4M€ de CA. Je vise un poste de directeur commercial régional.",
+  ].map(p => `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 16px;font-size:14px;color:#14532d;line-height:1.6">✅ ${p}</div>`).join("")}
+</div>
+
+<h3>🔄 Reconversion</h3>
+<div style="display:grid;gap:8px;margin:12px 0">
+  ${[
+    "Après 8 ans en comptabilité, formation développeur web (JS/React) et 2 applications lancées. Je cherche un premier poste de développeur.",
+    "Infirmière 12 ans, certifiée formatrice professionnelle. Je me réoriente vers la coordination pédagogique en santé.",
+  ].map(p => `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 16px;font-size:14px;color:#14532d;line-height:1.6">✅ ${p}</div>`).join("")}
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Générer mon CV avec accroche adaptée →</a>
+</div>
+    `,
+  },
+  {
+    slug: "lettre-motivation-stage-exemple",
+    titre: "Lettre de motivation stage : 3 exemples prêts à l'emploi (2026)",
+    description: "Exemples complets de lettres de motivation pour un stage. Marketing, informatique, RH — structure en 4 paragraphes + modèles à copier directement.",
+    date: "2026-06-12",
+    categorie: "Lettre de motivation",
+    tempsLecture: "6 min",
+    illustration: "📨",
+    couleur: "from-rose-500 to-rose-700",
+    contenu: `
+<div style="background:#fff1f2;border-left:4px solid #e11d48;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#9f1239;margin:0 0 4px 0">📊 Ce que les recruteurs lisent vraiment</p>
+  <p style="color:#be123c;margin:0;font-size:15px">Un recruteur passe <strong>45 secondes</strong> sur une lettre de motivation. Structure &gt; longueur.</p>
+</div>
+
+<h2>La structure parfaite en 4 paragraphes</h2>
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["1. Accroche", "Pourquoi cette entreprise ? Montre que tu la connais (produit, valeur, actualité récente)."],
+    ["2. Ton profil", "Formation + 1-2 expériences ou projets en lien avec le stage."],
+    ["3. Ta valeur ajoutée", "Compétences précises + motivation spécifique pour la mission."],
+    ["4. Call to action", "Disponibilité, durée du stage, ouverture vers un entretien."],
+  ].map(([titre, texte], i) => `
+  <div style="display:flex;gap:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px">
+    <div style="width:28px;height:28px;background:#e11d48;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">${i+1}</div>
+    <div><p style="font-weight:700;color:#111827;margin:0 0 4px 0">${titre}</p><p style="font-size:14px;color:#6b7280;margin:0">${texte}</p></div>
+  </div>`).join("")}
+</div>
+
+<h2>Exemple 1 — Stage Marketing Digital</h2>
+<div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:24px;margin:16px 0;font-size:14px;line-height:1.9;color:#374151">
+  <p>Madame, Monsieur,</p>
+  <p>En parcourant vos dernières campagnes social media, j'ai été frappé(e) par la cohérence de votre univers de marque et votre capacité à engager une communauté de 200 000 abonnés avec un contenu authentique. C'est cette approche que j'aimerais contribuer à développer.</p>
+  <p>Actuellement en 2e année de Bachelor Communication à l'ISCOM Paris, j'ai géré les réseaux sociaux d'une enseigne locale (+34% d'engagement en 3 mois) et produit des formats vidéo TikTok pour une association (80K vues cumulées). Je maîtrise Canva, Meta Business Suite et Google Analytics 4.</p>
+  <p>Mon objectif pour ce stage : contribuer à vos campagnes tout en approfondissant votre stratégie de contenu organique.</p>
+  <p>Disponible à partir du [date] pour [X mois], je serais ravi(e) d'en discuter lors d'un entretien.</p>
+  <p>Cordialement,<br/>[Prénom Nom]</p>
+</div>
+
+<h2>Exemple 2 — Stage Développement Web</h2>
+<div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:24px;margin:16px 0;font-size:14px;line-height:1.9;color:#374151">
+  <p>Madame, Monsieur,</p>
+  <p>Votre produit m'a convaincu de vous écrire : en tant qu'utilisateur depuis 6 mois, j'ai identifié des axes d'amélioration UX que j'aimerais contribuer à résoudre.</p>
+  <p>En licence Informatique à Paris-Saclay, je développe en JavaScript (React, Node.js) depuis 2 ans. J'ai créé une app de suivi budgétaire avec 150 utilisateurs actifs sur Vercel et contribué à 3 projets open source sur GitHub. Votre stack (React/TypeScript/PostgreSQL) correspond exactement à mes compétences.</p>
+  <p>Disponible dès le [date] pour [X mois]. Mon portfolio : [lien].</p>
+  <p>Cordialement,<br/>[Prénom Nom]</p>
+</div>
+
+<h2>Exemple 3 — Stage RH</h2>
+<div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:24px;margin:16px 0;font-size:14px;line-height:1.9;color:#374151">
+  <p>Madame, Monsieur,</p>
+  <p>Votre politique marque employeur — programme mobilité interne, score Glassdoor 4,2/5 — témoigne d'une approche RH centrée sur l'humain que je souhaite renforcer.</p>
+  <p>En Master 1 GRH à Lyon 3, j'ai participé à la révision d'un processus de recrutement PME (délai réduit de 45 à 28 jours). Je maîtrise Workday, Talentsoft et la conduite d'entretiens structurés.</p>
+  <p>Disponible pour un entretien à votre convenance.</p>
+  <p>Cordialement,<br/>[Prénom Nom]</p>
+</div>
+
+<h2>❌ 5 erreurs qui font rejeter une lettre de stage</h2>
+<div style="display:grid;gap:8px;margin:16px 0">
+  ${[
+    "Commencer par « Je me permets de vous contacter » — banal, supprime ça",
+    "Copier-coller la même lettre à 10 entreprises — le recruteur le voit",
+    "Dépasser une page A4 — personne ne lit plus loin",
+    "Parler de qualités sans preuve — remplace par des chiffres",
+    "Oublier la disponibilité et la durée du stage",
+  ].map(e => `<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 16px;color:#dc2626;font-size:14px">❌ ${e}</div>`).join("")}
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#e11d48;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Générer ma lettre de motivation + CV en 30 sec →</a>
+</div>
+    `,
+  },
+  {
+    slug: "cv-job-ete-lyceen",
+    titre: "CV job d'été lycéen : modèle complet sans expérience (2026)",
+    description: "Tu as 16-18 ans et tu cherches un job d'été ? Voici exactement comment faire un CV quand tu n'as aucune expérience — avec un exemple complet prêt à copier.",
+    date: "2026-06-14",
+    categorie: "CV Étudiant",
+    tempsLecture: "4 min",
+    illustration: "☀️",
+    couleur: "from-amber-500 to-orange-600",
+    contenu: `
+<div style="background:#fffbeb;border-left:4px solid #d97706;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#92400e;margin:0 0 4px 0">✅ Bonne nouvelle</p>
+  <p style="color:#b45309;margin:0;font-size:15px">Pour un job d'été lycéen, les employeurs <strong>ne s'attendent pas à de l'expérience</strong>. Ils cherchent : disponibilité, motivation, fiabilité.</p>
+</div>
+
+<h2>Ce que tu mets dans un CV lycéen (même sans expérience)</h2>
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["📋 Informations personnelles", "Prénom Nom, ville, téléphone, email. Pas d'âge, pas de photo obligatoire."],
+    ["🎯 Objectif", "1 phrase : « Lycéen en Terminale, disponible du [dates] pour un job d'été en vente / restauration / logistique. »"],
+    ["🎓 Formation", "Classe actuelle, lycée, ville. Mention au brevet si bonne."],
+    ["🏃 Activités et bénévolat", "Sport en club, asso, baby-sitting, aide aux devoirs, animateur BAFA — tout compte !"],
+    ["🛠 Compétences", "Langues, permis BSR/B, logiciels, BAFA en cours."],
+  ].map(([t, c]) => `
+  <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 16px">
+    <p style="font-weight:700;color:#92400e;margin:0 0 4px 0">${t}</p>
+    <p style="font-size:14px;color:#6b7280;margin:0">${c}</p>
+  </div>`).join("")}
+</div>
+
+<h2>Exemple complet — CV job d'été lycéen</h2>
+<div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:24px;margin:16px 0;font-size:13px;line-height:2;color:#374151">
+  <p><strong>LUCAS MARTIN</strong> — Paris 75011 · 06 12 34 56 78 · lucas.martin@email.com</p>
+  <hr style="border:none;border-top:1px solid #e5e7eb;margin:10px 0"/>
+  <p><strong>OBJECTIF</strong><br/>Lycéen en Terminale Générale, disponible du 1er juillet au 31 août 2026. Je recherche un job d'été en vente, caisse ou manutention légère.</p>
+  <p><strong>FORMATION</strong><br/>Terminale Générale (Maths/SES) — Lycée Victor Hugo, Paris (2024–2026)<br/>Brevet des Collèges — Mention Bien (2024)</p>
+  <p><strong>EXPÉRIENCES</strong><br/>Baby-sitter — Famille Dupont, Paris 11e (juil.–août 2025) · 3 soirs/semaine + weekends, garde de 2 enfants (6 et 9 ans)<br/><br/>Animateur bénévole — Club de foot ASM Paris (2023–2026) · Encadrement de 8-12 ans lors des entraînements hebdomadaires</p>
+  <p><strong>COMPÉTENCES</strong><br/>Anglais B2 (séjour linguistique Londres 2025) · Permis BSR · Pack Office · BAFA en cours</p>
+</div>
+
+<h2>Où chercher un job d'été lycéen ?</h2>
+<div style="display:grid;gap:8px;margin:16px 0">
+  ${[
+    ["Indeed / HelloWork", "Filtrer par durée : CDD 1-3 mois"],
+    ["Intérim (Manpower, Adecco)", "Logistique, manutention, distribution"],
+    ["En direct en boutique", "Distribue ton CV papier dans les commerces du quartier"],
+    ["CIDJ / missions locales", "Offres exclusives emploi des jeunes"],
+  ].map(([lieu, conseil]) => `
+  <div style="display:flex;justify-content:space-between;align-items:center;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 16px">
+    <span style="font-weight:700;color:#111827;font-size:14px">${lieu}</span>
+    <span style="font-size:13px;color:#6b7280">${conseil}</span>
+  </div>`).join("")}
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#d97706;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV job d'été →</a>
+</div>
+    `,
+  },
+  {
+    slug: "questions-entretien-embauche-reponses",
+    titre: "20 questions d'entretien d'embauche et les meilleures réponses (2026)",
+    description: "Les questions les plus posées en entretien avec des exemples de réponses efficaces. Prépare-toi en 30 minutes pour décrocher le poste.",
+    date: "2026-06-15",
+    categorie: "Préparation entretien",
+    tempsLecture: "7 min",
+    illustration: "🎤",
+    couleur: "from-teal-500 to-teal-700",
+    contenu: `
+<div style="background:#f0fdfa;border-left:4px solid #0d9488;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#115e59;margin:0 0 4px 0">🎯 La règle d'or</p>
+  <p style="color:#0f766e;margin:0;font-size:15px">Chaque réponse doit suivre la méthode <strong>STAR</strong> : Situation → Tâche → Action → Résultat.</p>
+</div>
+
+<h2>Questions incontournables</h2>
+<div style="display:grid;gap:16px;margin:20px 0">
+  ${[
+    { q: "Parle-moi de toi", r: "Structure en 3 temps : passé → présent → futur. Durée : 90 secondes max.", ex: "« J'ai fait un Master Finance à Assas, puis 3 ans en audit chez Deloitte sur des missions 500K€+. J'ai décidé de passer côté entreprise pour avoir un impact direct sur la stratégie — c'est exactement ce que propose ce poste. »" },
+    { q: "Quelles sont tes qualités ?", r: "3 qualités avec une preuve chacune. Jamais de généralités.", ex: "« Je suis orienté résultats : en 6 mois, j'ai réduit le délai de traitement de 3 semaines à 4 jours. Rigoureux : 0 erreur sur 200 dossiers traités l'an dernier. »" },
+    { q: "Quels sont tes défauts ?", r: "Un défaut réel (pas « perfectionniste »), et comment tu le travailles.", ex: "« J'ai tendance à vouloir tout vérifier deux fois — j'ai appris à faire confiance aux process et à mes collègues, ce qui m'a permis de réduire mes délais de 40%. »" },
+    { q: "Pourquoi cette entreprise ?", r: "2-3 éléments précis : produit, valeur, article récent, chiffre.", ex: "« Votre expansion en Allemagne, votre approche data-driven du recrutement et votre NPS employé de 72 m'ont convaincu que c'est ici que je veux progresser. »" },
+    { q: "Où te vois-tu dans 5 ans ?", r: "Aligne avec le poste. Montre de l'ambition sans paraître menaçant.", ex: "« Maîtriser ce métier en profondeur, prendre des responsabilités de management sur une équipe, et contribuer à la stratégie au niveau senior. »" },
+  ].map(item => `
+  <div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:18px 20px">
+    <p style="font-weight:700;color:#0f172a;font-size:15px;margin:0 0 8px 0">❓ ${item.q}</p>
+    <p style="font-size:13px;color:#374151;margin:0 0 10px 0">💡 ${item.r}</p>
+    <div style="background:#fff;border-radius:8px;padding:10px 14px;font-size:13px;color:#0f766e;font-style:italic;border:1px solid #ccfbf1">${item.ex}</div>
+  </div>`).join("")}
+</div>
+
+<h2>Questions pièges — comment les désamorcer</h2>
+<div style="display:grid;gap:12px;margin:20px 0">
+  ${[
+    { q: "Pourquoi quitter ton poste actuel ?", r: "Reste positif. Ne critique jamais ton employeur. Focus sur ce que tu cherches, pas ce que tu fuis." },
+    { q: "Quel est ton salaire attendu ?", r: "Donne une fourchette basée sur le marché. « Entre X et Y€, selon les responsabilités et avantages du poste. »" },
+    { q: "As-tu d'autres entretiens ?", r: "Oui si c'est vrai — crée de l'urgence. « J'ai 2 autres processus avancés, mais ce poste est ma priorité. »" },
+    { q: "Avez-vous des questions ?", r: "Toujours 2-3 questions préparées. Ex : « Qu'est-ce qui distingue les collaborateurs qui réussissent ici ? »" },
+  ].map(item => `
+  <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px">
+    <p style="font-weight:700;color:#374151;font-size:14px;margin:0 0 6px 0">⚠️ ${item.q}</p>
+    <p style="font-size:13px;color:#6b7280;margin:0">→ ${item.r}</p>
+  </div>`).join("")}
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#0d9488;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Générer mon CV pour cet entretien →</a>
+</div>
+    `,
+  },
+  {
+    slug: "cv-en-anglais-exemple",
+    titre: "CV en anglais : modèle + traduction des sections clés (2026)",
+    description: "Comment faire un CV en anglais quand on est français ? Modèle complet, traduction des intitulés, erreurs à éviter et exemples pour postuler à l'international.",
+    date: "2026-06-16",
+    categorie: "CV International",
+    tempsLecture: "5 min",
+    illustration: "🇬🇧",
+    couleur: "from-indigo-500 to-indigo-700",
+    contenu: `
+<div style="background:#eef2ff;border-left:4px solid #4f46e5;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#3730a3;margin:0 0 4px 0">⚠️ CV anglais ≠ CV français traduit</p>
+  <p style="color:#4338ca;margin:0;font-size:15px">Le format diffère selon la cible : UK/Australie (1-2 pages), USA (Resume 1 page strict), Canada (hybride).</p>
+</div>
+
+<h2>Traduction des sections clés</h2>
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:14px">
+  <thead>
+    <tr style="background:#eef2ff">
+      <th style="padding:10px 14px;text-align:left;border:1px solid #c7d2fe;color:#3730a3">🇫🇷 Français</th>
+      <th style="padding:10px 14px;text-align:left;border:1px solid #c7d2fe;color:#3730a3">🇬🇧 Anglais</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${[
+      ["Expériences professionnelles", "Work Experience"],
+      ["Formation", "Education"],
+      ["Compétences", "Skills / Core Competencies"],
+      ["Stage", "Internship"],
+      ["Alternance", "Work-Study / Apprenticeship"],
+      ["Bénévolat", "Volunteering"],
+      ["Accroche / Profil", "Professional Summary"],
+      ["Centres d'intérêt", "Interests (souvent omis aux USA)"],
+    ].map(([fr, en]) => `
+    <tr>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#374151">${fr}</td>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#374151;font-weight:500">${en}</td>
+    </tr>`).join("")}
+  </tbody>
+</table>
+
+<h2>Exemples de Professional Summary</h2>
+<div style="display:grid;gap:10px;margin:16px 0">
+  ${[
+    { p: "Marketing étudiant", ex: "Marketing student (Bachelor, ESCP Paris) with experience in social media management (+40% engagement). Seeking a 6-month internship in digital marketing in London, available from September 2026." },
+    { p: "Développeur junior", ex: "Full-stack developer (React, Node.js, PostgreSQL) with 2 years freelance experience and 3 deployed projects (1,000+ monthly users). Looking for a junior role in an international tech team." },
+    { p: "Commercial expérimenté", ex: "B2B sales professional with 6 years in SaaS, consistently exceeding quota (120% average). Track record in pipeline development and enterprise account management." },
+  ].map(item => `
+  <div style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:14px 16px">
+    <span style="font-size:11px;font-weight:700;color:#4f46e5;text-transform:uppercase">${item.p}</span>
+    <p style="font-size:13px;color:#1e1b4b;margin:8px 0 0 0;font-style:italic;line-height:1.7">"${item.ex}"</p>
+  </div>`).join("")}
+</div>
+
+<h2>Action verbs pour un CV anglais percutant</h2>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0">
+  ${["Led", "Built", "Grew", "Delivered", "Managed", "Reduced", "Launched", "Scaled", "Developed", "Streamlined", "Generated", "Improved"].map(v => `<div style="background:#eef2ff;border-radius:8px;padding:8px;font-weight:700;font-size:13px;color:#3730a3;text-align:center">${v}</div>`).join("")}
+</div>
+
+<h2>❌ Erreurs courantes des Français</h2>
+<div style="display:grid;gap:8px;margin:16px 0">
+  ${[
+    "Mettre « Curriculum Vitae » en titre — ça ne se fait pas en anglais",
+    "Inclure la photo — interdit aux USA, déconseillé au UK",
+    "Écrire « I did » au lieu de la forme directe : « Managed a team of 5 »",
+    "Format de date français : écris « Jan 2025 » et non « 01/2025 »",
+  ].map(e => `<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 16px;color:#dc2626;font-size:14px">❌ ${e}</div>`).join("")}
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#4f46e5;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Générer mon CV adapté à l'offre →</a>
+</div>
+    `,
+  },
+  {
+    slug: "comment-negocier-son-salaire",
+    titre: "Comment négocier son salaire : scripts + fourchettes par métier (2026)",
+    description: "Quand et comment aborder le salaire en entretien ? Scripts exacts, fourchettes par métier et tactiques pour obtenir le meilleur package sans se brader.",
+    date: "2026-06-17",
+    categorie: "Carrière",
+    tempsLecture: "5 min",
+    illustration: "💰",
+    couleur: "from-green-600 to-emerald-700",
+    contenu: `
+<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#14532d;margin:0 0 4px 0">💡 Le chiffre qui change tout</p>
+  <p style="color:#15803d;margin:0;font-size:15px">Les candidats qui négocient obtiennent en moyenne <strong>10 à 20% de plus</strong>. La majorité des recruteurs s'y attendent.</p>
+</div>
+
+<h2>Scripts prêts à utiliser</h2>
+<div style="display:grid;gap:12px;margin:16px 0">
+  ${[
+    { s: "On te demande ton salaire attendu", script: "« Je me positionne entre [X] et [Y]€ selon les responsabilités et avantages. Quelle est votre enveloppe pour ce poste ? »" },
+    { s: "L'offre est en dessous de tes attentes", script: "« Je suis enthousiaste pour ce poste. L'offre est légèrement en dessous — est-ce qu'il y a de la flexibilité à [X]€ ? »" },
+    { s: "Tu as une autre offre", script: "« J'ai une autre proposition à [X]€ en cours, mais ce poste est ma priorité. Pouvez-vous vous rapprocher de ce niveau ? »" },
+    { s: "Le salaire fixe est bloqué", script: "« Peut-on discuter d'une prime à la signature, de jours de télétravail supplémentaires, ou d'un bilan à 6 mois ? »" },
+  ].map(item => `
+  <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 16px">
+    <p style="font-size:12px;font-weight:700;color:#16a34a;text-transform:uppercase;margin:0 0 8px 0">${item.s}</p>
+    <p style="font-size:14px;color:#14532d;font-style:italic;margin:0;line-height:1.7">${item.script}</p>
+  </div>`).join("")}
+</div>
+
+<h2>Fourchettes de salaires en France (2026)</h2>
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:14px">
+  <thead>
+    <tr style="background:#f0fdf4">
+      <th style="padding:10px 14px;text-align:left;border:1px solid #bbf7d0;color:#14532d">Profil</th>
+      <th style="padding:10px 14px;text-align:left;border:1px solid #bbf7d0;color:#14532d">Junior (0-3 ans)</th>
+      <th style="padding:10px 14px;text-align:left;border:1px solid #bbf7d0;color:#14532d">Confirmé (3-7 ans)</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${[
+      ["Développeur web", "32–42K€", "48–65K€"],
+      ["Marketing / SEO", "28–36K€", "40–55K€"],
+      ["Commercial B2B", "30–40K€ + variable", "45–65K€ + variable"],
+      ["Data Analyst", "34–44K€", "50–68K€"],
+      ["RH Généraliste", "28–36K€", "38–52K€"],
+      ["Comptable", "27–34K€", "36–50K€"],
+      ["Chef de projet IT", "38–48K€", "55–75K€"],
+    ].map(([p, j, c]) => `
+    <tr>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;font-weight:600;color:#111827">${p}</td>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#374151">${j}</td>
+      <td style="padding:10px 14px;border:1px solid #e5e7eb;color:#374151">${c}</td>
+    </tr>`).join("")}
+  </tbody>
+</table>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#16a34a;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Optimiser mon CV avant l'entretien →</a>
+</div>
+    `,
+  },
+  {
+    slug: "cv-master-etudiant",
+    titre: "CV Master : comment valoriser un Bac+5 avec peu d'expérience (2026)",
+    description: "Comment faire un CV quand on sort d'un Master ? Structure optimale, exemples concrets et erreurs à éviter pour les diplômés Bac+5 qui cherchent leur premier emploi.",
+    date: "2026-06-18",
+    categorie: "CV Étudiant",
+    tempsLecture: "5 min",
+    illustration: "🎓",
+    couleur: "from-purple-500 to-purple-700",
+    contenu: `
+<div style="background:#faf5ff;border-left:4px solid #7c3aed;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#5b21b6;margin:0 0 4px 0">🎓 Le paradoxe du Master</p>
+  <p style="color:#6d28d9;margin:0;font-size:15px">Tu as un diplôme reconnu mais peu d'expérience. Les recruteurs le savent — ils cherchent <strong>le potentiel et la cohérence</strong> du parcours.</p>
+</div>
+
+<h2>Structure CV Master recommandée (1 page)</h2>
+<div style="display:grid;gap:8px;margin:16px 0">
+  ${[
+    ["1", "Accroche / Profil", "3 lignes — qui tu es + ce que tu cherches"],
+    ["2", "Formation (EN HAUT !)", "Master, école/université, spécialisation, années"],
+    ["3", "Expériences", "Stages + jobs étudiants avec résultats chiffrés"],
+    ["4", "Projets académiques", "Mémoire, études de cas, concours — 2-3 lignes chacun"],
+    ["5", "Compétences et outils", "Langues, logiciels, certifications"],
+  ].map(([n, t, c]) => `
+  <div style="display:flex;gap:14px;align-items:flex-start;background:#fafafa;border:1px solid #e5e7eb;border-radius:10px;padding:12px 16px">
+    <div style="width:24px;height:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0">${n}</div>
+    <div><p style="font-weight:700;color:#111827;margin:0;font-size:14px">${t}</p><p style="font-size:13px;color:#6b7280;margin:2px 0 0 0">${c}</p></div>
+  </div>`).join("")}
+</div>
+
+<h2>Comment valoriser un mémoire de Master</h2>
+<p style="font-weight:700;color:#374151;margin:12px 0 6px 0">❌ Trop vague :</p>
+<div style="background:#fef2f2;border-radius:8px;padding:10px 14px;font-size:14px;color:#dc2626;margin-bottom:12px">Mémoire de recherche sur le marketing digital — Master 2 Marketing, 2026</div>
+<p style="font-weight:700;color:#374151;margin:0 0 6px 0">✅ Avec impact :</p>
+<div style="background:#f0fdf4;border-radius:8px;padding:10px 14px;font-size:14px;color:#15803d;line-height:1.6">Mémoire : « L'impact du contenu vidéo court sur le taux de conversion e-commerce » — 12 marques analysées, 500K+ données GA4. Note : 17/20. — Master 2 Marketing Digital, Paris-Dauphine, 2026.</div>
+
+<h2>❌ Les 4 erreurs typiques</h2>
+<div style="display:grid;gap:8px;margin:16px 0">
+  ${[
+    "Faire 2 pages quand tu sors du Master — 1 page suffit",
+    "Ne pas chiffrer les stages (« j'ai participé à » → « j'ai généré 150 leads en 3 mois »)",
+    "Lister des cours sans livrables ni résultats",
+    "Oublier que les projets étudiants sont des expériences réelles",
+  ].map(e => `<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 16px;color:#dc2626;font-size:14px">❌ ${e}</div>`).join("")}
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Créer mon CV Master adapté à l'offre →</a>
+</div>
+    `,
+  },
+  {
+    slug: "lettre-motivation-apprentissage",
+    titre: "Lettre de motivation apprentissage : exemple + structure complète (2026)",
+    description: "Modèle de lettre de motivation pour un contrat d'apprentissage. Structure en 4 paragraphes, exemples concrets par secteur, et erreurs à éviter.",
+    date: "2026-06-19",
+    categorie: "Lettre de motivation",
+    tempsLecture: "5 min",
+    illustration: "📝",
+    couleur: "from-sky-500 to-blue-600",
+    contenu: `
+<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 20px;border-radius:8px;margin-bottom:28px">
+  <p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">📌 Apprentissage ≠ Stage</p>
+  <p style="color:#1d4ed8;margin:0;font-size:15px">Dans une lettre d'apprentissage, tu dois montrer que tu <strong>apportes de la valeur dès maintenant</strong>, pas juste que tu veux apprendre.</p>
+</div>
+
+<h2>Structure en 4 paragraphes</h2>
+<div style="display:grid;gap:10px;margin:20px 0">
+  ${[
+    ["1. Accroche", "Montre que tu connais l'entreprise. Cite un produit, une actualité, une valeur spécifique."],
+    ["2. Ton parcours", "Formation actuelle + 1-2 expériences concrètes avec chiffres si possible."],
+    ["3. Ce que tu apportes", "Compétences précises + ce que tu veux développer — lié à la mission."],
+    ["4. Call to action", "Date de début, durée du contrat, proposition d'entretien."],
+  ].map(([t, c], i) => `
+  <div style="display:flex;gap:14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px">
+    <div style="width:28px;height:28px;background:#2563eb;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">${i+1}</div>
+    <div><p style="font-weight:700;color:#1e40af;margin:0 0 4px 0">${t}</p><p style="font-size:14px;color:#374151;margin:0">${c}</p></div>
+  </div>`).join("")}
+</div>
+
+<h2>Exemple — Apprentissage Comptabilité</h2>
+<div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:24px;margin:16px 0;font-size:14px;line-height:1.9;color:#374151">
+  <p>Madame, Monsieur,</p>
+  <p>Votre cabinet est reconnu pour son expertise en gestion de PME et son accompagnement personnalisé — j'ai pu le constater à travers vos témoignages clients et vos publications LinkedIn. C'est dans cet environnement rigoureux que je souhaite développer mes compétences en comptabilité.</p>
+  <p>Actuellement en BTS Comptabilité-Gestion à l'IUT de Bordeaux, j'ai effectué un stage de 4 semaines en cabinet où j'ai saisi 300+ écritures comptables et préparé les déclarations TVA de 8 entreprises. J'ai également géré la comptabilité d'une association étudiante (budget 15 000€/an) pendant 2 ans. Je maîtrise Sage 100, Excel avancé et la norme PCG.</p>
+  <p>Je cherche à approfondir la révision des comptes et la consolidation en contexte multi-clients, ce que votre cabinet permet parfaitement.</p>
+  <p>Disponible à partir de septembre 2026 pour un contrat de 2 ans, je serais heureux(se) d'en discuter lors d'un entretien.</p>
+  <p>Cordialement,<br/>[Prénom Nom] · [Email] · [Téléphone]</p>
+</div>
+
+<h2>Ce que les maîtres d'apprentissage lisent en premier</h2>
+<div style="display:grid;gap:8px;margin:16px 0">
+  ${[
+    ["✅ Tu connais leur entreprise", "Cite quelque chose de précis — pas une généralité"],
+    ["✅ Tu es disponible aux bonnes dates", "La date de début du contrat clairement indiquée"],
+    ["✅ Tu as des compétences utiles dès le 1er mois", "Pas juste de la motivation — des outils maîtrisés"],
+    ["✅ Orthographe impeccable", "Un seul doute sur l'orthographe = la poubelle"],
+  ].map(([l, t]) => `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 16px;font-size:14px;color:#14532d"><span style="font-weight:700">${l}</span> — ${t}</div>`).join("")}
+</div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="/generate" style="display:inline-block;background:#2563eb;color:#fff;font-weight:700;padding:14px 32px;border-radius:12px;text-decoration:none;font-size:16px">Générer CV + lettre de motivation →</a>
+</div>
+    `,
+  },
 ];
