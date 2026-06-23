@@ -93,6 +93,8 @@ body {
 .cv-lang-flag { font-size: 20px; line-height: 1; }
 .cv-lang-label { font-size: 10px; font-weight: 700; line-height: 1.2; text-align: center; }
 
+.cv-footer-mobile { display: none; }
+
 /* ── RESPONSIVE MOBILE ── */
 @media (max-width: 767px) {
   .cv-lang-label { display: none; }
