@@ -202,6 +202,18 @@ export default function Generate() {
   const [cvLang, setCvLang] = useState("fr");
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", adresse: "", offre: "", experience: "", competences: "", formation: "", langues: "", linkedin: "" });
 
+  const EXEMPLE_PROFIL = {
+    nom: "Sophie Martin",
+    email: "sophie.martin@email.fr",
+    telephone: "+33 6 12 34 56 78",
+    experience: "Stage Communication Digitale – StartupX, Paris (mars–août 2024)\n- Gestion des réseaux sociaux (LinkedIn, Instagram) : +40% d'engagement\n- Rédaction de newsletters et articles de blog (2 publications/semaine)\n- Analyse des performances Google Analytics et reporting mensuel\n\nJob étudiant – Conseillère vente, Fnac Paris (2022–2023)\n- Conseil client et encaissement, objectifs dépassés de 15%",
+    competences: "Google Analytics, HubSpot, Canva, Pack Office, Notion, SEO/SEA, Réseaux sociaux, Copywriting",
+    formation: "Bachelor Communication & Marketing – ISCOM Paris (2022–2025)",
+    langues: "Français (natif), Anglais (B2), Espagnol (notions)",
+    adresse: "Paris, France",
+    linkedin: "",
+  };
+
   const EXEMPLE_OFFRE = `Alternance – Chargé(e) de Marketing Digital – Paris 9e
 
 Entreprise : TechStart SAS | Durée : 12 mois | Début : septembre 2025
@@ -995,7 +1007,16 @@ Ce que nous offrons
             {/* ── STEP 2 ── */}
             {wizardStep === 2 && (
               <div className="step-card" style={{ background: "#fff", borderRadius: 20, border: "1.5px solid rgba(99,102,241,0.12)", boxShadow: "0 8px 40px rgba(99,102,241,0.08)", padding: "28px 24px" }}>
-                <h1 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "#1e1b4b", marginBottom: 6, letterSpacing: "-0.03em" }}>{tr(lang, "step2Title")}</h1>
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 6, gap: 12 }}>
+                  <h1 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "#1e1b4b", letterSpacing: "-0.03em" }}>{tr(lang, "step2Title")}</h1>
+                  <button
+                    type="button"
+                    onClick={() => setForm(prev => ({ ...prev, ...EXEMPLE_PROFIL }))}
+                    style={{ flexShrink: 0, fontSize: 12, fontWeight: 700, color: "#6366f1", background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)", borderRadius: 999, padding: "5px 14px", cursor: "pointer", whiteSpace: "nowrap" }}
+                  >
+                    👤 Remplir avec un exemple
+                  </button>
+                </div>
                 <p style={{ fontSize: 14, color: "#64748b", marginBottom: 24, lineHeight: 1.6 }}>{tr(lang, "step2Subtitle")}</p>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
