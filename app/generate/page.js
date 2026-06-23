@@ -11,14 +11,14 @@ import ReferralPopup from "../components/ReferralPopup";
 import { t as tr } from "@/lib/i18n";
 
 const TEMPLATES = [
-  { id: "moderne",     name: "Sobre",      desc: "Épuré & professionnel",   accent: "#1e293b", bg: "#f8fafc", sidebar: false, badge: "⭐ Populaire" },
-  { id: "photo",       name: "Photo",      desc: "Portrait & beige",        accent: "#b8a99a", bg: "#ffffff", sidebar: true,  badge: "📸 Avec photo" },
+  { id: "moderne",     name: "Sobre",      desc: "Épuré & professionnel",   accent: "#1e293b", bg: "#f8fafc", sidebar: false, badge: "Populaire" },
+  { id: "photo",       name: "Photo",      desc: "Portrait & beige",        accent: "#b8a99a", bg: "#ffffff", sidebar: true,  badge: "Avec photo" },
   { id: "classique",   name: "Coupure",    desc: "Éditorial & ambre",       accent: "#92400e", bg: "#fef3c7", sidebar: false, badge: null },
-  { id: "creatif",     name: "Atelier",    desc: "Sidebar sombre & or",     accent: "#0f172a", bg: "#fafafa", sidebar: true,  badge: "🎨 Créatif" },
+  { id: "creatif",     name: "Atelier",    desc: "Sidebar sombre & or",     accent: "#0f172a", bg: "#fafafa", sidebar: true,  badge: "Créatif" },
   { id: "minimaliste", name: "Trait",      desc: "Minimaliste & teal",      accent: "#0f766e", bg: "#f0fdfa", sidebar: false, badge: null },
-  { id: "executive",   name: "Executive",  desc: "Cadre & sobre",           accent: "#0c4a6e", bg: "#f0f9ff", sidebar: false, badge: "💼 Cadre" },
-  { id: "bold",        name: "Impact",     desc: "Accrocheur & bleu",       accent: "#2563eb", bg: "#eff6ff", sidebar: false, badge: "🚀 Nouveau" },
-  { id: "elegant",     name: "Élégant",    desc: "Sobre & violet",          accent: "#6d28d9", bg: "#f5f3ff", sidebar: false, badge: "✨ Premium" },
+  { id: "executive",   name: "Executive",  desc: "Cadre & sobre",           accent: "#0c4a6e", bg: "#f0f9ff", sidebar: false, badge: "Cadre" },
+  { id: "bold",        name: "Impact",     desc: "Accrocheur & bleu",       accent: "#2563eb", bg: "#eff6ff", sidebar: false, badge: "Nouveau" },
+  { id: "elegant",     name: "Élégant",    desc: "Sobre & violet",          accent: "#6d28d9", bg: "#f5f3ff", sidebar: false, badge: "Premium" },
 ];
 
 const CV_LANGUAGES = [
@@ -1200,28 +1200,27 @@ Ce que nous offrons
                       return (
                         <button key={tmpl.id} type="button" onClick={() => setTemplate(tmpl.id)}
                           style={{
-                            position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer",
-                            border: sel ? `2.5px solid ${tmpl.accent}` : "2px solid #e8eaf6",
-                            boxShadow: sel ? `0 0 0 3px ${tmpl.accent}20, 0 4px 16px rgba(0,0,0,0.08)` : "0 1px 4px rgba(0,0,0,0.04)",
+                            position: "relative", borderRadius: 12, overflow: "hidden", cursor: "pointer",
+                            border: sel ? `2px solid ${tmpl.accent}` : "1.5px solid #e5e7eb",
+                            boxShadow: sel ? `0 2px 12px rgba(0,0,0,0.1)` : "none",
                             background: "#fff", padding: 0, textAlign: "left",
-                            transition: "all 0.18s",
+                            transition: "border-color 0.15s, box-shadow 0.15s",
                           }}>
-                          {/* Badge */}
                           {tmpl.badge && (
-                            <div style={{ position: "absolute", top: 6, left: 6, zIndex: 2, background: "rgba(0,0,0,0.65)", backdropFilter: "blur(4px)", borderRadius: 6, padding: "2px 6px", fontSize: 8.5, fontWeight: 700, color: "#fff", whiteSpace: "nowrap" }}>
+                            <div style={{ position: "absolute", top: 7, left: 7, zIndex: 2, background: "#1e293b", borderRadius: 4, padding: "2px 7px", fontSize: 7.5, fontWeight: 700, color: "#fff", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
                               {tmpl.badge}
                             </div>
                           )}
                           <div style={{ height: 120, overflow: "hidden" }}>
                             <TemplateMiniPreview tmpl={tmpl} compact />
                           </div>
-                          <div style={{ padding: "8px 10px 10px", background: sel ? tmpl.accent + "0a" : "#fafbff", borderTop: "1.5px solid " + (sel ? tmpl.accent + "25" : "#eeefff") }}>
-                            <p style={{ fontSize: 11, fontWeight: 800, color: sel ? tmpl.accent : "#1e1b4b" }}>{tmpl.name}</p>
-                            <p style={{ fontSize: 9.5, color: "#94a3b8", marginTop: 1 }}>{tmpl.desc}</p>
+                          <div style={{ padding: "8px 10px 10px", background: sel ? tmpl.accent + "08" : "#fff", borderTop: "1px solid " + (sel ? tmpl.accent + "20" : "#f3f4f6") }}>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: sel ? tmpl.accent : "#111827", letterSpacing: "-0.01em" }}>{tmpl.name}</p>
+                            <p style={{ fontSize: 9, color: "#9ca3af", marginTop: 1 }}>{tmpl.desc}</p>
                           </div>
                           {sel && (
-                            <div style={{ position: "absolute", top: 6, right: 6, width: 20, height: 20, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
-                              <svg width="10" height="10" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            <div style={{ position: "absolute", top: 7, right: 7, width: 18, height: 18, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
+                              <svg width="9" height="9" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </div>
                           )}
                         </button>
