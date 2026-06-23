@@ -407,38 +407,6 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
             <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB · 1 CV gratuit</span>
           </div>
 
-          <div style={{ marginTop: 12 }}>
-            <p style={{ fontSize: 10, fontWeight: 700, color: C.slateLight, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6 }}>
-              Génère ton CV en :
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-              {[
-                { flag: "🇫🇷", code: "fr" }, { flag: "🇬🇧", code: "en" },
-                { flag: "🇩🇪", code: "de" }, { flag: "🇪🇸", code: "es" },
-                { flag: "🇮🇹", code: "it" }, { flag: "🇵🇹", code: "pt" },
-                { flag: "🇳🇱", code: "nl" }, { flag: "🇵🇱", code: "pl" },
-                { flag: "🇰🇷", code: "ko" }, { flag: "🇯🇵", code: "ja" },
-                { flag: "🇸🇪", code: "sv" }, { flag: "🇫🇮", code: "fi" },
-                { flag: "🇸🇦", code: "ar" }, { flag: "🇷🇺", code: "ru" },
-                { flag: "🇨🇳", code: "zh" }, { flag: "🇮🇳", code: "hi" },
-                { flag: "🇮🇱", code: "he" }, { flag: "🇹🇷", code: "tr" },
-              ].map((l) => (
-                <a key={l.code} href={`/generate?cvlang=${l.code}`}
-                  style={{
-                    display: "inline-flex", alignItems: "center",
-                    padding: "3px 7px", borderRadius: 999,
-                    border: `1px solid ${C.border}`, background: C.bg,
-                    fontSize: 16, textDecoration: "none", cursor: "pointer",
-                    transition: "border-color 0.15s",
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = C.blue; e.currentTarget.style.background = C.blueLight; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.bg; }}
-                >
-                  {l.flag}
-                </a>
-              ))}
-            </div>
-          </div>
         </div>
 
         <div style={{ position: "relative", zIndex: 1 }}>
