@@ -705,12 +705,18 @@ export async function POST(request) {
     const message = await client.messages.create({
       model: "claude-sonnet-4-6",
       max_tokens: 4000,
-      system: systemPrompt,
+      system: [{ type: "text", text: systemPrompt, cache_control: { type: "ephemeral" } }],
       messages: [{
         role: "user",
-        content: `${cvLang !== "fr" && cvLang !== "en" ? `[LANGUAGE OVERRIDE — READ FIRST] The CV MUST be written entirely in ${CV_LANG_NAMES[cvLang]}. All section titles, profile text, experience bullets, skills, and education content must be in ${CV_LANG_NAMES[cvLang]}. Using French or English in the CV content is forbidden.${cvLang === "ar" ? ' Add dir="rtl" on the root div.' : ""}\n\n` : ""}${labels.template} : ${styleDesc}
-
-${labels.jobPosting} :
+        content: [
+          {
+            type: "text",
+            text: `${labels.template} : ${styleDesc}\n\n`,
+            cache_control: { type: "ephemeral" },
+          },
+          {
+            type: "text",
+            text: `${cvLang !== "fr" && cvLang !== "en" ? `[LANGUAGE OVERRIDE — READ FIRST] The CV MUST be written entirely in ${CV_LANG_NAMES[cvLang]}. All section titles, profile text, experience bullets, skills, and education content must be in ${CV_LANG_NAMES[cvLang]}. Using French or English in the CV content is forbidden.${cvLang === "ar" ? ' Add dir="rtl" on the root div.' : ""}\n\n` : ""}${labels.jobPosting} :
 ${offre}
 
 ${labels.candidate} :
@@ -732,6 +738,8 @@ ${labels.structure} :
 5. ${labels.s5}
 
 ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write every word of the CV in ${CV_LANG_NAMES[cvLang]}. Zero French. Zero English.` : ""}`,
+          },
+        ],
       }],
     });
 
@@ -754,24 +762,17 @@ ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write ev
       } catch {}
     }
 
-    // ── 7. SAUVEGARDE SUPABASE ────────────────────────────────────────────
-    let savedId = null;
-    try {
-      const saved = await saveCV({
-        userId,
-        nom,
-        offre,
-        template,
-        cvHtml: cv,
-        institutionId: institutionId || undefined,
-      });
-      savedId = saved?.id || null;
-    } catch (dbErr) {
-      // Ne jamais bloquer la génération si Supabase est down
-      console.error("Supabase save error:", dbErr);
-    }
+    // ── 7. SAUVEGARDE SUPABASE (fire-and-forget — ne bloque pas la réponse) ──
+    saveCV({
+      userId,
+      nom,
+      offre,
+      template,
+      cvHtml: cv,
+      institutionId: institutionId || undefined,
+    }).catch((dbErr) => console.error("Supabase save error:", dbErr));
 
-    // ── 8. BREVO : ajout liste postulera-free-users au 1er CV ──────────────────
+    // ── 8. BREVO : ajout liste au 1er CV (fire-and-forget) ───────────────
     if (cvCount === 0 && email) {
       fetch("https://api.brevo.com/v3/contacts", {
         method: "POST",
@@ -789,9 +790,9 @@ ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write ev
       }).catch((err) => console.error("Brevo add error:", err));
     }
 
-    // ── 9. EMAIL DE RELANCE si dernier CV gratuit ─────────────────────────
+    // ── 9. EMAIL DE RELANCE (fire-and-forget) ────────────────────────────
     if (!isPro && newCvCount === PLAN_LIMITS.free.max && email) {
-      await resend.emails.send({
+      resend.emails.send({
         from: "Postulera <contact@postulera.com>",
         to: email,
         subject: `${prenom ? prenom + ", tu" : "Tu"} a utilisé son CV gratuit — continue sans limite 🚀`,
@@ -799,7 +800,7 @@ ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write ev
       }).catch(() => {});
     }
 
-    return Response.json({ cv, cvCount: newCvCount, cvMonthCount: newCvMonthCount, savedId });
+    return Response.json({ cv, cvCount: newCvCount, cvMonthCount: newCvMonthCount });
 
   } catch (error) {
     console.error("generate-cv error:", error);
