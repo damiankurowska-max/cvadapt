@@ -201,6 +201,31 @@ export default function Generate() {
   const [lang, setLang] = useState("fr");
   const [cvLang, setCvLang] = useState("fr");
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", adresse: "", offre: "", experience: "", competences: "", formation: "", langues: "", linkedin: "" });
+
+  const EXEMPLE_OFFRE = `Alternance – Chargé(e) de Marketing Digital – Paris 9e
+
+Entreprise : TechStart SAS | Durée : 12 mois | Début : septembre 2025
+
+À propos de TechStart
+Startup SaaS B2B en forte croissance, nous accompagnons les PME dans leur transformation digitale. Notre équipe de 45 personnes cherche un(e) alternant(e) pour rejoindre le pôle Marketing.
+
+Tes missions
+- Gérer et animer nos réseaux sociaux (LinkedIn, Instagram) : création de contenu, planification, analyse des performances
+- Contribuer à la stratégie SEO/SEA : rédaction d'articles de blog, gestion des campagnes Google Ads
+- Créer des supports de communication : newsletters, landing pages, présentations commerciales
+- Analyser les données marketing (Google Analytics, HubSpot) et proposer des optimisations
+
+Profil recherché
+- Étudiant(e) en école de commerce, communication ou marketing (Bac+3 à Bac+5)
+- Maîtrise des outils bureautiques et Canva
+- Connaissance de Google Analytics et des réseaux sociaux professionnels
+- Capacité rédactionnelle en français irréprochable
+- Autonome, curieux(se), force de proposition
+
+Ce que nous offrons
+- Rémunération : 100% du SMIC alternant
+- Tickets restaurant, 50% transport, télétravail 2j/semaine
+- MacBook fourni, ambiance startup`;
   const [photo, setPhoto] = useState(null);
   const photoInputRef = useRef(null);
   const [template, setTemplate] = useState("moderne");
@@ -914,6 +939,15 @@ export default function Generate() {
 
                 {/* Card textarea */}
                 <div style={{ background: "#fff", borderRadius: 20, border: "1.5px solid rgba(99,102,241,0.12)", boxShadow: "0 8px 40px rgba(99,102,241,0.08)", padding: "24px" }}>
+                  <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
+                    <button
+                      type="button"
+                      onClick={() => setForm(prev => ({ ...prev, offre: EXEMPLE_OFFRE }))}
+                      style={{ fontSize: 12, fontWeight: 700, color: "#6366f1", background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)", borderRadius: 999, padding: "5px 14px", cursor: "pointer" }}
+                    >
+                      📋 Tester avec un exemple
+                    </button>
+                  </div>
                   {(() => {
                     const l = CV_LANGUAGES.find(x => x.code === cvLang) || CV_LANGUAGES[0];
                     const showBadge = cvLang !== "fr" || form.offre.length > 80;
