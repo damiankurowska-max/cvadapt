@@ -66,299 +66,256 @@ function FieldGroup({ label, hint, children }) {
   );
 }
 
-/* ── TemplateMiniPreview: scaled-down real CV thumbnail ─────────── */
-const PREVIEW_SCALE = 0.185;
-const PREVIEW_W = 540;
-
-function MiniWrap({ children, bg = "#fff" }) {
-  return (
-    <div style={{ width: "100%", height: "100%", overflow: "hidden", background: bg, position: "relative" }}>
-      <div style={{ transform: `scale(${PREVIEW_SCALE})`, transformOrigin: "top left", width: PREVIEW_W, pointerEvents: "none" }}>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-const L = (s, c, mb = 6) => <div style={{ fontSize: s, color: c, marginBottom: mb }} />;
-const Lines = ({ widths, color, h = 7, mb = 5 }) => widths.map((w, i) => (
-  <div key={i} style={{ height: h, width: w + "%", background: color, borderRadius: 2, marginBottom: mb, opacity: 0.75 }} />
-));
-const Sec = ({ label, color, children, mt = 18 }) => (
-  <div style={{ marginTop: mt }}>
-    <div style={{ fontSize: 9, fontWeight: 800, color, letterSpacing: 2, textTransform: "uppercase", marginBottom: 10, borderBottom: `1px solid ${color}22`, paddingBottom: 4 }}>{label}</div>
-    {children}
-  </div>
+/* ── TemplateMiniPreview: CV thumbnail designed at display size ──── */
+const R = (w, c, h = 2, mb = 3) => (
+  <div style={{ height: h, width: w + "%", background: c, borderRadius: 1, marginBottom: mb }} />
 );
-const JobBlock = ({ title, co, color, lines }) => (
-  <div style={{ marginBottom: 14 }}>
-    <div style={{ fontSize: 11, fontWeight: 700, color: "#1e293b" }}>{title}</div>
-    <div style={{ fontSize: 9, color: "#64748b", marginBottom: 6 }}>{co}</div>
-    <Lines widths={lines} color={color} h={6} mb={4} />
-  </div>
-);
-const Tag = ({ label, bg, color }) => (
-  <span style={{ display: "inline-block", fontSize: 9, fontWeight: 600, background: bg, color, borderRadius: 4, padding: "3px 8px", margin: "0 4px 4px 0" }}>{label}</span>
+const SL = (label, color) => (
+  <div style={{ fontSize: 4.5, fontWeight: 800, color, letterSpacing: 0.8, textTransform: "uppercase", marginBottom: 3, marginTop: 7 }}>{label}</div>
 );
 
 function TemplateMiniPreview({ tmpl }) {
   if (!tmpl) return null;
 
+  /* ── SOBRE (moderne) — header marine foncé, 2 colonnes ── */
   if (tmpl.id === "moderne") return (
-    <MiniWrap>
-      <div style={{ background: "#1e293b", padding: "28px 30px 22px" }}>
-        <div style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc", letterSpacing: -0.5, marginBottom: 4 }}>Sophie Martin</div>
-        <div style={{ fontSize: 11, color: "#94a3b8", marginBottom: 12 }}>Chargée de Marketing Digital</div>
-        <div style={{ display: "flex", gap: 16, fontSize: 9, color: "#64748b" }}>
-          <span>sophie@email.fr</span><span>+33 6 12 34 56 78</span><span>Paris, France</span>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", overflow: "hidden", fontFamily: "sans-serif" }}>
+      <div style={{ background: "#1e293b", padding: "8px 10px 7px", flexShrink: 0 }}>
+        <div style={{ fontSize: 7.5, fontWeight: 700, color: "#f8fafc", marginBottom: 1.5 }}>Sophie Martin</div>
+        <div style={{ fontSize: 4.5, color: "#94a3b8", marginBottom: 4 }}>Chargée de Marketing Digital</div>
+        <div style={{ display: "flex", gap: 6 }}>
+          {[38, 46, 30].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "rgba(255,255,255,0.2)", borderRadius: 1 }} />)}
         </div>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "60% 40%", padding: "20px 30px", gap: 20 }}>
+      <div style={{ flex: 1, display: "grid", gridTemplateColumns: "58% 42%", padding: "6px 8px", gap: 8, minHeight: 0 }}>
         <div>
-          <Sec label="Expériences" color="#1d4ed8" mt={0}>
-            <JobBlock title="Chargée de projet digital" co="StartupX · 2023–2025" color="#bfdbfe" lines={[92, 78, 85, 71]} />
-            <JobBlock title="Assistante marketing" co="Fnac · 2021–2023" color="#bfdbfe" lines={[88, 74, 62]} />
-          </Sec>
-          <Sec label="Formation" color="#1d4ed8">
-            <div style={{ fontSize: 10, fontWeight: 600, color: "#1e293b" }}>Bachelor Communication</div>
-            <div style={{ fontSize: 9, color: "#64748b" }}>ISCOM Paris · 2022–2025</div>
-          </Sec>
+          {SL("Expériences", "#1d4ed8")}
+          <div style={{ fontSize: 5, fontWeight: 700, color: "#0f172a", marginBottom: 1 }}>Chargée de projet digital</div>
+          <div style={{ fontSize: 4, color: "#64748b", marginBottom: 3 }}>StartupX · 2023–2025</div>
+          {[90, 76, 84, 71].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: i % 3 === 0 ? "#bfdbfe" : "#e2e8f0", borderRadius: 1, marginBottom: 2 }} />)}
+          <div style={{ fontSize: 5, fontWeight: 700, color: "#0f172a", marginTop: 4, marginBottom: 1 }}>Assistante marketing</div>
+          <div style={{ fontSize: 4, color: "#64748b", marginBottom: 3 }}>Fnac · 2021–2023</div>
+          {[86, 72, 63].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#e2e8f0", borderRadius: 1, marginBottom: 2 }} />)}
+          {SL("Formation", "#1d4ed8")}
+          <div style={{ fontSize: 4.5, fontWeight: 600, color: "#0f172a" }}>Bachelor Communication — ISCOM</div>
         </div>
-        <div>
-          <Sec label="Compétences" color="#1d4ed8" mt={0}>
-            {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux","Pack Office"].map(s => (
-              <div key={s} style={{ fontSize: 9, color: "#334155", padding: "4px 0", borderBottom: "1px solid #f1f5f9" }}>{s}</div>
-            ))}
-          </Sec>
-          <Sec label="Contact" color="#1d4ed8">
-            <Lines widths={[85, 70, 62]} color="#cbd5e1" h={6} mb={5} />
-          </Sec>
+        <div style={{ borderLeft: "1px solid #e2e8f0", paddingLeft: 6 }}>
+          {SL("Compétences", "#1d4ed8")}
+          {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux","Pack Office"].map(s => (
+            <div key={s} style={{ fontSize: 4, color: "#334155", borderBottom: "0.5px solid #f1f5f9", padding: "1.5px 0" }}>{s}</div>
+          ))}
+          {SL("Contact", "#1d4ed8")}
+          {[80, 68, 55].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#cbd5e1", borderRadius: 1, marginBottom: 2 }} />)}
         </div>
       </div>
-    </MiniWrap>
+    </div>
   );
 
+  /* ── PHOTO — sidebar beige + cercle photo ── */
   if (tmpl.id === "photo") return (
-    <MiniWrap>
-      <div style={{ display: "flex", minHeight: 650 }}>
-        <div style={{ width: 170, background: "#faf7f4", padding: "28px 16px", borderRight: "1px solid #e8e0d8", flexShrink: 0 }}>
-          <div style={{ width: 60, height: 60, borderRadius: "50%", background: "#d6cdc5", margin: "0 auto 14px", border: "3px solid #b8a99a" }} />
-          <div style={{ fontSize: 14, fontWeight: 700, color: "#2d1f1a", textAlign: "center", marginBottom: 2 }}>Sophie Martin</div>
-          <div style={{ fontSize: 9, color: "#92706a", textAlign: "center", marginBottom: 18 }}>Marketing Digital</div>
-          <Sec label="Compétences" color="#92706a" mt={0}>
-            {["Google Analytics","HubSpot","Canva","SEO","Réseaux sociaux"].map(s => (
-              <div key={s} style={{ fontSize: 9, color: "#4b3832", padding: "3px 0", borderBottom: "1px solid #e8e0d8" }}>{s}</div>
-            ))}
-          </Sec>
-          <Sec label="Contact" color="#92706a">
-            <div style={{ fontSize: 8, color: "#6b5248", lineHeight: 1.8 }}>sophie@email.fr<br />+33 6 12 34 56 78<br />Paris, France</div>
-          </Sec>
-        </div>
-        <div style={{ flex: 1, padding: "28px 22px" }}>
-          <Sec label="Expériences" color="#92706a" mt={0}>
-            <JobBlock title="Chargée de projet digital" co="StartupX · 2023–2025" color="#d6cdc5" lines={[90, 76, 84, 70]} />
-            <JobBlock title="Assistante marketing" co="Fnac · 2021–2023" color="#d6cdc5" lines={[86, 72, 63]} />
-          </Sec>
-          <Sec label="Formation" color="#92706a">
-            <div style={{ fontSize: 10, fontWeight: 600, color: "#2d1f1a" }}>Bachelor Communication</div>
-            <div style={{ fontSize: 9, color: "#92706a" }}>ISCOM Paris · 2022–2025</div>
-          </Sec>
-        </div>
+    <div style={{ height: "100%", display: "flex", overflow: "hidden", fontFamily: "sans-serif" }}>
+      <div style={{ width: "36%", background: "#faf7f4", padding: "8px 6px", borderRight: "1px solid #e8e0d8", flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#d6cdc5", border: "2px solid #b8a99a", marginBottom: 5 }} />
+        <div style={{ fontSize: 5.5, fontWeight: 700, color: "#2d1f1a", textAlign: "center", marginBottom: 1 }}>Sophie Martin</div>
+        <div style={{ fontSize: 3.5, color: "#92706a", textAlign: "center", marginBottom: 7 }}>Marketing Digital</div>
+        {SL("Compétences", "#92706a")}
+        {["Google Analytics","HubSpot","Canva","SEO","Réseaux sociaux"].map(s => (
+          <div key={s} style={{ fontSize: 3.5, color: "#4b3832", borderBottom: "0.5px solid #e8e0d8", padding: "1.5px 0", width: "100%", textAlign: "center" }}>{s}</div>
+        ))}
+        {SL("Contact", "#92706a")}
+        {[85, 70, 60].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#d6cdc5", borderRadius: 1, marginBottom: 2 }} />)}
       </div>
-    </MiniWrap>
+      <div style={{ flex: 1, padding: "8px 7px" }}>
+        {SL("Expériences", "#92706a")}
+        <div style={{ fontSize: 5, fontWeight: 700, color: "#2d1f1a", marginBottom: 1 }}>Chargée de projet digital</div>
+        <div style={{ fontSize: 3.5, color: "#92706a", marginBottom: 3 }}>StartupX · 2023–2025</div>
+        {[90, 76, 84, 70].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#d6cdc5", borderRadius: 1, marginBottom: 2 }} />)}
+        <div style={{ fontSize: 5, fontWeight: 700, color: "#2d1f1a", marginTop: 4, marginBottom: 1 }}>Assistante marketing</div>
+        <div style={{ fontSize: 3.5, color: "#92706a", marginBottom: 3 }}>Fnac · 2021–2023</div>
+        {[86, 72, 60].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#d6cdc5", borderRadius: 1, marginBottom: 2 }} />)}
+        {SL("Formation", "#92706a")}
+        <div style={{ fontSize: 4.5, fontWeight: 600, color: "#2d1f1a" }}>Bachelor Communication — ISCOM</div>
+      </div>
+    </div>
   );
 
+  /* ── COUPURE (classique) — éditorial serif, headers ambré ── */
   if (tmpl.id === "classique") return (
-    <MiniWrap>
-      <div style={{ padding: "32px 36px", fontFamily: "Georgia, serif" }}>
-        <div style={{ fontSize: 26, fontWeight: 700, color: "#1c1c1c", letterSpacing: -0.5, marginBottom: 3 }}>Sophie Martin</div>
-        <div style={{ fontSize: 10, color: "#6b7280", marginBottom: 14 }}>Marketing Digital · Paris</div>
-        <div style={{ height: 1.5, background: "#1c1c1c", marginBottom: 18 }} />
-        <Sec label="Expérience Professionnelle" color="#92400e" mt={0}>
-          <div style={{ marginBottom: 14 }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: "#1c1c1c" }}>Chargée de projet digital</div>
-              <div style={{ fontSize: 9, color: "#6b7280" }}>2023–2025</div>
-            </div>
-            <div style={{ fontSize: 9, color: "#374151", marginBottom: 6 }}>StartupX, Paris</div>
-            <Lines widths={[91, 76, 84, 69]} color="#6b7280" h={6} mb={4} />
-          </div>
-          <div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: "#1c1c1c" }}>Assistante marketing</div>
-              <div style={{ fontSize: 9, color: "#6b7280" }}>2021–2023</div>
-            </div>
-            <div style={{ fontSize: 9, color: "#374151", marginBottom: 6 }}>Fnac, Paris</div>
-            <Lines widths={[87, 73, 62]} color="#6b7280" h={6} mb={4} />
-          </div>
-        </Sec>
-        <div style={{ height: 1, background: "#e5e7eb", margin: "16px 0" }} />
-        <Sec label="Formation" color="#92400e" mt={0}>
-          <div style={{ fontSize: 11, fontWeight: 600 }}>Bachelor Communication & Marketing</div>
-          <div style={{ fontSize: 9, color: "#6b7280" }}>ISCOM Paris · 2022–2025</div>
-        </Sec>
-        <div style={{ height: 1, background: "#e5e7eb", margin: "16px 0" }} />
-        <Sec label="Compétences" color="#92400e" mt={0}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-            {["Google Analytics","HubSpot","Canva","SEO/SEA","Pack Office","Copywriting"].map(s => (
-              <Tag key={s} label={s} bg="#fef3c7" color="#92400e" />
-            ))}
-          </div>
-        </Sec>
+    <div style={{ height: "100%", overflow: "hidden", padding: "8px 10px", fontFamily: "Georgia, serif" }}>
+      <div style={{ fontSize: 8.5, fontWeight: 700, color: "#1c1c1c", letterSpacing: -0.3, marginBottom: 1 }}>Sophie Martin</div>
+      <div style={{ fontSize: 4, color: "#6b7280", marginBottom: 5 }}>Marketing Digital · Paris</div>
+      <div style={{ height: 1, background: "#1c1c1c", marginBottom: 5 }} />
+      {SL("Expérience Professionnelle", "#92400e")}
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 1 }}>
+        <div style={{ fontSize: 5, fontWeight: 600, color: "#1c1c1c" }}>Chargée de projet digital</div>
+        <div style={{ fontSize: 4, color: "#6b7280" }}>2023–2025</div>
       </div>
-    </MiniWrap>
+      <div style={{ fontSize: 4, color: "#374151", marginBottom: 3 }}>StartupX, Paris</div>
+      {[91, 76, 84, 69].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: i % 3 === 0 ? "#374151" : "#d1d5db", borderRadius: 1, marginBottom: 2 }} />)}
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4, marginBottom: 1 }}>
+        <div style={{ fontSize: 5, fontWeight: 600, color: "#1c1c1c" }}>Assistante marketing</div>
+        <div style={{ fontSize: 4, color: "#6b7280" }}>2021–2023</div>
+      </div>
+      <div style={{ fontSize: 4, color: "#374151", marginBottom: 3 }}>Fnac, Paris</div>
+      {[87, 73, 62].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#d1d5db", borderRadius: 1, marginBottom: 2 }} />)}
+      <div style={{ height: 0.5, background: "#e5e7eb", margin: "5px 0" }} />
+      {SL("Compétences", "#92400e")}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+        {["Analytics","HubSpot","Canva","SEO","Office"].map(s => (
+          <span key={s} style={{ fontSize: 3.5, background: "#fef3c7", color: "#92400e", borderRadius: 2, padding: "1px 4px" }}>{s}</span>
+        ))}
+      </div>
+    </div>
   );
 
+  /* ── ATELIER (creatif) — sidebar noire + accent or ── */
   if (tmpl.id === "creatif") return (
-    <MiniWrap>
-      <div style={{ display: "flex", minHeight: 650 }}>
-        <div style={{ width: 180, background: "#0f172a", padding: "28px 16px", flexShrink: 0 }}>
-          <div style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(255,255,255,0.18)", margin: "0 auto 14px", border: "2px solid rgba(255,255,255,0.35)" }} />
-          <div style={{ fontSize: 13, fontWeight: 800, color: "#f8fafc", textAlign: "center", marginBottom: 2 }}>Sophie Martin</div>
-          <div style={{ height: 2, width: "60%", background: "#D97706", borderRadius: 2, margin: "0 auto 18px" }} />
-          <Sec label="Compétences" color="rgba(255,255,255,0.45)" mt={0}>
-            {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux"].map(s => (
-              <div key={s} style={{ fontSize: 9, color: "rgba(255,255,255,0.7)", padding: "4px 0", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>{s}</div>
-            ))}
-          </Sec>
-          <Sec label="Contact" color="rgba(255,255,255,0.45)">
-            <div style={{ fontSize: 8, color: "rgba(255,255,255,0.55)", lineHeight: 1.9 }}>sophie@email.fr<br />+33 6 12 34 56 78<br />Paris</div>
-          </Sec>
-        </div>
-        <div style={{ flex: 1, padding: "28px 22px", background: "#fff" }}>
-          <div style={{ fontSize: 11, color: "#6b7280", marginBottom: 16 }}>Marketing Digital</div>
-          <Sec label="Expériences" color="#374151" mt={0}>
-            <JobBlock title="Chargée de projet digital" co="StartupX · 2023–2025" color="#d1d5db" lines={[90, 75, 83, 69]} />
-            <JobBlock title="Assistante marketing" co="Fnac · 2021–2023" color="#d1d5db" lines={[85, 71, 61]} />
-          </Sec>
-          <Sec label="Formation" color="#374151">
-            <div style={{ fontSize: 10, fontWeight: 600 }}>Bachelor Communication</div>
-            <div style={{ fontSize: 9, color: "#6b7280" }}>ISCOM Paris · 2022–2025</div>
-          </Sec>
-        </div>
+    <div style={{ height: "100%", display: "flex", overflow: "hidden", fontFamily: "sans-serif" }}>
+      <div style={{ width: "33%", background: "#0f172a", padding: "8px 6px", flexShrink: 0 }}>
+        <div style={{ width: 20, height: 20, borderRadius: "50%", background: "rgba(255,255,255,0.2)", margin: "0 auto 5px", border: "1.5px solid rgba(255,255,255,0.35)" }} />
+        <div style={{ fontSize: 5, fontWeight: 800, color: "#f8fafc", textAlign: "center", marginBottom: 2 }}>Sophie M.</div>
+        <div style={{ height: 1.5, width: "55%", background: "#D97706", borderRadius: 1, margin: "0 auto 6px" }} />
+        {SL("Compétences", "rgba(255,255,255,0.5)")}
+        {["Analytics","HubSpot","Canva","SEO/SEA","Social"].map(s => (
+          <div key={s} style={{ fontSize: 3.5, color: "rgba(255,255,255,0.65)", borderBottom: "0.5px solid rgba(255,255,255,0.1)", padding: "1.5px 0" }}>{s}</div>
+        ))}
+        {SL("Contact", "rgba(255,255,255,0.5)")}
+        {[85, 68].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "rgba(255,255,255,0.2)", borderRadius: 1, marginBottom: 2 }} />)}
       </div>
-    </MiniWrap>
+      <div style={{ flex: 1, padding: "8px 8px", background: "#fff" }}>
+        <div style={{ fontSize: 4, color: "#6b7280", marginBottom: 5 }}>Marketing Digital</div>
+        {SL("Expériences", "#374151")}
+        <div style={{ fontSize: 5, fontWeight: 700, color: "#111827", marginBottom: 1 }}>Chargée de projet digital</div>
+        <div style={{ height: 1.5, width: "50%", background: "#D97706", borderRadius: 1, marginBottom: 3 }} />
+        {[90, 75, 83, 69].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#e2e8f0", borderRadius: 1, marginBottom: 2 }} />)}
+        <div style={{ fontSize: 5, fontWeight: 700, color: "#111827", marginTop: 4, marginBottom: 3 }}>Assistante marketing</div>
+        {[85, 71, 61].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#e2e8f0", borderRadius: 1, marginBottom: 2 }} />)}
+        {SL("Formation", "#374151")}
+        <div style={{ fontSize: 4.5, fontWeight: 600, color: "#111827" }}>Bachelor — ISCOM Paris</div>
+      </div>
+    </div>
   );
 
+  /* ── TRAIT (minimaliste) — ligne teal, 2 colonnes égales ── */
   if (tmpl.id === "minimaliste") return (
-    <MiniWrap>
-      <div style={{ padding: "28px 30px" }}>
-        <div style={{ fontSize: 22, fontWeight: 800, color: "#0f172a", letterSpacing: -0.5, marginBottom: 3 }}>Sophie Martin</div>
-        <div style={{ fontSize: 10, color: "#0f766e", marginBottom: 4 }}>Chargée de Marketing Digital</div>
-        <div style={{ height: 2, background: "#0f766e", marginBottom: 20 }} />
-        <div style={{ display: "grid", gridTemplateColumns: "55% 45%", gap: 24 }}>
-          <div>
-            <Sec label="Expériences" color="#0f766e" mt={0}>
-              <JobBlock title="Chargée de projet digital" co="StartupX · 2023–2025" color="#99f6e4" lines={[90, 76, 83, 70]} />
-              <JobBlock title="Assistante marketing" co="Fnac · 2021–2023" color="#99f6e4" lines={[86, 72, 62]} />
-            </Sec>
-          </div>
-          <div>
-            <Sec label="Compétences" color="#0f766e" mt={0}>
-              {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux","Pack Office"].map(s => (
-                <div key={s} style={{ fontSize: 9, color: "#334155", padding: "4px 0", borderBottom: "1px solid #f0fdfa" }}>{s}</div>
-              ))}
-            </Sec>
-            <Sec label="Formation" color="#0f766e">
-              <div style={{ fontSize: 10, fontWeight: 600 }}>Bachelor Communication</div>
-              <div style={{ fontSize: 9, color: "#64748b" }}>ISCOM Paris · 2022–2025</div>
-            </Sec>
-          </div>
+    <div style={{ height: "100%", overflow: "hidden", padding: "8px 10px", fontFamily: "sans-serif" }}>
+      <div style={{ fontSize: 8, fontWeight: 800, color: "#0f172a", letterSpacing: -0.3, marginBottom: 1 }}>Sophie Martin</div>
+      <div style={{ fontSize: 4.5, color: "#0f766e", marginBottom: 2 }}>Chargée de Marketing Digital</div>
+      <div style={{ height: 1.5, background: "#0f766e", marginBottom: 6 }} />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        <div>
+          {SL("Expériences", "#0f766e")}
+          <div style={{ fontSize: 4.5, fontWeight: 700, color: "#0f172a", marginBottom: 1 }}>Chargée de projet</div>
+          <div style={{ fontSize: 3.5, color: "#64748b", marginBottom: 3 }}>StartupX · 2023–2025</div>
+          {[90, 76, 83, 70].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: i % 3 === 0 ? "#99f6e4" : "#e2e8f0", borderRadius: 1, marginBottom: 2 }} />)}
+          <div style={{ fontSize: 4.5, fontWeight: 700, color: "#0f172a", marginTop: 4, marginBottom: 1 }}>Assistante mktg</div>
+          <div style={{ fontSize: 3.5, color: "#64748b", marginBottom: 3 }}>Fnac · 2021–2023</div>
+          {[86, 72, 62].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#e2e8f0", borderRadius: 1, marginBottom: 2 }} />)}
+        </div>
+        <div>
+          {SL("Compétences", "#0f766e")}
+          {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux","Pack Office"].map(s => (
+            <div key={s} style={{ fontSize: 3.5, color: "#334155", borderBottom: "0.5px solid #f0fdfa", padding: "1.5px 0" }}>{s}</div>
+          ))}
+          {SL("Formation", "#0f766e")}
+          <div style={{ fontSize: 4, fontWeight: 600, color: "#0f172a" }}>Bachelor Communication</div>
+          <div style={{ fontSize: 3.5, color: "#64748b" }}>ISCOM Paris · 2022–2025</div>
         </div>
       </div>
-    </MiniWrap>
+    </div>
   );
 
+  /* ── EXECUTIVE — header navy, bicolonne sobre ── */
   if (tmpl.id === "executive") return (
-    <MiniWrap>
-      <div style={{ background: "#0c4a6e", padding: "28px 30px 22px" }}>
-        <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: -0.3, marginBottom: 4 }}>Sophie Martin</div>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,0.65)", marginBottom: 12 }}>Chargée de Marketing Digital</div>
-        <div style={{ height: 1, background: "rgba(255,255,255,0.2)" }} />
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", overflow: "hidden", fontFamily: "sans-serif" }}>
+      <div style={{ background: "#0c4a6e", padding: "8px 10px 6px", flexShrink: 0 }}>
+        <div style={{ fontSize: 7.5, fontWeight: 700, color: "#fff", marginBottom: 1.5 }}>Sophie Martin</div>
+        <div style={{ fontSize: 4.5, color: "rgba(255,255,255,0.65)", marginBottom: 4 }}>Chargée de Marketing Digital</div>
+        <div style={{ height: 0.5, background: "rgba(255,255,255,0.2)" }} />
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "58% 42%", padding: "20px 30px", gap: 20 }}>
+      <div style={{ flex: 1, display: "grid", gridTemplateColumns: "58% 42%", padding: "6px 8px", gap: 8, minHeight: 0 }}>
         <div>
-          <Sec label="Expériences" color="#0c4a6e" mt={0}>
-            <JobBlock title="Chargée de projet digital" co="StartupX · 2023–2025" color="#bae6fd" lines={[91, 76, 84, 70]} />
-            <JobBlock title="Assistante marketing" co="Fnac · 2021–2023" color="#bae6fd" lines={[87, 72, 62]} />
-          </Sec>
-          <Sec label="Formation" color="#0c4a6e">
-            <div style={{ fontSize: 10, fontWeight: 600 }}>Bachelor Communication</div>
-            <div style={{ fontSize: 9, color: "#64748b" }}>ISCOM Paris · 2022–2025</div>
-          </Sec>
+          {SL("Expériences", "#0c4a6e")}
+          <div style={{ fontSize: 4.5, fontWeight: 700, color: "#0f172a", marginBottom: 1 }}>Chargée de projet digital</div>
+          <div style={{ fontSize: 3.5, color: "#64748b", marginBottom: 3 }}>StartupX · 2023–2025</div>
+          {[91, 76, 84, 70].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: i % 3 === 0 ? "#bae6fd" : "#e0f2fe", borderRadius: 1, marginBottom: 2 }} />)}
+          <div style={{ fontSize: 4.5, fontWeight: 700, color: "#0f172a", marginTop: 4, marginBottom: 1 }}>Assistante marketing</div>
+          <div style={{ fontSize: 3.5, color: "#64748b", marginBottom: 3 }}>Fnac · 2021–2023</div>
+          {[87, 72, 62].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#e0f2fe", borderRadius: 1, marginBottom: 2 }} />)}
+          {SL("Formation", "#0c4a6e")}
+          <div style={{ fontSize: 4, fontWeight: 600, color: "#0f172a" }}>Bachelor — ISCOM Paris</div>
         </div>
-        <div style={{ borderLeft: "1px solid #e0f2fe", paddingLeft: 16 }}>
-          <Sec label="Compétences" color="#0c4a6e" mt={0}>
-            {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux","Pack Office"].map(s => (
-              <div key={s} style={{ fontSize: 9, color: "#0c4a6e", padding: "4px 0", borderBottom: "1px solid #e0f2fe" }}>{s}</div>
-            ))}
-          </Sec>
-          <Sec label="Contact" color="#0c4a6e">
-            <div style={{ fontSize: 8, color: "#64748b", lineHeight: 1.9 }}>sophie@email.fr<br />+33 6 12 34 56 78<br />Paris</div>
-          </Sec>
+        <div style={{ borderLeft: "1px solid #e0f2fe", paddingLeft: 6 }}>
+          {SL("Compétences", "#0c4a6e")}
+          {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux","Pack Office"].map(s => (
+            <div key={s} style={{ fontSize: 3.5, color: "#0c4a6e", borderBottom: "0.5px solid #e0f2fe", padding: "1.5px 0" }}>{s}</div>
+          ))}
+          {SL("Contact", "#0c4a6e")}
+          {[80, 68, 55].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#bae6fd", borderRadius: 1, marginBottom: 2 }} />)}
         </div>
       </div>
-    </MiniWrap>
+    </div>
   );
 
+  /* ── IMPACT (bold) — header bleu vif, typo forte ── */
   if (tmpl.id === "bold") return (
-    <MiniWrap>
-      <div style={{ background: "#2563eb", padding: "26px 30px 20px" }}>
-        <div style={{ fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.8, marginBottom: 4 }}>Sophie Martin</div>
-        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.8)", marginBottom: 12 }}>Chargée de Marketing Digital</div>
-        <div style={{ display: "flex", gap: 12, fontSize: 9, color: "rgba(255,255,255,0.6)" }}>
-          <span>sophie@email.fr</span><span>+33 6 12 34 56 78</span><span>Paris</span>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", overflow: "hidden", fontFamily: "sans-serif" }}>
+      <div style={{ background: "#2563eb", padding: "9px 10px 7px", flexShrink: 0 }}>
+        <div style={{ fontSize: 8.5, fontWeight: 900, color: "#fff", letterSpacing: -0.4, marginBottom: 1.5 }}>Sophie Martin</div>
+        <div style={{ fontSize: 4.5, color: "rgba(255,255,255,0.8)", marginBottom: 4 }}>Chargée de Marketing Digital</div>
+        <div style={{ display: "flex", gap: 6, fontSize: 3.5, color: "rgba(255,255,255,0.6)" }}>
+          <span>sophie@email.fr</span><span>Paris</span>
         </div>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "62% 38%", padding: "20px 30px", gap: 20 }}>
+      <div style={{ flex: 1, display: "grid", gridTemplateColumns: "60% 40%", padding: "6px 8px", gap: 8, minHeight: 0 }}>
         <div>
-          <Sec label="Expériences" color="#2563eb" mt={0}>
-            <JobBlock title="Chargée de projet digital" co="StartupX · 2023–2025" color="#bfdbfe" lines={[90, 77, 84, 71]} />
-            <JobBlock title="Assistante marketing" co="Fnac · 2021–2023" color="#bfdbfe" lines={[86, 72, 63]} />
-          </Sec>
-          <Sec label="Formation" color="#2563eb">
-            <div style={{ fontSize: 10, fontWeight: 600 }}>Bachelor Communication</div>
-            <div style={{ fontSize: 9, color: "#64748b" }}>ISCOM Paris · 2022–2025</div>
-          </Sec>
+          {SL("Expériences", "#2563eb")}
+          <div style={{ fontSize: 4.5, fontWeight: 700, color: "#0f172a", marginBottom: 1 }}>Chargée de projet digital</div>
+          <div style={{ fontSize: 3.5, color: "#64748b", marginBottom: 3 }}>StartupX · 2023–2025</div>
+          {[90, 77, 84, 71].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: i % 3 === 0 ? "#bfdbfe" : "#eff6ff", borderRadius: 1, marginBottom: 2 }} />)}
+          <div style={{ fontSize: 4.5, fontWeight: 700, color: "#0f172a", marginTop: 4, marginBottom: 1 }}>Assistante marketing</div>
+          <div style={{ fontSize: 3.5, color: "#64748b", marginBottom: 3 }}>Fnac · 2021–2023</div>
+          {[86, 72, 63].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#eff6ff", borderRadius: 1, marginBottom: 2 }} />)}
+          {SL("Formation", "#2563eb")}
+          <div style={{ fontSize: 4, fontWeight: 600, color: "#0f172a" }}>Bachelor — ISCOM Paris</div>
         </div>
-        <div style={{ borderLeft: "1px solid #dbeafe", paddingLeft: 16 }}>
-          <Sec label="Compétences" color="#2563eb" mt={0}>
-            {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux","Office"].map(s => (
-              <div key={s} style={{ fontSize: 9, color: "#1e40af", padding: "4px 0", borderBottom: "1px solid #eff6ff" }}>{s}</div>
-            ))}
-          </Sec>
+        <div style={{ borderLeft: "1px solid #dbeafe", paddingLeft: 6 }}>
+          {SL("Compétences", "#2563eb")}
+          {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux","Office"].map(s => (
+            <div key={s} style={{ fontSize: 3.5, color: "#1e40af", borderBottom: "0.5px solid #eff6ff", padding: "1.5px 0" }}>{s}</div>
+          ))}
         </div>
       </div>
-    </MiniWrap>
+    </div>
   );
 
+  /* ── ÉLÉGANT — fond crème, violet, typo fine ── */
   if (tmpl.id === "elegant") return (
-    <MiniWrap bg="#fdfcff">
-      <div style={{ padding: "32px 36px" }}>
-        <div style={{ fontSize: 24, fontWeight: 300, color: "#3b0764", letterSpacing: 1, marginBottom: 3 }}>Sophie Martin</div>
-        <div style={{ fontSize: 9, color: "#7c3aed", letterSpacing: 3, textTransform: "uppercase", marginBottom: 10 }}>Marketing Digital</div>
-        <div style={{ height: 1, background: "#7c3aed", opacity: 0.3, marginBottom: 22 }} />
-        <div style={{ display: "grid", gridTemplateColumns: "55% 45%", gap: 24 }}>
-          <div>
-            <Sec label="Expériences" color="#7c3aed" mt={0}>
-              <JobBlock title="Chargée de projet digital" co="StartupX · 2023–2025" color="#ede9fe" lines={[89, 75, 82, 69]} />
-              <JobBlock title="Assistante marketing" co="Fnac · 2021–2023" color="#ede9fe" lines={[85, 71, 62]} />
-            </Sec>
-          </div>
-          <div>
-            <Sec label="Compétences" color="#7c3aed" mt={0}>
-              {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux"].map(s => (
-                <div key={s} style={{ fontSize: 9, color: "#4c1d95", padding: "4px 0", borderBottom: "1px solid #f5f3ff" }}>{s}</div>
-              ))}
-            </Sec>
-            <Sec label="Formation" color="#7c3aed">
-              <div style={{ fontSize: 10, fontWeight: 400, color: "#3b0764" }}>Bachelor Communication</div>
-              <div style={{ fontSize: 9, color: "#7c3aed", opacity: 0.7 }}>ISCOM Paris · 2022–2025</div>
-            </Sec>
-          </div>
+    <div style={{ height: "100%", overflow: "hidden", padding: "8px 10px", background: "#fdfcff", fontFamily: "sans-serif" }}>
+      <div style={{ fontSize: 8, fontWeight: 300, color: "#3b0764", letterSpacing: 0.5, marginBottom: 1 }}>Sophie Martin</div>
+      <div style={{ fontSize: 4, color: "#7c3aed", letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 4 }}>Marketing Digital</div>
+      <div style={{ height: 0.75, background: "#7c3aed", opacity: 0.35, marginBottom: 6 }} />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        <div>
+          {SL("Expériences", "#7c3aed")}
+          <div style={{ fontSize: 4.5, fontWeight: 600, color: "#3b0764", marginBottom: 1 }}>Chargée de projet</div>
+          <div style={{ fontSize: 3.5, color: "#7c3aed", opacity: 0.8, marginBottom: 3 }}>StartupX · 2023–2025</div>
+          {[89, 75, 82, 69].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#ede9fe", borderRadius: 1, marginBottom: 2 }} />)}
+          <div style={{ fontSize: 4.5, fontWeight: 600, color: "#3b0764", marginTop: 4, marginBottom: 1 }}>Assistante mktg</div>
+          <div style={{ fontSize: 3.5, color: "#7c3aed", opacity: 0.8, marginBottom: 3 }}>Fnac · 2021–2023</div>
+          {[85, 71, 62].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "#ede9fe", borderRadius: 1, marginBottom: 2 }} />)}
+        </div>
+        <div>
+          {SL("Compétences", "#7c3aed")}
+          {["Google Analytics","HubSpot","Canva","SEO/SEA","Réseaux sociaux"].map(s => (
+            <div key={s} style={{ fontSize: 3.5, color: "#4c1d95", borderBottom: "0.5px solid #f5f3ff", padding: "1.5px 0" }}>{s}</div>
+          ))}
+          {SL("Formation", "#7c3aed")}
+          <div style={{ fontSize: 4, fontWeight: 400, color: "#3b0764" }}>Bachelor Communication</div>
+          <div style={{ fontSize: 3.5, color: "#7c3aed", opacity: 0.7 }}>ISCOM Paris · 2022–2025</div>
         </div>
       </div>
-    </MiniWrap>
+    </div>
   );
 
   return null;
