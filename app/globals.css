@@ -283,8 +283,7 @@ body {
 
   /* CV result container plein écran */
   .gen-result-col > div.bg-white,
-  .gen-result-col > div.rounded-2xl,
-  .gen-result-col > div:first-child {
+  .gen-result-col > div.rounded-2xl {
     border-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
@@ -328,9 +327,15 @@ body {
   .bg-green-50 .flex.gap-3 { flex: 1 !important; justify-content: flex-end !important; }
 
   /* ── GENERATE : CV preview scrollable horizontal ── */
-  .gen-result-col [style*="overflowX"] {
+  .gen-result-col [style*="overflowX"],
+  .gen-result-col [style*="overflow-x"] {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
+  }
+  /* Déblock overflow-hidden sur le container de preview */
+  .gen-result-col .overflow-hidden {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
   }
   .gen-result-col .p-5,
   .gen-result-col .p-5.sm\:p-10 {
