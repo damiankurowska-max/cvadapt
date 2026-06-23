@@ -72,6 +72,110 @@ function TemplateMiniPreview({ tmpl }) {
   const bar = (w, bg) => ({ height: 2.5, width: w + "%", background: bg, borderRadius: 2, marginBottom: 2.5 });
   const secLabel = (color) => ({ fontSize: 4.5, fontWeight: 900, color, letterSpacing: 0.6, textTransform: "uppercase", marginBottom: 3, marginTop: 5 });
 
+  // photo — sidebar beige avec cercle photo
+  if (tmpl.id === "photo") {
+    return (
+      <div style={{ display: "flex", height: "100%", background: "#fff", overflow: "hidden" }}>
+        <div style={{ width: "34%", background: "#faf7f4", padding: "10px 6px", display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, borderRight: "1px solid #e8e0d8" }}>
+          <div style={{ width: 24, height: 24, borderRadius: "50%", background: "#d6cdc5", marginBottom: 6, border: "2px solid #b8a99a" }} />
+          <div style={{ height: 2.5, width: "80%", background: "#4b3832", borderRadius: 2, marginBottom: 1.5 }} />
+          <div style={{ height: 1.5, width: "55%", background: "#b8a99a", borderRadius: 2, marginBottom: 8 }} />
+          <div style={secLabel("#92706a")}>Compétences</div>
+          {[80, 65, 90, 70, 55].map((w, i) => <div key={i} style={bar(w, "#d6cdc5")} />)}
+          <div style={secLabel("#92706a")}>Contact</div>
+          {[85, 70].map((w, i) => <div key={i} style={bar(w, "#e8e0d8")} />)}
+        </div>
+        <div style={{ flex: 1, padding: "10px 8px" }}>
+          <div style={secLabel("#92706a")}>Expérience</div>
+          {[90, 80, 70, 85, 65, 75].map((w, i) => <div key={i} style={bar(w, i % 3 === 0 ? "#d6cdc5" : "#eee")} />)}
+          <div style={secLabel("#92706a")}>Formation</div>
+          {[80, 60].map((w, i) => <div key={i} style={bar(w, "#eee")} />)}
+        </div>
+      </div>
+    );
+  }
+
+  // executive — navy, bicolonne épurée
+  if (tmpl.id === "executive") {
+    return (
+      <div style={{ background: "#fff", height: "100%", overflow: "hidden" }}>
+        <div style={{ background: "#0c4a6e", padding: "8px 9px 7px" }}>
+          <div style={{ fontSize: 7, fontWeight: 900, color: "#fff", marginBottom: 1 }}>Jean Dupont</div>
+          <div style={{ fontSize: 4.5, color: "rgba(255,255,255,0.65)", marginBottom: 3 }}>Développeur Web</div>
+          <div style={{ height: 1, background: "rgba(255,255,255,0.25)", marginBottom: 0 }} />
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "55% 45%", padding: "7px 9px", gap: 8 }}>
+          <div>
+            <div style={secLabel("#0c4a6e")}>Expérience</div>
+            {[95, 80, 70, 88, 65, 78].map((w, i) => <div key={i} style={bar(w, i % 3 === 0 ? "#bae6fd" : "#e0f0fa")} />)}
+            <div style={secLabel("#0c4a6e")}>Formation</div>
+            {[80, 62].map((w, i) => <div key={i} style={bar(w, "#e0f0fa")} />)}
+          </div>
+          <div style={{ borderLeft: "1px solid #e0f0fa", paddingLeft: 6 }}>
+            <div style={secLabel("#0c4a6e")}>Compétences</div>
+            {[85, 70, 90, 60, 75, 80].map((w, i) => <div key={i} style={bar(w, "#bae6fd")} />)}
+            <div style={secLabel("#0c4a6e")}>Contact</div>
+            {[80, 65, 55].map((w, i) => <div key={i} style={bar(w, "#e0f0fa")} />)}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // bold (Impact) — header bleu vif, typographie forte
+  if (tmpl.id === "bold") {
+    return (
+      <div style={{ background: "#fff", height: "100%", overflow: "hidden" }}>
+        <div style={{ background: "#2563eb", padding: "9px 9px 7px" }}>
+          <div style={{ fontSize: 8.5, fontWeight: 900, color: "#fff", letterSpacing: -0.3, marginBottom: 1 }}>Jean Dupont</div>
+          <div style={{ fontSize: 4.5, color: "rgba(255,255,255,0.75)", marginBottom: 3 }}>Développeur Web</div>
+          <div style={{ display: "flex", gap: 4 }}>
+            {[30, 25, 20].map((w, i) => <div key={i} style={{ height: 1.5, width: w + "%", background: "rgba(255,255,255,0.4)", borderRadius: 2 }} />)}
+          </div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "60% 40%", padding: "7px 9px", gap: 8 }}>
+          <div>
+            <div style={secLabel("#2563eb")}>Expérience</div>
+            {[95, 82, 70, 88, 65, 80].map((w, i) => <div key={i} style={bar(w, i % 3 === 0 ? "#bfdbfe" : "#eff6ff")} />)}
+            <div style={secLabel("#2563eb")}>Formation</div>
+            {[80, 62].map((w, i) => <div key={i} style={bar(w, "#eff6ff")} />)}
+          </div>
+          <div style={{ borderLeft: "1px solid #dbeafe", paddingLeft: 6 }}>
+            <div style={secLabel("#2563eb")}>Compétences</div>
+            {[85, 70, 92, 60, 78].map((w, i) => <div key={i} style={bar(w, "#bfdbfe")} />)}
+            <div style={secLabel("#2563eb")}>Contact</div>
+            {[80, 65].map((w, i) => <div key={i} style={bar(w, "#eff6ff")} />)}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // elegant — violet, layout minimaliste raffiné
+  if (tmpl.id === "elegant") {
+    return (
+      <div style={{ background: "#fdfcff", padding: "10px 10px", height: "100%", overflow: "hidden" }}>
+        <div style={{ marginBottom: 5 }}>
+          <div style={{ fontSize: 7.5, fontWeight: 300, color: "#3b0764", letterSpacing: 0.5, marginBottom: 1 }}>Jean Dupont</div>
+          <div style={{ fontSize: 4.5, color: "#7c3aed", letterSpacing: 0.8, textTransform: "uppercase", marginBottom: 3 }}>Développeur Web</div>
+          <div style={{ height: 0.75, background: "#7c3aed", marginBottom: 5, opacity: 0.4 }} />
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 10px" }}>
+          <div>
+            <div style={secLabel("#7c3aed")}>Expérience</div>
+            {[90, 78, 68, 85, 62, 78].map((w, i) => <div key={i} style={bar(w, i % 3 === 0 ? "#ede9fe" : "#f5f3ff")} />)}
+          </div>
+          <div>
+            <div style={secLabel("#7c3aed")}>Compétences</div>
+            {[85, 70, 90, 58, 75].map((w, i) => <div key={i} style={bar(w, "#ede9fe")} />)}
+            <div style={secLabel("#7c3aed")}>Formation</div>
+            {[80, 62].map((w, i) => <div key={i} style={bar(w, "#f5f3ff")} />)}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (tmpl.id === "creatif") {
     return (
       <div style={{ display: "flex", height: "100%", background: "#fff", overflow: "hidden" }}>
