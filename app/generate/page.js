@@ -610,11 +610,20 @@ Ce que nous offrons
     setLm("");
 
     try {
-      const cvRes = await fetch("/api/generate-cv", {
+      // Lancer CV et LM en parallèle — réduction ~50% du temps total
+      const cvPromise = fetch("/api/generate-cv", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, template, lang, cvLang }),
       });
+      const lmPromise = withLM ? fetch("/api/generate-lm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, lang }),
+      }) : null;
+      if (lmPromise) setLoadingLM(true);
+
+      const cvRes = await cvPromise;
       const cvData = await cvRes.json();
 
       if (!cvRes.ok) {
@@ -693,13 +702,8 @@ Ce que nous offrons
       }
 
       let lmContent = "";
-      if (withLM) {
-        setLoadingLM(true);
-        const lmRes = await fetch("/api/generate-lm", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...form, lang }),
-        });
+      if (withLM && lmPromise) {
+        const lmRes = await lmPromise;
         const lmData = await lmRes.json();
         if (lmRes.ok) {
           lmContent = lmData.lm;
