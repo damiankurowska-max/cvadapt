@@ -241,7 +241,7 @@ Ce que nous offrons
   const [photo, setPhoto] = useState(null);
   const photoInputRef = useRef(null);
   const [template, setTemplate] = useState("moderne");
-  const [withLM, setWithLM] = useState(false);
+  const [withLM, setWithLM] = useState(true);
   const [cv, setCv] = useState("");
   const [lm, setLm] = useState("");
   const [activeTab, setActiveTab] = useState("cv");
@@ -1265,11 +1265,42 @@ Ce que nous offrons
                   )}
 
                   {/* LM toggle */}
-                  <label style={{ display: "flex", alignItems: "center", gap: 14, background: "linear-gradient(135deg,#faf5ff,#f5f0ff)", border: "1.5px solid #ddd6fe", borderRadius: 14, padding: "14px 16px", cursor: "pointer", marginBottom: 20 }}>
-                    <input type="checkbox" checked={withLM} onChange={(e) => setWithLM(e.target.checked)} style={{ width: 17, height: 17, accentColor: "#7c3aed", flexShrink: 0 }} />
-                    <div>
-                      <p style={{ fontSize: 14, fontWeight: 800, color: "#5b21b6" }}>{tr(lang, "coverLetterLabel")}</p>
-                      <p style={{ fontSize: 12, color: "#7c3aed", marginTop: 2 }}>{tr(lang, "coverLetterSubtitle")}</p>
+                  <label style={{
+                    display: "flex", alignItems: "center", gap: 14, cursor: "pointer", marginBottom: 20,
+                    background: withLM ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "#f8fafc",
+                    border: withLM ? "1.5px solid transparent" : "1.5px solid #e2e8f0",
+                    borderRadius: 14, padding: "16px 18px",
+                    boxShadow: withLM ? "0 6px 24px rgba(109,40,217,0.28)" : "none",
+                    transition: "all 0.22s ease",
+                  }}>
+                    <input type="checkbox" checked={withLM} onChange={(e) => setWithLM(e.target.checked)} style={{ display: "none" }} />
+                    <div style={{
+                      width: 42, height: 42, borderRadius: 11, flexShrink: 0,
+                      background: withLM ? "rgba(255,255,255,0.18)" : "rgba(124,58,237,0.08)",
+                      display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20,
+                      transition: "background 0.22s",
+                    }}>✉️</div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <p style={{ fontSize: 14, fontWeight: 800, color: withLM ? "#fff" : "#1e1b4b", marginBottom: 3, transition: "color 0.22s" }}>
+                        {withLM ? "Lettre de motivation incluse" : tr(lang, "coverLetterLabel")}
+                      </p>
+                      <p style={{ fontSize: 11, color: withLM ? "rgba(255,255,255,0.72)" : "#9ca3af", lineHeight: 1.45, transition: "color 0.22s" }}>
+                        {withLM ? "Adaptée à l'offre · personnalisée · prête à envoyer" : tr(lang, "coverLetterSubtitle")}
+                      </p>
+                    </div>
+                    <div style={{
+                      flexShrink: 0, width: 44, height: 24, borderRadius: 12,
+                      background: withLM ? "rgba(255,255,255,0.28)" : "#e2e8f0",
+                      position: "relative", transition: "background 0.22s",
+                    }}>
+                      <div style={{
+                        position: "absolute", top: 2,
+                        left: withLM ? 22 : 2,
+                        width: 20, height: 20, borderRadius: "50%",
+                        background: withLM ? "#fff" : "#94a3b8",
+                        boxShadow: "0 1px 4px rgba(0,0,0,0.18)",
+                        transition: "left 0.22s ease, background 0.22s",
+                      }} />
                     </div>
                   </label>
 
