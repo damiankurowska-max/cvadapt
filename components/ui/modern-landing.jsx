@@ -311,7 +311,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
 
   const circ = 2 * Math.PI * 54;
   const faqItems = [
-    { q: "Postulera est-il vraiment gratuit ?", a: "Oui, 3 CV complets sont générés gratuitement, sans carte bancaire requise." },
+    { q: "Postulera est-il vraiment gratuit ?", a: "Oui, 1 CV complet est généré gratuitement, sans carte bancaire requise." },
     { q: "Comment fonctionne l'optimisation ATS ?", a: "L'IA analyse l'offre d'emploi, extrait les mots-clés exacts et réécrit votre CV pour maximiser votre score de correspondance." },
     { q: "En combien de temps est généré mon CV ?", a: "Le CV optimisé est généré en moins de 30 secondes." },
     { q: "Puis-je annuler mon abonnement ?", a: "Oui, sans engagement. Vous pouvez annuler à tout moment depuis votre espace client." },
@@ -372,7 +372,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
               Outil IA marché français
             </div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", background: C.greenLight, border: `1px solid #A7F3D0`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: "#065F46" }}>
-              3 CV gratuits · Sans CB
+              1 CV gratuit · Sans CB
             </div>
           </div>
 
@@ -404,7 +404,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
                 </div>
               ))}
             </div>
-            <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB · 3 CV gratuits</span>
+            <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB · 1 CV gratuit</span>
           </div>
 
           <div style={{ marginTop: 12 }}>
@@ -668,7 +668,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
               </div>
               <p style={{ fontSize: 12, color: C.slateLight, marginBottom: 16 }}>Sans carte bancaire</p>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px", display: "flex", flexDirection: "column", gap: 8 }}>
-                {[["3 CV en accès exclusif", true], ["Score ATS inclus", true], ["Analyse de l'offre", true], ["Lettre de motivation", false], ["Accompagnement illimité", false]].map(([f, ok], i) => (
+                {[["1 CV en accès exclusif", true], ["Score ATS inclus", true], ["Analyse de l'offre", true], ["Lettre de motivation", false], ["Accompagnement illimité", false]].map(([f, ok], i) => (
                   <li key={i} style={{ display: "flex", gap: 9, fontSize: 13, color: ok ? C.navy : C.slateLight }}>
                     <span style={{ color: ok ? C.green : C.border, fontWeight: 700 }}>{ok ? "✓" : "✗"}</span>{f}
                   </li>
@@ -805,7 +805,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
                 </div>
               ))}
             </div>
-            <span style={{ fontSize: 12, color: C.slateLight }}>Sans CB · 3 CV gratuits</span>
+            <span style={{ fontSize: 12, color: C.slateLight }}>Sans CB · 1 CV gratuit</span>
           </div>
           <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 18, padding: "26px 24px", boxShadow: "0 4px 24px rgba(37,99,235,0.06)" }}>
             <p style={{ fontSize: 15, fontWeight: 700, color: C.navy, marginBottom: 3 }}>Conseils CV chaque semaine</p>

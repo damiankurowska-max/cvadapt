@@ -49,7 +49,7 @@ export default function CvCommercial() {
           style={{ background: "#1d4ed8", boxShadow: "0 6px 24px rgba(29,78,216,0.35)" }}>
           Générer mon CV commercial — Gratuit →
         </Link>
-        <p className="text-sm" style={{ color: "#93c5fd" }}>✓ Sans carte bancaire · ✓ 3 CV gratuits · ✓ Résultat en 30s</p>
+        <p className="text-sm" style={{ color: "#93c5fd" }}>✓ Sans carte bancaire · ✓ 1 CV gratuit · ✓ Résultat en 30s</p>
       </section>
 
       <section className="py-16 px-5" style={{ background: "#ffffff" }}>
