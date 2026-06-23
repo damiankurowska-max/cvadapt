@@ -31,7 +31,7 @@ const config = {
     { q: "Postulera gère les stacks techniques complexes ?", a: "Oui. Frontend, backend, fullstack, DevOps, Data, Mobile, Cloud... Postulera reconnaît les technos et les place là où les ATS les cherchent." },
     { q: "Est-ce que Postulera peut mettre en avant mes projets GitHub ?", a: "Oui. Tu peux mentionner tes projets et Postulera les reformule en mettant en avant les technos, l'impact et les métriques que les recruteurs tech apprécient." },
     { q: "Ça fonctionne pour les offres en remote et à l'international ?", a: "Oui. Postulera adapte le CV pour des offres en français et peut s'adapter au registre tech international si l'offre est en anglais." },
-    { q: "C'est gratuit ?", a: "3 CV complets sont gratuits sans carte bancaire. Plan Pro à 9,99€/mois pour des CV illimités et templates premium." },
+    { q: "C'est gratuit ?", a: "1 CV complet est gratuit sans carte bancaire. Plan Pro à 9,99€/mois pour des CV illimités et templates premium." },
   ],
   cta: {
     primary: "Optimiser mon CV dev",

@@ -42,7 +42,7 @@ export default function UpgradeModal({ onClose }) {
           </div>
 
           <h2 className="text-2xl font-extrabold text-white mb-2 leading-tight">
-            Tes 3 CV gratuits ont servi.<br />
+            Ton CV gratuit a servi.<br />
             <span className="text-blue-200">Tu postules — continue.</span>
           </h2>
           <p className="text-blue-100 text-sm">

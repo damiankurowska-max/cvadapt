@@ -574,7 +574,7 @@ export default function Analyse() {
                   Générer mon CV optimisé →
                 </button>
                 <p style={{ color: "rgba(255,255,255,.3)", fontSize: 11, marginTop: 14 }}>
-                  ✓ 3 CV gratuits · ✓ Sans carte bancaire · ✓ 30 secondes
+                  ✓ 1 CV gratuit · ✓ Sans carte bancaire · ✓ 30 secondes
                 </p>
               </div>
             </div>

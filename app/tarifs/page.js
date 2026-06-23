@@ -46,7 +46,7 @@ export default function Tarifs() {
       yearlyPrice: 0,
       period: "mois",
       features: [
-        "3 CV au total",
+        "1 CV au total",
         "4 templates visuels",
         "Téléchargement PDF",
       ],

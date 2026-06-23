@@ -31,7 +31,7 @@ const config = {
     { q: "Ça marche pour tous les métiers RH ?", a: "Oui — recrutement, formation, paie, relations sociales, GPEC, HRBP, DRH... Postulera adapte le vocabulaire au sous-domaine RH de l'offre." },
     { q: "Postulera est utile même quand on connaît bien les RH ?", a: "Oui. Même les professionnels RH savent qu'un CV doit être adapté à chaque offre. Postulera automatise cette adaptation et évite les erreurs d'alignement lexical." },
     { q: "La lettre de motivation est incluse ?", a: "Oui. Postulera génère une lettre personnalisée à l'entreprise et à l'offre en même temps que le CV." },
-    { q: "C'est gratuit ?", a: "3 CV complets sont gratuits sans carte bancaire. Plan Étudiant à 4,99€/mois pour 15 CV/mois avec lettre de motivation." },
+    { q: "C'est gratuit ?", a: "1 CV complet est gratuit sans carte bancaire. Plan Étudiant à 4,99€/mois pour 15 CV/mois avec lettre de motivation." },
   ],
   cta: { primary: "Créer mon CV RH", finalTitle: "Ton prochain poste RH commence ici", finalSub: "CV adapté, SIRH intégrés, lettre incluse. Gratuit pour commencer." },
 };

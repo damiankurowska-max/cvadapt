@@ -31,7 +31,7 @@ const config = {
     { q: "Ça marche pour les cabinets d'expertise comptable et les BIG 4 ?", a: "Oui. Postulera adapte le ton et le niveau de technicité selon l'offre — cabinet local, BIG 4, direction financière de grand groupe ou PME." },
     { q: "Postulera gère les normes comptables (IFRS, PCG, US GAAP) ?", a: "Oui. Si l'offre mentionne des normes spécifiques, Postulera les intègre dans ton CV là où les ATS les cherchent." },
     { q: "La lettre de motivation est-elle incluse ?", a: "Oui. Une lettre professionnelle personnalisée à l'entreprise et à l'offre est générée en même temps que le CV." },
-    { q: "C'est gratuit ?", a: "3 CV complets sont gratuits sans carte bancaire. Plan Étudiant à 4,99€/mois pour 15 CV/mois avec lettre de motivation." },
+    { q: "C'est gratuit ?", a: "1 CV complet est gratuit sans carte bancaire. Plan Étudiant à 4,99€/mois pour 15 CV/mois avec lettre de motivation." },
   ],
   cta: { primary: "Créer mon CV comptable", finalTitle: "Ton prochain poste finance commence ici", finalSub: "CV adapté, logiciels et normes intégrés, lettre incluse. Gratuit pour commencer." },
 };

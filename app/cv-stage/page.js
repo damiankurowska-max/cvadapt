@@ -37,7 +37,7 @@ export default function CvStage() {
           style={{ background: "#1d4ed8", boxShadow: "0 6px 24px rgba(29,78,216,0.35)" }}>
           Créer mon CV stage — Gratuit →
         </Link>
-        <p className="text-sm" style={{ color: "#93c5fd" }}>✓ Sans carte bancaire · ✓ 3 CV gratuits · ✓ Téléchargement PDF</p>
+        <p className="text-sm" style={{ color: "#93c5fd" }}>✓ Sans carte bancaire · ✓ 1 CV gratuit · ✓ Téléchargement PDF</p>
       </section>
 
       <section className="py-16 px-5 bg-white">
@@ -74,7 +74,7 @@ export default function CvStage() {
               { q:"Comment faire un CV stage sans expérience ?", r:"Postulera met en avant ta formation, tes projets universitaires, tes activités extra-scolaires et tes compétences — exactement ce que les recruteurs cherchent pour un premier stage." },
               { q:"Quel format de CV pour un stage ?", r:"Le format PDF est obligatoire. Postulera génère un CV PDF optimisé ATS en 30 secondes, avec une mise en page lisible par tous les logiciels de tri automatique." },
               { q:"Comment adapter son CV à chaque offre de stage ?", r:"Il suffit de coller le texte de l'offre dans Postulera. L'IA analyse les mots-clés du poste et génère un CV personnalisé en quelques secondes." },
-              { q:"Postulera est-il vraiment gratuit ?", r:"Oui. Tu génères 3 CV complets gratuitement, sans carte bancaire. Le plan Étudiant à 4,99€/mois débloque 15 CV par mois avec score ATS et lettre de motivation." },
+              { q:"Postulera est-il vraiment gratuit ?", r:"Oui. Tu génères 1 CV complet gratuitement, sans carte bancaire. Le plan Étudiant à 4,99€/mois débloque 15 CV par mois avec score ATS et lettre de motivation." },
             ].map((item, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100">
                 <p className="font-semibold text-gray-900 mb-2">{item.q}</p>

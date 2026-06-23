@@ -232,7 +232,7 @@ export default function Generate() {
   const [boostLoading, setBoostLoading] = useState(false);
   const [showBoostInput, setShowBoostInput] = useState(false);
   const [boostExtra, setBoostExtra] = useState("");
-  const CV_LIMIT = 3;
+  const CV_LIMIT = 1;
 
   const isPro = sbUser?.user_metadata?.isPro || false;
   const plan = sbUser?.user_metadata?.plan || "free";
@@ -408,7 +408,7 @@ export default function Generate() {
         try { window.clarity?.("event", "limit_hit_free"); } catch {}
         return;
       }
-      if (cvCount === CV_LIMIT - 1 && !gatePassedRef.current) {
+      if (cvCount > 0 && cvCount === CV_LIMIT - 1 && !gatePassedRef.current) {
         setShowLastCVGate(true);
         track("last_cv_gate_shown");
         return;
@@ -493,8 +493,6 @@ export default function Generate() {
         } catch {}
 
         if (newCount >= CV_LIMIT) {
-          setShowUpgradeModal(true);
-          try { window.clarity?.("event", "upgrade_modal_shown_limit"); } catch {}
           const userEmail = sbUser?.email;
           const prenom = sbUser?.user_metadata?.full_name?.split(" ")[0] || "";
           if (userEmail) {
@@ -714,7 +712,7 @@ export default function Generate() {
             <div style={{ background: "linear-gradient(135deg,#f59e0b,#d97706)" }} className="px-7 pt-6 pb-5 text-center">
               <div className="text-4xl mb-2">⚡</div>
               <h2 className="text-xl font-extrabold text-white">C'est ton dernier CV gratuit</h2>
-              <p className="text-amber-100 text-sm mt-1">Tu en as utilisé {cvCount}/3 — ce sera le dernier.</p>
+              <p className="text-amber-100 text-sm mt-1">Tu en as utilisé {cvCount}/1 — c'est le seul CV gratuit.</p>
             </div>
             <div className="px-7 py-5">
               <p className="text-sm text-gray-500 mb-5 text-center">Upgrade maintenant et génère autant de CV que tu veux, avec score ATS complet et lettre de motivation.</p>

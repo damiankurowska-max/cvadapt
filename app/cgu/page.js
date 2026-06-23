@@ -37,7 +37,7 @@ export default function CGU() {
             <h2 className="text-xl font-bold text-gray-900 mb-4">2. Accès au service</h2>
             <p className="text-sm mb-3">Postulera est accessible :</p>
             <ul className="list-disc list-inside space-y-1 text-sm">
-              <li><strong>Gratuitement</strong> : 3 CV générés au total (sans abonnement)</li>
+              <li><strong>Gratuitement</strong> : 1 CV généré au total (sans abonnement)</li>
               <li><strong>Plan Essentiel (4,99€/mois)</strong> : 10 CV par mois</li>
               <li><strong>Plan Pro (9,99€/mois)</strong> : CV illimités</li>
             </ul>

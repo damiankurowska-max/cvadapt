@@ -11,7 +11,7 @@ import { saveCV, consumeInstitutionQuota } from "@/lib/supabase";
 
 // Limites par plan (source unique de vérité — côté serveur uniquement)
 const PLAN_LIMITS = {
-  free:      { max: 3,   period: "total" },
+  free:      { max: 1,   period: "total" },
   essentiel: { max: 15,  period: "month" },
   pro:       { max: Infinity, period: "none" },
 };
@@ -556,7 +556,7 @@ export async function POST(request) {
   // Guest: IP-based rate limiting (3 CVs max)
   if (isGuest) {
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-    const { success } = await rateLimitAsync(`guest-cv:${ip}`, 3, 24 * 60 * 60 * 1000);
+    const { success } = await rateLimitAsync(`guest-cv:${ip}`, 1, 24 * 60 * 60 * 1000);
     if (!success) {
       return Response.json({ error: "Limite gratuite atteinte. Créez un compte pour continuer." }, { status: 429 });
     }
@@ -583,7 +583,7 @@ export async function POST(request) {
   } else if (!isPro) {
     if (cvCount >= PLAN_LIMITS.free.max) {
       return Response.json(
-        { error: "Limite gratuite atteinte (3 CV). Abonne-toi pour continuer.", code: "LIMIT_FREE" },
+        { error: "Limite gratuite atteinte (1 CV). Abonne-toi pour continuer.", code: "LIMIT_FREE" },
         { status: 403 }
       );
     }
@@ -794,7 +794,7 @@ ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write ev
       await resend.emails.send({
         from: "Postulera <contact@postulera.com>",
         to: email,
-        subject: `${prenom ? prenom + ", tu" : "Tu"} as utilisé tes 3 CV gratuits — continue sans limite 🚀`,
+        subject: `${prenom ? prenom + ", tu" : "Tu"} a utilisé son CV gratuit — continue sans limite 🚀`,
         html: upgradeReminderEmail({ prenom }),
       }).catch(() => {});
     }

@@ -37,7 +37,7 @@ export default function CvSansExperience() {
           style={{ background: "#1d4ed8", boxShadow: "0 6px 24px rgba(29,78,216,0.35)" }}>
           Créer mon CV — Gratuit →
         </Link>
-        <p className="text-sm" style={{ color: "#93c5fd" }}>✓ Sans carte bancaire · ✓ 3 CV gratuits · ✓ 30 secondes</p>
+        <p className="text-sm" style={{ color: "#93c5fd" }}>✓ Sans carte bancaire · ✓ 1 CV gratuit · ✓ 30 secondes</p>
       </section>
 
       <section className="py-16 px-5 bg-white">

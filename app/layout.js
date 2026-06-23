@@ -100,7 +100,7 @@ const softwareSchema = {
       name: "Gratuit",
       price: "0",
       priceCurrency: "EUR",
-      description: "3 CV complets gratuits sans carte bancaire",
+      description: "1 CV complet gratuit sans carte bancaire",
     },
     {
       "@type": "Offer",

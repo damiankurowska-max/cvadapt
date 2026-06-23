@@ -29,7 +29,7 @@ const schemas = [
         item: {
           "@type": "Product",
           name: "Postulera Gratuit",
-          description: "3 CV complets gratuits sans carte bancaire",
+          description: "1 CV complet gratuit sans carte bancaire",
           offers: {
             "@type": "Offer",
             price: "0",

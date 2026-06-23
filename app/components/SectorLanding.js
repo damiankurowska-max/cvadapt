@@ -41,7 +41,7 @@ export default function SectorLanding({ config }) {
             Tester mon CV ATS gratuit
           </Link>
         </div>
-        <p className="text-xs text-gray-400 mt-4">3 CV gratuits · Sans carte bancaire</p>
+        <p className="text-xs text-gray-400 mt-4">1 CV gratuit · Sans carte bancaire</p>
       </section>
 
       {/* STATS */}
@@ -124,7 +124,7 @@ export default function SectorLanding({ config }) {
         <Link href="/generate" className="bg-white text-blue-600 px-10 py-4 rounded-xl font-bold text-base hover:bg-blue-50 transition-colors inline-block">
           {cta.primary}
         </Link>
-        <p className="text-blue-200 text-xs mt-4">3 CV gratuits · Sans carte bancaire · Annulation à tout moment</p>
+        <p className="text-blue-200 text-xs mt-4">1 CV gratuit · Sans carte bancaire · Annulation à tout moment</p>
       </section>
 
       {/* FOOTER */}

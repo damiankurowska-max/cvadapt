@@ -27,7 +27,7 @@ export async function POST(request) {
       from: "Postulera <contact@postulera.com>",
       to: email,
       replyTo: "contact@postulera.com",
-      subject: `${prenom ? prenom + ", tu" : "Tu"} as utilisé tes 3 CV gratuits — continue sans limite 🚀`,
+      subject: `${prenom ? prenom + ", tu" : "Tu"} a utilisé son CV gratuit — continue sans limite 🚀`,
       html: upgradeReminderEmail({ prenom }),
       headers: {
         "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",

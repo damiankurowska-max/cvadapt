@@ -105,7 +105,7 @@ export default function AccountPage() {
                 {PLAN_LABELS[plan] || "Gratuit"}
               </span>
               <p style={{ fontSize: 14, color: "#64748b" }}>
-                {plan === "free" ? "3 CV gratuits · Sans carte bancaire" :
+                {plan === "free" ? "1 CV gratuit · Sans carte bancaire" :
                  plan === "essentiel" ? "15 CV/mois · Score ATS · Lettre de motivation" :
                  "CV illimités · Toutes fonctionnalités"}
               </p>

@@ -48,7 +48,7 @@ export default function OGImage() {
             padding: "8px 18px", borderRadius: "999px",
             background: "#ECFDF5", border: "1px solid #A7F3D0",
           }}>
-            <div style={{ fontSize: "13px", fontWeight: 700, color: "#065F46", display: "flex" }}>3 CV gratuits · Sans CB</div>
+            <div style={{ fontSize: "13px", fontWeight: 700, color: "#065F46", display: "flex" }}>1 CV gratuit · Sans CB</div>
           </div>
         </div>
 

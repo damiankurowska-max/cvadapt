@@ -31,12 +31,12 @@ const config = {
     { q: "Que mettre dans un CV étudiant sans expérience pro ?", a: "Projets académiques, TP, projets personnels, associations, bénévolat, compétences techniques, langues. Postulera les valorise avec le bon vocabulaire professionnel." },
     { q: "Postulera fonctionne pour les stages et alternances ?", a: "Oui, c'est même pour ça qu'il est conçu. Postulera détecte les mots-clés attendus pour chaque type de poste et adapte ton profil étudiant en conséquence." },
     { q: "Est-ce que la lettre de motivation est incluse ?", a: "Oui. Postulera génère automatiquement une lettre de motivation personnalisée à l'offre et à l'entreprise, en plus du CV adapté." },
-    { q: "C'est gratuit pour les étudiants ?", a: "3 CV complets sont gratuits sans carte bancaire. Le plan Étudiant est à 4,99€/mois — avec 50% de remise supplémentaire sur justificatif scolaire." },
+    { q: "C'est gratuit pour les étudiants ?", a: "1 CV complet est gratuit sans carte bancaire. Le plan Étudiant est à 4,99€/mois — avec 50% de remise supplémentaire sur justificatif scolaire." },
   ],
   cta: {
     primary: "Créer mon CV étudiant",
     finalTitle: "Prêt à décrocher ton stage ou alternance ?",
-    finalSub: "3 CV gratuits. Sans carte bancaire. Résultat en 30 secondes.",
+    finalSub: "1 CV gratuit. Sans carte bancaire. Résultat en 30 secondes.",
   },
 };
 

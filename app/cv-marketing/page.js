@@ -31,7 +31,7 @@ const config = {
     { q: "Postulera aide à mettre en avant ses résultats chiffrés ?", a: "Oui. Si tu mentionnes tes KPIs (taux d'engagement, ROI, croissance du CA...), Postulera les reformule de façon impactante avec le vocabulaire attendu par les recruteurs marketing." },
     { q: "Ça marche pour le marketing digital ET la communication traditionnelle ?", a: "Oui pour les deux. Postulera adapte le ton et les mots-clés selon l'offre spécifique — digital, print, RP, événementiel, brand content..." },
     { q: "Est-ce que la lettre de motivation marketing est incluse ?", a: "Oui. Postulera génère une lettre personnalisée à l'entreprise et à l'offre, dans le bon registre (startup, grand groupe, agence...)." },
-    { q: "C'est gratuit ?", a: "3 CV complets sont gratuits sans carte bancaire. Plan Étudiant à 4,99€/mois pour 15 CV/mois avec lettre de motivation." },
+    { q: "C'est gratuit ?", a: "1 CV complet est gratuit sans carte bancaire. Plan Étudiant à 4,99€/mois pour 15 CV/mois avec lettre de motivation." },
   ],
   cta: { primary: "Créer mon CV marketing", finalTitle: "Ton prochain poste marketing commence ici", finalSub: "CV adapté, mots-clés exacts, lettre incluse. Gratuit pour commencer." },
 };
