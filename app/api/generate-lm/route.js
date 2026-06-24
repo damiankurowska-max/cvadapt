@@ -1,45 +1,16 @@
 import Anthropic from "@anthropic-ai/sdk";
-
+import { createSupabaseServer } from "@/lib/supabase-server";
 import { sanitizeInput } from "@/lib/rate-limit";
 
-// const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }); — initialized per-request
 const SYSTEM_PROMPT = `Expert en recrutement français. Tu génères des lettres de motivation HTML inline CSS professionnelles.
 Réponds UNIQUEMENT avec du HTML brut (CSS inline). Pas de markdown. Commence par <div et termine par </div>.`;
 
 export async function POST(request) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-  // Auth requise
-  const { userId } = await auth();
-  if (!userId) {
-    return Response.json({ error: "Connexion requise." }, { status: 401 });
-  }
-
-  // Vérification des limites du plan (même logique que generate-cv)
-  const clerk = await clerkClient();
-  const user = await clerk.users.getUser(userId);
-  const meta = user.unsafeMetadata || {};
-  const isPro = meta.isPro || false;
-  const plan = meta.plan || "free";
-  const cvCount = parseInt(meta.cvCount || 0);
-
-  if (!isPro && cvCount >= 3) {
-    return Response.json(
-      { error: "Limite gratuite atteinte. Abonne-toi pour générer des lettres de motivation.", code: "LIMIT_FREE" },
-      { status: 403 }
-    );
-  }
-
-  if (isPro && plan === "essentiel") {
-    const currentMonthKey = new Date().toISOString().slice(0, 7);
-    const storedMonthKey = meta.cvMonthKey || "";
-    const cvMonthCount = storedMonthKey === currentMonthKey ? parseInt(meta.cvMonthCount || 0) : 0;
-    if (cvMonthCount >= 15) {
-      return Response.json(
-        { error: "Limite mensuelle atteinte. Passe au plan Pro pour des LM illimitées.", code: "LIMIT_ESSENTIEL" },
-        { status: 403 }
-      );
-    }
-  }
+  // Auth via Supabase — même méthode que generate-cv
+  const supabase = await createSupabaseServer();
+  const { data: { user: sbUser } } = await supabase.auth.getUser();
+  // Guests autorisés (génération sans compte) — comme generate-cv
 
   let body;
   try {
@@ -58,23 +29,7 @@ export async function POST(request) {
     return Response.json({ error: "L'offre et le nom sont requis." }, { status: 400 });
   }
 
-  try {
-    const message = await client.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 2000,
-      system: SYSTEM_PROMPT,
-      messages: [{
-        role: "user",
-        content: `OFFRE D'EMPLOI :
-${offre}
-
-INFORMATIONS DU CANDIDAT :
-- Nom : ${nom}
-- Expérience : ${experience || "Aucune expérience professionnelle"}
-- Compétences : ${competences || "À déduire de l'offre"}
-- Formation : ${formation || "Non précisée"}
-
-La lettre doit avoir ce format HTML :
+  const FORMAT_PROMPT = `La lettre doit avoir ce format HTML :
 - Conteneur blanc, max-width 700px, police Arial, padding 48px
 - En-tête : nom du candidat à droite (gras, 18px), date du jour en dessous
 - Objet en gras : "Objet : Candidature au poste de [titre du poste]"
@@ -83,8 +38,19 @@ La lettre doit avoir ce format HTML :
   2. Valeur apportée : expériences concrètes avec résultats chiffrés, mots-clés de l'offre
   3. Conclusion : disponibilité, entretien, formule de politesse française complète
 - Signature : "Cordialement," puis le nom en gras
+Style sobre, professionnel, maximum 1 page imprimée.`;
 
-Style sobre, professionnel, maximum 1 page imprimée.`,
+  try {
+    const message = await client.messages.create({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 1500,
+      system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
+      messages: [{
+        role: "user",
+        content: [
+          { type: "text", text: FORMAT_PROMPT + "\n\n", cache_control: { type: "ephemeral" } },
+          { type: "text", text: `OFFRE D'EMPLOI :\n${offre}\n\nINFORMATIONS DU CANDIDAT :\n- Nom : ${nom}\n- Expérience : ${experience || "Aucune expérience professionnelle"}\n- Compétences : ${competences || "À déduire de l'offre"}\n- Formation : ${formation || "Non précisée"}` },
+        ],
       }],
     });
 
