@@ -321,6 +321,15 @@ function TemplateMiniPreview({ tmpl }) {
   return null;
 }
 
+const LOADING_STEPS_TEXT = [
+  "Lecture de l'offre d'emploi...",
+  "Extraction des mots-clés ATS...",
+  "Analyse de ton profil...",
+  "Rédaction du CV adapté...",
+  "Personnalisation du template...",
+  "Finalisation...",
+];
+
 const VALID_CV_LANG_CODES = ["fr","en","de","es","it","pt","nl","pl","ko","ja","tr","he","sv","fi","ar","ru","zh","hi"];
 
 export default function Generate() {
@@ -412,6 +421,7 @@ Ce que nous offrons
   const [boostLoading, setBoostLoading] = useState(false);
   const [showBoostInput, setShowBoostInput] = useState(false);
   const [boostExtra, setBoostExtra] = useState("");
+  const [loadingStep, setLoadingStep] = useState(0);
   const CV_LIMIT = 1;
 
   const isPro = sbUser?.user_metadata?.isPro || false;
@@ -530,6 +540,13 @@ Ce que nous offrons
     document.addEventListener("mousedown", handleClickOut);
     return () => document.removeEventListener("mousedown", handleClickOut);
   }, [showLangPicker]);
+
+  useEffect(() => {
+    if (!loading) { setLoadingStep(0); return; }
+    const delays = [3500, 8500, 13000, 17000, 22000, 27000];
+    const timers = delays.map((delay, i) => setTimeout(() => setLoadingStep(i + 1), delay));
+    return () => timers.forEach(clearTimeout);
+  }, [loading]);
 
   function detectLang(text) {
     if (!text || text.length < 60) return null;
@@ -885,6 +902,31 @@ Ce que nous offrons
         </div>
       )}
 
+      {loading && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(15,23,42,0.78)", backdropFilter: "blur(10px)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
+          <div style={{ background: "#fff", borderRadius: 28, padding: "44px 40px 40px", maxWidth: 400, width: "100%", textAlign: "center", boxShadow: "0 40px 100px rgba(0,0,0,0.4)" }}>
+            <div style={{ width: 72, height: 72, borderRadius: "50%", background: "linear-gradient(135deg,#6366f1,#4f46e5)", margin: "0 auto 24px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 30, boxShadow: "0 8px 32px rgba(99,102,241,0.45)", animation: "pulse 2s ease-in-out infinite" }}>✨</div>
+            <p style={{ fontSize: 20, fontWeight: 900, color: "#1e1b4b", marginBottom: 6, letterSpacing: "-0.03em" }}>
+              {LOADING_STEPS_TEXT[Math.min(loadingStep, LOADING_STEPS_TEXT.length - 1)]}
+            </p>
+            <p style={{ fontSize: 13, color: "#94a3b8", marginBottom: 28, lineHeight: 1.5 }}>Notre IA lit l'offre en entier · environ 20 secondes</p>
+            <div style={{ background: "#f1f5f9", borderRadius: 999, height: 6, marginBottom: 28, overflow: "hidden" }}>
+              <div style={{ height: "100%", background: "linear-gradient(90deg,#6366f1,#818cf8)", borderRadius: 999, width: `${Math.min(Math.round(((loadingStep + 0.5) / LOADING_STEPS_TEXT.length) * 100), 95)}%`, transition: "width 3.5s ease" }} />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, textAlign: "left" }}>
+              {LOADING_STEPS_TEXT.map((step, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, background: i < loadingStep ? "linear-gradient(135deg,#6366f1,#4f46e5)" : i === loadingStep ? "rgba(99,102,241,0.1)" : "#f1f5f9", border: i === loadingStep ? "2px solid #6366f1" : "none", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, transition: "all 0.5s" }}>
+                    {i < loadingStep ? <span style={{ color: "#fff", fontSize: 11, fontWeight: 700 }}>✓</span> : i === loadingStep ? <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: "#6366f1", animation: "pulse 1s ease-in-out infinite" }} /> : null}
+                  </div>
+                  <span style={{ fontSize: 13, color: i < loadingStep ? "#4f46e5" : i === loadingStep ? "#1e1b4b" : "#cbd5e1", fontWeight: i === loadingStep ? 700 : i < loadingStep ? 600 : 400, transition: "all 0.4s" }}>{step}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {showUpgradeModal && <UpgradeModal onClose={() => setShowUpgradeModal(false)} />}
 
       {showLastCVGate && (
@@ -1098,13 +1140,26 @@ Ce que nous offrons
 
                 {/* Card textarea */}
                 <div style={{ background: "#fff", borderRadius: 20, border: "1.5px solid rgba(99,102,241,0.12)", boxShadow: "0 8px 40px rgba(99,102,241,0.08)", padding: "24px" }}>
-                  <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, gap: 8 }}>
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          const text = await navigator.clipboard.readText();
+                          if (text.length > 10) setForm(prev => ({ ...prev, offre: text }));
+                        } catch {}
+                      }}
+                      style={{ fontSize: 12, fontWeight: 700, color: "#4f46e5", background: "rgba(99,102,241,0.07)", border: "1.5px solid rgba(99,102,241,0.2)", borderRadius: 999, padding: "6px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+                    >
+                      <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="9" y="2" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      Coller
+                    </button>
                     <button
                       type="button"
                       onClick={() => setForm(prev => ({ ...prev, offre: EXEMPLE_OFFRE }))}
                       style={{ fontSize: 12, fontWeight: 700, color: "#6366f1", background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)", borderRadius: 999, padding: "5px 14px", cursor: "pointer" }}
                     >
-                      📋 Tester avec un exemple
+                      📋 Exemple
                     </button>
                   </div>
                   {(() => {
@@ -1341,33 +1396,34 @@ Ce que nous offrons
                   <p style={{ fontSize: 14, color: "#64748b", marginBottom: 20, lineHeight: 1.6 }}>{tr(lang, "step3Subtitle")}</p>
 
                   {/* Galerie templates */}
-                  <div className="gen-templates-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginBottom: 22 }}>
+                  <div className="gen-templates-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12, marginBottom: 22 }}>
                     {TEMPLATES.map((tmpl) => {
                       const sel = template === tmpl.id;
                       return (
                         <button key={tmpl.id} type="button" onClick={() => setTemplate(tmpl.id)}
                           style={{
-                            position: "relative", borderRadius: 12, overflow: "hidden", cursor: "pointer",
-                            border: sel ? `2px solid ${tmpl.accent}` : "1.5px solid #e5e7eb",
-                            boxShadow: sel ? `0 2px 12px rgba(0,0,0,0.1)` : "none",
+                            position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer",
+                            border: sel ? `2.5px solid ${tmpl.accent}` : "1.5px solid #e5e7eb",
+                            boxShadow: sel ? `0 4px 20px rgba(0,0,0,0.13)` : "0 1px 4px rgba(0,0,0,0.04)",
                             background: "#fff", padding: 0, textAlign: "left",
-                            transition: "border-color 0.15s, box-shadow 0.15s",
+                            transition: "border-color 0.15s, box-shadow 0.2s, transform 0.15s",
+                            transform: sel ? "scale(1.02)" : "scale(1)",
                           }}>
                           {tmpl.badge && (
-                            <div style={{ position: "absolute", top: 7, left: 7, zIndex: 2, background: "#1e293b", borderRadius: 4, padding: "2px 7px", fontSize: 7.5, fontWeight: 700, color: "#fff", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+                            <div style={{ position: "absolute", top: 8, left: 8, zIndex: 2, background: "#1e293b", borderRadius: 5, padding: "2px 8px", fontSize: 8, fontWeight: 700, color: "#fff", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
                               {tmpl.badge}
                             </div>
                           )}
-                          <div style={{ height: 120, overflow: "hidden" }}>
+                          <div style={{ height: 158, overflow: "hidden" }}>
                             <TemplateMiniPreview tmpl={tmpl} compact />
                           </div>
-                          <div style={{ padding: "8px 10px 10px", background: sel ? tmpl.accent + "08" : "#fff", borderTop: "1px solid " + (sel ? tmpl.accent + "20" : "#f3f4f6") }}>
-                            <p style={{ fontSize: 11, fontWeight: 700, color: sel ? tmpl.accent : "#111827", letterSpacing: "-0.01em" }}>{tmpl.name}</p>
-                            <p style={{ fontSize: 9, color: "#9ca3af", marginTop: 1 }}>{tmpl.desc}</p>
+                          <div style={{ padding: "9px 12px 11px", background: sel ? tmpl.accent + "0a" : "#fff", borderTop: "1px solid " + (sel ? tmpl.accent + "25" : "#f3f4f6") }}>
+                            <p style={{ fontSize: 12, fontWeight: 700, color: sel ? tmpl.accent : "#111827", letterSpacing: "-0.01em" }}>{tmpl.name}</p>
+                            <p style={{ fontSize: 10, color: "#9ca3af", marginTop: 1 }}>{tmpl.desc}</p>
                           </div>
                           {sel && (
-                            <div style={{ position: "absolute", top: 7, right: 7, width: 18, height: 18, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
-                              <svg width="9" height="9" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            <div style={{ position: "absolute", top: 8, right: 8, width: 20, height: 20, borderRadius: "50%", background: tmpl.accent, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2, boxShadow: "0 2px 6px rgba(0,0,0,0.2)" }}>
+                              <svg width="10" height="10" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </div>
                           )}
                         </button>
