@@ -1056,8 +1056,8 @@ Ce que nous offrons
         </div>
       )}
 
-      <div className={cv ? "gen-split" : "gen-wrap"} style={!cv ? { maxWidth: 580, margin: "0 auto", padding: "32px 16px 80px", minHeight: "calc(100vh - 60px)", display: "flex", flexDirection: "column" } : {}}>
-        <div className={cv ? "gen-form-col" : ""}>
+      <div className="gen-wrap" style={{ maxWidth: cv ? 900 : 580, margin: "0 auto", padding: "32px 16px 80px", minHeight: "calc(100vh - 60px)", display: "flex", flexDirection: "column" }}>
+        {!cv && <div>
           <>
             {/* Banners limite */}
             {!isPro && cvCount >= CV_LIMIT && (
@@ -1546,7 +1546,7 @@ Ce que nous offrons
               </form>
             )}
           </>
-        </div>
+        </div>}
         {cv && (
           <div className="gen-result-col">
             {/* Barre succès */}
