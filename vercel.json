@@ -1,18 +1,6 @@
 {
   "crons": [
-    { "path": "/api/cron/check-icloud",       "schedule": "0 8 * * *"     },
-    { "path": "/api/cron/health-check",       "schedule": "0 7 * * *"     },
-    { "path": "/api/cron/bde-outreach",       "schedule": "0 7 * * *"     },
-    { "path": "/api/cron/blog-article",       "schedule": "0 6 * * 1"     },
-    { "path": "/api/cron/linkedin-post",      "schedule": "0 8 * * 1,3,5" },
-    { "path": "/api/cron/instagram-post",     "schedule": "0 9 * * *"     },
-    { "path": "/api/cron/j2-email",           "schedule": "0 10 * * *"    },
-    { "path": "/api/cron/j2-no-cv-email",    "schedule": "0 10 * * *"    },
-    { "path": "/api/cron/j3-survey",          "schedule": "0 10 * * *"    },
-    { "path": "/api/cron/j5-email",           "schedule": "0 10 * * *"    },
-    { "path": "/api/cron/j7-email",           "schedule": "0 10 * * *"    },
-    { "path": "/api/cron/j14-email",          "schedule": "0 10 * * *"    },
-    { "path": "/api/cron/reactivation-email",  "schedule": "0 10 * * *"    },
-    { "path": "/api/cron/clerk-reactivation",  "schedule": "0 11 * * *"    }
+    { "path": "/api/cron/bde-outreach", "schedule": "0 7 * * *"  },
+    { "path": "/api/cron/sequences",    "schedule": "0 10 * * *" }
   ]
 }
