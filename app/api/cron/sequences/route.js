@@ -12,6 +12,7 @@ const SEQUENCES = [
   "/api/cron/j14-email",
   "/api/cron/reactivation-email",
   "/api/cron/clerk-reactivation",
+  "/api/cron/rapport",
 ];
 
 export async function GET(request) {
