@@ -6,7 +6,7 @@
 import { Resend } from "resend";
 
 // Paiements uniques ShopConforme (centimes) — compte Stripe partagé
-const SHOPCONFORME_AMOUNTS = new Set([1999, 3999, 6999]);
+const SHOPCONFORME_AMOUNTS = new Set([1999, 3999, 6999, 1399, 2799, 4899]);
 
 const CRON_SECRET = process.env.CRON_SECRET;
 

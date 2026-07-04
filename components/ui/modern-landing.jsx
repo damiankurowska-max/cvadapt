@@ -7,20 +7,22 @@ import Logo from "@/app/components/Logo";
 
 const C = {
   bg: "#FFFFFF",
-  bgAlt: "#F8FAFF",
-  navy: "#0F172A",
-  slate: "#475569",
-  slateLight: "#94A3B8",
-  blue: "#2563EB",
-  blueLight: "#EFF6FF",
+  bgAlt: "#F7F7F5",
+  navy: "#0A0A0A",
+  slate: "#4B5563",
+  slateLight: "#9CA3AF",
+  blue: "#0A0A0A",
+  blueLight: "#F0F0EE",
+  lime: "#BBEF5F",
+  limeLight: "#F2FFD5",
   amber: "#F59E0B",
   amberLight: "#FEF3C7",
   green: "#10B981",
   greenLight: "#ECFDF5",
   red: "#EF4444",
-  border: "#E2E8F0",
-  shadow: "0 4px 24px rgba(15,23,42,0.08), 0 1px 4px rgba(15,23,42,0.04)",
-  shadowLg: "0 20px 64px rgba(15,23,42,0.12), 0 4px 16px rgba(15,23,42,0.06)",
+  border: "#E5E5E2",
+  shadow: "0 4px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03)",
+  shadowLg: "0 20px 64px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.05)",
 };
 
 
@@ -58,10 +60,10 @@ function CVMockup() {
           ))}
         </div>
         {/* Badge score ATS */}
-        <div className="badge-ats" style={{ position: "absolute", top: -16, right: -14, background: C.green, color: "#fff", borderRadius: 12, padding: "8px 11px", textAlign: "center", boxShadow: `0 8px 28px rgba(16,185,129,0.4)` }}>
-          <div style={{ fontSize: 7.5, fontWeight: 600, opacity: 0.9, marginBottom: 1 }}>Score ATS</div>
-          <div style={{ fontSize: 21, fontWeight: 900, lineHeight: 1 }}>91</div>
-          <div style={{ fontSize: 7.5, opacity: 0.75 }}>/100</div>
+        <div className="badge-ats" style={{ position: "absolute", top: -16, right: -14, background: C.lime, color: "#0A0A0A", borderRadius: 12, padding: "8px 11px", textAlign: "center", boxShadow: `0 8px 28px rgba(187,239,95,0.5)` }}>
+          <div style={{ fontSize: 7.5, fontWeight: 700, marginBottom: 1 }}>Score ATS</div>
+          <div style={{ fontSize: 21, fontWeight: 900, lineHeight: 1 }}>87</div>
+          <div style={{ fontSize: 7.5, fontWeight: 700 }}>Compatible ✓</div>
         </div>
         {/* Badge mots-clés */}
         <div className="badge-kw" style={{ position: "absolute", bottom: -12, left: -10, background: C.bg, border: `2px solid ${C.blue}`, borderRadius: 10, padding: "6px 10px", display: "flex", alignItems: "center", gap: 5, boxShadow: C.shadow }}>
@@ -100,10 +102,10 @@ const STEPS = [
 const DEMO_VIDEO_ID = null;
 
 const BRANDS = [
-  "Capgemini", "L'Oréal", "BNP Paribas", "TotalEnergies", "Decathlon",
-  "LVMH", "Airbus", "Renault", "Société Générale", "Crédit Agricole",
-  "Deloitte", "McKinsey", "KPMG", "Thales", "Schneider Electric",
-  "Orange", "Peugeot", "Michelin", "SNCF", "Dassault Systèmes",
+  "Sup de Co", "Sorbonne", "Lyon 1", "Sciences Po", "INSA",
+  "Dauphine", "EM Lyon", "Polytech", "HEC", "Toulouse BS",
+  "ESSEC", "Grenoble EM", "EDHEC", "CentraleSupélec", "Mines Paris",
+  "Paris 1", "Paris 2", "Nantes Univ.", "Bordeaux", "Strasbourg",
 ];
 
 const DEMO_STEPS = [
@@ -329,6 +331,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
           <div className="cv-nav-links" style={{ display: "flex", gap: 24, alignItems: "center" }}>
             <a href="#steps" style={{ color: C.slate, fontSize: 14, fontWeight: 500, textDecoration: "none" }}>Comment ça marche</a>
             <a href="/tarifs" style={{ color: C.slate, fontSize: 14, fontWeight: 500, textDecoration: "none" }}>Tarifs</a>
+            <a href="/dashboard" style={{ color: C.slate, fontSize: 14, fontWeight: 500, textDecoration: "none" }}>Mes CV</a>
           </div>
           {user ? (
             <a href="/account" style={{
@@ -353,8 +356,8 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
           ) : (
             <>
               <a href="/sign-in" className="cv-signin-mobile-hide" style={{ color: C.navy, fontSize: 14, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap", padding: "9px 18px", borderRadius: 999, border: `1.5px solid ${C.border}` }}>Se connecter</a>
-              <a href="/sign-up" className="cv-cta-btn" style={{ background: C.blue, color: "#fff", padding: "9px 20px", borderRadius: 999, fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
-                S'inscrire
+              <a href="/sign-up" className="cv-cta-btn" style={{ background: "#0A0A0A", color: "#fff", padding: "9px 20px", borderRadius: 999, fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+                Commencer
               </a>
             </>
           )}
@@ -366,45 +369,41 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
         <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, #CBD5E1 1px, transparent 1px)", backgroundSize: "28px 28px", opacity: 0.3, pointerEvents: "none", zIndex: 0 }} />
 
         <div className="hero-left" style={{ display: "flex", flexDirection: "column", gap: 0, position: "relative", zIndex: 1 }}>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "5px 12px", background: C.blueLight, border: `1px solid #BFDBFE`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.blue }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.blue, display: "inline-block" }} />
-              Outil IA marché français
-            </div>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", background: C.greenLight, border: `1px solid #A7F3D0`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: "#065F46" }}>
-              1 CV gratuit · Sans CB
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 24 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "6px 14px", background: C.limeLight, border: `1px solid ${C.lime}`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: "#2D5A00" }}>
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4CAF00", display: "inline-block" }} />
+              Conçu pour les étudiants &amp; jeunes diplômés
             </div>
           </div>
 
-          <h1 className="cv-hero-h1" style={{ fontSize: "clamp(34px, 5vw, 58px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.1, marginBottom: 16, color: C.navy }}>
-            T'as envoyé des CV partout.<br />
-            <span style={{ color: C.blue }}>Personne n'a répondu.</span><br />
-            <span style={{ color: C.slateLight, fontWeight: 700, fontSize: "0.78em" }}>Ce n'était pas toi. C'était le filtre.</span>
+          <h1 className="cv-hero-h1" style={{ fontSize: "clamp(36px, 5.5vw, 64px)", fontWeight: 900, letterSpacing: "-2.5px", lineHeight: 1.05, marginBottom: 20, color: C.navy }}>
+            Tu envoies des CV.<br />
+            Personne ne répond.<br />
+            Le souci, c'est{" "}
+            <span style={{ background: C.lime, borderRadius: 6, padding: "0 6px", display: "inline-block" }}>le filtre.</span>
           </h1>
 
           <p className="cv-hero-p" style={{ fontSize: 17, color: C.slate, lineHeight: 1.7, marginBottom: 28, maxWidth: 480 }}>
-            <strong style={{ color: C.navy }}>75% des candidatures sont éliminées par un algorithme avant d'atteindre un recruteur.</strong>{" "}
-            Postulera adapte ton CV aux filtres ATS en 30 secondes.
+            3 candidatures sur 4 sont écartées par un logiciel avant même d'arriver chez un recruteur.{" "}
+            <strong style={{ color: C.navy }}>Postulera adapte ton CV aux filtres ATS en 30 secondes.</strong>
           </p>
 
           <div className="hero-cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
-            <a href="/generate" className="hero-cta-primary" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 26px", background: C.blue, color: "#fff", borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.35)" }}>
+            <a href="/generate" className="hero-cta-primary" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 26px", background: "#0A0A0A", color: "#fff", borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.25)" }}>
               Générer mon CV gratuit →
             </a>
-            <a href="/analyse" style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "14px 22px", background: C.bg, color: C.navy, borderRadius: 12, fontSize: 15, fontWeight: 600, textDecoration: "none", border: `1.5px solid ${C.border}` }}>
+            <a href="/analyse" style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "14px 22px", background: C.bg, color: C.navy, borderRadius: 12, fontSize: 15, fontWeight: 600, textDecoration: "none", border: `1.5px solid #D1D5DB` }}>
               🎯 Tester mon score ATS
             </a>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-            <div style={{ display: "flex" }}>
-              {[C.blue, "#7C3AED", "#0891B2", C.green, C.red].map((c, i) => (
-                <div key={i} style={{ width: 26, height: 26, borderRadius: "50%", background: c, border: `2px solid ${C.bg}`, marginLeft: i > 0 ? -8 : 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 700, color: "#fff" }}>
-                  {["R","E","A","T","J"][i]}
-                </div>
-              ))}
-            </div>
-            <span style={{ fontSize: 12, color: C.slateLight }}>✓ Sans CB · 1 CV gratuit</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 13, color: C.slate, display: "flex", alignItems: "center", gap: 5 }}>
+              <span style={{ color: "#4CAF00", fontWeight: 700 }}>✓</span> Sans carte bancaire
+            </span>
+            <span style={{ fontSize: 13, color: C.slate, display: "flex", alignItems: "center", gap: 5 }}>
+              <span style={{ color: "#4CAF00", fontWeight: 700 }}>✓</span> −40% étudiants
+            </span>
           </div>
 
         </div>
@@ -439,7 +438,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
       <section style={{ borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, background: C.bg, display: "flex", alignItems: "stretch", overflow: "hidden" }}>
         <div style={{ flexShrink: 0, display: "flex", alignItems: "center", padding: "18px 28px", borderRight: `1px solid ${C.border}`, minWidth: 148 }}>
           <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: C.slateLight, lineHeight: 1.6, margin: 0 }}>
-            Nos utilisateurs<br />recrutés chez
+            Utilisé par les<br />étudiants de
           </p>
         </div>
         <div style={{ position: "relative", overflow: "hidden", flex: 1 }}>
@@ -460,19 +459,19 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
       <DemoSection />
 
       {/* ── STATS ── */}
-      <section className="stats-section cv-section cv-py" style={{ padding: "72px 40px", background: C.bgAlt }}>
-        <div className="cv-grid-3" style={{ maxWidth: 900, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+      <section className="stats-section cv-section cv-py" style={{ padding: "72px 40px", background: "#111111" }}>
+        <div className="cv-grid-3" style={{ maxWidth: 900, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1 }}>
           {[
-            { value: counters.pct + "%", label: "des CV filtrés\npar les ATS", sublabel: "avant tout recruteur humain", color: C.red, bg: "#ffffff" },
-            { value: counters.users.toLocaleString("fr-FR") + "+", label: "candidats ont\noptimisé leur CV", sublabel: "note moyenne 4,9/5", color: C.blue, bg: "#ffffff" },
-            { value: "30s", label: "pour générer\nun CV ATS-optimisé", sublabel: "garanti sans carte bancaire", color: C.green, bg: "#ffffff" },
+            { value: counters.pct + "%", label: "des CV sont écartés par un ATS", sublabel: "avant tout regard humain" },
+            { value: "30s", label: "pour générer un CV optimisé", sublabel: "score ATS inclus" },
+            { value: "×3", label: "plus de réponses des recruteurs", sublabel: "en moyenne" },
           ].map((s, i) => (
-            <div key={i} className="stat-card cv-card-pad" style={{ background: s.bg, borderRadius: 18, padding: "28px 24px", border: `1px solid ${C.border}`, boxShadow: C.shadow }}>
-              <div className="cv-stat-num" style={{ fontSize: "clamp(38px,5vw,58px)", fontWeight: 900, color: s.color, letterSpacing: "-2px", lineHeight: 1, marginBottom: 8, fontVariantNumeric: "tabular-nums" }}>
+            <div key={i} className="stat-card" style={{ padding: "40px 32px", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.08)" : "none" }}>
+              <div className="cv-stat-num" style={{ fontSize: "clamp(48px,6vw,72px)", fontWeight: 900, color: "#BBEF5F", letterSpacing: "-3px", lineHeight: 1, marginBottom: 12, fontVariantNumeric: "tabular-nums" }}>
                 {s.value}
               </div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: C.navy, lineHeight: 1.5, marginBottom: 4, whiteSpace: "pre-line" }}>{s.label}</div>
-              <div style={{ fontSize: 12, color: C.slateLight }}>{s.sublabel}</div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: "#FFFFFF", lineHeight: 1.5, marginBottom: 4 }}>{s.label}</div>
+              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.45)" }}>{s.sublabel}</div>
             </div>
           ))}
         </div>
@@ -717,7 +716,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
       <section className="cv-section cv-py" style={{ padding: "80px 40px", background: C.bg }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 40 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: C.blue, marginBottom: 10 }}>Nos guides</div>
+            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: C.slateLight, marginBottom: 10 }}>Nos guides</div>
             <h2 className="cv-h2" style={{ fontSize: "clamp(22px,3.5vw,36px)", fontWeight: 900, color: C.navy, letterSpacing: "-0.5px", marginBottom: 10 }}>
               Tout ce qu'il faut savoir pour décrocher un entretien
             </h2>
@@ -734,7 +733,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
               <a key={href} href={href} style={{ display: "block", background: C.bg, border: `1px solid ${C.border}`, borderRadius: 14, padding: "17px 18px", textDecoration: "none" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                   <span style={{ fontSize: 17 }}>{icon}</span>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: C.blue, textTransform: "uppercase", letterSpacing: "0.08em" }}>{cat}</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: C.slateLight, textTransform: "uppercase", letterSpacing: "0.08em" }}>{cat}</span>
                 </div>
                 <div style={{ fontSize: 14, fontWeight: 700, color: C.navy, marginBottom: 5, lineHeight: 1.4 }}>{title}</div>
                 <div style={{ fontSize: 13, color: C.slate, lineHeight: 1.6 }}>{desc}</div>
@@ -742,45 +741,40 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
             ))}
           </div>
           <div style={{ textAlign: "center", marginTop: 26 }}>
-            <a href="/blog" style={{ fontSize: 14, fontWeight: 600, color: C.blue, textDecoration: "none" }}>Voir tous les guides →</a>
+            <a href="/blog" style={{ fontSize: 14, fontWeight: 600, color: C.navy, textDecoration: "none", borderBottom: "1px solid currentColor" }}>Voir tous les guides →</a>
           </div>
         </div>
       </section>
 
       {/* ── CTA FINAL ── */}
-      <section className="cv-section cv-py" style={{ padding: "88px 40px", background: C.blueLight, position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: "-40%", right: "-10%", width: 400, height: 400, background: "radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
+      <section className="cv-section cv-py" style={{ padding: "88px 40px", background: "#0A0A0A", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: "-40%", right: "-10%", width: 400, height: 400, background: "radial-gradient(circle, rgba(187,239,95,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
         <div className="final-cta" style={{ maxWidth: 600, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 1 }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "5px 14px", background: C.bg, border: `1px solid ${C.border}`, borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.blue, marginBottom: 22, boxShadow: C.shadow }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.green, display: "inline-block" }} />
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "5px 14px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 999, fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.7)", marginBottom: 22 }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#BBEF5F", display: "inline-block" }} />
             Outil CV IA — marché français
           </div>
-          <h2 className="cv-h2" style={{ fontSize: "clamp(30px,5vw,58px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.05, color: C.navy, marginBottom: 14 }}>
+          <h2 className="cv-h2" style={{ fontSize: "clamp(30px,5vw,58px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.05, color: "#FFFFFF", marginBottom: 14 }}>
             Ton prochain entretien<br />
-            <span style={{ color: C.blue }}>commence ici.</span>
+            <span style={{ color: "#BBEF5F" }}>commence ici.</span>
           </h2>
-          <p style={{ fontSize: 16, color: C.slate, lineHeight: 1.7, marginBottom: 28 }}>
+          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 28 }}>
             Gratuit pour commencer. Sans carte bancaire. Résultat en 30 secondes.
           </p>
-          <a href="/generate" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "15px 32px", background: C.blue, color: "#fff", borderRadius: 14, fontSize: 16, fontWeight: 800, textDecoration: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.35)", marginBottom: 18 }}>
+          <a href="/generate" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "15px 32px", background: "#BBEF5F", color: "#0A0A0A", borderRadius: 14, fontSize: 16, fontWeight: 800, textDecoration: "none", boxShadow: "0 4px 20px rgba(187,239,95,0.3)", marginBottom: 18 }}>
             Générer mon CV gratuit →
           </a>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 44, flexWrap: "wrap" }}>
-            <div style={{ display: "flex" }}>
-              {[C.blue,"#7C3AED","#0891B2",C.green,C.amber].map((c, i) => (
-                <div key={i} style={{ width: 24, height: 24, borderRadius: "50%", background: c, border: `2px solid ${C.blueLight}`, marginLeft: i > 0 ? -7 : 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, fontWeight: 800, color: "#fff" }}>
-                  {["R","E","A","T","J"][i]}
-                </div>
-              ))}
-            </div>
-            <span style={{ fontSize: 12, color: C.slateLight }}>Sans CB · 1 CV gratuit</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", display: "flex", alignItems: "center", gap: 5 }}>
+              <span style={{ color: "#BBEF5F", fontWeight: 700 }}>✓</span> Sans CB · 1 CV gratuit
+            </span>
           </div>
-          <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 18, padding: "26px 24px", boxShadow: "0 4px 24px rgba(37,99,235,0.06)" }}>
-            <p style={{ fontSize: 15, fontWeight: 700, color: C.navy, marginBottom: 3 }}>Conseils CV chaque semaine</p>
-            <p style={{ fontSize: 13, color: C.slateLight, marginBottom: 16 }}>Des conseils CV chaque semaine. Sans spam.</p>
+          <div style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 18, padding: "26px 24px" }}>
+            <p style={{ fontSize: 15, fontWeight: 700, color: "#FFFFFF", marginBottom: 3 }}>Conseils CV chaque semaine</p>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", marginBottom: 16 }}>Des conseils CV chaque semaine. Sans spam.</p>
             {emailStatus === "success" ? (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, color: C.green, fontWeight: 700, fontSize: 15 }}>
-                <span style={{ width: 24, height: 24, borderRadius: "50%", background: C.greenLight, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12 }}>✓</span>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, color: "#BBEF5F", fontWeight: 700, fontSize: 15 }}>
+                <span style={{ width: 24, height: 24, borderRadius: "50%", background: "rgba(187,239,95,0.2)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12 }}>✓</span>
                 Inscription confirmée !
               </div>
             ) : (
@@ -788,10 +782,10 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
                 <input
                   type="email" value={email} onChange={e => setEmail(e.target.value)}
                   placeholder="ton@email.fr" required
-                  style={{ flex: 1, padding: "11px 14px", background: C.bgAlt, border: `1px solid ${C.border}`, borderRadius: 10, color: C.navy, fontSize: 14, outline: "none", fontFamily: "inherit" }}
+                  style={{ flex: 1, padding: "11px 14px", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 10, color: "#FFFFFF", fontSize: 14, outline: "none", fontFamily: "inherit" }}
                 />
                 <button type="submit" disabled={emailStatus === "loading"}
-                  style={{ padding: "11px 18px", background: C.navy, color: "#fff", border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", opacity: emailStatus === "loading" ? 0.7 : 1, fontFamily: "inherit" }}>
+                  style={{ padding: "11px 18px", background: "#BBEF5F", color: "#0A0A0A", border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", opacity: emailStatus === "loading" ? 0.7 : 1, fontFamily: "inherit" }}>
                   {emailStatus === "loading" ? "..." : "S'abonner →"}
                 </button>
               </form>
