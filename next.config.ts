@@ -4,23 +4,7 @@ import { withSentryConfig } from "@sentry/nextjs";
 const nextConfig: NextConfig = {
   serverExternalPackages: ["stripe"],
 
-  // Redirection cvadapt.eu → cvadapt.eu
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "cvadapt.eu" }],
-        destination: "https://cvadapt.eu/:path*",
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.cvadapt.eu" }],
-        destination: "https://cvadapt.eu/:path*",
-        permanent: true,
-      },
-    ];
-  },
+  // Les redirections de domaine (www → apex) sont gérées par Vercel.
 
   // Compression gzip automatique
   compress: true,
