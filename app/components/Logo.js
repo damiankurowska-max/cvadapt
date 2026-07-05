@@ -17,24 +17,15 @@ export default function Logo({ size = 36, className = "" }) {
       {/* Fond arrondi — style iOS app icon */}
       <rect width="512" height="512" rx="115" fill="url(#logoBg)"/>
 
-      {/* P — tige verticale */}
-      <rect x="128" y="108" width="72" height="296" rx="36" fill="white"/>
-
-      {/* P — bosse (demi-cercle plein, plus lisible à petite taille) */}
+      {/* C — CVAdapt */}
       <path
-        d="M200 108 L290 108
-           C368 108 412 152 412 212
-           C412 272 368 316 290 316
-           L200 316 Z"
-        fill="white"
+        d="M338 150 C303 122 257 108 212 117 C144 130 96 189 96 256 C96 323 144 382 212 395 C257 404 303 390 338 362"
+        stroke="white" strokeWidth="62" strokeLinecap="round" fill="none"
       />
-      {/* Trou intérieur pour créer le P creux */}
+      {/* Chevron — avance / adaptation */}
       <path
-        d="M200 160 L282 160
-           C338 160 358 180 358 212
-           C358 244 338 264 282 264
-           L200 264 Z"
-        fill="url(#logoBg)"
+        d="M294 200 L382 256 L294 312"
+        stroke="white" strokeWidth="56" strokeLinecap="round" strokeLinejoin="round" fill="none"
       />
     </svg>
   );
