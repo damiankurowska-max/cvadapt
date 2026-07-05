@@ -36,7 +36,7 @@ export default function AdminUsers() {
       <header style={{ background: "#fff", borderBottom: "1px solid #e2e8f0", padding: "0 32px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Logo size={28} />
-          <span style={{ fontWeight: 800, fontSize: 16, color: "#0f172a" }}>Postulera</span>
+          <span style={{ fontWeight: 800, fontSize: 16, color: "#0f172a" }}>CVAdapt</span>
           <span style={{ fontSize: 12, background: "#fef3c7", color: "#92400e", padding: "2px 8px", borderRadius: 999, fontWeight: 700 }}>ADMIN</span>
         </div>
         <a href="/" style={{ fontSize: 13, color: "#64748b", textDecoration: "none" }}>← Retour au site</a>

@@ -85,7 +85,7 @@ function CVMockup() {
 
 const TESTIMONIALS = [
   { name: "Romain S.", role: "Alternant finance · Paris", result: "Alternance en 5 jours", text: "Rappelé en 5 jours après 3 semaines sans réponse.", color: C.blue },
-  { name: "Emma T.", role: "Master · Toulouse", result: "Stage en 2 semaines", text: "Postulera a mis en avant mes projets universitaires parfaitement.", color: "#7C3AED" },
+  { name: "Emma T.", role: "Master · Toulouse", result: "Stage en 2 semaines", text: "CVAdapt a mis en avant mes projets universitaires parfaitement.", color: "#7C3AED" },
   { name: "Antoine P.", role: "Data Analyst · Paris", result: "Score ATS : 34 → 91", text: "Score passé de 34 à 91 en un clic. Résultat immédiat.", color: "#0891B2" },
   { name: "Théo V.", role: "Étudiant · Paris", result: "3 offres reçues", text: "Mon profil générique transformé en 30 secondes. 3 propositions.", color: C.green },
   { name: "Anaïs G.", role: "Marketing · Lyon", result: "Taux de réponse ×3", text: "Avant je galérais, maintenant 30 secondes. Résultat immédiat.", color: C.amber },
@@ -93,7 +93,7 @@ const TESTIMONIALS = [
 ];
 
 const STEPS = [
-  { n: "01", icon: "📋", label: "Colle l'offre", desc: "Tu copies-colles l'offre d'emploi dans Postulera. Rien d'autre." },
+  { n: "01", icon: "📋", label: "Colle l'offre", desc: "Tu copies-colles l'offre d'emploi dans CVAdapt. Rien d'autre." },
   { n: "02", icon: "🧠", label: "L'IA analyse", desc: "Notre IA détecte les mots-clés ATS exacts que le logiciel va chercher." },
   { n: "03", icon: "🚀", label: "CV optimisé", desc: "Ton CV est réécrit et optimisé. Score ATS 85+ garanti. En 30 secondes." },
 ];
@@ -128,7 +128,7 @@ const DEMO_STEPS = [
   },
   {
     label: "L'IA analyse tes mots-clés",
-    desc: "Postulera identifie les 18+ mots-clés ATS que les recruteurs attendent exactement.",
+    desc: "CVAdapt identifie les 18+ mots-clés ATS que les recruteurs attendent exactement.",
     screen: (
       <div style={{ background: "#0F172A", borderRadius: 10, padding: "16px 18px" }}>
         <div style={{ fontSize: 10, color: "#64748B", marginBottom: 10 }}>🧠 Analyse ATS en cours…</div>
@@ -199,7 +199,7 @@ function DemoSection() {
           <div style={{ position: "relative", paddingBottom: "56.25%", borderRadius: 16, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.6)" }}>
             <iframe
               src={`https://www.youtube.com/embed/${DEMO_VIDEO_ID}?rel=0&modestbranding=1`}
-              title="Démo Postulera"
+              title="Démo CVAdapt"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
@@ -245,7 +245,7 @@ function DemoSection() {
                   {["#EF4444","#F59E0B","#10B981"].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c, opacity: 0.7 }} />)}
                 </div>
                 <div style={{ flex: 1, background: "#0F172A", borderRadius: 6, padding: "4px 12px", fontSize: 10, color: "#475569", textAlign: "center" }}>
-                  postulera.com/generate
+                  cvadapt.eu/generate
                 </div>
               </div>
               <div style={{ padding: 20, minHeight: 220, transition: "opacity 0.25s" }}>
@@ -313,7 +313,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
 
   const circ = 2 * Math.PI * 54;
   const faqItems = [
-    { q: "Postulera est-il vraiment gratuit ?", a: "Oui, 1 CV complet est généré gratuitement, sans carte bancaire requise." },
+    { q: "CVAdapt est-il vraiment gratuit ?", a: "Oui, 1 CV complet est généré gratuitement, sans carte bancaire requise." },
     { q: "Comment fonctionne l'optimisation ATS ?", a: "L'IA analyse l'offre d'emploi, extrait les mots-clés exacts et réécrit votre CV pour maximiser votre score de correspondance." },
     { q: "En combien de temps est généré mon CV ?", a: "Le CV optimisé est généré en moins de 30 secondes." },
     { q: "Puis-je annuler mon abonnement ?", a: "Oui, sans engagement. Vous pouvez annuler à tout moment depuis votre espace client." },
@@ -325,7 +325,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
       <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", height: 60, background: "rgba(255,255,255,0.94)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${C.border}` }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <Logo size={30} />
-          <span style={{ fontWeight: 800, fontSize: 16, letterSpacing: "-0.4px", color: C.navy }}>Postulera</span>
+          <span style={{ fontWeight: 800, fontSize: 16, letterSpacing: "-0.4px", color: C.navy }}>CVAdapt</span>
         </div>
         <nav style={{ display: "flex", gap: 24, alignItems: "center" }}>
           <div className="cv-nav-links" style={{ display: "flex", gap: 24, alignItems: "center" }}>
@@ -385,7 +385,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
 
           <p className="cv-hero-p" style={{ fontSize: 17, color: C.slate, lineHeight: 1.7, marginBottom: 28, maxWidth: 480 }}>
             3 candidatures sur 4 sont écartées par un logiciel avant même d'arriver chez un recruteur.{" "}
-            <strong style={{ color: C.navy }}>Postulera adapte ton CV aux filtres ATS en 30 secondes.</strong>
+            <strong style={{ color: C.navy }}>CVAdapt adapte ton CV aux filtres ATS en 30 secondes.</strong>
           </p>
 
           <div className="hero-cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
@@ -488,7 +488,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
               Trois étapes. Zéro prise de tête.
             </h2>
             <p style={{ fontSize: 15, color: C.slate, maxWidth: 420, margin: "0 auto" }}>
-              Pas besoin de savoir ce qu'est un ATS. Postulera s'en charge.
+              Pas besoin de savoir ce qu'est un ATS. CVAdapt s'en charge.
             </p>
           </div>
           <div className="cv-grid-3 steps-swipe" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
@@ -515,7 +515,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
           <div className="compare-header" style={{ textAlign: "center", marginBottom: 44 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 14px", background: C.blueLight, borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.blue, marginBottom: 12 }}>RÉSULTATS CONCRETS</div>
             <h2 className="cv-h2" style={{ fontSize: "clamp(26px,4vw,44px)", fontWeight: 900, letterSpacing: "-1.5px" }}>
-              Avant Postulera. <span style={{ color: C.slateLight }}>Après Postulera.</span>
+              Avant CVAdapt. <span style={{ color: C.slateLight }}>Après CVAdapt.</span>
             </h2>
           </div>
           <div className="cv-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -551,7 +551,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
             <div className="compare-after cv-card-pad" style={{ padding: 28, background: C.greenLight, border: `1px solid #A7F3D0`, borderRadius: 18 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 18 }}>
                 <span style={{ fontSize: 16 }}>✅</span>
-                <span style={{ fontSize: 14, fontWeight: 700, color: "#065F46" }}>CV Postulera</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: "#065F46" }}>CV CVAdapt</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 18 }}>
                 <div style={{ position: "relative", width: 70, height: 70, flexShrink: 0 }}>
@@ -806,14 +806,14 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
           <div className="cv-footer-inner" style={{ maxWidth: 960, margin: "0 auto", display: "flex", gap: 16, alignItems: "center", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <Logo size={26} />
-              <span style={{ fontWeight: 800, fontSize: 14, color: C.navy }}>Postulera</span>
+              <span style={{ fontWeight: 800, fontSize: 14, color: C.navy }}>CVAdapt</span>
             </div>
             <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
               {[["Blog","/blog"],["Tarifs","/tarifs"],["Générer","/generate"],["Analyser","/analyse"],["Mentions légales","/mentions-legales"],["CGU","/cgu"]].map(([label, href]) => (
                 <a key={href} href={href} style={{ fontSize: 12, color: C.slateLight, textDecoration: "none" }}>{label}</a>
               ))}
             </div>
-            <p style={{ fontSize: 11, color: C.slateLight }}>© 2026 Postulera</p>
+            <p style={{ fontSize: 11, color: C.slateLight }}>© 2026 CVAdapt</p>
           </div>
           <div style={{ maxWidth: 960, margin: "0 auto", paddingTop: 12, borderTop: `1px solid ${C.border}`, display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
             {[["🔒","Données SSL"],["🇪🇺","Hébergé en Europe · RGPD"],["✓","Sans carte bancaire"],["↩","Remboursé si non satisfait · 7j"]].map(([icon, text]) => (
@@ -832,7 +832,7 @@ export function ModernLanding({ onNewsletter, emailStatus, email, setEmail, user
             </a>
           ))}
           <div style={{ padding: "20px 20px 40px", background: C.bg }}>
-            <p style={{ fontSize: 12, color: C.slateLight, marginBottom: 12 }}>© 2026 Postulera. Tous droits réservés.</p>
+            <p style={{ fontSize: 12, color: C.slateLight, marginBottom: 12 }}>© 2026 CVAdapt. Tous droits réservés.</p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {[["Confidentialité","/mentions-legales"],["Cookies","/mentions-legales"],["CGU","/cgu"]].map(([label, href]) => (
                 <a key={label} href={href} style={{ fontSize: 12, color: C.slateLight, textDecoration: "underline" }}>{label}</a>

@@ -44,13 +44,13 @@ export async function POST(request) {
 
     // Email de bienvenue à l'utilisateur (FR ou EN)
     await resend.emails.send({
-      from: "Postulera <contact@postulera.com>",
+      from: "CVAdapt <contact@cvadapt.eu>",
       to: email,
-      replyTo: "contact@postulera.com",
-      subject: lang === "en" ? "Welcome to Postulera 👋" : "Bienvenue dans la liste Postulera 👋",
+      replyTo: "contact@cvadapt.eu",
+      subject: lang === "en" ? "Welcome to CVAdapt 👋" : "Bienvenue dans la liste CVAdapt 👋",
       html: lang === "en" ? welcomeNewsletterEmailEN() : welcomeNewsletterEmail(),
       headers: {
-        "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
+        "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
         "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
         "X-Entity-Ref-ID": `subscribe-welcome-${Date.now()}`,
       },
@@ -58,15 +58,15 @@ export async function POST(request) {
 
     // Notification interne
     await resend.emails.send({
-      from: "Postulera <contact@postulera.com>",
-      to: process.env.OWNER_EMAIL || "contact@postulera.com",
+      from: "CVAdapt <contact@cvadapt.eu>",
+      to: process.env.OWNER_EMAIL || "contact@cvadapt.eu",
       subject: "📬 Nouvelle inscription newsletter",
       html: ownerNotificationEmail({
         type: "newsletter",
         data: {
           Email: email,
           Date: new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" }),
-          Source: "postulera.com",
+          Source: "cvadapt.eu",
         },
       }),
     });

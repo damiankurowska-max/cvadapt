@@ -24,7 +24,7 @@ export async function GET(request) {
     return Response.json({ error: "Non autorisé" }, { status: 401 });
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://postulera.com";
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://cvadapt.eu";
 
   const results = await Promise.all(
     SEQUENCES.map(async (path) => {

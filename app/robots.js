@@ -24,6 +24,6 @@ export default function robots() {
       { userAgent: "LinkedInBot", allow: "/" },
       { userAgent: "Googlebot", allow: "/" },
     ],
-    sitemap: "https://postulera.com/sitemap.xml",
+    sitemap: "https://cvadapt.eu/sitemap.xml",
   };
 }

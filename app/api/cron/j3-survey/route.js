@@ -49,13 +49,13 @@ export async function GET(request) {
       const prenom = contact.attributes?.PRENOM || contact.attributes?.FIRSTNAME || "";
       try {
         await resend.emails.send({
-          from: "Postulera <contact@postulera.com>",
+          from: "CVAdapt <contact@cvadapt.eu>",
           to: email,
-          replyTo: "contact@postulera.com",
+          replyTo: "contact@cvadapt.eu",
           subject: `${prenom ? prenom + ", 3" : "3"} questions → 3 CV offerts 🎁`,
-          html: j3SurveyEmail({ prenom, baseUrl: "https://postulera.com" }),
+          html: j3SurveyEmail({ prenom, baseUrl: "https://cvadapt.eu" }),
           headers: {
-            "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
+            "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
             "X-Entity-Ref-ID": `cron-j3-survey-${email}-${dateStr}`,
           },

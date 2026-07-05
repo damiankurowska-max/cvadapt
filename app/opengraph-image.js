@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Postulera — Adapte ton CV à chaque offre en 30 secondes · Score ATS · Gratuit";
+export const alt = "CVAdapt — Adapte ton CV à chaque offre en 30 secondes · Score ATS · Gratuit";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -40,7 +40,7 @@ export default function OGImage() {
               <div style={{ fontSize: "22px", fontWeight: 900, color: "white", display: "flex" }}>P</div>
             </div>
             <div style={{ fontSize: "26px", fontWeight: 800, color: "#0F172A", display: "flex", letterSpacing: "-0.5px" }}>
-              Postulera
+              CVAdapt
             </div>
           </div>
           <div style={{
@@ -82,7 +82,7 @@ export default function OGImage() {
             </div>
 
             <div style={{ fontSize: "18px", color: "#475569", display: "flex", lineHeight: 1.5, maxWidth: "520px" }}>
-              Postulera adapte ton CV aux filtres ATS en 30 secondes. Score ATS · Mots-clés · Lettre de motivation.
+              CVAdapt adapte ton CV aux filtres ATS en 30 secondes. Score ATS · Mots-clés · Lettre de motivation.
             </div>
 
             {/* Stats row */}

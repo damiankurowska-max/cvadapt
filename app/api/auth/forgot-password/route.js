@@ -20,7 +20,7 @@ export async function POST(request) {
     body: JSON.stringify({
       type: "recovery",
       email,
-      options: { redirect_to: "https://postulera.com/reset-password" },
+      options: { redirect_to: "https://cvadapt.eu/reset-password" },
     }),
   });
 
@@ -31,9 +31,9 @@ export async function POST(request) {
 
   // Envoie l'email via Resend avec un beau template
   await resend.emails.send({
-    from: "Postulera <contact@postulera.com>",
+    from: "CVAdapt <contact@cvadapt.eu>",
     to: email,
-    subject: "Réinitialise ton mot de passe Postulera",
+    subject: "Réinitialise ton mot de passe CVAdapt",
     html: `
 <!DOCTYPE html>
 <html lang="fr">
@@ -44,7 +44,7 @@ export async function POST(request) {
       <table width="560" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
         <tr>
           <td style="background:linear-gradient(135deg,#2563eb,#1d4ed8);padding:32px 40px;text-align:center;">
-            <span style="font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.5px;">Postulera</span>
+            <span style="font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.5px;">CVAdapt</span>
           </td>
         </tr>
         <tr>
@@ -67,7 +67,7 @@ export async function POST(request) {
         </tr>
         <tr>
           <td style="padding:20px 40px;border-top:1px solid #f1f5f9;text-align:center;">
-            <p style="font-size:12px;color:#94a3b8;margin:0;">© 2026 Postulera · <a href="https://postulera.com" style="color:#94a3b8;">postulera.com</a></p>
+            <p style="font-size:12px;color:#94a3b8;margin:0;">© 2026 CVAdapt · <a href="https://cvadapt.eu" style="color:#94a3b8;">cvadapt.eu</a></p>
           </td>
         </tr>
       </table>

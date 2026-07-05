@@ -166,7 +166,7 @@ export default function Analyse() {
         <header style={{ padding: "18px 28px", maxWidth: 1080, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
             <Logo size={26} />
-            <span style={{ fontSize: 16, fontWeight: 800, color: "#fff", letterSpacing: "-.3px" }}>Postulera</span>
+            <span style={{ fontSize: 16, fontWeight: 800, color: "#fff", letterSpacing: "-.3px" }}>CVAdapt</span>
           </Link>
           <Link href="/generate" style={{
             fontSize: 13, fontWeight: 700, color: "#fff", textDecoration: "none",
@@ -446,7 +446,7 @@ export default function Analyse() {
                   <p style={{ color: "rgba(255,255,255,.45)", fontSize: 14, lineHeight: 1.7, marginBottom: 22 }}>
                     {result.score >= 75
                       ? "Tu as de bonnes chances de passer les filtres automatiques. Génère ton CV pour maximiser tes chances."
-                      : "Postulera peut intégrer automatiquement les mots-clés manquants et booster ton score ATS."}
+                      : "CVAdapt peut intégrer automatiquement les mots-clés manquants et booster ton score ATS."}
                   </p>
 
                   <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -557,7 +557,7 @@ export default function Analyse() {
                   Génère maintenant ton CV optimisé
                 </div>
                 <p style={{ color: "rgba(255,255,255,.55)", fontSize: 14, marginBottom: 24, lineHeight: 1.6 }}>
-                  Postulera intègre automatiquement les mots-clés manquants.<br />
+                  CVAdapt intègre automatiquement les mots-clés manquants.<br />
                   Passe de {result.score} à 90+ en 30 secondes.
                 </p>
                 <button

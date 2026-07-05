@@ -11,7 +11,7 @@ export default function SectorLanding({ config }) {
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
           <Logo size={32} />
-          <span className="text-xl font-bold text-blue-600 tracking-tight">Postulera</span>
+          <span className="text-xl font-bold text-blue-600 tracking-tight">CVAdapt</span>
         </Link>
         <nav className="flex items-center gap-4">
           <Link href="/analyse" className="hidden sm:inline text-sm text-gray-600 hover:text-gray-900 font-medium">Analyser mon CV</Link>
@@ -135,7 +135,7 @@ export default function SectorLanding({ config }) {
           <Link href="/tarifs" className="hover:text-gray-600">Tarifs</Link>
           <Link href="/mentions-legales" className="hover:text-gray-600">Mentions légales</Link>
         </div>
-        <p>© {new Date().getFullYear()} Postulera — Tous droits réservés</p>
+        <p>© {new Date().getFullYear()} CVAdapt — Tous droits réservés</p>
       </footer>
     </main>
   );

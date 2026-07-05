@@ -5,7 +5,7 @@ import { Resend } from "resend";
  * Webhook email entrant — appelé par le Cloudflare Email Worker
  *
  * Le Worker Cloudflare (cvadapt-email-worker) reçoit les emails de
- * contact@postulera.com et appelle cette route avec :
+ * contact@cvadapt.eu et appelle cette route avec :
  *   Authorization: Bearer {INBOUND_EMAIL_SECRET}
  *   Body: { from, to, subject, text }
  *
@@ -58,7 +58,7 @@ export async function POST(request) {
     // ── 3. Forward l'email à Damian (iCloud) ──────────────────────────
     const ownerEmail = process.env.OWNER_EMAIL || "damiankurowska@icloud.com";
     await resend.emails.send({
-      from: "Postulera Inbound <contact@postulera.com>",
+      from: "CVAdapt Inbound <contact@cvadapt.eu>",
       to: ownerEmail,
       subject: `[Reçu] ${subject || "(sans objet)"}`,
       text: `De : ${from}\n\n${text}`,
@@ -75,14 +75,14 @@ export async function POST(request) {
     const completion = await anthropic.messages.create({
       model: "claude-opus-4-5",
       max_tokens: 600,
-      system: `Tu es Damian, fondateur de Postulera.com (générateur de CV gratuit pour étudiants français).
+      system: `Tu es Damian, fondateur de cvadapt.eu (générateur de CV gratuit pour étudiants français).
 Tu reçois une réponse d'un BDE (bureau des étudiants) à qui tu avais proposé un partenariat.
 Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en français.
-- Si la réponse est positive ou curieuse → remercie chaleureusement, envoie le lien pour tester Postulera (https://postulera.com), mentionne que tu as quelque chose de spécial prévu pour les membres de leur BDE sans donner les détails, invite-les à répondre s'ils veulent en savoir plus
+- Si la réponse est positive ou curieuse → remercie chaleureusement, envoie le lien pour tester CVAdapt (https://cvadapt.eu), mentionne que tu as quelque chose de spécial prévu pour les membres de leur BDE sans donner les détails, invite-les à répondre s'ils veulent en savoir plus
 - Si la réponse montre un intérêt confirmé ou demande ce que tu as prévu pour leurs membres → là seulement, propose un code promo exclusif à partager via leurs canaux habituels (newsletter, réseau interne, groupe WhatsApp, etc.) — ne mentionne JAMAIS Instagram ou un réseau social spécifique
 - Si la réponse est négative ou pas intéressée → remercie poliment, laisse la porte ouverte
 - Si la réponse demande plus d'infos → réponds précisément à leur question
-- Signe avec "Damian, fondateur de Postulera.com"
+- Signe avec "Damian, fondateur de cvadapt.eu"
 - Ne mets PAS d'objet, juste le corps de l'email
 - Ton naturel, pas corporate
 - Ne propose JAMAIS un appel téléphonique — tout se fait par email
@@ -104,7 +104,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
 
     // ── 5. Envoie la réponse au BDE ───────────────────────────────────
     await resend.emails.send({
-      from: "Damian — Postulera <contact@postulera.com>",
+      from: "Damian — CVAdapt <contact@cvadapt.eu>",
       to: from,
       subject: subject.startsWith("Re:") ? subject : `Re: ${subject}`,
       text: replyBody,
@@ -115,7 +115,7 @@ Rédige une réponse email courte (5-8 lignes max), chaleureuse et directe en fr
 
     // ── 6. Notifie Damian de la réponse envoyée ───────────────────────
     await resend.emails.send({
-      from: "Postulera Bot <contact@postulera.com>",
+      from: "CVAdapt Bot <contact@cvadapt.eu>",
       to: ownerEmail,
       subject: `📬 Réponse BDE auto-envoyée — ${from}`,
       html: `<div style="font-family:sans-serif;font-size:14px;color:#111827;max-width:560px">

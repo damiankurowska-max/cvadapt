@@ -2,10 +2,10 @@ import Link from "next/link";
 import Logo from "../components/Logo";
 
 export const metadata = {
-  title: "Tester Score ATS CV Gratuit — Analyse ATS en ligne | Postulera",
+  title: "Tester Score ATS CV Gratuit — Analyse ATS en ligne | CVAdapt",
   description: "Analyse le score ATS de ton CV gratuitement en 30 secondes. Découvre les mots-clés manquants et optimise ton CV pour passer les filtres automatiques des recruteurs.",
   keywords: "score ats gratuit, tester ats cv, analyse ats cv, cv ats gratuit, optimiser cv ats",
-  alternates: { canonical: "https://postulera.com/score-ats-gratuit" },
+  alternates: { canonical: "https://cvadapt.eu/score-ats-gratuit" },
 };
 
 export default function ScoreAts() {
@@ -15,7 +15,7 @@ export default function ScoreAts() {
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Logo size={28} />
-            <span className="text-lg font-extrabold text-blue-700">Postulera</span>
+            <span className="text-lg font-extrabold text-blue-700">CVAdapt</span>
           </Link>
           <Link href="/analyse" className="text-white px-5 py-2 text-sm font-bold rounded-full"
             style={{ background: "#1d4ed8" }}>Analyser mon CV →</Link>
@@ -62,14 +62,14 @@ export default function ScoreAts() {
             ))}
           </div>
           <h2 className="text-2xl font-bold text-center mb-8" style={{ color: "#1e3a8a" }}>
-            Ce que l'analyse ATS Postulera te donne
+            Ce que l'analyse ATS CVAdapt te donne
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {[
               { icon:"📊", t:"Score sur 100", d:"Un pourcentage exact de correspondance entre ton CV et l'offre d'emploi." },
               { icon:"🔑", t:"Mots-clés manquants", d:"La liste des termes que le recruteur cherche et qui ne sont pas dans ton CV." },
               { icon:"💪", t:"Points forts identifiés", d:"Ce qui fonctionne déjà dans ton CV et qu'il faut garder." },
-              { icon:"🚀", t:"CV optimisé généré", d:"En un clic, Postulera génère un CV corrigé avec tous les mots-clés intégrés." },
+              { icon:"🚀", t:"CV optimisé généré", d:"En un clic, CVAdapt génère un CV corrigé avec tous les mots-clés intégrés." },
             ].map((f, i) => (
               <div key={i} className="rounded-2xl p-5 flex gap-4" style={{ border: "2px solid #e0ecff", background: "#f8faff" }}>
                 <span className="text-2xl shrink-0">{f.icon}</span>
@@ -97,7 +97,7 @@ export default function ScoreAts() {
           <Link href="/cv-stage" className="hover:text-gray-600">CV Stage</Link>
           <Link href="/tarifs" className="hover:text-gray-600">Tarifs</Link>
         </div>
-        © 2025 Postulera — Fait en France 🇫🇷
+        © 2025 CVAdapt — Fait en France 🇫🇷
       </footer>
     </main>
   );

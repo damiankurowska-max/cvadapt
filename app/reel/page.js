@@ -257,7 +257,7 @@ function Phase3() {
         color: "#94a3b8", fontSize: 13, fontWeight: 700,
         letterSpacing: 3, textTransform: "uppercase",
         marginBottom: 24, animation: "fadeIn 0.3s ease",
-      }}>Après Postulera</p>
+      }}>Après CVAdapt</p>
 
       <div style={{
         width: 180, height: 180, borderRadius: "50%",
@@ -352,7 +352,7 @@ function Phase4({ onReplay }) {
           Teste ton CV gratuitement
         </p>
         <p style={{ color: "#93c5fd", fontSize: 15, fontWeight: 600 }}>
-          postulera.com/analyse
+          cvadapt.eu/analyse
         </p>
         <p style={{ color: "#3b82f6", fontSize: 13, marginTop: 4 }}>
           Sans inscription · Résultat en 30 sec

@@ -1,5 +1,5 @@
 /**
- * Script one-shot : envoie l'email de rebrand CVAdapt → Postulera aux 10 utilisateurs réels.
+ * Script one-shot : envoie l'email de rebrand CVAdapt → CVAdapt aux 10 utilisateurs réels.
  * Usage : RESEND_API_KEY=re_xxx node scripts/send-rebrand-email.js
  */
 
@@ -31,7 +31,7 @@ function buildHtml(prenom) {
         <!-- Header -->
         <tr>
           <td style="background:linear-gradient(135deg,#7AAAF9 0%,#3B6EE8 100%);padding:32px 40px;text-align:center;">
-            <span style="font-size:28px;font-weight:800;color:#ffffff;letter-spacing:-0.5px;">Postulera</span>
+            <span style="font-size:28px;font-weight:800;color:#ffffff;letter-spacing:-0.5px;">CVAdapt</span>
           </td>
         </tr>
         <!-- Body -->
@@ -39,26 +39,26 @@ function buildHtml(prenom) {
           <td style="padding:40px 40px 32px;">
             <p style="margin:0 0 20px;font-size:16px;color:#111827;line-height:1.6;">${salutation}</p>
             <p style="margin:0 0 20px;font-size:16px;color:#374151;line-height:1.6;">
-              Une petite nouvelle importante : <strong>CVAdapt change de nom et devient Postulera.</strong>
+              Une petite nouvelle importante : <strong>CVAdapt change de nom et devient CVAdapt.</strong>
             </p>
             <p style="margin:0 0 20px;font-size:16px;color:#374151;line-height:1.6;">
               Ton compte est toujours actif — même identifiants, mêmes CV générés, rien ne change de ton côté.
             </p>
             <p style="margin:0 0 32px;font-size:16px;color:#374151;line-height:1.6;">
-              Le site est maintenant sur <strong>postulera.com</strong>.
+              Le site est maintenant sur <strong>cvadapt.eu</strong>.
             </p>
             <!-- CTA -->
             <table cellpadding="0" cellspacing="0" style="margin:0 auto 32px;">
               <tr>
                 <td style="background:#3B6EE8;border-radius:8px;">
-                  <a href="https://postulera.com" style="display:inline-block;padding:14px 32px;font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;">
-                    Accéder à Postulera →
+                  <a href="https://cvadapt.eu" style="display:inline-block;padding:14px 32px;font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;">
+                    Accéder à CVAdapt →
                   </a>
                 </td>
               </tr>
             </table>
             <p style="margin:0 0 8px;font-size:15px;color:#6b7280;line-height:1.6;">
-              Pourquoi ce changement ? Le nom <em>Postulera</em> colle mieux à ce qu'on fait : t'aider à postuler plus efficacement, pas juste générer un CV.
+              Pourquoi ce changement ? Le nom <em>CVAdapt</em> colle mieux à ce qu'on fait : t'aider à postuler plus efficacement, pas juste générer un CV.
             </p>
           </td>
         </tr>
@@ -67,10 +67,10 @@ function buildHtml(prenom) {
           <td style="padding:24px 40px;border-top:1px solid #f0f0f0;">
             <p style="margin:0;font-size:14px;color:#374151;line-height:1.6;">
               — Damian<br>
-              <span style="color:#6b7280;">Fondateur de Postulera</span>
+              <span style="color:#6b7280;">Fondateur de CVAdapt</span>
             </p>
             <p style="margin:16px 0 0;font-size:12px;color:#9ca3af;">
-              Tu reçois cet email car tu as un compte sur postulera.com (anciennement cvadapt.eu).<br>
+              Tu reçois cet email car tu as un compte sur cvadapt.eu (anciennement cvadapt.eu).<br>
               <a href="mailto:contact@cvadapt.eu?subject=unsubscribe" style="color:#9ca3af;">Se désinscrire</a>
             </p>
           </td>
@@ -87,10 +87,10 @@ async function sendEmail(user) {
     method: "POST",
     headers: { "Authorization": `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: "Damian — Postulera <contact@postulera.com>",
+      from: "Damian — CVAdapt <contact@cvadapt.eu>",
       to: user.email,
-      reply_to: "contact@postulera.com",
-      subject: "CVAdapt devient Postulera — ton compte est toujours actif",
+      reply_to: "contact@cvadapt.eu",
+      subject: "CVAdapt devient CVAdapt — ton compte est toujours actif",
       html: buildHtml(user.prenom),
       headers: {
         "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",

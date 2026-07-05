@@ -8,7 +8,7 @@ import { Resend } from "resend";
 // resend initialized per-request
 const CRON_SECRET = process.env.CRON_SECRET;
 const ALERT_EMAIL = "damiankurowska@icloud.com";
-const BASE_URL = "https://postulera.com";
+const BASE_URL = "https://cvadapt.eu";
 
 const CHECKS = [
   { name: "Homepage",               url: `${BASE_URL}/`,                      method: "GET",  expectedStatus: 200 },
@@ -79,12 +79,12 @@ export async function GET(request) {
       </tr>`).join("");
 
     await resend.emails.send({
-      from: "Postulera Monitoring <contact@postulera.com>",
+      from: "CVAdapt Monitoring <contact@cvadapt.eu>",
       to: ALERT_EMAIL,
-      subject: `⚠️ Postulera — ${failed.length} problème(s) détecté(s)`,
+      subject: `⚠️ CVAdapt — ${failed.length} problème(s) détecté(s)`,
       html: `
         <div style="font-family:monospace;max-width:700px;margin:0 auto">
-          <h2 style="color:#dc2626">⚠️ Rapport de santé postulera.com</h2>
+          <h2 style="color:#dc2626">⚠️ Rapport de santé cvadapt.eu</h2>
           <p style="color:#6b7280">${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
 
           <h3>Endpoints</h3>

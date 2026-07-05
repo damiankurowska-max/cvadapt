@@ -36,14 +36,14 @@ function buildHtml(prenom, cvCount) {
       <table width="560" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
         <tr>
           <td style="background:linear-gradient(135deg,#7AAAF9,#3B6EE8);padding:28px 40px;text-align:center;">
-            <span style="font-size:26px;font-weight:800;color:#fff;">Postulera</span>
+            <span style="font-size:26px;font-weight:800;color:#fff;">CVAdapt</span>
           </td>
         </tr>
         <tr>
           <td style="padding:36px 40px;">
             <p style="margin:0 0 18px;font-size:16px;color:#111827;">${prenom ? `Salut ${prenom},` : "Bonjour,"}</p>
             <p style="margin:0 0 18px;font-size:16px;color:#374151;line-height:1.6;">
-              Tu as généré ${cvCount} CV avec Postulera — ${remaining === 1 ? "il t'en reste encore 1 gratuit" : `il t'en reste encore ${remaining} gratuits`}.
+              Tu as généré ${cvCount} CV avec CVAdapt — ${remaining === 1 ? "il t'en reste encore 1 gratuit" : `il t'en reste encore ${remaining} gratuits`}.
             </p>
             <p style="margin:0 0 24px;font-size:16px;color:#374151;line-height:1.6;">
               Chaque offre mérite un CV adapté. Les recruteurs reçoivent en moyenne <strong>250 candidatures</strong> par poste — un CV non-optimisé passe directement à la corbeille.
@@ -54,7 +54,7 @@ function buildHtml(prenom, cvCount) {
             <table cellpadding="0" cellspacing="0" style="margin:0 auto 32px;">
               <tr>
                 <td style="background:#3B6EE8;border-radius:8px;">
-                  <a href="https://postulera.com/generate" style="display:inline-block;padding:14px 32px;font-size:16px;font-weight:600;color:#fff;text-decoration:none;">
+                  <a href="https://cvadapt.eu/generate" style="display:inline-block;padding:14px 32px;font-size:16px;font-weight:600;color:#fff;text-decoration:none;">
                     Générer mon CV maintenant →
                   </a>
                 </td>
@@ -64,9 +64,9 @@ function buildHtml(prenom, cvCount) {
         </tr>
         <tr>
           <td style="padding:20px 40px;border-top:1px solid #f0f0f0;">
-            <p style="margin:0;font-size:14px;color:#374151;">— Damian<br><span style="color:#6b7280;">Postulera</span></p>
+            <p style="margin:0;font-size:14px;color:#374151;">— Damian<br><span style="color:#6b7280;">CVAdapt</span></p>
             <p style="margin:12px 0 0;font-size:11px;color:#9ca3af;">
-              <a href="mailto:contact@postulera.com?subject=unsubscribe" style="color:#9ca3af;">Se désinscrire</a>
+              <a href="mailto:contact@cvadapt.eu?subject=unsubscribe" style="color:#9ca3af;">Se désinscrire</a>
             </p>
           </td>
         </tr>
@@ -114,13 +114,13 @@ export async function GET(request) {
 
       try {
         await resend.emails.send({
-          from: "Damian — Postulera <contact@postulera.com>",
+          from: "Damian — CVAdapt <contact@cvadapt.eu>",
           to: email,
-          replyTo: "contact@postulera.com",
+          replyTo: "contact@cvadapt.eu",
           subject: `${prenom ? prenom + ", tu" : "Tu"} as encore ${3 - cvCount} CV gratuit${3 - cvCount > 1 ? "s" : ""} ⚡`,
           html: buildHtml(prenom, cvCount),
           headers: {
-            "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
+            "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
             "X-Entity-Ref-ID": `mre-${u.id}-${dateStr}`,
           },

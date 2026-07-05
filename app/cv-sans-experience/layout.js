@@ -1,12 +1,12 @@
 export const metadata = {
-  title: "CV Sans Expérience — Modèle Gratuit qui Passe les ATS | Postulera",
-  description: "Tu n'as pas d'expérience pro ? Postulera valorise tes projets, formations et compétences pour créer un CV qui convainc les recruteurs. Gratuit, 30 secondes.",
+  title: "CV Sans Expérience — Modèle Gratuit qui Passe les ATS | CVAdapt",
+  description: "Tu n'as pas d'expérience pro ? CVAdapt valorise tes projets, formations et compétences pour créer un CV qui convainc les recruteurs. Gratuit, 30 secondes.",
   keywords: "CV sans expérience, modèle CV débutant, CV premier emploi, CV étudiant sans expérience, CV stage sans expérience",
-  alternates: { canonical: "https://postulera.com/cv-sans-experience" },
+  alternates: { canonical: "https://cvadapt.eu/cv-sans-experience" },
   openGraph: {
-    title: "CV Sans Expérience — Modèle Gratuit qui Passe les ATS | Postulera",
-    description: "Tu n'as pas d'expérience pro ? Postulera valorise tes projets, formations et compétences pour créer un CV qui convainc les recruteurs.",
-    url: "https://postulera.com/cv-sans-experience",
+    title: "CV Sans Expérience — Modèle Gratuit qui Passe les ATS | CVAdapt",
+    description: "Tu n'as pas d'expérience pro ? CVAdapt valorise tes projets, formations et compétences pour créer un CV qui convainc les recruteurs.",
+    url: "https://cvadapt.eu/cv-sans-experience",
   },
 };
 
@@ -15,15 +15,15 @@ const schemas = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://postulera.com" },
-      { "@type": "ListItem", position: 2, name: "CV Sans Expérience", item: "https://postulera.com/cv-sans-experience" },
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://cvadapt.eu" },
+      { "@type": "ListItem", position: 2, name: "CV Sans Expérience", item: "https://cvadapt.eu/cv-sans-experience" },
     ],
   },
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
-      { "@type": "Question", name: "Comment faire un CV quand on n'a pas d'expérience ?", acceptedAnswer: { "@type": "Answer", text: "Mets en avant tes projets personnels, formations, associations, bénévolat et compétences techniques. Postulera réorganise et reformule ton profil pour le rendre attractif même sans emploi précédent." } },
+      { "@type": "Question", name: "Comment faire un CV quand on n'a pas d'expérience ?", acceptedAnswer: { "@type": "Answer", text: "Mets en avant tes projets personnels, formations, associations, bénévolat et compétences techniques. CVAdapt réorganise et reformule ton profil pour le rendre attractif même sans emploi précédent." } },
     ],
   },
 ];

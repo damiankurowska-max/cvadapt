@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function GlobalError({ error, reset }) {
   useEffect(() => {
-    console.error('[Postulera] Unhandled error:', error);
+    console.error('[CVAdapt] Unhandled error:', error);
   }, [error]);
 
   return (

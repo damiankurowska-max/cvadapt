@@ -4,25 +4,25 @@ import Stripe from "stripe";
 // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ); — initialized per-request
 const PRICES = {
   essentiel: {
-    name: "Postulera Étudiant — Mensuel",
+    name: "CVAdapt Étudiant — Mensuel",
     amount: 499,
     interval: "month",
     description: "15 CV par mois + Lettre de motivation + Score ATS complet",
   },
   pro: {
-    name: "Postulera Pro — Mensuel",
+    name: "CVAdapt Pro — Mensuel",
     amount: 999,
     interval: "month",
     description: "CV illimités + Templates premium + Support prioritaire",
   },
   essentiel_annuel: {
-    name: "Postulera Étudiant — Annuel",
+    name: "CVAdapt Étudiant — Annuel",
     amount: 3999, // 39,99€
     interval: "year",
     description: "15 CV par mois + Lettre de motivation + Score ATS complet (facturé annuellement)",
   },
   pro_annuel: {
-    name: "Postulera Pro — Annuel",
+    name: "CVAdapt Pro — Annuel",
     amount: 7999, // 79,99€
     interval: "year",
     description: "CV illimités + Templates premium + Support prioritaire (facturé annuellement)",

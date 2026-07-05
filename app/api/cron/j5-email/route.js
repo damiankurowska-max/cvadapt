@@ -51,15 +51,15 @@ export async function GET(request) {
       const isEN = contact.attributes?.LANGUAGE === "en";
       try {
         await resend.emails.send({
-          from: "Postulera <contact@postulera.com>",
+          from: "CVAdapt <contact@cvadapt.eu>",
           to: email,
-          replyTo: "contact@postulera.com",
+          replyTo: "contact@cvadapt.eu",
           subject: isEN
             ? `How Alex landed his job in 2 weeks${prenom ? `, ${prenom}` : ""}`
             : `Comment Emma a décroché son stage en 2 semaines${prenom ? `, ${prenom}` : ""}`,
           html: isEN ? j5EmailEN({ prenom }) : j5Email({ prenom }),
           headers: {
-            "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
+            "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
             "X-Entity-Ref-ID": `cron-j5-${email}-${dateStr}`,
           },

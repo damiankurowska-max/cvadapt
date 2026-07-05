@@ -793,7 +793,7 @@ ${labels.quality}${cvLang !== "fr" && cvLang !== "en" ? `\n\n[REMINDER] Write ev
     // ── 9. EMAIL DE RELANCE (fire-and-forget) ────────────────────────────
     if (!isPro && newCvCount === PLAN_LIMITS.free.max && email) {
       resend.emails.send({
-        from: "Postulera <contact@postulera.com>",
+        from: "CVAdapt <contact@cvadapt.eu>",
         to: email,
         subject: `${prenom ? prenom + ", tu" : "Tu"} a utilisé son CV gratuit — continue sans limite 🚀`,
         html: upgradeReminderEmail({ prenom }),

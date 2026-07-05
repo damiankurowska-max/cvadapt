@@ -8,7 +8,7 @@ export default function ReferralPopup({ show, onClose, userId }) {
 
   // Code de parrainage = 8 premiers chars du userId Clerk
   const refCode = userId.replace(/[^a-zA-Z0-9]/g, "").slice(0, 10).toLowerCase();
-  const refLink = `https://postulera.com/generate?ref=${refCode}`;
+  const refLink = `https://cvadapt.eu/generate?ref=${refCode}`;
 
   function copyLink() {
     navigator.clipboard.writeText(refLink).then(() => {
@@ -37,7 +37,7 @@ export default function ReferralPopup({ show, onClose, userId }) {
             +2 CV gratuits pour toi
           </h2>
           <p className="text-blue-200 text-sm">
-            Partage Postulera à un ami → vous gagnez chacun 2 CV supplémentaires
+            Partage CVAdapt à un ami → vous gagnez chacun 2 CV supplémentaires
           </p>
         </div>
 
@@ -74,7 +74,7 @@ export default function ReferralPopup({ show, onClose, userId }) {
           {/* Share native */}
           {typeof navigator !== "undefined" && navigator.share && (
             <button
-              onClick={() => navigator.share({ title: "Postulera — CV ATS en 30s", url: refLink, text: "J'utilise Postulera pour optimiser mes CV, essaie !" })}
+              onClick={() => navigator.share({ title: "CVAdapt — CV ATS en 30s", url: refLink, text: "J'utilise CVAdapt pour optimiser mes CV, essaie !" })}
               className="w-full text-center bg-blue-600 text-white font-bold py-3 rounded-2xl hover:bg-blue-700 transition-colors text-sm mb-3"
             >
               📤 Partager directement →

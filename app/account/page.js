@@ -49,7 +49,7 @@ export default function AccountPage() {
       <header style={{ background: "#fff", borderBottom: "1px solid #e2e8f0", padding: "0 32px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
           <Logo size={28} />
-          <span style={{ fontWeight: 800, fontSize: 16, color: "#0f172a" }}>Postulera</span>
+          <span style={{ fontWeight: 800, fontSize: 16, color: "#0f172a" }}>CVAdapt</span>
         </Link>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
           <Link href="/generate" style={{ fontSize: 14, color: "#2563eb", fontWeight: 600, textDecoration: "none" }}>Générer un CV</Link>

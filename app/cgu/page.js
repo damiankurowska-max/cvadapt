@@ -2,8 +2,8 @@ import Link from "next/link";
 import Logo from "../components/Logo";
 
 export const metadata = {
-  title: "Conditions Générales d'Utilisation — Postulera",
-  description: "Conditions générales d'utilisation du service Postulera.",
+  title: "Conditions Générales d'Utilisation — CVAdapt",
+  description: "Conditions générales d'utilisation du service CVAdapt.",
 };
 
 export default function CGU() {
@@ -12,7 +12,7 @@ export default function CGU() {
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
           <Logo size={28} />
-          <span className="text-xl font-bold text-blue-600">Postulera</span>
+          <span className="text-xl font-bold text-blue-600">CVAdapt</span>
         </Link>
         <Link href="/generate" className="text-sm text-gray-600 hover:text-gray-900 font-medium">
           Retour →
@@ -28,14 +28,14 @@ export default function CGU() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">1. Objet</h2>
             <p className="text-sm">
-              Les présentes Conditions Générales d'Utilisation régissent l'accès et l'utilisation du service Postulera (postulera.com),
+              Les présentes Conditions Générales d'Utilisation régissent l'accès et l'utilisation du service CVAdapt (cvadapt.eu),
               un générateur de CV et de lettres de motivation basé sur l'intelligence artificielle.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">2. Accès au service</h2>
-            <p className="text-sm mb-3">Postulera est accessible :</p>
+            <p className="text-sm mb-3">CVAdapt est accessible :</p>
             <ul className="list-disc list-inside space-y-1 text-sm">
               <li><strong>Gratuitement</strong> : 1 CV généré au total (sans abonnement)</li>
               <li><strong>Plan Essentiel (4,99€/mois)</strong> : 10 CV par mois</li>
@@ -53,7 +53,7 @@ export default function CGU() {
               <li>Le paiement est prélevé en début de chaque période via Stripe.</li>
               <li>L'annulation peut être effectuée à tout moment ; l'accès reste actif jusqu'à la fin de la période payée.</li>
               <li>Aucun remboursement n'est accordé pour les périodes entamées, sauf obligation légale.</li>
-              <li>Postulera se réserve le droit de modifier les tarifs avec un préavis de 30 jours.</li>
+              <li>CVAdapt se réserve le droit de modifier les tarifs avec un préavis de 30 jours.</li>
             </ul>
           </section>
 
@@ -72,7 +72,7 @@ export default function CGU() {
             <h2 className="text-xl font-bold text-gray-900 mb-4">5. Propriété des contenus générés</h2>
             <p className="text-sm">
               Les CV et lettres de motivation générés appartiennent à l'utilisateur.
-              Postulera ne conserve pas les contenus des CV après leur génération.
+              CVAdapt ne conserve pas les contenus des CV après leur génération.
               L'utilisateur est seul responsable de l'utilisation des documents produits.
             </p>
           </section>
@@ -80,25 +80,25 @@ export default function CGU() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">6. Limitation de responsabilité</h2>
             <p className="text-sm">
-              Postulera ne garantit pas les résultats de la recherche d'emploi suite à l'utilisation du service.
+              CVAdapt ne garantit pas les résultats de la recherche d'emploi suite à l'utilisation du service.
               Le service est fourni "tel quel", sans garantie d'exactitude ou d'adéquation à un poste précis.
-              Postulera ne pourra être tenu responsable des dommages indirects résultant de l'utilisation du service.
+              CVAdapt ne pourra être tenu responsable des dommages indirects résultant de l'utilisation du service.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">7. Résiliation</h2>
             <p className="text-sm">
-              Postulera se réserve le droit de suspendre ou de résilier tout compte en cas de violation des présentes CGU,
+              CVAdapt se réserve le droit de suspendre ou de résilier tout compte en cas de violation des présentes CGU,
               sans préavis ni remboursement. L'utilisateur peut également demander la suppression de son compte à tout moment
-              en écrivant à <a href="mailto:contact@postulera.com" className="text-blue-600 hover:underline">contact@postulera.com</a>.
+              en écrivant à <a href="mailto:contact@cvadapt.eu" className="text-blue-600 hover:underline">contact@cvadapt.eu</a>.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">8. Modifications des CGU</h2>
             <p className="text-sm">
-              Postulera peut modifier ces CGU à tout moment. Les utilisateurs seront notifiés par email en cas de modification substantielle.
+              CVAdapt peut modifier ces CGU à tout moment. Les utilisateurs seront notifiés par email en cas de modification substantielle.
               La poursuite de l'utilisation du service vaut acceptation des nouvelles CGU.
             </p>
           </section>
@@ -114,7 +114,7 @@ export default function CGU() {
       </div>
 
       <footer className="border-t border-gray-100 py-6 px-6 text-center text-sm text-gray-400">
-        © 2025 Postulera — <Link href="/" className="hover:text-gray-600">Retour à l'accueil</Link>
+        © 2025 CVAdapt — <Link href="/" className="hover:text-gray-600">Retour à l'accueil</Link>
       </footer>
     </main>
   );

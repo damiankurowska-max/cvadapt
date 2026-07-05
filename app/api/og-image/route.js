@@ -6,7 +6,7 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const stat = searchParams.get("stat") || "75%";
   const statLabel = searchParams.get("statLabel") || "des CV filtrés avant d'être lus";
-  const tip = searchParams.get("tip") || "Postulera adapte ton CV à chaque offre en 30 secondes.";
+  const tip = searchParams.get("tip") || "CVAdapt adapte ton CV à chaque offre en 30 secondes.";
 
   return new ImageResponse(
     (
@@ -147,7 +147,7 @@ export async function GET(request) {
             }}
           />
           <span style={{ fontSize: "18px", color: "#64748b", fontWeight: 600 }}>
-            postulera.com
+            cvadapt.eu
           </span>
         </div>
       </div>

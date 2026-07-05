@@ -45,14 +45,14 @@ export async function generateMetadata({ params }) {
   const article = await getArticle(slug);
   if (!article) return {};
   return {
-    title: `${article.titre} — Postulera`,
+    title: `${article.titre} — CVAdapt`,
     description: article.description,
-    alternates: { canonical: `https://postulera.com/blog/${article.slug}` },
+    alternates: { canonical: `https://cvadapt.eu/blog/${article.slug}` },
     openGraph: {
       title: article.titre,
       description: article.description,
-      url: `https://postulera.com/blog/${article.slug}`,
-      siteName: "Postulera",
+      url: `https://cvadapt.eu/blog/${article.slug}`,
+      siteName: "CVAdapt",
       locale: "fr_FR",
       type: "article",
       publishedTime: article.date,
@@ -74,9 +74,9 @@ export default async function Article({ params }) {
     headline: article.titre,
     description: article.description,
     datePublished: article.date,
-    author: { "@type": "Organization", name: "Postulera" },
-    publisher: { "@type": "Organization", name: "Postulera", url: "https://postulera.com" },
-    url: `https://postulera.com/blog/${article.slug}`,
+    author: { "@type": "Organization", name: "CVAdapt" },
+    publisher: { "@type": "Organization", name: "CVAdapt", url: "https://cvadapt.eu" },
+    url: `https://cvadapt.eu/blog/${article.slug}`,
   };
 
   return (
@@ -86,7 +86,7 @@ export default async function Article({ params }) {
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
           <Logo size={28} />
-          <span className="text-xl font-bold text-blue-600">Postulera</span>
+          <span className="text-xl font-bold text-blue-600">CVAdapt</span>
         </Link>
         <nav className="flex items-center gap-6">
           <Link href="/blog" className="text-sm text-gray-600 hover:text-gray-900 font-medium">← Blog</Link>
@@ -138,7 +138,7 @@ export default async function Article({ params }) {
         {/* CTA dans l'article */}
         <div className="my-12 bg-blue-600 rounded-2xl p-8 text-center text-white">
           <h3 className="text-xl font-bold mb-2">Génère ton CV adapté maintenant</h3>
-          <p className="text-blue-100 mb-5 text-sm">Colle une offre d'emploi, entre tes infos — Postulera crée ton CV en 30 secondes.</p>
+          <p className="text-blue-100 mb-5 text-sm">Colle une offre d'emploi, entre tes infos — CVAdapt crée ton CV en 30 secondes.</p>
           <Link href="/generate" className="inline-block bg-white text-blue-600 font-bold px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors">
             Essayer gratuitement →
           </Link>
@@ -170,7 +170,7 @@ export default async function Article({ params }) {
           <Link href="/tarifs" className="hover:text-gray-600">Tarifs</Link>
           <Link href="/mentions-legales" className="hover:text-gray-600">Mentions légales</Link>
         </div>
-        © 2025 Postulera
+        © 2025 CVAdapt
       </footer>
     </main>
   );

@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
     <div style={{ minHeight: "100vh", background: "#f8faff", display: "flex", flexDirection: "column", fontFamily: "'Outfit', system-ui, sans-serif" }}>
       <header style={{ padding: "20px 32px" }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", width: "fit-content" }}>
-          <Logo size={32} /><span style={{ fontWeight: 800, fontSize: 18, color: "#0f172a" }}>Postulera</span>
+          <Logo size={32} /><span style={{ fontWeight: 800, fontSize: 18, color: "#0f172a" }}>CVAdapt</span>
         </Link>
       </header>
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 20px" }}>

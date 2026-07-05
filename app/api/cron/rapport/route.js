@@ -1,5 +1,5 @@
 /**
- * Cron : rapport quotidien Postulera envoyé par email à Damian.
+ * Cron : rapport quotidien CVAdapt envoyé par email à Damian.
  * Appelé chaque jour via /api/cron/sequences (tourne sur Vercel,
  * indépendant de Claude Code). CV générés hier + revenus abonnements.
  */
@@ -69,21 +69,21 @@ export async function GET(request) {
 
   const html = `
   <div style="background:#050507;padding:32px;font-family:-apple-system,Segoe UI,sans-serif;border-radius:16px;max-width:560px;margin:0 auto">
-    <h1 style="color:#fff;font-size:20px;margin:0 0 4px">📄 Rapport Postulera</h1>
+    <h1 style="color:#fff;font-size:20px;margin:0 0 4px">📄 Rapport CVAdapt</h1>
     <p style="color:#71717a;font-size:13px;margin:0 0 24px">${dateStr}</p>
     <table style="width:100%;border-collapse:collapse;border-top:1px solid rgba(255,255,255,0.08)">
       ${line("CV générés", cvCount)}
       ${line("Revenus abonnements", `${revenus.toFixed(2)}€`)}
       ${line("Paiements", String(paiements))}
     </table>
-    <p style="color:#52525b;font-size:12px;margin:24px 0 0">postulera.com · rapport automatique quotidien</p>
+    <p style="color:#52525b;font-size:12px;margin:24px 0 0">cvadapt.eu · rapport automatique quotidien</p>
   </div>`;
 
   const resend = new Resend(process.env.RESEND_API_KEY);
   const { error } = await resend.emails.send({
-    from: "Postulera <contact@cvadapt.eu>",
+    from: "CVAdapt <contact@cvadapt.eu>",
     to: "damiankurowska@icloud.com",
-    subject: `Postulera — ${cvCount} CV · ${revenus.toFixed(2)}€ hier`,
+    subject: `CVAdapt — ${cvCount} CV · ${revenus.toFixed(2)}€ hier`,
     html,
   });
 

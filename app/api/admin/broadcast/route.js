@@ -71,15 +71,15 @@ export async function POST(request) {
 
       try {
         await resend.emails.send({
-          from: "Postulera <contact@postulera.com>",
+          from: "CVAdapt <contact@cvadapt.eu>",
           to: email,
-          replyTo: "contact@postulera.com",
+          replyTo: "contact@cvadapt.eu",
           subject: prenom
             ? `${prenom}, tu postules sans avoir de réponse ? Voilà pourquoi 🎯`
             : "Tu postules sans avoir de réponse ? Voilà pourquoi 🎯",
           html: broadcastEmail({ prenom }),
           headers: {
-            "List-Unsubscribe": "<mailto:contact@postulera.com?subject=unsubscribe>",
+            "List-Unsubscribe": "<mailto:contact@cvadapt.eu?subject=unsubscribe>",
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
             "X-Entity-Ref-ID": `broadcast-${email}-${dateStr}`,
           },

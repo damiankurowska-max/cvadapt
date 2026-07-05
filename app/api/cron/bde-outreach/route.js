@@ -152,7 +152,7 @@ export async function GET(request) {
       max_tokens: 2500,
       messages: [{
         role: "user",
-        content: `Tu es Damian, fondateur de Postulera.com — outil IA gratuit qui adapte le CV étudiant à chaque offre en 30 secondes et augmente les chances de passer les filtres ATS.
+        content: `Tu es Damian, fondateur de cvadapt.eu — outil IA gratuit qui adapte le CV étudiant à chaque offre en 30 secondes et augmente les chances de passer les filtres ATS.
 
 Génère 5 emails de prospection courts et directs, un par BDE. Ces emails seront envoyés automatiquement.
 
@@ -166,7 +166,7 @@ Règles STRICTES :
 - Valeur claire : outil gratuit, adapte le CV à chaque offre, passe les filtres ATS
 - Proposition : accès premium offert pour leurs membres + relai via leurs canaux (newsletter, groupe, Discord…)
 - Jamais mentionner un réseau social spécifique
-- Signature : "Damian — Postulera.com | contact@postulera.com"
+- Signature : "Damian — cvadapt.eu | contact@cvadapt.eu"
 - Objet court et accrocheur (max 8 mots)
 
 Réponds en JSON valide UNIQUEMENT (pas de markdown, pas de texte avant/après) :
@@ -198,9 +198,9 @@ Réponds en JSON valide UNIQUEMENT (pas de markdown, pas de texte avant/après) 
 
       try {
         await resend.emails.send({
-          from: "Damian — Postulera <contact@postulera.com>",
+          from: "Damian — CVAdapt <contact@cvadapt.eu>",
           to: target.email,
-          replyTo: "contact@postulera.com",
+          replyTo: "contact@cvadapt.eu",
           subject: emailData.objet,
           text: emailData.corps,
           html: `<div style="font-family:-apple-system,sans-serif;font-size:15px;color:#111827;line-height:1.7;max-width:560px">
@@ -221,7 +221,7 @@ Réponds en JSON valide UNIQUEMENT (pas de markdown, pas de texte avant/après) 
     const progress = Math.min(100, Math.round((totalContacted / BDE_CONTACTS.length) * 100));
 
     await resend.emails.send({
-      from: "Postulera BDE Bot <contact@postulera.com>",
+      from: "CVAdapt BDE Bot <contact@cvadapt.eu>",
       to: ownerEmail,
       subject: `📤 Outreach BDE — ${sent.length} envoyés aujourd'hui (${progress}% de la liste)`,
       html: `<!DOCTYPE html>
