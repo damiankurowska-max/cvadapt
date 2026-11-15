@@ -14,6 +14,8 @@ const DAILY_THEMES = [
 ];
 
 export async function GET(request) {
+  // Coupé le 15/11/2026 : CVAdapt n'est plus prioritaire, ce cron échouait chaque jour.
+  return Response.json({ disabled: true });
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const secret = process.env.CRON_SECRET;
   if (!secret) return Response.json({ error: "Non configuré" }, { status: 500 });
